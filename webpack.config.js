@@ -9,6 +9,7 @@ const devServer = (isDev) => !isDev ? {} : {
     open: true,
     port: 'auto',
     watchFiles: path.join(__dirname, 'src'),
+    historyApiFallback: true,
   },
 };
 
