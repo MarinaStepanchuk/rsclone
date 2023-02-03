@@ -1,4 +1,4 @@
-import './Wallet.styles.scss';
+import './Wallet.scss';
 
 class Wallet {
   public render(): void {

@@ -1,4 +1,4 @@
-import './ErrorPage.styles.scss';
+import './ErrorPage.scss';
 
 class ErrorPage {
   public render(): void {

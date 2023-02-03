@@ -1,4 +1,4 @@
-import './Analytics.styles.scss';
+import './Analytics.scss';
 
 class Analytics {
   public render(): void {

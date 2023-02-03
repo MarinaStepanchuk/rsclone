@@ -1,7 +1,7 @@
 import Router from '../Router/Router';
 
 class App {
-  public static start(): void {
+  public start(): void {
     new Router().start();
 
     document.addEventListener('click', (event) => {

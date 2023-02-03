@@ -1,4 +1,4 @@
-import './Account.styles.scss';
+import './Account.scss';
 
 class Account {
   public render(): void {
