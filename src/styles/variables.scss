@@ -1,7 +1,8 @@
-$color-primary: #5063BF;
-$color-secondary: #8BC2E8;
-$color-dark-mode: #1D1D41;
-$color-light-font: #ffffff;
-$color-black-font: #1E1E1E;
-$color-dark-font: #334187;
-$color-dim-font: #8C89B4;
+$color-primary: #5063BF; // кнопки темные
+$color-secondary: #8BC2E8; // кнопки светлые
+$color-dark-mode: #1D1D41; // фон для темной темы
+$color-light-mode: #ffffff; // фон для светлой темы
+$color-light-font: #ffffff; // цвет текста при темной теме
+$color-black-font: #1E1E1E; // цвет заголовков текста при светлой теме, то что нужно прям выделить
+$color-dark-font: #334187; // основной цвет текста при светлой теме
+$color-dim-font: #8C89B4; // цвет приглушенного текста в обоих темах
