@@ -1,4 +1,4 @@
-import './Dashboard.styles.scss';
+import './Dashboard.scss';
 
 class Dashboard {
   public render(): void {

@@ -1,4 +1,4 @@
-import './Main.styles.scss';
+import './Main.scss';
 import { Path } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { dictionary, DictionaryKeys } from '../../constants/dictionary';
