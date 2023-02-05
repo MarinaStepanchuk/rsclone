@@ -14,7 +14,6 @@ export const ClassMap = {
     registrationText: 'authorization__form__registration__text',
     registrationLink: 'authorization__form__registration__link',
     signInButton: 'authorization__form_submit',
-    hidingPassword: 'hide-password',
   },
   registration: {
     wrapper: 'registration-wrapper',
@@ -22,6 +21,7 @@ export const ClassMap = {
     formTitle: 'registration-form__title',
     formItem: 'registration-form__input',
     inputEmail: 'registration-form__email',
+    inputName: 'registration-form__name',
     inputPassword: 'registration__form__password',
     selectCurrency: 'registration-form__currency',
     inputConfirmPassword: 'registration__form__confirm-password',
@@ -40,15 +40,12 @@ export const ClassMap = {
       font: 'light-mode-font',
     },
   },
+  hidingPassword: 'hide-password',
+  showPassword: 'show-password',
 };
 
 export const Ids = {
 
 };
 
-export const Сurrency = {
-  USD: 'USD',
-  RUB: 'RUB',
-  BYN: 'BYN',
-  EUR: 'EUR',
-};
+export const Сurrency = ['USD', 'RUB', 'BYN', 'EUR'];

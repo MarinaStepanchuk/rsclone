@@ -3,9 +3,13 @@ import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
+import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
 
 class AutorisationForm {
+  public element;
+
   constructor(private lang: LANG) {
+    this.element = this.create();
   }
 
   public create(): HTMLElement {
@@ -17,8 +21,8 @@ class AutorisationForm {
     });
     const inputEmailLable = createElement({
       tag: 'span',
-      key: DictionaryKeys.authorizationEmail,
-      content: Dictionary[this.lang].authorizationEmail,
+      key: DictionaryKeys.labelEmail,
+      content: Dictionary[this.lang].labelEmail,
     });
     const inputEmail = createElement({
       tag: 'input',
@@ -33,8 +37,8 @@ class AutorisationForm {
     });
     const inputPasswordLable = createElement({
       tag: 'span',
-      key: DictionaryKeys.authorizationPassword,
-      content: Dictionary[this.lang].authorizationPassword,
+      key: DictionaryKeys.labelPassword,
+      content: Dictionary[this.lang].labelPassword,
     });
     const inputPassword = createElement({
       tag: 'input',
@@ -43,7 +47,7 @@ class AutorisationForm {
     inputEmail.type = 'password';
     const hidingPassword = createElement({
       tag: 'div',
-      classList: [ClassMap.autorisation.hidingPassword],
+      classList: [ClassMap.hidingPassword],
     });
     inputContainerPassword.append(inputPasswordLable, inputPassword, hidingPassword);
 
@@ -73,6 +77,10 @@ class AutorisationForm {
     }) as HTMLButtonElement;
 
     form.append(inputContainerEmail, inputContainerPassword, registrationInvitation, signInButton);
+
+    const modal = new RegistrationModal(this.lang).element;
+    form.append(modal);
+
     return form;
   }
 }
