@@ -81,33 +81,33 @@
     font-size: 2.5rem;
     margin-top: 1rem;
   }
+}
 
-  &__close {
+.close-modal {
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+
+  span {
     position: absolute;
-    z-index: 30;
-    top: 0;
-    right: 0;
-    margin: 2rem;
+    display: block;
     width: 4rem;
-    height: 4rem;
-    cursor: pointer;
+    height: 0.3rem;
+    background-color: #fff;
+    margin: 1rem;
+  }
 
-    span {
-      position: absolute;
-      display: block;
-      width: 4rem;
-      height: 0.3rem;
-      background-color: #fff;
-      margin: 1rem;
-    }
+  :first-child {
+    transform: rotate(45deg);
+  }
 
-    :first-child {
-      transform: rotate(45deg);
-    }
-
-    :last-child {
-      transform: rotate(-45deg); 
-    }
+  :last-child {
+    transform: rotate(-45deg); 
   }
 }
 

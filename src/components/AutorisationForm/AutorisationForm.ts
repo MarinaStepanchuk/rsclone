@@ -8,7 +8,7 @@ import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal'
 class AutorisationForm {
   public element;
 
-  constructor(private lang: LANG) {
+  constructor(private lang: LANG, private section: HTMLElement) {
     this.element = this.create();
   }
 
@@ -44,7 +44,7 @@ class AutorisationForm {
       tag: 'input',
       classList: [ClassMap.autorisation.inputPassword],
     }) as HTMLInputElement;
-    inputEmail.type = 'password';
+    inputPassword.type = 'password';
     const hidingPassword = createElement({
       tag: 'div',
       classList: [ClassMap.hidingPassword],
@@ -78,8 +78,21 @@ class AutorisationForm {
 
     form.append(inputContainerEmail, inputContainerPassword, registrationInvitation, signInButton);
 
-    const modal = new RegistrationModal(this.lang).element;
-    form.append(modal);
+    form.addEventListener('click', (event) => {
+      const targetElement = event.target as HTMLElement;
+
+      if (targetElement.classList.contains(ClassMap.autorisation.registrationLink)) {
+        const modal = new RegistrationModal(this.lang).element;
+        this.section.append(modal);
+      }
+
+      if (targetElement.classList.contains(ClassMap.autorisation.signInButton)) {
+        event.preventDefault();
+        // валидация
+        // отправка запроса
+        // в случае удачного запроса навешивание атрибута и перенаправление на следующую страницу
+      }
+    });
 
     return form;
   }

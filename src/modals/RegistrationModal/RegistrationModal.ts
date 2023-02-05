@@ -12,7 +12,7 @@ class RegistrationModal {
   }
 
   public create(): HTMLElement {
-    const form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode.dark.background] });
+    const form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode.dark.background] }) as HTMLFormElement;
 
     const formTitle = createElement({
       tag: 'legend',
@@ -84,7 +84,7 @@ class RegistrationModal {
       tag: 'input',
       classList: [ClassMap.registration.inputPassword],
     }) as HTMLInputElement;
-    inputEmail.type = 'password';
+    inputPassword.type = 'password';
     const hidingPassword = createElement({
       tag: 'div',
       classList: [ClassMap.hidingPassword],
@@ -104,7 +104,7 @@ class RegistrationModal {
       tag: 'input',
       classList: [ClassMap.registration.inputConfirmPassword],
     }) as HTMLInputElement;
-    inputEmail.type = 'password';
+    inputConfirmPassword.type = 'password';
     const hidingConfirmPassword = createElement({
       tag: 'div',
       classList: [ClassMap.hidingPassword],
@@ -120,15 +120,15 @@ class RegistrationModal {
 
     const closeButton = createElement({
       tag: 'div',
-      classList: [ClassMap.registration.close],
+      classList: [ClassMap.closeModalButton],
     });
     const firstLine = createElement({
       tag: 'span',
-      classList: [ClassMap.mode.light.background],
+      classList: [ClassMap.closeLine, ClassMap.mode.light.background],
     });
     const secondLine = createElement({
       tag: 'span',
-      classList: [ClassMap.mode.light.background],
+      classList: [ClassMap.closeLine, ClassMap.mode.light.background],
     });
     closeButton.append(firstLine, secondLine);
 
@@ -141,8 +141,18 @@ class RegistrationModal {
     formWrapper.append(form);
 
     formWrapper.addEventListener('click', (event) => {
-      const targetElement = event.target;
-      // switch(targetElement) 
+      const targetElement = event.target as HTMLElement;
+
+      if (targetElement.classList.contains(ClassMap.registration.wrapper) || targetElement.classList.contains(ClassMap.closeModalButton) || targetElement.classList.contains(ClassMap.closeLine)) {
+        this.element.remove();
+      }
+
+      if (targetElement.classList.contains(ClassMap.registration.submit)) {
+        event.preventDefault();
+        // валидация
+        // обработка запроса
+        this.element.remove();
+      }
     });
 
     return formWrapper;

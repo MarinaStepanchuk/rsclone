@@ -26,7 +26,6 @@ export const ClassMap = {
     selectCurrency: 'registration-form__currency',
     inputConfirmPassword: 'registration__form__confirm-password',
     submit: 'registration-form_submit',
-    close: 'registration-form__close',
   },
   mode: {
     dark: {
@@ -42,6 +41,8 @@ export const ClassMap = {
   },
   hidingPassword: 'hide-password',
   showPassword: 'show-password',
+  closeModalButton: 'close-modal',
+  closeLine: 'close-modal__line',
 };
 
 export const Ids = {

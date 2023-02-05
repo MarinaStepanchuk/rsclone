@@ -58,7 +58,7 @@ class Main {
         <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote9}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote9}</swiper-slide>
       </swiper-container>
     `;
-    const form = new AutorisationForm(lang).element;
+    const form = new AutorisationForm(lang, section).element;
     section.append(imgContainer, title, subTitle, slider, form);
     document.body.replaceChildren(section);
   }
