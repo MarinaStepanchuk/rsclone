@@ -10,6 +10,7 @@ import img5 from '../../assets/img/schedule-start-5.png';
 import getRandomArrayIndex from '../../utils/getRandomArrayIndex';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG_ATTRIBUTE } from '../../constants/common.constants';
+import { LANG } from '../../types/types';
 
 const GreatingImages: string[] = [img1, img2, img3, img4, img5];
 
@@ -17,6 +18,12 @@ const GreatingImages: string[] = [img1, img2, img3, img4, img5];
 const lang = 'EN';
 
 class Main {
+  private lang: LANG;
+
+  constructor() {
+    this.lang = lang;
+  }
+
   public render(): void {
     const section = createElement({
       tag: 'section',
@@ -58,25 +65,10 @@ class Main {
         <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote9}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote9}</swiper-slide>
       </swiper-container>
     `;
-    const form = new AutorisationForm(lang, section).element;
+    const form = new AutorisationForm(this.lang, section).element;
     section.append(imgContainer, title, subTitle, slider, form);
     document.body.replaceChildren(section);
   }
 }
-
-// const p = createElement({
-//   tag: 'p', classList: ['text'], content: 'Я стартовая страница', id: '12',
-// });
-// const button = createElement({ tag: 'button', key: DictionaryKeys.transition, content: dictionary[lang].transition }) as HTMLButtonElement;
-// const a = createElement({ tag: 'a', content: 'переход' }) as HTMLLinkElement;
-// // таким образом удаляются все текущие дочерние элементы и вставляются свои
-// document.body.replaceChildren(p, button, a);
-// // внутренняя ссылка
-// a.href = Path.DASHBOARD;
-// // внешняя ссылка должна начинаться с http
-// a.href = 'https://learn.javascript.ru/destructuring-assignment';
-// // кнопка, которая переключает страницу
-// button.setAttribute('data-link', Path.DASHBOARD);
-// // кнопка,которая не переключает страницу НЕ должна иметь атрибута data-link
 
 export default Main;
