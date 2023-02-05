@@ -140,7 +140,7 @@ class RegistrationModal {
     });
     formWrapper.append(form);
 
-    this.element.addEventListener('click', (event) => {
+    formWrapper.addEventListener('click', (event) => {
       const targetElement = event.target;
       // switch(targetElement) 
     });
