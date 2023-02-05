@@ -7,7 +7,6 @@ import img2 from '../../assets/img/schedule-start-2.png';
 import img3 from '../../assets/img/schedule-start-3.png';
 import img4 from '../../assets/img/schedule-start-4.png';
 import img5 from '../../assets/img/schedule-start-5.png';
-import getRandomArrayIndex from '../../utils/getRandomArrayIndex';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG_ATTRIBUTE } from '../../constants/common.constants';
 import { LANG } from '../../types/types';
