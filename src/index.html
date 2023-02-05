@@ -5,7 +5,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RS Clone</title>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 </head>
 <body>
+  <div class="registration-wrapper">
+    <form action="" class="registration-form dark-mode-background">
+      <legend class="registration-form__title dark-mode-title">Create your Account</legend>
+      <div class="registration-form__input">
+        <span>Email Address</span>
+        <input type="text" class="registration-form__email">
+      </div>
+      <div class="registration-form__input">
+        <span>Name</span>
+        <input type="text" class="registration-form__email">
+      </div>
+      <div class="registration-form__input">
+        <span>Сurrency (
+          you can't change it later)</span>
+        <select class="registration-form__currency">
+          <option value="USD">USD</option>
+          <option value="RUB">RUB</option>
+          <option value="BYN">BYN</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </div>
+      <div class="registration-form__input">
+        <span>Password (more 4 characters)</span>
+        <input type="password" class="registration-form__password">
+        <div class="hide-password"></div>
+      </div> 
+      <div class="registration-form__input">
+        <span>Confirm Password</span>
+        <input type="password" class="registration-form__confirm-password">
+        <div class="hide-password"></div>
+      </div>
+      <button type="submit" class="registration-form_submit">SIGN UP</button>
+      <div class="registration-form__close">
+        <span class="ligth-mode-background"></span>
+        <span class="ligth-mode-background"></span>
+      </div>
+    </form>
+  </div>
 </body>
 </html>
