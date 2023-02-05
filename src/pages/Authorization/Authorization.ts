@@ -28,6 +28,7 @@ class Main {
       tag: 'div',
       classList: [ClassMap.authorization.imgContainer],
     });
+
     const img = new Image();
     let index = 0;
     img.src = GreatingImages[index];
@@ -49,16 +50,19 @@ class Main {
       key: DictionaryKeys.authorizationTitle,
       content: Dictionary[lang].authorizationTitle,
     });
+
     const subTitle = createElement({
       tag: 'span',
       classList: [ClassMap.authorization.greeting, ClassMap.mode.light.font],
       key: DictionaryKeys.authorizationGreeting,
       content: Dictionary[lang].authorizationGreeting,
     });
+
     const slider = createElement({
       tag: 'div',
       classList: [ClassMap.authorization.slider],
     });
+
     slider.innerHTML = `
       <swiper-container class="authorization__quote mySwiper ${ClassMap.mode.light.font}" pagination="true" pagination-clickable="true" space-between="30" centered-slides="true" autoplay-delay="5000" autoplay-disable-on-interaction="false">
         <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote1}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote1}</swiper-slide>
@@ -82,7 +86,8 @@ class Main {
       tag: 'section',
       classList: [ClassMap.authorization.section, ClassMap.mode.light.background],
     });
-    const form = new AuthorisationForm(this.lang, section).element;
+
+    const form = new AuthorisationForm(this.lang, section).element as HTMLFormElement;
     wrapper.append(imgContainer, form);
     section.append(title, subTitle, slider, wrapper);
 

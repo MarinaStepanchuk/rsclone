@@ -11,70 +11,95 @@ import removeErrorValidationMessage from '../../utils/removeErrorValidationMessa
 class AutorisationForm {
   public element;
 
+  private form: HTMLFormElement | null = null;
+
+  private email: HTMLInputElement | null = null;
+
+  private password: HTMLInputElement | null = null;
+
   constructor(private lang: LANG, private section: HTMLElement) {
-    this.element = this.create();
+    this.init();
+    this.element = this.form;
+    this.fill();
+    this.addListeners();
   }
 
-  public create(): HTMLElement {
-    const form = createElement({ tag: 'form', classList: [ClassMap.authorization.form, ClassMap.mode.light.background] }) as HTMLFormElement;
+  private init(): void {
+    this.form = createElement({
+      tag: 'form',
+      classList: [ClassMap.authorization.form, ClassMap.mode.light.background],
+    }) as HTMLFormElement;
 
+    this.email = createElement({
+      tag: 'input',
+      classList: [ClassMap.authorization.inputEmail],
+    }) as HTMLInputElement;
+    this.email.type = 'text';
+
+    this.password = createElement({
+      tag: 'input',
+      classList: [ClassMap.authorization.inputPassword],
+    }) as HTMLInputElement;
+    this.password.type = 'password';
+  }
+
+  public fill() {
     const inputContainerEmail = createElement({
       tag: 'div',
       classList: [ClassMap.authorization.formItem, ClassMap.parentInput],
     });
+
     const inputEmailLable = createElement({
       tag: 'span',
       key: DictionaryKeys.labelEmail,
       content: Dictionary[this.lang].labelEmail,
     });
-    const inputEmail = createElement({
-      tag: 'input',
-      classList: [ClassMap.authorization.inputEmail],
-    }) as HTMLInputElement;
-    inputEmail.type = 'text';
-    inputContainerEmail.append(inputEmailLable, inputEmail);
+
+    inputContainerEmail.append(inputEmailLable, this.email as HTMLInputElement);
 
     const inputContainerPassword = createElement({
       tag: 'div',
       classList: [ClassMap.authorization.formItem, ClassMap.parentInput],
     });
+
     const wrapperPassword = createElement({
       tag: 'div',
       classList: [ClassMap.wrapperPassword],
     });
+
     const inputPasswordLable = createElement({
       tag: 'span',
       key: DictionaryKeys.labelPassword,
       content: Dictionary[this.lang].labelPassword,
     });
-    const inputPassword = createElement({
-      tag: 'input',
-      classList: [ClassMap.authorization.inputPassword],
-    }) as HTMLInputElement;
-    inputPassword.type = 'password';
+
     const hidingPassword = createElement({
       tag: 'div',
       classList: [ClassMap.passwordIcon],
     });
-    wrapperPassword.append(inputPassword, hidingPassword);
+
+    wrapperPassword.append(this.password as HTMLInputElement, hidingPassword);
     inputContainerPassword.append(inputPasswordLable, wrapperPassword);
 
     const registrationInvitation = createElement({
       tag: 'div',
       classList: [ClassMap.authorization.registration],
     });
+
     const invitationText = createElement({
       tag: 'span',
       classList: [ClassMap.authorization.registrationText],
       key: DictionaryKeys.registrationLinkText,
       content: Dictionary[this.lang].registrationLinkText,
     });
+
     const invitationLink = createElement({
       tag: 'span',
       classList: [ClassMap.authorization.registrationLink, ClassMap.mode.light.font],
       key: DictionaryKeys.signUpButton,
       content: Dictionary[this.lang].signUpButton,
     });
+
     registrationInvitation.append(invitationText, invitationLink);
 
     const signInButton = createElement({
@@ -84,27 +109,27 @@ class AutorisationForm {
       content: Dictionary[this.lang].signInButton,
     }) as HTMLButtonElement;
 
-    form.append(inputContainerEmail, inputContainerPassword, registrationInvitation, signInButton);
-
-    this.addFormListeners(form);
-
-    return form;
+    this.form?.append(
+      inputContainerEmail,
+      inputContainerPassword,
+      registrationInvitation,
+      signInButton,
+    );
   }
 
-  private addFormListeners(form: HTMLFormElement): void {
-    const password = form.querySelector(`.${ClassMap.authorization.inputPassword}`) as HTMLInputElement;
-
-    form.addEventListener('click', (event) => {
+  private addListeners(): void {
+    this.form?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.authorization.registrationLink)) {
         const modal = new RegistrationModal(this.lang).element;
-        this.section.append(modal);
+        this.section.append(modal as HTMLElement);
       }
 
       if (targetElement.classList.contains(ClassMap.passwordIcon)) {
         const icon = targetElement;
         icon.classList.toggle(ClassMap.showPassword);
+        const password = this.password as HTMLInputElement;
         password.type = icon.classList.contains(ClassMap.showPassword) ? 'text' : 'password';
       }
 
@@ -112,7 +137,7 @@ class AutorisationForm {
         event.preventDefault();
         const errors = Array.from(document.querySelectorAll(`.${ClassMap.errorValidation}`));
         errors.forEach((error) => error.remove());
-        const findError = this.validation(form);
+        const findError = this.validation();
 
         if (findError) {
           return;
@@ -125,11 +150,10 @@ class AutorisationForm {
     });
   }
 
-  private validation(form: HTMLFormElement): boolean {
-    const email = form.querySelector(`.${ClassMap.authorization.inputEmail}`) as HTMLInputElement;
-    const password = form.querySelector(`.${ClassMap.authorization.inputPassword}`) as HTMLInputElement;
-
+  private validation(): boolean {
     let findError = false;
+    const email = this.email as HTMLInputElement;
+    const password = this.password as HTMLInputElement;
 
     if (!email.value.match(RegularExpressions.Email)) {
       showErrorValidationMessage(email, Dictionary[this.lang].errorMessageEmail);
