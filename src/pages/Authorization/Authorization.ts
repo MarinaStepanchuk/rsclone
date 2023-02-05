@@ -1,7 +1,7 @@
 import './Authorization.scss';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import AutorisationForm from '../../components/AutorisationForm/AutorisationForm';
+import AuthorisationForm from '../../components/AuthorizationForm/AuthorizationForm';
 import img1 from '../../assets/img/schedule-start-1.png';
 import img2 from '../../assets/img/schedule-start-2.png';
 import img3 from '../../assets/img/schedule-start-3.png';
@@ -25,48 +25,58 @@ class Main {
   }
 
   public render(): void {
-    const section = createElement({
-      tag: 'section',
-      classList: [ClassMap.autorisation.section, ClassMap.mode.light.background],
-    });
     const imgContainer = createElement({
-      tag: 'section',
-      classList: [ClassMap.autorisation.section],
+      tag: 'div',
+      classList: [ClassMap.authorization.imgContainer],
     });
     const img = new Image();
     img.src = GreatingImages[getRandomArrayIndex(GreatingImages)];
-    imgContainer.append(img);
+    imgContainer.replaceChildren(img);
+
     const title = createElement({
       tag: 'h1',
-      classList: [ClassMap.autorisation.title, ClassMap.mode.light.title],
+      classList: [ClassMap.authorization.title, ClassMap.mode.light.title],
       key: DictionaryKeys.authorizationTitle,
       content: Dictionary[lang].authorizationTitle,
     });
     const subTitle = createElement({
       tag: 'span',
-      classList: [ClassMap.autorisation.greeting, ClassMap.mode.light.font],
+      classList: [ClassMap.authorization.greeting, ClassMap.mode.light.font],
       key: DictionaryKeys.authorizationGreeting,
       content: Dictionary[lang].authorizationGreeting,
     });
     const slider = createElement({
       tag: 'div',
-      classList: [ClassMap.autorisation.slider],
+      classList: [ClassMap.authorization.slider],
     });
     slider.innerHTML = `
       <swiper-container class="authorization__quote mySwiper ${ClassMap.mode.light.font}" pagination="true" pagination-clickable="true" space-between="30" centered-slides="true" autoplay-delay="5000" autoplay-disable-on-interaction="false">
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote1}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote1}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote2}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote2}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote3}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote3}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote4}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote4}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote5}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote5}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote6}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote6}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote7}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote7}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote8}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote8}</swiper-slide>
-        <swiper-slide class="${ClassMap.autorisation.slide}" key="${DictionaryKeys.quote9}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote9}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote1}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote1}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote2}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote2}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote3}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote3}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote4}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote4}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote5}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote5}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote6}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote6}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote7}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote7}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote8}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote8}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote9}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote9}</swiper-slide>
       </swiper-container>
     `;
-    const form = new AutorisationForm(this.lang, section).element;
-    section.append(imgContainer, title, subTitle, slider, form);
+
+    const wrapper = createElement({
+      tag: 'div',
+      classList: [ClassMap.authorization.wrapper],
+    });
+
+
+    const section = createElement({
+      tag: 'section',
+      classList: [ClassMap.authorization.section, ClassMap.mode.light.background],
+    });
+    const form = new AuthorisationForm(this.lang, section).element;
+    wrapper.append(imgContainer, form);
+    section.append(title, subTitle, slider, wrapper);
+
     document.body.replaceChildren(section);
   }
 }

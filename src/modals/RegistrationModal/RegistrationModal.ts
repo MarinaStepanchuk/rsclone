@@ -3,6 +3,9 @@ import createElement from '../../utils/createElement';
 import { ClassMap, Сurrency } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
+import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
+import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
+import { RegularExpressions } from '../../constants/common.constants';
 
 class RegistrationModal {
   public element;
@@ -23,7 +26,7 @@ class RegistrationModal {
 
     const inputContainerEmail = createElement({
       tag: 'div',
-      classList: [ClassMap.registration.formItem],
+      classList: [ClassMap.registration.formItem, ClassMap.parentInput],
     });
     const inputEmailLable = createElement({
       tag: 'span',
@@ -32,14 +35,14 @@ class RegistrationModal {
     });
     const inputEmail = createElement({
       tag: 'input',
-      classList: [ClassMap.autorisation.inputEmail],
+      classList: [ClassMap.registration.inputEmail],
     }) as HTMLInputElement;
     inputEmail.type = 'text';
     inputContainerEmail.append(inputEmailLable, inputEmail);
 
     const inputContainerName = createElement({
       tag: 'div',
-      classList: [ClassMap.autorisation.formItem],
+      classList: [ClassMap.registration.formItem, ClassMap.parentInput],
     });
     const inputNameLable = createElement({
       tag: 'span',
@@ -55,7 +58,7 @@ class RegistrationModal {
 
     const selectContainerCurrency = createElement({
       tag: 'div',
-      classList: [ClassMap.autorisation.formItem],
+      classList: [ClassMap.registration.formItem, ClassMap.parentInput],
     });
     const selectCurrencyLable = createElement({
       tag: 'span',
@@ -73,12 +76,16 @@ class RegistrationModal {
 
     const inputContainerPassword = createElement({
       tag: 'div',
-      classList: [ClassMap.autorisation.formItem],
+      classList: [ClassMap.registration.formItem, ClassMap.parentInput],
     });
     const inputPasswordLable = createElement({
       tag: 'span',
       key: DictionaryKeys.labelPassword,
       content: Dictionary[this.lang].labelPassword,
+    });
+    const wrapperPassword = createElement({
+      tag: 'div',
+      classList: [ClassMap.wrapperPassword],
     });
     const inputPassword = createElement({
       tag: 'input',
@@ -87,18 +94,23 @@ class RegistrationModal {
     inputPassword.type = 'password';
     const hidingPassword = createElement({
       tag: 'div',
-      classList: [ClassMap.hidingPassword],
+      classList: [ClassMap.passwordIcon],
     });
-    inputContainerPassword.append(inputPasswordLable, inputPassword, hidingPassword);
+    wrapperPassword.append(inputPassword, hidingPassword);
+    inputContainerPassword.append(inputPasswordLable, wrapperPassword);
 
     const inputContainerConfirmPassword = createElement({
       tag: 'div',
-      classList: [ClassMap.registration.formItem],
+      classList: [ClassMap.registration.formItem, ClassMap.parentInput],
     });
     const inputConfirmPasswordLable = createElement({
       tag: 'span',
       key: DictionaryKeys.labelConfirmPassword,
       content: Dictionary[this.lang].labelConfirmPassword,
+    });
+    const wrapperConfirmPassword = createElement({
+      tag: 'div',
+      classList: [ClassMap.wrapperPassword],
     });
     const inputConfirmPassword = createElement({
       tag: 'input',
@@ -107,11 +119,12 @@ class RegistrationModal {
     inputConfirmPassword.type = 'password';
     const hidingConfirmPassword = createElement({
       tag: 'div',
-      classList: [ClassMap.hidingPassword],
+      classList: [ClassMap.passwordIcon],
     });
-    inputContainerConfirmPassword.append(inputConfirmPasswordLable, inputConfirmPassword, hidingConfirmPassword);
+    wrapperConfirmPassword.append(inputConfirmPassword, hidingConfirmPassword);
+    inputContainerConfirmPassword.append(inputConfirmPasswordLable, wrapperConfirmPassword);
 
-    const signInButton = createElement({
+    const submit = createElement({
       tag: 'button',
       classList: [ClassMap.registration.submit],
       key: DictionaryKeys.signUpButton,
@@ -132,25 +145,20 @@ class RegistrationModal {
     });
     closeButton.append(firstLine, secondLine);
 
-    form.append(formTitle, inputContainerEmail, inputContainerName, selectContainerCurrency, inputContainerPassword, inputContainerConfirmPassword, signInButton, closeButton);
+    form.append(formTitle, inputContainerEmail, inputContainerName, selectContainerCurrency, inputContainerPassword, inputContainerConfirmPassword, submit, closeButton);
 
     const formWrapper = createElement({
       tag: 'div',
       classList: [ClassMap.registration.wrapper],
     });
+
+    this.addFormListeners(form);
+
     formWrapper.append(form);
 
     formWrapper.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
-
       if (targetElement.classList.contains(ClassMap.registration.wrapper) || targetElement.classList.contains(ClassMap.closeModalButton) || targetElement.classList.contains(ClassMap.closeLine)) {
-        this.element.remove();
-      }
-
-      if (targetElement.classList.contains(ClassMap.registration.submit)) {
-        event.preventDefault();
-        // валидация
-        // обработка запроса
         this.element.remove();
       }
     });
@@ -165,6 +173,73 @@ class RegistrationModal {
     }) as HTMLOptionElement;
     optionCurrency.value = currency;
     return optionCurrency;
+  }
+
+  private addFormListeners(form: HTMLFormElement): void {
+    form.addEventListener('click', (event) => {
+      const targetElement = event.target as HTMLElement;
+
+      if (targetElement.classList.contains(ClassMap.passwordIcon)) {
+        const icon = targetElement;
+        icon.classList.toggle(ClassMap.showPassword);
+        const parent = icon.closest(`.${ClassMap.wrapperPassword}`);
+        const input = parent?.getElementsByTagName('input')[0] as HTMLInputElement;
+        input.type = icon.classList.contains(ClassMap.showPassword) ? 'text' : 'password';
+      }
+
+      if (targetElement.classList.contains(ClassMap.registration.submit)) {
+        event.preventDefault();
+        const errors = Array.from(document.querySelectorAll(`.${ClassMap.errorValidation}`));
+        errors.forEach((error) => error.remove());
+        const findError = this.validation(form);
+
+        if (findError) {
+          return;
+        }
+
+        // обработка запроса
+        this.element.remove();
+      }
+    });
+  }
+
+  private validation(form: HTMLFormElement): boolean {
+    const email = form.querySelector(`.${ClassMap.registration.inputEmail}`) as HTMLInputElement;
+    const name = form.querySelector(`.${ClassMap.registration.inputName}`) as HTMLInputElement;
+    const password = form.querySelector(`.${ClassMap.registration.inputPassword}`) as HTMLInputElement;
+    const confirmPassword = form.querySelector(`.${ClassMap.registration.inputConfirmPassword}`) as HTMLInputElement;
+
+    let findError = false;
+
+    if (!email.value.match(RegularExpressions.Email)) {
+      showErrorValidationMessage(email, Dictionary[this.lang].errorMessageEmail);
+      findError = true;
+    } else {
+      removeErrorValidationMessage(email);
+    }
+
+    if (!name.value.match(RegularExpressions.Name)) {
+      showErrorValidationMessage(name, Dictionary[this.lang].errorMessageName);
+      findError = true;
+    } else {
+      removeErrorValidationMessage(name);
+    }
+
+    if (!password.value.match(RegularExpressions.Password)) {
+      showErrorValidationMessage(password, Dictionary[this.lang].errorMessagePassword);
+      findError = true;
+    } else {
+      removeErrorValidationMessage(password);
+    }
+
+    if (password.value !== confirmPassword.value) {
+      showErrorValidationMessage(confirmPassword, Dictionary[this.lang].errorMessageConfirmPassword);
+      findError = true;
+    } else {
+      removeErrorValidationMessage(confirmPassword);
+    }
+
+    return findError;
   }
 }
 

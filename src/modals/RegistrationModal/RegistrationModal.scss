@@ -110,27 +110,3 @@
     transform: rotate(-45deg); 
   }
 }
-
-.show-password {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0;
-  width: 3rem;
-  height: 3.5rem;
-  background-image: url(../../assets/img/eye-open.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-
-.hide-password {
-  position: absolute;
-  right: 0.5rem;
-  bottom: 0;
-  width: 3rem;
-  height: 3.5rem;
-  background-image: url(../../assets/img/eye-close.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}

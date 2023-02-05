@@ -1,6 +1,7 @@
 export const ClassMap = {
-  autorisation: {
+  authorization: {
     section: 'authorization',
+    wrapper: 'authorization__wrapper',
     imgContainer: 'authorization__greeting-images',
     title: 'authorization__header',
     greeting: 'authorization__greeting',
@@ -39,10 +40,15 @@ export const ClassMap = {
       font: 'light-mode-font',
     },
   },
-  hidingPassword: 'hide-password',
+  passwordIcon: 'password-icon',
   showPassword: 'show-password',
   closeModalButton: 'close-modal',
   closeLine: 'close-modal__line',
+  errorValidation: 'error-validation-message',
+  show: 'show',
+  hide: 'hide',
+  parentInput: 'form__item',
+  wrapperPassword: 'wrapper-password',
 };
 
 export const Ids = {
