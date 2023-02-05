@@ -30,8 +30,19 @@ class Main {
       classList: [ClassMap.authorization.imgContainer],
     });
     const img = new Image();
-    img.src = GreatingImages[getRandomArrayIndex(GreatingImages)];
+    let index = 0;
+    img.src = GreatingImages[index];
+    index += 1;
     imgContainer.replaceChildren(img);
+    imgContainer.addEventListener('click', () => {
+      if (index < GreatingImages.length - 1) {
+        img.src = GreatingImages[index];
+        index += 1;
+      } else {
+        img.src = GreatingImages[index];
+        index = 0;
+      }
+    });
 
     const title = createElement({
       tag: 'h1',
@@ -67,7 +78,6 @@ class Main {
       tag: 'div',
       classList: [ClassMap.authorization.wrapper],
     });
-
 
     const section = createElement({
       tag: 'section',
