@@ -1,3 +1,5 @@
+@import '../styles/mixins.scss';
+
 * {
   box-sizing: border-box;
 }
@@ -7,5 +9,52 @@ html {
 }
 
 body {
-  max-width: 14rem;
+  position: relative;
+  max-width: 140rem;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2rem;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+h1 {
+  margin: 0;
+}
+
+.dark-mode-background {
+  background-color: $color-dark-mode;
+}
+
+.dark-mode-title {
+  color: $color-light-font;
+}
+
+.dark-mode-font {
+  color: $color-light-font;
+}
+
+.light-mode-background {
+  background-color: $color-light-mode;
+}
+
+.light-mode-font {
+  color: $color-dark-font;
+}
+
+.light-mode-title {
+  color: $color-black-font;
+}
+
+p {
+  margin: 0;
+}
+
+.error-validation-message {
+  color: #fb0a0a;
+  font-size: 1.3rem;
+  padding-top: 0.3rem;
 }

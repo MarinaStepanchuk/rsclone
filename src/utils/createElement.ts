@@ -1,6 +1,5 @@
 import { IOptionsElement } from '../types/interfaces';
-
-const LANG_ATTRIBUTE = 'lang';
+import { LANG_ATTRIBUTE } from '../constants/common';
 
 const createElement = ({
   tag = 'div',
