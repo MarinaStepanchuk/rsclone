@@ -5,3 +5,5 @@ export const RegularExpressions = {
   Name: /^([а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,}[ ][а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,}|[а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,})/gm,
   Password: /^[0-9a-zA-Z-!@#$%^&*]{5,}/gm,
 };
+
+export const alertTimeout = 2000;

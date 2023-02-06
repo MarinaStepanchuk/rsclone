@@ -4,9 +4,14 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
-import { RegularExpressions } from '../../constants/common.constants';
+import { alertTimeout, RegularExpressions } from '../../constants/common.constants';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
+import { IUserLogin } from '../../types/interfaces';
+import UserApi from '../../Api/UserApi';
+import { RESPONSE_STATUS } from '../../Api/serverConstants';
+import applicationState from '../../constants/appState';
+import AlertMessage from '../AlertMessage/AlertMessege';
 
 class AutorisationForm {
   public element;
@@ -143,9 +148,12 @@ class AutorisationForm {
           return;
         }
 
-        console.log(1);
-        // отправка запроса
-        // в случае удачного запроса навешивание атрибута и перенаправление на следующую страницу
+        const userDataLogin: IUserLogin = {
+          email: (this.email as HTMLInputElement).value,
+          password: (this.password as HTMLInputElement).value,
+        };
+
+        this.handleLoginResponse(userDataLogin);
       }
     });
   }
@@ -170,6 +178,21 @@ class AutorisationForm {
     }
 
     return findError;
+  }
+
+  private async handleLoginResponse(userLogin: IUserLogin) {
+    const response = await UserApi.loginUser(userLogin);
+
+    const alert = new AlertMessage(response.message, response.status);
+    alert.render();
+    setTimeout(() => alert.remove(), alertTimeout);
+
+    if (response.status === RESPONSE_STATUS.OK) {
+      applicationState.isUserLogin = true;
+      const { token, user } = response;
+      localStorage.setItem('auth', JSON.stringify({ token, user }));
+      // в случае удачного запроса навешивание атрибута и перенаправление на следующую страницу
+    }
   }
 }
 

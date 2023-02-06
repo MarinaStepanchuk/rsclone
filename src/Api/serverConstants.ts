@@ -1,4 +1,4 @@
-const BASE_URL = 'http://127.0.0.1:3005';
+const BASE_URL = 'http://localhost:3005';
 
 export const REQUEST_URL = {
   register: `${BASE_URL}/api/user/register`,
