@@ -5,3 +5,9 @@ export interface IOptionsElement {
   id?: string,
   key?: string,
 }
+
+export interface Validation {
+  element: HTMLInputElement,
+  regularExpression: RegExp,
+  errorMessage: string,
+}

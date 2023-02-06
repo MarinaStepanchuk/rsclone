@@ -8,7 +8,7 @@ import img3 from '../../assets/img/schedule-start-3.png';
 import img4 from '../../assets/img/schedule-start-4.png';
 import img5 from '../../assets/img/schedule-start-5.png';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { LANG_ATTRIBUTE } from '../../constants/common.constants';
+import { LANG_ATTRIBUTE } from '../../constants/common';
 import { LANG } from '../../types/types';
 
 const GreatingImages: string[] = [img1, img2, img3, img4, img5];

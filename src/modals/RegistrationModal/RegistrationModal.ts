@@ -5,12 +5,11 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { RegularExpressions } from '../../constants/common.constants';
+import { RegularExpressions } from '../../constants/common';
+import checkForValidity from '../../utils/checkForValidity';
 
 class RegistrationModal {
-  public element;
-
-  private formWrapper: HTMLElement | null = null;
+  public element: HTMLElement | null = null;
 
   private form: HTMLFormElement | null = null;
 
@@ -24,7 +23,6 @@ class RegistrationModal {
 
   constructor(private lang: LANG) {
     this.init();
-    this.element = this.formWrapper;
     this.fill();
     this.addListeners();
   }
@@ -32,7 +30,7 @@ class RegistrationModal {
   private init(): void {
     this.form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode.dark.background] }) as HTMLFormElement;
 
-    this.formWrapper = createElement({
+    this.element = createElement({
       tag: 'div',
       classList: [ClassMap.registration.wrapper],
     });
@@ -81,7 +79,10 @@ class RegistrationModal {
       content: Dictionary[this.lang].labelEmail,
     });
 
-    inputContainerEmail.append(inputEmailLable, this.email as HTMLInputElement);
+    inputContainerEmail.append(
+      inputEmailLable,
+      this.email as HTMLInputElement,
+    );
 
     const inputContainerName = createElement({
       tag: 'div',
@@ -185,9 +186,18 @@ class RegistrationModal {
     });
     closeButton.append(firstLine, secondLine);
 
-    this.form?.append(formTitle, inputContainerEmail, inputContainerName, selectContainerCurrency, inputContainerPassword, inputContainerConfirmPassword, submit, closeButton);
+    this.form?.append(
+      formTitle,
+      inputContainerEmail,
+      inputContainerName,
+      selectContainerCurrency,
+      inputContainerPassword,
+      inputContainerConfirmPassword,
+      submit,
+      closeButton,
+    );
 
-    this.formWrapper?.append(this.form as HTMLFormElement);
+    this.element?.append(this.form as HTMLFormElement);
   }
 
   private createOptionCurrency(currency: string): HTMLOptionElement {
@@ -200,9 +210,14 @@ class RegistrationModal {
   }
 
   private addListeners(): void {
-    this.formWrapper?.addEventListener('click', (event) => {
+    this.element?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
-      if (targetElement.classList.contains(ClassMap.registration.wrapper) || targetElement.classList.contains(ClassMap.closeModalButton) || targetElement.classList.contains(ClassMap.closeLine)) {
+
+      if (
+        targetElement.classList.contains(ClassMap.registration.wrapper)
+        || targetElement.classList.contains(ClassMap.closeModalButton)
+        || targetElement.classList.contains(ClassMap.closeLine)
+      ) {
         this.element?.remove();
       }
     });
@@ -220,16 +235,14 @@ class RegistrationModal {
 
       if (targetElement.classList.contains(ClassMap.registration.submit)) {
         event.preventDefault();
-        const errors = Array.from(document.querySelectorAll(`.${ClassMap.errorValidation}`));
+        const errors = [...document.querySelectorAll(`.${ClassMap.errorValidation}`)];
         errors.forEach((error) => error.remove());
-        const findError = this.validation();
+        const isValid = this.validation();
 
-        if (findError) {
-          return;
+        if (isValid) {
+          // обработка запроса
+          this.element?.remove();
         }
-
-        // обработка запроса
-        this.element?.remove();
       }
     });
   }
@@ -240,37 +253,42 @@ class RegistrationModal {
     const password = this.password as HTMLInputElement;
     const confirmPassword = this.confirmPassword as HTMLInputElement;
 
-    let findError = false;
+    const emailIsValid = checkForValidity({
+      element: email,
+      regularExpression: RegularExpressions.Email,
+      errorMessage: Dictionary[this.lang].errorMessageEmail,
+    });
 
-    if (!email.value.match(RegularExpressions.Email)) {
-      showErrorValidationMessage(email, Dictionary[this.lang].errorMessageEmail);
-      findError = true;
-    } else {
-      removeErrorValidationMessage(email);
-    }
+    const nameIsValid = checkForValidity({
+      element: name,
+      regularExpression: RegularExpressions.Name,
+      errorMessage: Dictionary[this.lang].errorMessageName,
+    });
 
-    if (!name.value.match(RegularExpressions.Name)) {
-      showErrorValidationMessage(name, Dictionary[this.lang].errorMessageName);
-      findError = true;
-    } else {
-      removeErrorValidationMessage(name);
-    }
+    const passwordIsValid = checkForValidity({
+      element: password,
+      regularExpression: RegularExpressions.Password,
+      errorMessage: Dictionary[this.lang].errorMessagePassword,
+    });
 
-    if (!password.value.match(RegularExpressions.Password)) {
-      showErrorValidationMessage(password, Dictionary[this.lang].errorMessagePassword);
-      findError = true;
-    } else {
-      removeErrorValidationMessage(password);
-    }
+    let passwordMatch = false;
 
     if (password.value !== confirmPassword.value) {
       showErrorValidationMessage(confirmPassword, Dictionary[this.lang].errorMessageConfirmPassword);
-      findError = true;
     } else {
       removeErrorValidationMessage(confirmPassword);
+      passwordMatch = true;
     }
 
-    return findError;
+    if (
+      emailIsValid
+      && passwordIsValid
+      && nameIsValid
+      && passwordMatch
+    ) {
+      return true;
+    }
+    return false;
   }
 }
 
