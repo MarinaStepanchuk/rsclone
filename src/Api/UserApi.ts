@@ -5,7 +5,7 @@ import {
   RESPONSE_STATUS,
   CONTENT_TYPE_JSON,
 } from './serverConstants';
-import applicationState from '../utils/applicationState';
+import applicationState from '../constants/appState';
 
 class UserApi {
   public static async registrationUser(userData: IUserRegister): Promise<{ status: number; message: string }> {
