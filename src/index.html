@@ -9,341 +9,341 @@
 </head>
 <body class="light-mode-background" style="margin: 0; min-height: 100vh">
 <header></header>
-<main style="display: grid; grid-template-columns: 320px 1fr;">
-  <section style="border: 1px dashed black">
-    <div style="border: 1px dashed black">LOGO
-      <h1>MAP money</h1>
-    </div>
-    <ul style="border-bottom: 1px solid black">
-      <li>
-        <a href="#dashboard">Dashboard</a>
-      </li>
-      <li>
-        <a href="#wallet">My Wallet</a>
-      </li>
-      <li>
-        <a href="#analytics">Analytics</a>
-      </li>
-      <li>
-        <a href="#account">Account</a>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <a href="#support">Support</a>
-      </li>
-      <li>Dark Mode
-        <button>Кнопка переключения тем</button>
-      </li>
-    </ul>
-    <div style="display: flex; align-items: center; justify-content: space-between">
-      <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>
-      <div>Name</div>
-      <button>Log out</button>
-    </div>
-  </section>
-  <section>
-    <section id="dashboard">
-      <h2>Dashboard</h2>
-      <div>
-        <p>Welcome Back, <span> Name</span></p>
-        <p>Here’s what’s happening with your store today.</p>
-      </div>
-      <div style="display: grid; grid-template-columns: 2fr 1fr;">
-        <section>
-          <div style="display: flex; justify-content: space-evenly">
-            <div style="width: 320px; height: 126px; border: 1px dashed black">Total Income</div>
-            <div style="width: 320px; height: 126px; border: 1px dashed black">Total Outcome</div>
-          </div>
-          <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">
-            <div style="display: flex; justify-content: space-between">
-              <p>Card Balance: $15,595.015</p>
-              <p>Cash Balance: $5,595</p>
-              <button>Update my wallet</button>
-            </div>
-            <div style="display: flex; justify-content: space-between">
-              <button>Add income</button>
-              <button>Add expense</button>
-              <button>Add limit</button>
-            </div>
-          </div>
-          <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">
-            <h3>Transaction</h3>
-            <table style="width: 100%; text-align: left">
-              <tr>
-                <th>Category</th>
-                <th>Name</th>
-                <th>Date</th>
-                <th>Amount</th>
-              </tr>
-              <tr>
-                <td>Clothes-logo</td>
-                <td>Levi’s</td>
-                <td>Sat,20 Apr 2022</td>
-                <td>$80.09</td>
-              </tr>
-              <tr>
-                <td>Food-logo</td>
-                <td>Mcdonald’s</td>
-                <td>Fri,19 Apr 2022</td>
-                <td>$7.03</td>
-              </tr>
-            </table>
-          </div>
-        </section>
-        <section style="border: 1px dashed black">
-          <div style="height: 300px; border: 1px dashed red">Круговая диаграмма расходов по категориям
-            <select>
-              <option value="day">Day</option>
-              <option value="week">Week</option>
-              <option value="month">Month</option>
-              <option value="year">Year</option>
-            </select>
-            <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine">Диаграмма</div>
-            <button>View all activity</button>
-          </div>
-          <div style="border: 1px dashed red">Курсы валют
-            <ul>
-              <li>USD</li>
-              <li>EUR</li>
-              <li>BYN</li>
-              <li>RUB</li>
-            </ul>
-          </div>
-          <div style="height: 140px;">Конвертер валют</div>
-        </section>
-      </div>
-    </section>
-    <section style="background: #d3cece" id="wallet">
-      <h2>My Wallet</h2>
-      <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);grid-gap: 20px">
-        <div style="height: 126px; border: 1px dashed black">Card Balance</div>
-        <div style=" height: 126px; border: 1px dashed black">Cash Balance</div>
-        <div style="height: 126px; border: 1px dashed black">Income</div>
-        <div style=" height: 126px; border: 1px dashed black">Expense</div>
-      </div>
-      <div>
-        <h3>Categories Income</h3>
-        <ul style="display: grid; grid-template-columns: repeat(5, 1fr);grid-gap: 20px">
-          <li>Salary</li>
-          <li>Investments</li>
-          <li>Rent</li>
-          <li>Gifts</li>
-          <li>Savings</li>
-        </ul>
-        <button>Create new category</button>
-        <button>Update category</button>
-      </div>
-      <div>
-        <h3>Categories Expenses</h3>
-        <ul style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(3, 1fr);grid-gap: 20px">
-          <li>Food</li>
-          <li>Bills</li>
-          <li>Transport</li>
-          <li>Gifts</li>
-          <li>Education</li>
-          <li>Rent</li>
-          <li>Travels</li>
-          <li>Hobby</li>
-          <li>Car</li>
-          <li>Clothes</li>
-          <li>Eating out</li>
-          <li>Health</li>
-          <li>House</li>
-          <li>Pets</li>
-          <li>Sport</li>
-        </ul>
-        <button>Create new category</button>
-        <button>Update category</button>
-      </div>
-    </section>
-    <section id="analytics">
-      <h2>Analytics</h2>
-      <div style="display: grid; grid-template-columns: 2fr 1fr;">
-        <div style="width: 90%; height: 300px; border: 1px solid red">График доходов и расходов по месяцам</div>
-        <div style=" height: 300px; border: 1px solid red">Календарь</div>
-      </div>
-      <div style="display: flex; justify-content: space-between">
-        <div style="border: 1px dashed red">График доходов в денежном эквиваленте по категориям
-          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine"></div>
-        </div>
-        <div style="border: 1px dashed red">График расходов в денежном эквиваленте по категориям
-          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: yellowgreen"></div>
-        </div>
-        <div style="border: 1px dashed red">График расходов в % эквиваленте по категориям
-          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine"></div>
-        </div>
-      </div>
-      <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">
-        <h3>Transaction</h3>
-        <table style="width: 100%; text-align: left">
-          <tr>
-            <th>Category</th>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Amount</th>
-          </tr>
-          <tr>
-            <td>Clothes-logo</td>
-            <td>Levi’s</td>
-            <td>Sat,20 Apr 2022</td>
-            <td>$80.09</td>
-          </tr>
-          <tr>
-            <td>Food-logo</td>
-            <td>Mcdonald’s</td>
-            <td>Fri,19 Apr 2022</td>
-            <td>$7.03</td>
-          </tr>
-        </table>
-      </div>
-      <button>Export as Excel</button>
-      <button>Export as PDF</button>
-    </section>
-    <section style="background: #d3cece" id="account">
-      <h2>Account</h2>
-      <form class="form" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <section style="border: 1px dashed black">
-          <h3>Personal details</h3>
-          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
-            <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>
-            <button>Change Avatar</button>
-          </div>
-          <div>
-            <label for="name">Name</label>
-            <input id="name" type="text" placeholder="Ivan Ivanov" minlength="3" maxlength="100" size="2" style="width: 200px" required="">
-            <span class="form__input_error" aria-live="polite"></span>
-          </div>
-          <div>
-            <label for="phone" class="form__label">Phone Number</label>
-            <input id="phone" type="tel" placeholder="+375290000103" minlength="10" maxlength="20" class="form__input" required="">
-            <span class="form__input_error" aria-live="polite"></span>
-          </div>
-          <div>
-            <label for="email" class="form__label">E-mail</label>
-            <input id="email" type="email" placeholder="ivanIvanov@gmail.com" minlength="5" maxlength="50" class="form__input" required="">
-            <span class="form__input_error" aria-live="polite"></span>
-          </div>
-        </section>
-        <section style="border: 1px dashed black">
-          <h3>Currency</h3>
-          <p>Please select your preferred currency:</p>
-          <div>
-            <input type="radio" value="usd" name="currency">
-            <label>USD</label>
+<!--<main style="display: grid; grid-template-columns: 320px 1fr;">-->
+<!--  <section style="border: 1px dashed black">-->
+<!--    <div style="border: 1px dashed black">LOGO-->
+<!--      <h1>MAP money</h1>-->
+<!--    </div>-->
+<!--    <ul style="border-bottom: 1px solid black">-->
+<!--      <li>-->
+<!--        <a href="#dashboard">Dashboard</a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#wallet">My Wallet</a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#analytics">Analytics</a>-->
+<!--      </li>-->
+<!--      <li>-->
+<!--        <a href="#account">Account</a>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <ul>-->
+<!--      <li>-->
+<!--        <a href="#support">Support</a>-->
+<!--      </li>-->
+<!--      <li>Dark Mode-->
+<!--        <button>Кнопка переключения тем</button>-->
+<!--      </li>-->
+<!--    </ul>-->
+<!--    <div style="display: flex; align-items: center; justify-content: space-between">-->
+<!--      <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>-->
+<!--      <div>Name</div>-->
+<!--      <button>Log out</button>-->
+<!--    </div>-->
+<!--  </section>-->
+<!--  <section>-->
+<!--    <section id="dashboard">-->
+<!--      <h2>Dashboard</h2>-->
+<!--      <div>-->
+<!--        <p>Welcome Back, <span> Name</span></p>-->
+<!--        <p>Here’s what’s happening with your store today.</p>-->
+<!--      </div>-->
+<!--      <div style="display: grid; grid-template-columns: 2fr 1fr;">-->
+<!--        <section>-->
+<!--          <div style="display: flex; justify-content: space-evenly">-->
+<!--            <div style="width: 320px; height: 126px; border: 1px dashed black">Total Income</div>-->
+<!--            <div style="width: 320px; height: 126px; border: 1px dashed black">Total Outcome</div>-->
+<!--          </div>-->
+<!--          <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">-->
+<!--            <div style="display: flex; justify-content: space-between">-->
+<!--              <p>Card Balance: $15,595.015</p>-->
+<!--              <p>Cash Balance: $5,595</p>-->
+<!--              <button>Update my wallet</button>-->
+<!--            </div>-->
+<!--            <div style="display: flex; justify-content: space-between">-->
+<!--              <button>Add income</button>-->
+<!--              <button>Add expense</button>-->
+<!--              <button>Add limit</button>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">-->
+<!--            <h3>Transaction</h3>-->
+<!--            <table style="width: 100%; text-align: left">-->
+<!--              <tr>-->
+<!--                <th>Category</th>-->
+<!--                <th>Name</th>-->
+<!--                <th>Date</th>-->
+<!--                <th>Amount</th>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td>Clothes-logo</td>-->
+<!--                <td>Levi’s</td>-->
+<!--                <td>Sat,20 Apr 2022</td>-->
+<!--                <td>$80.09</td>-->
+<!--              </tr>-->
+<!--              <tr>-->
+<!--                <td>Food-logo</td>-->
+<!--                <td>Mcdonald’s</td>-->
+<!--                <td>Fri,19 Apr 2022</td>-->
+<!--                <td>$7.03</td>-->
+<!--              </tr>-->
+<!--            </table>-->
+<!--          </div>-->
+<!--        </section>-->
+<!--        <section style="border: 1px dashed black">-->
+<!--          <div style="height: 300px; border: 1px dashed red">Круговая диаграмма расходов по категориям-->
+<!--            <select>-->
+<!--              <option value="day">Day</option>-->
+<!--              <option value="week">Week</option>-->
+<!--              <option value="month">Month</option>-->
+<!--              <option value="year">Year</option>-->
+<!--            </select>-->
+<!--            <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine">Диаграмма</div>-->
+<!--            <button>View all activity</button>-->
+<!--          </div>-->
+<!--          <div style="border: 1px dashed red">Курсы валют-->
+<!--            <ul>-->
+<!--              <li>USD</li>-->
+<!--              <li>EUR</li>-->
+<!--              <li>BYN</li>-->
+<!--              <li>RUB</li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--          <div style="height: 140px;">Конвертер валют</div>-->
+<!--        </section>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--    <section style="background: #d3cece" id="wallet">-->
+<!--      <h2>My Wallet</h2>-->
+<!--      <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr);grid-gap: 20px">-->
+<!--        <div style="height: 126px; border: 1px dashed black">Card Balance</div>-->
+<!--        <div style=" height: 126px; border: 1px dashed black">Cash Balance</div>-->
+<!--        <div style="height: 126px; border: 1px dashed black">Income</div>-->
+<!--        <div style=" height: 126px; border: 1px dashed black">Expense</div>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <h3>Categories Income</h3>-->
+<!--        <ul style="display: grid; grid-template-columns: repeat(5, 1fr);grid-gap: 20px">-->
+<!--          <li>Salary</li>-->
+<!--          <li>Investments</li>-->
+<!--          <li>Rent</li>-->
+<!--          <li>Gifts</li>-->
+<!--          <li>Savings</li>-->
+<!--        </ul>-->
+<!--        <button>Create new category</button>-->
+<!--        <button>Update category</button>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <h3>Categories Expenses</h3>-->
+<!--        <ul style="display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(3, 1fr);grid-gap: 20px">-->
+<!--          <li>Food</li>-->
+<!--          <li>Bills</li>-->
+<!--          <li>Transport</li>-->
+<!--          <li>Gifts</li>-->
+<!--          <li>Education</li>-->
+<!--          <li>Rent</li>-->
+<!--          <li>Travels</li>-->
+<!--          <li>Hobby</li>-->
+<!--          <li>Car</li>-->
+<!--          <li>Clothes</li>-->
+<!--          <li>Eating out</li>-->
+<!--          <li>Health</li>-->
+<!--          <li>House</li>-->
+<!--          <li>Pets</li>-->
+<!--          <li>Sport</li>-->
+<!--        </ul>-->
+<!--        <button>Create new category</button>-->
+<!--        <button>Update category</button>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--    <section id="analytics">-->
+<!--      <h2>Analytics</h2>-->
+<!--      <div style="display: grid; grid-template-columns: 2fr 1fr;">-->
+<!--        <div style="width: 90%; height: 300px; border: 1px solid red">График доходов и расходов по месяцам</div>-->
+<!--        <div style=" height: 300px; border: 1px solid red">Календарь</div>-->
+<!--      </div>-->
+<!--      <div style="display: flex; justify-content: space-between">-->
+<!--        <div style="border: 1px dashed red">График доходов в денежном эквиваленте по категориям-->
+<!--          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine"></div>-->
+<!--        </div>-->
+<!--        <div style="border: 1px dashed red">График расходов в денежном эквиваленте по категориям-->
+<!--          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: yellowgreen"></div>-->
+<!--        </div>-->
+<!--        <div style="border: 1px dashed red">График расходов в % эквиваленте по категориям-->
+<!--          <div style="width: 292px; height: 140px; border-radius: 50% 50% 0 0 / 100% 100% 0 0; background: aquamarine"></div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div style="width: 90%; height: 300px; border: 1px dashed black; margin: 0 auto">-->
+<!--        <h3>Transaction</h3>-->
+<!--        <table style="width: 100%; text-align: left">-->
+<!--          <tr>-->
+<!--            <th>Category</th>-->
+<!--            <th>Name</th>-->
+<!--            <th>Date</th>-->
+<!--            <th>Amount</th>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Clothes-logo</td>-->
+<!--            <td>Levi’s</td>-->
+<!--            <td>Sat,20 Apr 2022</td>-->
+<!--            <td>$80.09</td>-->
+<!--          </tr>-->
+<!--          <tr>-->
+<!--            <td>Food-logo</td>-->
+<!--            <td>Mcdonald’s</td>-->
+<!--            <td>Fri,19 Apr 2022</td>-->
+<!--            <td>$7.03</td>-->
+<!--          </tr>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--      <button>Export as Excel</button>-->
+<!--      <button>Export as PDF</button>-->
+<!--    </section>-->
+<!--    <section style="background: #d3cece" id="account">-->
+<!--      <h2>Account</h2>-->
+<!--      <form class="form" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">-->
+<!--        <section style="border: 1px dashed black">-->
+<!--          <h3>Personal details</h3>-->
+<!--          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">-->
+<!--            <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>-->
+<!--            <button>Change Avatar</button>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label for="name">Name</label>-->
+<!--            <input id="name" type="text" placeholder="Ivan Ivanov" minlength="3" maxlength="100" size="2" style="width: 200px" required="">-->
+<!--            <span class="form__input_error" aria-live="polite"></span>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label for="phone" class="form__label">Phone Number</label>-->
+<!--            <input id="phone" type="tel" placeholder="+375290000103" minlength="10" maxlength="20" class="form__input" required="">-->
+<!--            <span class="form__input_error" aria-live="polite"></span>-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label for="email" class="form__label">E-mail</label>-->
+<!--            <input id="email" type="email" placeholder="ivanIvanov@gmail.com" minlength="5" maxlength="50" class="form__input" required="">-->
+<!--            <span class="form__input_error" aria-live="polite"></span>-->
+<!--          </div>-->
+<!--        </section>-->
+<!--        <section style="border: 1px dashed black">-->
+<!--          <h3>Currency</h3>-->
+<!--          <p>Please select your preferred currency:</p>-->
+<!--          <div>-->
+<!--            <input type="radio" value="usd" name="currency">-->
+<!--            <label>USD</label>-->
 
-            <input type="radio" value="eur" name="currency">
-            <label>EUR</label>
+<!--            <input type="radio" value="eur" name="currency">-->
+<!--            <label>EUR</label>-->
 
-            <input type="radio" value="rub" name="currency">
-            <label>RUN</label>
+<!--            <input type="radio" value="rub" name="currency">-->
+<!--            <label>RUN</label>-->
 
-            <input type="radio" value="byn" name="currency">
-            <label>BYN</label>
-          </div>
-        </section>
-        <section style="border: 1px dashed black">
-          <h3>Language</h3>
-          <p>Please select your preferred language:</p>
-          <div>
-            <input type="radio" value="en" name="language">
-            <label>EN</label>
+<!--            <input type="radio" value="byn" name="currency">-->
+<!--            <label>BYN</label>-->
+<!--          </div>-->
+<!--        </section>-->
+<!--        <section style="border: 1px dashed black">-->
+<!--          <h3>Language</h3>-->
+<!--          <p>Please select your preferred language:</p>-->
+<!--          <div>-->
+<!--            <input type="radio" value="en" name="language">-->
+<!--            <label>EN</label>-->
 
-            <input type="radio" value="de" name="language">
-            <label>DE</label>
+<!--            <input type="radio" value="de" name="language">-->
+<!--            <label>DE</label>-->
 
-            <input type="radio" value="ru" name="language">
-            <label>RU</label>
-          </div>
-        </section>
-        <button type="submit">CONFIRM</button>
-      </form>
-    </section>
-    <section id="support">
-      <h2>Support</h2>
-      <form style="display: flex; flex-direction: column; justify-content: center; align-items: center">
-        <div>
-          <label>Name</label>
-          <input type="text" placeholder="Ivan Ivanov" minlength="3" maxlength="100" size="2" style="width: 200px" required="">
-          <span class="form__input_error" aria-live="polite"></span>
-        </div>
-        <div>
-          <label class="form__label">E-mail</label>
-          <input type="email" placeholder="ivanIvanov@gmail.com" minlength="5" maxlength="50" class="form__input" required="">
-          <span class="form__input_error" aria-live="polite"></span>
-        </div>
-        <div>
-          <label>Please write your question: </label>
-          <textarea style="display:block"></textarea>
-        </div>
-        <button type="submit">CONFIRM</button>
-      </form>
-    </section>
+<!--            <input type="radio" value="ru" name="language">-->
+<!--            <label>RU</label>-->
+<!--          </div>-->
+<!--        </section>-->
+<!--        <button type="submit">CONFIRM</button>-->
+<!--      </form>-->
+<!--    </section>-->
+<!--    <section id="support">-->
+<!--      <h2>Support</h2>-->
+<!--      <form style="display: flex; flex-direction: column; justify-content: center; align-items: center">-->
+<!--        <div>-->
+<!--          <label>Name</label>-->
+<!--          <input type="text" placeholder="Ivan Ivanov" minlength="3" maxlength="100" size="2" style="width: 200px" required="">-->
+<!--          <span class="form__input_error" aria-live="polite"></span>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label class="form__label">E-mail</label>-->
+<!--          <input type="email" placeholder="ivanIvanov@gmail.com" minlength="5" maxlength="50" class="form__input" required="">-->
+<!--          <span class="form__input_error" aria-live="polite"></span>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label>Please write your question: </label>-->
+<!--          <textarea style="display:block"></textarea>-->
+<!--        </div>-->
+<!--        <button type="submit">CONFIRM</button>-->
+<!--      </form>-->
+<!--    </section>-->
 
-    <section style="background: #d3cece">
-      <div>
-        <form>
-          <h3>Log in to your account</h3>
-          <div>
-            <label>E-mail</label>
-            <input id="email-1" name="email" type="email" placeholder="" required="">
-          </div>
-          <div>
-            <label>Password</label>
-            <input name="password" type="password" placeholder="" required="">
-          </div>
-          <button>Sign In</button>
-          <p>Don’t have an account?
-            <a class="form-link-remind" id="registration">Register</a>
-          </p>
-        </form>
+<!--    <section style="background: #d3cece">-->
+<!--      <div>-->
+<!--        <form>-->
+<!--          <h3>Log in to your account</h3>-->
+<!--          <div>-->
+<!--            <label>E-mail</label>-->
+<!--            <input id="email-1" name="email" type="email" placeholder="" required="">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label>Password</label>-->
+<!--            <input name="password" type="password" placeholder="" required="">-->
+<!--          </div>-->
+<!--          <button>Sign In</button>-->
+<!--          <p>Don’t have an account?-->
+<!--            <a class="form-link-remind" id="registration">Register</a>-->
+<!--          </p>-->
+<!--        </form>-->
 
-        <form>
-          <h3>Create account</h3>
-          <div>
-            <label>Name</label>
-            <input name="name" type="text" placeholder="" required="">
-          </div>
-          <div>
-            <label>E-mail</label>
-            <input name="email" type="email" placeholder="" required="">
-          </div>
-          <div class="label-popup">
-            <label>Password</label>
-            <input name="password" type="password" placeholder="" required="">
-          </div>
-          <button class="form-popup-button sign-button">Sign In</button>
-          <p class="form-register-account">Already have an account?
-            <a class="form-link-remind" id="login">Log in</a>
-          </p>
-        </form>
-      </div>
-    </section>
-  </section>
-</main>
-<footer class="footer">
-  <div class="footer__wrap" style="background: black; display: flex; color: white; justify-content: space-between;
-  align-items: center">
-    <div>
-      <a href="https://rs.school/js/" target="_blank" rel="noopener">
-        <img src="assets/icons/rs-school-js.svg" alt="Rolling Scopes School" class="footer__logo">
-      </a>
-    </div>
-    <div>
-      <span>All Rights Reserved © Yoda's team 2023</span>
-    </div>
-    <div>
-      <a href="https://github.com/BondPV" target="_blank" rel="noopener">
-        <img src="assets/icons/github-logo.svg" alt="GitHub">
-      </a>
-      <a href="https://github.com/marinastepanchuk" target="_blank" rel="noopener">
-        <img src="assets/icons/github-logo.svg" alt="GitHub">
-      </a>
-      <a href="https://github.com/Alesia-V175" target="_blank" rel="noopener">
-        <img src="assets/icons/github-logo.svg" alt="GitHub">
-      </a>
-    </div>
-  </div>
-</footer>
+<!--        <form>-->
+<!--          <h3>Create account</h3>-->
+<!--          <div>-->
+<!--            <label>Name</label>-->
+<!--            <input name="name" type="text" placeholder="" required="">-->
+<!--          </div>-->
+<!--          <div>-->
+<!--            <label>E-mail</label>-->
+<!--            <input name="email" type="email" placeholder="" required="">-->
+<!--          </div>-->
+<!--          <div class="label-popup">-->
+<!--            <label>Password</label>-->
+<!--            <input name="password" type="password" placeholder="" required="">-->
+<!--          </div>-->
+<!--          <button class="form-popup-button sign-button">Sign In</button>-->
+<!--          <p class="form-register-account">Already have an account?-->
+<!--            <a class="form-link-remind" id="login">Log in</a>-->
+<!--          </p>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </section>-->
+<!--  </section>-->
+<!--</main>-->
+<!--<footer class="footer">-->
+<!--  <div class="footer__wrap" style="background: black; display: flex; color: white; justify-content: space-between;-->
+<!--  align-items: center">-->
+<!--    <div>-->
+<!--      <a href="https://rs.school/js/" target="_blank" rel="noopener">-->
+<!--        <img src="assets/icons/rs-school-js.svg" alt="Rolling Scopes School" class="footer__logo">-->
+<!--      </a>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <span>All Rights Reserved © Yoda's team 2023</span>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <a href="https://github.com/BondPV" target="_blank" rel="noopener">-->
+<!--        <img src="assets/icons/github-logo.svg" alt="GitHub">-->
+<!--      </a>-->
+<!--      <a href="https://github.com/marinastepanchuk" target="_blank" rel="noopener">-->
+<!--        <img src="assets/icons/github-logo.svg" alt="GitHub">-->
+<!--      </a>-->
+<!--      <a href="https://github.com/Alesia-V175" target="_blank" rel="noopener">-->
+<!--        <img src="assets/icons/github-logo.svg" alt="GitHub">-->
+<!--      </a>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</footer>-->
 </body>
 </html>
