@@ -1,0 +1,75 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.authorization__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+
+  &__input {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+
+    span {
+      color: $color-dim-font;
+      font-size: 1.7rem
+    }
+
+    input {
+      @include input(100%, 3.5rem);
+      margin-top: 0.3rem;
+      padding-left: 1rem;
+    }
+  }
+
+  &__password {
+    padding-right: 4rem;
+  }
+
+  &__registration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+
+    &__text {
+      color: $color-dim-font;
+    }
+
+    &__link {
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+
+  &_submit {
+    @include button(100%, 4.5rem);
+    font-size: 2rem;
+    margin-top: 0.5rem;
+  }
+}
+
+.wrapper-password {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  right: 0.5rem;
+  bottom: 0;
+  width: 3rem;
+  height: 3rem;
+  background-image: url(../../assets/img/eye-close.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.show-password {
+  background-image: url(../../assets/img/eye-open.png);
+}
