@@ -1,4 +1,5 @@
 @import '../styles/mixins.scss';
+@import './variables';
 
 * {
   box-sizing: border-box;
@@ -19,6 +20,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  //max-width: 14rem;
+  font-family: 'GeneralSans', Arial, sans-serif;
+  padding: 0;
+  margin: 0;
 }
 
 h1 {
@@ -57,4 +62,50 @@ p {
   color: #fb0a0a;
   font-size: 1.3rem;
   padding-top: 0.3rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: $color-dark-mode;
+  //background: #8EDFEB;
+  color: $color-light-mode;
+  padding: 1rem;
+  font-size: 12px;
+  font-weight: 100;
+
+  &__logo {
+    height: auto;
+    width: 80px;
+    opacity: 0.4;
+    transition: 0.2s all;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  span {
+    opacity: 0.4;
+  }
+
+  &__github-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__github {
+    padding: 0 0.5rem;
+    opacity: 0.3;
+    transition: 0.3s all;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__github-logo {
+    display: block;
+  }
 }
