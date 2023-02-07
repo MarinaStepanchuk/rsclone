@@ -22,18 +22,19 @@ class UserApi {
         applicationState.isUserLogin = false;
       }
 
+      const dataResponse = await response.json();
+
       return {
         status: response.status,
-        message: await response.json(),
+        ...dataResponse,
       };
-      //! status 201 (created)
-      //! messege 'User successfully registered' or `A user with ${email} already exists`
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public static async loginUser(loginUserData: IUserLogin): Promise<{ status: number; message: string }> {
+  public static async loginUser(loginUserData: IUserLogin):
+  Promise<{ status: number; message: string, token?: string, user?: IUserData }> {
     const url = `${REQUEST_URL.login}`;
 
     try {
@@ -43,22 +44,12 @@ class UserApi {
         body: JSON.stringify(loginUserData),
       });
 
-      let responseMessage = '';
-
-      if (response.status === RESPONSE_STATUS.OK) {
-        applicationState.isUserLogin = true;
-        localStorage.setItem('auth', JSON.stringify(await response.json()));
-        responseMessage = 'Login successful';
-      } else {
-        responseMessage = await response.json();
-      }
+      const dataResponse = await response.json();
 
       return {
         status: response.status,
-        message: responseMessage,
+        ...dataResponse,
       };
-      //! status 200 (ok)
-      //! messege 'Login successful' or `Email ${email} not found` or 'Invalid password, please try again!'
     } catch (error) {
       throw new Error(`${error}`);
     }
@@ -75,21 +66,12 @@ class UserApi {
         body: JSON.stringify(updateUserData),
       });
 
-      let responseMessage = '';
-
-      if (response.status === RESPONSE_STATUS.OK) {
-        localStorage.auth.user = JSON.stringify(await response.json());
-        responseMessage = 'Successfully updated';
-      } else {
-        responseMessage = await response.json();
-      }
+      const dataResponse = await response.json();
 
       return {
         status: response.status,
-        message: responseMessage,
+        ...dataResponse,
       };
-      //! status 200 (ok)
-      //! messege 'Successfully updated' or `A user with {email} already exists` or 'User not found'
     } catch (error) {
       throw new Error(`${error}`);
     }

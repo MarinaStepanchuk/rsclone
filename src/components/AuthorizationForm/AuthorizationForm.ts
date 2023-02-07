@@ -4,9 +4,14 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
-import { RegularExpressions } from '../../constants/common';
+import { alertTimeout, RegularExpressions } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
 import Route from '../../types/enums';
+import { IUserLogin } from '../../types/interfaces';
+import UserApi from '../../Api/UserApi';
+import { RESPONSE_STATUS } from '../../Api/serverConstants';
+import applicationState from '../../constants/appState';
+import AlertMessage from '../AlertMessage/AlertMessege';
 
 class AutorisationForm {
   public element: HTMLFormElement | null = null;
@@ -142,9 +147,14 @@ class AutorisationForm {
         const isValid = this.validation();
 
         if (isValid) {
-          // отправка запроса
+          const userDataLogin: IUserLogin = {
+            email: (this.email as HTMLInputElement).value,
+            password: (this.password as HTMLInputElement).value,
+          };
+
+          this.handleLoginResponse(userDataLogin);
+
           (this.signInButton as HTMLButtonElement).setAttribute('data-link', Route.WALLET);
-          console.log(1);
         }
       }
     });
@@ -170,6 +180,21 @@ class AutorisationForm {
       return true;
     }
     return false;
+  }
+
+  private async handleLoginResponse(userLogin: IUserLogin) {
+    const response = await UserApi.loginUser(userLogin);
+
+    const alert = new AlertMessage(response.message, response.status);
+    alert.render();
+    setTimeout(() => alert.remove(), alertTimeout);
+
+    if (response.status === RESPONSE_STATUS.OK) {
+      applicationState.isUserLogin = true;
+      const { token, user } = response;
+      localStorage.setItem('auth', JSON.stringify({ token, user }));
+      // в случае удачного запроса навешивание атрибута и перенаправление на следующую страницу
+    }
   }
 }
 

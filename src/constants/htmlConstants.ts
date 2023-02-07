@@ -1,4 +1,9 @@
 export const ClassMap = {
+  alertMessage: {
+    wrapper: 'alert-wrapper',
+    error: 'alert-wrapper_error',
+    success: 'alert-wrapper_success',
+  },
   authorization: {
     section: 'authorization',
     wrapper: 'authorization__wrapper',

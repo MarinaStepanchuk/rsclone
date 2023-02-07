@@ -5,8 +5,11 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { RegularExpressions } from '../../constants/common';
+import { alertTimeout, RegularExpressions } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
+import { IUserRegister } from '../../types/interfaces';
+import UserApi from '../../Api/UserApi';
+import AlertMessage from '../../components/AlertMessage/AlertMessege';
 
 class RegistrationModal {
   public element: HTMLElement | null = null;
@@ -16,6 +19,8 @@ class RegistrationModal {
   private email: HTMLInputElement | null = null;
 
   private name: HTMLInputElement | null = null;
+
+  private selectCurrency: HTMLSelectElement | null = null;
 
   private password: HTMLInputElement | null = null;
 
@@ -46,6 +51,11 @@ class RegistrationModal {
       classList: [ClassMap.registration.inputName],
     }) as HTMLInputElement;
     this.name.type = 'text';
+
+    this.selectCurrency = createElement({
+      tag: 'select',
+      classList: [ClassMap.registration.selectCurrency],
+    }) as HTMLSelectElement;
 
     this.password = createElement({
       tag: 'input',
@@ -108,14 +118,9 @@ class RegistrationModal {
       content: Dictionary[this.lang].labelCurrencySelection,
     });
 
-    const selectCurrency = createElement({
-      tag: 'select',
-      classList: [ClassMap.registration.selectCurrency],
-    }) as HTMLSelectElement;
+    selectContainerCurrency.append(selectCurrencyLable, this.selectCurrency as HTMLSelectElement);
 
-    selectContainerCurrency.append(selectCurrencyLable, selectCurrency);
-
-    Сurrency.forEach((currency) => selectCurrency.append(this.createOptionCurrency(currency)));
+    Сurrency.forEach((currency) => (this.selectCurrency as HTMLSelectElement).append(this.createOptionCurrency(currency)));
 
     const inputContainerPassword = createElement({
       tag: 'div',
@@ -240,7 +245,15 @@ class RegistrationModal {
         const isValid = this.validation();
 
         if (isValid) {
-          // обработка запроса
+          const userRegistr: IUserRegister = {
+            username: (this.name as HTMLInputElement).value,
+            email: (this.email as HTMLInputElement).value,
+            password: (this.password as HTMLInputElement).value,
+            currency: (this.selectCurrency as HTMLSelectElement).value,
+          };
+
+          this.handleRegistrationResponse(userRegistr);
+
           this.element?.remove();
         }
       }
@@ -289,6 +302,14 @@ class RegistrationModal {
       return true;
     }
     return false;
+  }
+
+  private async handleRegistrationResponse(userRegistr: IUserRegister) {
+    const response = await UserApi.registrationUser(userRegistr);
+
+    const alert = new AlertMessage(response.message, response.status);
+    alert.render();
+    setTimeout(() => alert.remove(), alertTimeout);
   }
 }
 
