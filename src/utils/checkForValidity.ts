@@ -1,4 +1,4 @@
-import { Validation } from '../types/interfaces';
+import { IValidation } from '../types/interfaces';
 import showErrorValidationMessage from './showErrorValidationMessage';
 import removeErrorValidationMessage from './removeErrorValidationMessage';
 
@@ -6,7 +6,7 @@ const checkForValidity = ({
   element,
   regularExpression,
   errorMessage,
-}: Validation): boolean => {
+}: IValidation): boolean => {
   if (!element.value.match(regularExpression)) {
     showErrorValidationMessage(element, errorMessage);
     return false;

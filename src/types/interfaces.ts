@@ -6,7 +6,7 @@ export interface IOptionsElement {
   key?: string,
 }
 
-export interface Validation {
+export interface IValidation {
   element: HTMLInputElement,
   regularExpression: RegExp,
   errorMessage: string,
