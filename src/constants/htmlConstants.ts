@@ -56,8 +56,4 @@ export const ClassMap = {
   wrapperPassword: 'wrapper-password',
 };
 
-export const Ids = {
-
-};
-
 export const Сurrency = ['USD', 'RUB', 'BYN', 'EUR'];

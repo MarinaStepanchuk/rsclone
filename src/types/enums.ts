@@ -1,4 +1,4 @@
-enum Path {
+enum Route {
   MAIN = '/',
   DASHBOARD = '/dashboard',
   WALLET = '/wallet',
@@ -6,4 +6,4 @@ enum Path {
   ACCOUNT = '/account',
 }
 
-export default Path;
+export default Route;

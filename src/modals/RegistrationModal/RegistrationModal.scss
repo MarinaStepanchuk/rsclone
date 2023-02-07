@@ -17,8 +17,7 @@
 .registration-form {
   position: relative;
   width: 30%;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
@@ -45,10 +44,12 @@
     input {
       @include input;
       margin-top: 0.5rem;
+      padding-left: 0.8rem;
     }
 
     select {
       margin-top: 0.5rem;
+      padding-left: 0.5rem;
     }
 
     option {

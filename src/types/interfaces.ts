@@ -6,6 +6,12 @@ export interface IOptionsElement {
   key?: string,
 }
 
+export interface Validation {
+  element: HTMLInputElement,
+  regularExpression: RegExp,
+  errorMessage: string,
+}
+
 export interface IUserLogin {
   email: string;
   password: string;

@@ -4,9 +4,9 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
-import { alertTimeout, RegularExpressions } from '../../constants/common.constants';
-import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
-import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
+import { alertTimeout, RegularExpressions } from '../../constants/common';
+import checkForValidity from '../../utils/checkForValidity';
+import Route from '../../types/enums';
 import { IUserLogin } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
@@ -14,23 +14,22 @@ import applicationState from '../../constants/appState';
 import AlertMessage from '../AlertMessage/AlertMessege';
 
 class AutorisationForm {
-  public element;
-
-  private form: HTMLFormElement | null = null;
+  public element: HTMLFormElement | null = null;
 
   private email: HTMLInputElement | null = null;
 
   private password: HTMLInputElement | null = null;
 
+  private signInButton: HTMLButtonElement | null = null;
+
   constructor(private lang: LANG, private section: HTMLElement) {
     this.init();
-    this.element = this.form;
     this.fill();
     this.addListeners();
   }
 
   private init(): void {
-    this.form = createElement({
+    this.element = createElement({
       tag: 'form',
       classList: [ClassMap.authorization.form, ClassMap.mode.light.background],
     }) as HTMLFormElement;
@@ -46,6 +45,13 @@ class AutorisationForm {
       classList: [ClassMap.authorization.inputPassword],
     }) as HTMLInputElement;
     this.password.type = 'password';
+
+    this.signInButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.authorization.signInButton],
+      key: DictionaryKeys.signInButton,
+      content: Dictionary[this.lang].signInButton,
+    }) as HTMLButtonElement;
   }
 
   public fill() {
@@ -60,7 +66,10 @@ class AutorisationForm {
       content: Dictionary[this.lang].labelEmail,
     });
 
-    inputContainerEmail.append(inputEmailLable, this.email as HTMLInputElement);
+    inputContainerEmail.append(
+      inputEmailLable,
+      this.email as HTMLInputElement,
+    );
 
     const inputContainerPassword = createElement({
       tag: 'div',
@@ -107,23 +116,16 @@ class AutorisationForm {
 
     registrationInvitation.append(invitationText, invitationLink);
 
-    const signInButton = createElement({
-      tag: 'button',
-      classList: [ClassMap.authorization.signInButton],
-      key: DictionaryKeys.signInButton,
-      content: Dictionary[this.lang].signInButton,
-    }) as HTMLButtonElement;
-
-    this.form?.append(
+    this.element?.append(
       inputContainerEmail,
       inputContainerPassword,
       registrationInvitation,
-      signInButton,
+      this.signInButton as HTMLButtonElement,
     );
   }
 
   private addListeners(): void {
-    this.form?.addEventListener('click', (event) => {
+    this.element?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.authorization.registrationLink)) {
@@ -140,44 +142,44 @@ class AutorisationForm {
 
       if (targetElement.classList.contains(ClassMap.authorization.signInButton)) {
         event.preventDefault();
-        const errors = Array.from(document.querySelectorAll(`.${ClassMap.errorValidation}`));
+        const errors = [...document.querySelectorAll(`.${ClassMap.errorValidation}`)];
         errors.forEach((error) => error.remove());
-        const findError = this.validation();
+        const isValid = this.validation();
 
-        if (findError) {
-          return;
+        if (isValid) {
+          const userDataLogin: IUserLogin = {
+            email: (this.email as HTMLInputElement).value,
+            password: (this.password as HTMLInputElement).value,
+          };
+
+          this.handleLoginResponse(userDataLogin);
+
+          (this.signInButton as HTMLButtonElement).setAttribute('data-link', Route.WALLET);
         }
-
-        const userDataLogin: IUserLogin = {
-          email: (this.email as HTMLInputElement).value,
-          password: (this.password as HTMLInputElement).value,
-        };
-
-        this.handleLoginResponse(userDataLogin);
       }
     });
   }
 
   private validation(): boolean {
-    let findError = false;
     const email = this.email as HTMLInputElement;
     const password = this.password as HTMLInputElement;
 
-    if (!email.value.match(RegularExpressions.Email)) {
-      showErrorValidationMessage(email, Dictionary[this.lang].errorMessageEmail);
-      findError = true;
-    } else {
-      removeErrorValidationMessage(email);
-    }
+    const emailIsValid = checkForValidity({
+      element: email,
+      regularExpression: RegularExpressions.Email,
+      errorMessage: Dictionary[this.lang].errorMessageEmail,
+    });
 
-    if (!password.value.match(RegularExpressions.Password)) {
-      showErrorValidationMessage(password, Dictionary[this.lang].errorMessagePassword);
-      findError = true;
-    } else {
-      removeErrorValidationMessage(password);
-    }
+    const passwordIsValid = checkForValidity({
+      element: password,
+      regularExpression: RegularExpressions.Password,
+      errorMessage: Dictionary[this.lang].errorMessagePassword,
+    });
 
-    return findError;
+    if (emailIsValid && passwordIsValid) {
+      return true;
+    }
+    return false;
   }
 
   private async handleLoginResponse(userLogin: IUserLogin) {
