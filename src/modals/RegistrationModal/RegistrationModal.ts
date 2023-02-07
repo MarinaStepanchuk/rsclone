@@ -1,6 +1,6 @@
 import './RegistrationModal.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, Сurrency } from '../../constants/htmlConstants';
+import { ClassMap, Currency } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
@@ -120,7 +120,7 @@ class RegistrationModal {
 
     selectContainerCurrency.append(selectCurrencyLable, this.selectCurrency as HTMLSelectElement);
 
-    Сurrency.forEach((currency) => (this.selectCurrency as HTMLSelectElement).append(this.createOptionCurrency(currency)));
+    Currency.forEach((currency) => (this.selectCurrency as HTMLSelectElement).append(this.createOptionCurrency(currency)));
 
     const inputContainerPassword = createElement({
       tag: 'div',

@@ -1,42 +1,46 @@
 import './Footer.scss';
 import createElement from '../../utils/createElement';
-import footerLogoRs from '../../assets/icons/rs-school-js.svg';
-import footerLogoGithub from '../../assets/icons/github-logo.svg';
+import { Attributes, ClassMap, ImagePath, Titles, PageLink } from '../../constants/htmlConstants';
 
 class Footer {
   public render(): HTMLElement {
     const footerLogoImg = createElement({
-      tag: 'img', classList: ['footer__logo'],
+      tag: 'img',
+      classList: [ClassMap.footer.footerLogo],
     }) as HTMLImageElement;
 
-    footerLogoImg.src = footerLogoRs;
-    footerLogoImg.alt = 'Rolling Scopes School';
-    footerLogoImg.title = 'Rolling Scopes School';
+    footerLogoImg.src = ImagePath.footer.footerLogoRs;
+    footerLogoImg.alt = Titles.rsSchool;
+    footerLogoImg.title = Titles.rsSchool;
 
     const footerLogoLink = createElement({ tag: 'a' }) as HTMLLinkElement;
 
-    footerLogoLink.href = 'https://rs.school/js/';
-    footerLogoLink.setAttribute('target', '_blank');
-    footerLogoLink.setAttribute('rel', 'noopener');
+    footerLogoLink.href = PageLink.rsSchool;
+    footerLogoLink.setAttribute(Attributes.target, Attributes.targetValue);
+    footerLogoLink.setAttribute(Attributes.rel, Attributes.relValue);
 
     footerLogoLink.append(footerLogoImg);
 
     const footerCopyright = createElement({
-      tag: 'span', classList: ['footer__copyright'], content: 'All Rights Reserved © Yoda`s team 2023',
+      tag: 'span',
+      classList: [ClassMap.footer.footerCopyright],
+      content: Titles.copyright,
     });
 
     const footerGithubWrap = createElement({
-      tag: 'div', classList: ['footer__github-wrap'],
+      tag: 'div',
+      classList: [ClassMap.footer.footerGithubWrap],
     });
 
     footerGithubWrap.append(
-      this.getGitHubHLink('https://github.com/BondPV'),
-      this.getGitHubHLink('https://github.com/marinastepanchuk'),
-      this.getGitHubHLink('https://github.com/Alesia-V175'),
+      this.getGitHubHLink(PageLink.firstGithub),
+      this.getGitHubHLink(PageLink.secondGithub),
+      this.getGitHubHLink(PageLink.thirdGithub),
     );
 
     const footer = createElement({
-      tag: 'footer', classList: ['footer'],
+      tag: 'footer',
+      classList: [ClassMap.footer.footer],
     });
 
     footer.append(footerLogoLink, footerCopyright, footerGithubWrap);
@@ -46,23 +50,28 @@ class Footer {
 
   private getGitHubHLink(url: string): HTMLLinkElement {
     const footerGithubLink1 = createElement({
-      tag: 'a', classList: ['footer__github'],
+      tag: 'a',
+      classList: [ClassMap.footer.footerGithub],
     }) as HTMLLinkElement;
+
     footerGithubLink1.href = url;
-    footerGithubLink1.setAttribute('target', '_blank');
-    footerGithubLink1.setAttribute('rel', 'noopener');
+    footerGithubLink1.setAttribute(Attributes.target, Attributes.targetValue);
+    footerGithubLink1.setAttribute(Attributes.rel, Attributes.relValue);
+
     footerGithubLink1.append(this.getGithubImage());
+
     return footerGithubLink1;
   }
 
   private getGithubImage(): HTMLImageElement {
     const footerGithubLogo = createElement({
-      tag: 'img', classList: ['footer__github-logo'],
+      tag: 'img',
+      classList: [ClassMap.footer.footerGithubLogo],
     }) as HTMLImageElement;
 
-    footerGithubLogo.src = footerLogoGithub;
-    footerGithubLogo.alt = 'GitHub';
-    footerGithubLogo.title = 'GitHub';
+    footerGithubLogo.src = ImagePath.footer.footerLogoGithub;
+    footerGithubLogo.alt = Titles.github;
+    footerGithubLogo.title = Titles.github;
     return footerGithubLogo;
   }
 }

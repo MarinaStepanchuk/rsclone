@@ -54,6 +54,41 @@ export const ClassMap = {
   hide: 'hide',
   parentInput: 'form__item',
   wrapperPassword: 'wrapper-password',
+  footer: {
+    footer: 'footer',
+    footerLogo: 'footer__logo',
+    footerCopyright: 'footer__copyright',
+    footerGithubWrap: 'footer__github-wrap',
+    footerGithub: 'footer__github',
+    footerGithubLogo: 'footer__github-logo',
+  }
 };
 
-export const Сurrency = ['USD', 'RUB', 'BYN', 'EUR'];
+export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
+
+export const ImagePath = {
+  footer: {
+    footerLogoRs: '../../assets/icons/rs-school-js.svg',
+    footerLogoGithub: '../../assets/icons/github-logo.svg',
+  }
+}
+
+export const Titles = {
+  rsSchool: 'Rolling Scopes School',
+  copyright: 'All Rights Reserved © Yoda`s team 2023',
+  github: 'GitHub',
+}
+
+export const PageLink = {
+  rsSchool: 'https://rs.school/js/',
+  firstGithub: 'https://github.com/BondPV',
+  secondGithub: 'https://github.com/marinastepanchuk',
+  thirdGithub: 'https://github.com/Alesia-V175',
+}
+
+export const Attributes = {
+  target: 'target',
+  targetValue: '_blank',
+  rel: 'rel',
+  relValue: 'noopener',
+}
