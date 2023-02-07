@@ -6,6 +6,8 @@ import imgDashboard from '../../assets/icons/dashboard.svg';
 import imgWallet from '../../assets/icons/wallet-icon.svg';
 import imgAnalytics from '../../assets/icons/bar-line-icon.svg';
 import imgAccount from '../../assets/icons/user-icon.svg';
+import imgSupport from '../../assets/icons/help-circle.svg';
+import imgDarkMode from '../../assets/icons/moon-01.svg';
 
 class MainMenu {
   public render(currPage: string): HTMLElement {
@@ -34,6 +36,43 @@ class MainMenu {
       this.getNavItem(Path.ACCOUNT, 'Account', imgAccount, currPage),
     );
 
+    const itemIconSupport = createElement({
+      tag: 'img', classList: ['menu__nav-icon'],
+    }) as HTMLImageElement;
+
+    itemIconSupport.src = imgSupport;
+
+    const menuItemSupport = createElement({
+      tag: 'li', classList: ['menu__item'], content: 'Support',
+    })
+
+    menuItemSupport.prepend(itemIconSupport);
+
+    const itemIconMode = createElement({
+      tag: 'img', classList: ['menu__nav-icon'],
+    }) as HTMLImageElement;
+
+    itemIconMode.src = imgDarkMode;
+
+    const menuItemButtonTheme = createElement({
+      tag: 'li', classList: ['menu__item'], content: 'Dark Mode',
+    });
+
+    menuItemButtonTheme.prepend(itemIconMode);
+    menuItemButtonTheme.append(this.createSwitchButton());
+
+    const menuAdditionalList = createElement({
+      tag: 'ul', classList: ['menu__list'],
+    })
+
+    menuAdditionalList.append(menuItemSupport, menuItemButtonTheme);
+
+    const navWrapper = createElement({
+      tag: 'div'
+    })
+
+    navWrapper.append(nav, menuAdditionalList)
+
     const userWrapper = createElement({
       tag: 'div',
     });
@@ -42,7 +81,7 @@ class MainMenu {
       tag: 'section', classList: ['main__menu'],
     });
 
-    menuSection.append(logoWrapper, nav, userWrapper);
+    menuSection.append(logoWrapper, navWrapper, userWrapper);
 
     return menuSection;
   }
@@ -75,20 +114,52 @@ class MainMenu {
     return navItem;
   }
 
-  private addActivePageLink(): void {
+  private createSwitchButton(): HTMLElement {
+    const buttonModeInputOff = createElement({
+      tag: 'input', classList: ['menu__input'],
+    }) as HTMLInputElement;
+
+    buttonModeInputOff.type = 'checkbox';
+
+    const buttonSpanOff = createElement({
+      tag: 'span', classList: ['menu__button-span'],
+    })
+
+    const buttonModeLabelOff = createElement({
+      tag: 'label', classList: ['menu__switch'],
+    })
+
+    buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
+
+    const buttonModeInputOn = createElement({
+      tag: 'input', classList: ['menu__input'],
+    }) as HTMLInputElement;
+
+    buttonModeInputOn.type = 'checkbox';
+    buttonModeInputOn.setAttribute('checked', 'checked');
+
+    const buttonSpanOn = createElement({
+      tag: 'span', classList: ['menu__button-span'],
+    })
+
+    const buttonModeLabelOn = createElement({
+      tag: 'label', classList: ['menu__switch'],
+    })
+
+    buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
+
+    const labelWrapper = createElement({
+      tag: 'div'
+    })
+
+    labelWrapper.append(buttonModeLabelOff, buttonModeInputOn);
+
+    return labelWrapper;
   }
 }
 
 export default MainMenu;
 
-// <ul>
-// <li>
-//     <a href="#support">Support</a>
-//     </li>
-//     <li>Dark Mode
-// <button>Кнопка переключения тем</button>
-// </li>
-// </ul>
 // <div style="display: flex; align-items: center; justify-content: space-between">
 // <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>
 //     <div>Name</div>
