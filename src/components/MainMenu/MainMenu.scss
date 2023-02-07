@@ -9,13 +9,16 @@
   background: $color-dark-mode;
   border-radius: 2rem;
   padding: 2rem;
+  color: $color-light-mode;
+  font-weight: 300;
+  font-size: 2rem;
 }
 
 .menu {
   &__logo-wrap {
     display: flex;
     align-items: center;
-    color: $color-light-mode;
+    padding-top: 1rem;
   }
 
   &__logo {
@@ -26,7 +29,6 @@
   }
 
   &__logo-title {
-    color: $color-light-mode;
     font-size: 3rem;
     font-weight: 400;
   }
@@ -45,8 +47,6 @@
   &__nav-link {
     display: flex;
     color: $color-light-font;
-    font-weight: 300;
-    font-size: 2rem;
     border-radius: 1rem;
     padding: 1.5rem;
 
@@ -71,12 +71,13 @@
 
   &__item {
     display: flex;
-    color: $color-light-font;
+    align-items: center;
     font-weight: 300;
     font-size: 2rem;
     border-radius: 1rem;
     padding: 1.5rem;
     list-style: none;
+    position: relative;
 
     &:hover {
       cursor: pointer;
@@ -88,12 +89,12 @@
   &__switch {
     position: relative;
     display: inline-block;
-    width: 60px;
-    height: 34px;
+    width: 50px;
+    height: 27px;
   }
 
   &__input {
-    display:none;
+    display: none;
   }
 
   &__button-span {
@@ -111,26 +112,54 @@
     &:before {
       position: absolute;
       content: "";
-      height: 26px;
-      width: 26px;
-      left: 4px;
+      height: 19px;
+      width: 19px;
+      left: 5px;
       bottom: 4px;
       background-color: white;
-      -webkit-transition: .4s;
-      transition: .4s;
+      -webkit-transition: 0.4s;
+      transition: 0.4s;
       border-radius: 34px;
     }
   }
 
   &__input:checked + &__button-span {
-    background-color: #2196F3;
-  }
-
-  &__input:focus + &__button-span {
-    box-shadow: 0 0 1px #2196F3;
+    background-color: $color-link-active;
   }
 
   &__input:checked + &__button-span:before {
-    transform: translateX(26px);
+    transform: translateX(20px);
+  }
+}
+
+.menu__list .menu__item:last-child:hover {
+  cursor: auto;
+  font-weight: 300;
+  box-shadow: none;
+}
+
+
+.label-wrap {
+  position: absolute;
+  right: 1.5rem;
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+
+  .user__wrap {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    border-top: 1px solid;
+    border-color: $color-line-dark;
+    padding-top: 1rem;
+
+    img {
+      width: 5rem;
+      height: 5rem;
+      margin-right: 1rem;
+    }
   }
 }

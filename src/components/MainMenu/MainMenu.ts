@@ -8,6 +8,8 @@ import imgAnalytics from '../../assets/icons/bar-line-icon.svg';
 import imgAccount from '../../assets/icons/user-icon.svg';
 import imgSupport from '../../assets/icons/help-circle.svg';
 import imgDarkMode from '../../assets/icons/moon-01.svg';
+import imgUser from '../../assets/icons/user.svg';
+import imgLogout from '../../assets/icons/logout.svg';
 
 class MainMenu {
   public render(currPage: string): HTMLElement {
@@ -68,20 +70,50 @@ class MainMenu {
     menuAdditionalList.append(menuItemSupport, menuItemButtonTheme);
 
     const navWrapper = createElement({
-      tag: 'div'
+      tag: 'div', classList: ['menu__nav-wrap'],
     })
 
-    navWrapper.append(nav, menuAdditionalList)
+    navWrapper.append(nav, menuAdditionalList);
+
+    const userIcon = createElement({
+      tag: 'img',
+    }) as HTMLImageElement;
+
+    userIcon.src = imgUser;
+
+    const userName = createElement({
+      tag: 'div', content: 'User Name',
+    })
 
     const userWrapper = createElement({
-      tag: 'div',
+      tag: 'div', classList: ['user__wrap']
     });
+
+    userWrapper.append(userIcon, userName);
+
+    const logoutImg = createElement({
+      tag: 'img', classList: ['menu__nav-icon'],
+    }) as HTMLImageElement;
+
+    logoutImg.src = imgLogout;
+
+    const logout = createElement({
+      tag: 'div', classList: ['menu__item'], content: 'Logout'
+    })
+
+    logout.prepend(logoutImg);
+
+    const user = createElement({
+      tag: 'div', classList: ['user']
+    })
+
+    user.append(userWrapper, logout);
 
     const menuSection = createElement({
       tag: 'section', classList: ['main__menu'],
     });
 
-    menuSection.append(logoWrapper, navWrapper, userWrapper);
+    menuSection.append(logoWrapper, navWrapper, user);
 
     return menuSection;
   }
@@ -146,10 +178,10 @@ class MainMenu {
       tag: 'label', classList: ['menu__switch'],
     })
 
-    buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
+    buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOn);
 
     const labelWrapper = createElement({
-      tag: 'div'
+      tag: 'div', classList: ['label-wrap'],
     })
 
     labelWrapper.append(buttonModeLabelOff, buttonModeInputOn);
