@@ -12,19 +12,31 @@ class BasePage {
     this.mainMenu = new MainMenu();
   }
 
-  protected getPageStructure(page: string): HTMLElement {
+  protected createPageStructure(page: string): void {
+    const mainSection = document.querySelector('.main');
+    const menuBlock = document.querySelector('.main__menu');
+    const footerBlock = document.querySelector('.footer');
+
+    if (mainSection && menuBlock && footerBlock) {
+      return;
+    }
+
     const main = createElement({
       tag: 'main', classList: ['main'],
     });
+    const mainContent = createElement({
+      tag: 'section', classList: ['main__content'],
+    });
+
     const mainMenu = this.mainMenu.render(page);
     const wrapper = createElement({ tag: 'div' });
     const footer = this.footer.render();
 
-    main.append(mainMenu);
+    main.append(mainMenu, mainContent);
     wrapper.append(main);
     wrapper.append(footer);
 
-    return wrapper;
+    document.body.replaceChildren(wrapper);
   }
 }
 

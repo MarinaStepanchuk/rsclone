@@ -18,7 +18,7 @@ class MainMenu {
     });
 
     const logoTitle = createElement({
-      tag: 'h1', classList: ['menu__logo-title'], content: 'MAPMONEY',
+      tag: 'h1', classList: ['menu__logo-title'], content: 'MAPmoney',
     });
 
     const logoWrapper = createElement({
@@ -126,14 +126,16 @@ class MainMenu {
     navIcon.src = img;
 
     const navLink = createElement({
-      tag: 'a', classList: ['menu__nav-link'], content: name,
-    }) as HTMLLinkElement;
+      tag: 'button', classList: ['menu__nav-button'], content: name,
+    }) as HTMLButtonElement;
 
-    navLink.href = url;
     navLink.setAttribute('data-link', url);
+    navLink.addEventListener('click', () => {
+      this.createActiveButton(url);
+    });
 
     if (url === currPage) {
-      navLink.classList.add('menu__nav-link_active');
+      navLink.classList.add('menu__nav-button_active');
     }
 
     const navItem = createElement({
@@ -146,12 +148,25 @@ class MainMenu {
     return navItem;
   }
 
+  private createActiveButton(url: string): void {
+    const buttons = document.querySelectorAll('.menu__nav-button');
+    buttons.forEach((item) => {
+      item.classList.remove('menu__nav-button_active');
+      if (item.getAttribute('data-link') === url) {
+        item.classList.add('menu__nav-button_active');
+      }
+    });
+
+
+  }
+
   private createSwitchButton(): HTMLElement {
     const buttonModeInputOff = createElement({
       tag: 'input', classList: ['menu__input'],
     }) as HTMLInputElement;
 
     buttonModeInputOff.type = 'checkbox';
+    buttonModeInputOff.setAttribute('checked', 'checked');
 
     const buttonSpanOff = createElement({
       tag: 'span', classList: ['menu__button-span'],
@@ -163,38 +178,14 @@ class MainMenu {
 
     buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
 
-    const buttonModeInputOn = createElement({
-      tag: 'input', classList: ['menu__input'],
-    }) as HTMLInputElement;
-
-    buttonModeInputOn.type = 'checkbox';
-    buttonModeInputOn.setAttribute('checked', 'checked');
-
-    const buttonSpanOn = createElement({
-      tag: 'span', classList: ['menu__button-span'],
-    })
-
-    const buttonModeLabelOn = createElement({
-      tag: 'label', classList: ['menu__switch'],
-    })
-
-    buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOn);
-
     const labelWrapper = createElement({
       tag: 'div', classList: ['label-wrap'],
     })
 
-    labelWrapper.append(buttonModeLabelOff, buttonModeInputOn);
+    labelWrapper.append(buttonModeLabelOff);
 
     return labelWrapper;
   }
 }
 
 export default MainMenu;
-
-// <div style="display: flex; align-items: center; justify-content: space-between">
-// <div style="display: flex; align-items: center; width: 60px; height: 60px; border-radius: 50%; background: aqua;">Avatar</div>
-//     <div>Name</div>
-//     <button>Log out</button>
-// </div>
-// </section>

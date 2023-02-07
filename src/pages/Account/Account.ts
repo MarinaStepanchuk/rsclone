@@ -4,9 +4,7 @@ import Path from '../../types/enums';
 
 class Account extends BasePage {
   public render(): void {
-    const basePage = this.getPageStructure(Path.ACCOUNT);
-
-    document.body.replaceChildren(basePage);
+    this.createPageStructure(Path.ACCOUNT);
   }
 }
 

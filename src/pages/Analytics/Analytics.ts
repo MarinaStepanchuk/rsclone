@@ -4,9 +4,7 @@ import Path from '../../types/enums';
 
 class Analytics extends BasePage {
   public render(): void {
-    const basePage = this.getPageStructure(Path.ANALYTICS);
-
-    document.body.replaceChildren(basePage);
+    const basePage = this.createPageStructure(Path.ANALYTICS);
   }
 }
 
