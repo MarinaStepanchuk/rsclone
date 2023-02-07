@@ -10,19 +10,17 @@ html {
 }
 
 body {
-  position: relative;
-  max-width: 140rem;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 2rem;
+  //position: relative;
+  //max-width: 140rem;
+  //font-size: 2rem;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  //max-width: 14rem;
+  //display: flex;
+  //flex-direction: column;
+  //align-items: center;
+  //justify-content: center;
   font-family: 'GeneralSans', Arial, sans-serif;
   padding: 0;
+  //margin: 0 auto;
   margin: 0;
 }
 
@@ -64,48 +62,54 @@ p {
   padding-top: 0.3rem;
 }
 
-.footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: $color-dark-mode;
-  //background: #8EDFEB;
-  color: $color-light-mode;
-  padding: 1rem;
-  font-size: 12px;
-  font-weight: 100;
-
-  &__logo {
-    height: auto;
-    width: 80px;
-    opacity: 0.4;
-    transition: 0.2s all;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  span {
-    opacity: 0.4;
-  }
-
-  &__github-wrap {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  &__github {
-    padding: 0 0.5rem;
-    opacity: 0.3;
-    transition: 0.3s all;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
-  &__github-logo {
-    display: block;
-  }
+.main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  background: $color-dark-background;
 }
+
+//.footer {
+//  display: flex;
+//  justify-content: space-between;
+//  align-items: center;
+//  background: $color-dark-mode;
+//  //background: #8EDFEB;
+//  color: $color-light-mode;
+//  padding: 1rem;
+//  font-size: 12px;
+//  font-weight: 100;
+//
+//  &__logo {
+//    height: auto;
+//    width: 80px;
+//    opacity: 0.4;
+//    transition: 0.2s all;
+//
+//    &:hover {
+//      opacity: 1;
+//    }
+//  }
+//
+//  span {
+//    opacity: 0.4;
+//  }
+//
+//  &__github-wrap {
+//    display: flex;
+//    justify-content: space-between;
+//  }
+//
+//  &__github {
+//    padding: 0 0.5rem;
+//    opacity: 0.3;
+//    transition: 0.3s all;
+//
+//    &:hover {
+//      opacity: 1;
+//    }
+//  }
+//
+//  &__github-logo {
+//    display: block;
+//  }
+//}

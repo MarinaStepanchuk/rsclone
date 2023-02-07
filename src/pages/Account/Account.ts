@@ -1,10 +1,12 @@
 import './Account.scss';
+import BasePage from '../BasePage/BasePage';
+import Path from '../../types/enums';
 
-class Account {
+class Account extends BasePage {
   public render(): void {
-    const p = document.createElement('p');
-    p.innerText = 'Я страница профиля';
-    document.body.replaceChildren(p);
+    const basePage = this.getPageStructure(Path.ACCOUNT);
+
+    document.body.replaceChildren(basePage);
   }
 }
 

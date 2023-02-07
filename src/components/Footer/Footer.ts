@@ -1,4 +1,4 @@
-import '../../styles/main.scss';
+import './Footer.scss';
 import createElement from '../../utils/createElement';
 import footerLogoRs from '../../assets/icons/rs-school-js.svg';
 import footerLogoGithub from '../../assets/icons/github-logo.svg';
@@ -19,6 +19,8 @@ class Footer {
     footerLogoLink.setAttribute('target', '_blank');
     footerLogoLink.setAttribute('rel', 'noopener');
 
+    footerLogoLink.append(footerLogoImg);
+
     const footerCopyright = createElement({
       tag: 'span', classList: ['footer__copyright'], content: 'All Rights Reserved © Yoda`s team 2023',
     });
@@ -27,16 +29,15 @@ class Footer {
       tag: 'div', classList: ['footer__github-wrap'],
     });
 
-    const footer = createElement({
-      tag: 'footer', classList: ['footer'],
-    });
-
-    footerLogoLink.append(footerLogoImg);
     footerGithubWrap.append(
       this.getGitHubHLink('https://github.com/BondPV'),
       this.getGitHubHLink('https://github.com/marinastepanchuk'),
       this.getGitHubHLink('https://github.com/Alesia-V175'),
-    )
+    );
+
+    const footer = createElement({
+      tag: 'footer', classList: ['footer'],
+    });
 
     footer.append(footerLogoLink, footerCopyright, footerGithubWrap);
 

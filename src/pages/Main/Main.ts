@@ -1,10 +1,10 @@
 import './Main.scss';
 import Path from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { dictionary, DictionaryKeys } from '../../constants/dictionary';
+// import { dictionary, DictionaryKeys } from '../../constants/dictionary';
 
 // язык приходит с сервера
-const lang = 'EN';
+// const lang = 'EN';
 
 class Main {
   public render(): void {
@@ -18,16 +18,16 @@ class Main {
     const p = createElement({
       tag: 'p', classList: ['main'], content: 'Я стартовая страница we are the champions', id: '12',
     });
-    const button = createElement({ tag: 'button', key: DictionaryKeys.transition, content: dictionary[lang].transition }) as HTMLButtonElement;
+    // const button = createElement({ tag: 'button', key: DictionaryKeys.transition, content: dictionary[lang].transition }) as HTMLButtonElement;
     const a = createElement({ tag: 'a', content: 'переход' }) as HTMLLinkElement;
     // таким образом удаляются все текущие дочерние элементы и вставляются свои
-    document.body.replaceChildren(p, button, a);
+    document.body.replaceChildren(p, a);
     // внутренняя ссылка
     a.href = Path.DASHBOARD;
     // внешняя ссылка должна начинаться с http
     a.href = 'https://learn.javascript.ru/destructuring-assignment';
     // кнопка, которая переключает страницу
-    button.setAttribute('data-link', Path.DASHBOARD);
+    // button.setAttribute('data-link', Path.DASHBOARD);
     // кнопка,которая не переключает страницу НЕ должна иметь атрибута data-link
   }
 }
