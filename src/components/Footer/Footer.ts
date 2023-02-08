@@ -1,6 +1,12 @@
 import './Footer.scss';
 import createElement from '../../utils/createElement';
-import { Attributes, ClassMap, ImagePath, Titles, PageLink } from '../../constants/htmlConstants';
+import {
+  Attribute,
+  ClassMap,
+  ImagePath,
+  Title,
+  PageLink,
+} from '../../constants/htmlConstants';
 
 class Footer {
   public render(): HTMLElement {
@@ -10,21 +16,21 @@ class Footer {
     }) as HTMLImageElement;
 
     footerLogoImg.src = ImagePath.footer.footerLogoRs;
-    footerLogoImg.alt = Titles.rsSchool;
-    footerLogoImg.title = Titles.rsSchool;
+    footerLogoImg.alt = Title.rsSchool;
+    footerLogoImg.title = Title.rsSchool;
 
     const footerLogoLink = createElement({ tag: 'a' }) as HTMLLinkElement;
 
     footerLogoLink.href = PageLink.rsSchool;
-    footerLogoLink.setAttribute(Attributes.target, Attributes.targetValue);
-    footerLogoLink.setAttribute(Attributes.rel, Attributes.relValue);
+    footerLogoLink.setAttribute(Attribute.target, Attribute.targetValue);
+    footerLogoLink.setAttribute(Attribute.rel, Attribute.relValue);
 
     footerLogoLink.append(footerLogoImg);
 
     const footerCopyright = createElement({
       tag: 'span',
       classList: [ClassMap.footer.footerCopyright],
-      content: Titles.copyright,
+      content: Title.copyright,
     });
 
     const footerGithubWrap = createElement({
@@ -55,8 +61,8 @@ class Footer {
     }) as HTMLLinkElement;
 
     footerGithubLink1.href = url;
-    footerGithubLink1.setAttribute(Attributes.target, Attributes.targetValue);
-    footerGithubLink1.setAttribute(Attributes.rel, Attributes.relValue);
+    footerGithubLink1.setAttribute(Attribute.target, Attribute.targetValue);
+    footerGithubLink1.setAttribute(Attribute.rel, Attribute.relValue);
 
     footerGithubLink1.append(this.getGithubImage());
 
@@ -70,8 +76,8 @@ class Footer {
     }) as HTMLImageElement;
 
     footerGithubLogo.src = ImagePath.footer.footerLogoGithub;
-    footerGithubLogo.alt = Titles.github;
-    footerGithubLogo.title = Titles.github;
+    footerGithubLogo.alt = Title.github;
+    footerGithubLogo.title = Title.github;
     return footerGithubLogo;
   }
 }

@@ -2,144 +2,201 @@ import '../../styles/main.scss';
 import './MainMenu.scss';
 import createElement from '../../utils/createElement';
 import Path from '../../types/enums';
-import imgDashboard from '../../assets/icons/dashboard.svg';
-import imgWallet from '../../assets/icons/wallet-icon.svg';
-import imgAnalytics from '../../assets/icons/bar-line-icon.svg';
-import imgAccount from '../../assets/icons/user-icon.svg';
-import imgSupport from '../../assets/icons/help-circle.svg';
-import imgDarkMode from '../../assets/icons/moon-01.svg';
-import imgUser from '../../assets/icons/user.svg';
-import imgLogout from '../../assets/icons/logout.svg';
+import {
+  Attribute,
+  ClassMap,
+  ClassNameList,
+  ImagePath,
+  MenuItem,
+  Title,
+} from '../../constants/htmlConstants';
 
 class MainMenu {
   public render(currPage: string): HTMLElement {
+    const navWrapper = createElement({
+      tag: 'div',
+      classList: [ClassMap.menu.navWrap],
+    });
+
+    navWrapper.append(
+      this.createPageNavWrap(currPage),
+      this.createAdditionalMenuWrap(),
+    );
+
+    const menuSection = createElement({
+      tag: 'section',
+      classList: [ClassMap.menu.menuSection],
+    });
+
+    menuSection.append(
+      this.createLogoWrap(),
+      navWrapper,
+      this.createUserWrap(),
+    );
+
+    return menuSection;
+  }
+
+  private createLogoWrap(): HTMLElement {
     const logoImg = createElement({
-      tag: 'div', classList: ['menu__logo'],
+      tag: 'div',
+      classList: [ClassMap.menu.logo],
     });
 
     const logoTitle = createElement({
-      tag: 'h1', classList: ['menu__logo-title'], content: 'MAPmoney',
+      tag: 'h1',
+      classList: [ClassMap.menu.logoTitle],
+      content: Title.logo,
     });
 
     const logoWrapper = createElement({
-      tag: 'div', classList: ['menu__logo-wrap'],
+      tag: 'div',
+      classList: [ClassMap.menu.logoWrap],
     });
 
     logoWrapper.append(logoImg, logoTitle);
 
-    const nav = createElement({
-      tag: 'ul', classList: ['menu__nav'],
+    return logoWrapper;
+  }
+
+  private createPageNavWrap(currPage: string): HTMLElement {
+    const navList = createElement({
+      tag: 'ul',
+      classList: [ClassMap.menu.navList],
     });
 
-    nav.append(
-      this.getNavItem(Path.DASHBOARD, 'Dashboard', imgDashboard, currPage),
-      this.getNavItem(Path.WALLET, 'My Wallet', imgWallet, currPage),
-      this.getNavItem(Path.ANALYTICS, 'Analytics', imgAnalytics, currPage),
-      this.getNavItem(Path.ACCOUNT, 'Account', imgAccount, currPage),
+    navList.append(
+      this.getNavItem(Path.DASHBOARD, 'Dashboard', ImagePath.menu.dashboardIcon, currPage),
+      this.getNavItem(Path.WALLET, 'My Wallet', ImagePath.menu.walletIcon, currPage),
+      this.getNavItem(Path.ANALYTICS, 'Analytics', ImagePath.menu.analyticsIcon, currPage),
+      this.getNavItem(Path.ACCOUNT, 'Account', ImagePath.menu.accountIcon, currPage),
     );
 
+    return navList;
+  }
+
+  private createAdditionalMenuWrap(): HTMLElement {
     const itemIconSupport = createElement({
-      tag: 'img', classList: ['menu__nav-icon'],
+      tag: 'img',
+      classList: [ClassMap.menu.navIcon],
     }) as HTMLImageElement;
 
-    itemIconSupport.src = imgSupport;
+    itemIconSupport.src = ImagePath.menu.supportIcon;
 
     const menuItemSupport = createElement({
-      tag: 'li', classList: ['menu__item'], content: 'Support',
-    })
+      tag: 'li',
+      classList: [ClassMap.menu.menuItem],
+      content: MenuItem.support,
+    });
 
     menuItemSupport.prepend(itemIconSupport);
 
     const itemIconMode = createElement({
-      tag: 'img', classList: ['menu__nav-icon'],
+      tag: 'img',
+      classList: [ClassMap.menu.navIcon],
     }) as HTMLImageElement;
 
-    itemIconMode.src = imgDarkMode;
+    itemIconMode.src = ImagePath.menu.darkModeIcon;
 
     const menuItemButtonTheme = createElement({
-      tag: 'li', classList: ['menu__item'], content: 'Dark Mode',
+      tag: 'li',
+      classList: [ClassMap.menu.menuItem],
+      content: MenuItem.darkMode,
     });
 
     menuItemButtonTheme.prepend(itemIconMode);
     menuItemButtonTheme.append(this.createSwitchButton());
 
     const menuAdditionalList = createElement({
-      tag: 'ul', classList: ['menu__list'],
-    })
+      tag: 'ul',
+      classList: [ClassMap.menu.navList],
+    });
 
     menuAdditionalList.append(menuItemSupport, menuItemButtonTheme);
 
-    const navWrapper = createElement({
-      tag: 'div', classList: ['menu__nav-wrap'],
-    })
+    return menuAdditionalList;
+  }
 
-    navWrapper.append(nav, menuAdditionalList);
+  private createUserWrap(): HTMLElement {
+    const userImg = createElement({ tag: 'img' }) as HTMLImageElement;
+    const userAccount = localStorage.getItem('auth');
+
+    if (userAccount) {
+      const userAccountObj = JSON.parse(userAccount);
+      userImg.src = userAccountObj.user.avatar;
+    }
 
     const userIcon = createElement({
-      tag: 'img',
+      tag: 'div',
+      classList: [ClassMap.menu.userImg],
     }) as HTMLImageElement;
 
-    userIcon.src = imgUser;
+    userIcon.append(userImg);
 
     const userName = createElement({
-      tag: 'div', content: 'User Name',
-    })
+      tag: 'div',
+      content: MenuItem.user,
+    });
 
     const userWrapper = createElement({
-      tag: 'div', classList: ['user__wrap']
+      tag: 'div',
+      classList: [ClassMap.menu.userWrap],
     });
 
     userWrapper.append(userIcon, userName);
 
     const logoutImg = createElement({
-      tag: 'img', classList: ['menu__nav-icon'],
+      tag: 'img',
+      classList: [ClassMap.menu.navIcon],
     }) as HTMLImageElement;
 
-    logoutImg.src = imgLogout;
+    logoutImg.src = ImagePath.menu.logoutIcon;
 
     const logout = createElement({
-      tag: 'div', classList: ['menu__item'], content: 'Logout'
-    })
+      tag: 'div',
+      classList: [ClassMap.menu.menuItem],
+      content: MenuItem.logout,
+    });
 
     logout.prepend(logoutImg);
 
     const user = createElement({
-      tag: 'div', classList: ['user']
-    })
+      tag: 'div',
+      classList: [ClassMap.menu.user],
+    });
 
     user.append(userWrapper, logout);
 
-    const menuSection = createElement({
-      tag: 'section', classList: ['main__menu'],
-    });
-
-    menuSection.append(logoWrapper, navWrapper, user);
-
-    return menuSection;
+    return user;
   }
 
   private getNavItem(url: string, name: string, img: string, currPage: string): HTMLElement {
     const navIcon = createElement({
-      tag: 'img', classList: ['menu__nav-icon'],
+      tag: 'img',
+      classList: [ClassMap.menu.navIcon],
     }) as HTMLImageElement;
 
     navIcon.src = img;
 
     const navLink = createElement({
-      tag: 'button', classList: ['menu__nav-button'], content: name,
+      tag: 'button',
+      classList: [ClassMap.menu.navButton],
+      content: name,
     }) as HTMLButtonElement;
 
-    navLink.setAttribute('data-link', url);
+    navLink.setAttribute(Attribute.dataLink, url);
+
     navLink.addEventListener('click', () => {
       this.createActiveButton(url);
     });
 
     if (url === currPage) {
-      navLink.classList.add('menu__nav-button_active');
+      navLink.classList.add(ClassMap.menu.navButtonActive);
     }
 
     const navItem = createElement({
-      tag: 'li', classList: ['menu__nav-item'],
+      tag: 'li',
+      classList: [ClassMap.menu.navItem],
     });
 
     navLink.prepend(navIcon);
@@ -149,42 +206,46 @@ class MainMenu {
   }
 
   private createActiveButton(url: string): void {
-    const buttons = document.querySelectorAll('.menu__nav-button');
+    const buttons = document.querySelectorAll(ClassNameList.menu.navButton);
+
     buttons.forEach((item) => {
-      item.classList.remove('menu__nav-button_active');
-      if (item.getAttribute('data-link') === url) {
-        item.classList.add('menu__nav-button_active');
+      item.classList.remove(ClassMap.menu.navButtonActive);
+
+      if (item.getAttribute(Attribute.dataLink) === url) {
+        item.classList.add(ClassMap.menu.navButtonActive);
       }
     });
-
-
   }
 
   private createSwitchButton(): HTMLElement {
     const buttonModeInputOff = createElement({
-      tag: 'input', classList: ['menu__input'],
+      tag: 'input',
+      classList: [ClassMap.menu.switchInput],
     }) as HTMLInputElement;
 
-    buttonModeInputOff.type = 'checkbox';
-    buttonModeInputOff.setAttribute('checked', 'checked');
+    buttonModeInputOff.type = Attribute.inputCheckbox;
+    buttonModeInputOff.setAttribute(Attribute.checked, Attribute.checked);
 
     const buttonSpanOff = createElement({
-      tag: 'span', classList: ['menu__button-span'],
-    })
+      tag: 'span',
+      classList: [ClassMap.menu.switchSpan],
+    });
 
     const buttonModeLabelOff = createElement({
-      tag: 'label', classList: ['menu__switch'],
-    })
+      tag: 'label',
+      classList: [ClassMap.menu.switchLabel],
+    });
 
     buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
 
-    const labelWrapper = createElement({
-      tag: 'div', classList: ['label-wrap'],
-    })
+    const switchWrapper = createElement({
+      tag: 'div',
+      classList: [ClassMap.menu.switchWrap],
+    });
 
-    labelWrapper.append(buttonModeLabelOff);
+    switchWrapper.append(buttonModeLabelOff);
 
-    return labelWrapper;
+    return switchWrapper;
   }
 }
 

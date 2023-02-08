@@ -1,6 +1,7 @@
 import Footer from '../../components/Footer/Footer';
 import createElement from '../../utils/createElement';
 import MainMenu from '../../components/MainMenu/MainMenu';
+import { ClassMap, ClassNameList } from '../../constants/htmlConstants';
 
 class BasePage {
   private footer: Footer;
@@ -13,19 +14,21 @@ class BasePage {
   }
 
   protected createPageStructure(page: string): void {
-    const mainSection = document.querySelector('.main');
-    const menuBlock = document.querySelector('.main__menu');
-    const footerBlock = document.querySelector('.footer');
+    const mainSection = document.querySelector(ClassNameList.main);
+    const menuBlock = document.querySelector(ClassNameList.mainMenu);
+    const footerBlock = document.querySelector(ClassNameList.footer);
 
     if (mainSection && menuBlock && footerBlock) {
       return;
     }
 
     const main = createElement({
-      tag: 'main', classList: ['main'],
+      tag: 'main',
+      classList: [ClassMap.main],
     });
     const mainContent = createElement({
-      tag: 'section', classList: ['main__content'],
+      tag: 'section',
+      classList: [ClassMap.mainContent],
     });
 
     const mainMenu = this.mainMenu.render(page);

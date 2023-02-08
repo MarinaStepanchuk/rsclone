@@ -61,34 +61,87 @@ export const ClassMap = {
     footerGithubWrap: 'footer__github-wrap',
     footerGithub: 'footer__github',
     footerGithubLogo: 'footer__github-logo',
-  }
+  },
+  menu: {
+    navWrap: 'menu__nav-wrap',
+    menuSection: 'main__menu',
+    logo: 'menu__logo',
+    logoTitle: 'menu__logo-title',
+    logoWrap: 'menu__logo-wrap',
+    navList: 'menu__nav',
+    navItem: 'menu__nav-item',
+    navIcon: 'menu__nav-icon',
+    navButton: 'menu__nav-button',
+    navButtonActive: 'menu__nav-button_active',
+    menuItem: 'menu__item',
+    menuList: 'menu__list',
+    userImg: 'user__img',
+    userWrap: 'user__wrap',
+    user: 'user',
+    switchInput: 'menu__input',
+    switchSpan: 'menu__button-span',
+    switchLabel: 'menu__switch',
+    switchWrap: 'switch-wrap',
+  },
+  main: 'main',
+  mainContent: 'main__content',
+};
+
+export const ClassNameList = {
+  menu: {
+    navButton: '.menu__nav-button',
+  },
+  mainContent: '.main__content',
+  main: '.main',
+  mainMenu: '.main__menu',
+  footer: '.footer',
 };
 
 export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
 
 export const ImagePath = {
+  menu: {
+    dashboardIcon: '../../assets/icons/dashboard.svg',
+    walletIcon: '../../assets/icons/wallet-icon.svg',
+    analyticsIcon: '../../assets/icons/bar-line-icon.svg',
+    accountIcon: '../../assets/icons/user-icon.svg',
+    supportIcon: '../../assets/icons/help-circle.svg',
+    darkModeIcon: '../../assets/icons/moon-01.svg',
+    logoutIcon: '../../assets/icons/logout.svg',
+  },
   footer: {
     footerLogoRs: '../../assets/icons/rs-school-js.svg',
     footerLogoGithub: '../../assets/icons/github-logo.svg',
-  }
-}
+  },
+};
 
-export const Titles = {
+export const Title = {
   rsSchool: 'Rolling Scopes School',
   copyright: 'All Rights Reserved © Yoda`s team 2023',
   github: 'GitHub',
-}
+  logo: 'MAPmoney',
+};
 
 export const PageLink = {
   rsSchool: 'https://rs.school/js/',
   firstGithub: 'https://github.com/BondPV',
   secondGithub: 'https://github.com/marinastepanchuk',
   thirdGithub: 'https://github.com/Alesia-V175',
-}
+};
 
-export const Attributes = {
+export const Attribute = {
   target: 'target',
   targetValue: '_blank',
   rel: 'rel',
   relValue: 'noopener',
-}
+  dataLink: 'data-link',
+  checked: 'checked',
+  inputCheckbox: 'checkbox',
+};
+
+export const MenuItem = {
+  darkMode: 'Dark Mode',
+  support: 'Support',
+  user: 'User Name',
+  logout: 'Logout',
+};

@@ -25,6 +25,7 @@ export const Dictionary = {
     errorMessageName: 'Name must contain at least 3 characters.',
     errorMessagePassword: 'Password must contain at least 5 characters.',
     errorMessageConfirmPassword: 'Passwords do not match. Please try again.',
+    menuSupport: 'Support',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -51,6 +52,7 @@ export const Dictionary = {
     errorMessageName: 'Имя должно содержать не менее 3 символов.',
     errorMessagePassword: 'Пароль должен содержать не менее 5 символов.',
     errorMessageConfirmPassword: 'Пароли не совпадают. Повторите ввод.',
+    menuSupport: 'Написать в поддержку',
   },
   DE: {
     authorizationTitle: '',
@@ -77,6 +79,7 @@ export const Dictionary = {
     errorMessageName: '',
     errorMessagePassword: '',
     errorMessageConfirmPassword: '',
+    menuSupport: '',
   },
 };
 
@@ -105,4 +108,5 @@ export const DictionaryKeys = {
   errorMessageName: 'errorMessageName',
   errorMessagePassword: 'errorMessagePassword',
   errorMessageConfirmPassword: 'errorMessageConfirmPassword',
+  menuSupport: 'menuSupport',
 };
