@@ -55,3 +55,16 @@ export interface IIncome {
 export interface IApplicationState {
   isUserLogin: boolean;
 }
+
+export interface IMenuItem {
+  path: string,
+  name: string,
+  image: string,
+}
+
+export interface IModeItem {
+  background: string,
+  font: string,
+  backgroundMenu: string,
+  title: string,
+}

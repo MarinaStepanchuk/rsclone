@@ -1,3 +1,19 @@
+import Path from '../types/enums';
+import { IModeItem } from '../types/interfaces';
+
+export const DarkMode: IModeItem = {
+  background: 'dark-mode-background',
+  backgroundMenu: 'dark-mode-menu-background',
+  title: 'dark-mode-title',
+  font: 'dark-mode-font',
+};
+export const LightMode: IModeItem = {
+  background: 'light-mode-background',
+  backgroundMenu: 'light-mode-menu-background',
+  title: 'light-mode-title',
+  font: 'light-mode-font',
+};
+
 export const ClassMap = {
   alertMessage: {
     wrapper: 'alert-wrapper',
@@ -34,18 +50,8 @@ export const ClassMap = {
     submit: 'registration-form_submit',
   },
   mode: {
-    dark: {
-      background: 'dark-mode-background',
-      backgroundMenu: 'dark-mode-menu-background',
-      title: 'dark-mode-title',
-      font: 'dark-mode-font',
-    },
-    light: {
-      background: 'light-mode-background',
-      backgroundMenu: 'light-mode-menu-background',
-      title: 'light-mode-title',
-      font: 'light-mode-font',
-    },
+    dark: DarkMode,
+    light: LightMode,
   },
   passwordIcon: 'password-icon',
   showPassword: 'show-password',
@@ -101,6 +107,12 @@ export const ClassNameList = {
 
 export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
 
+export const Mode = {
+  key: 'mode',
+  darkValue: 'dark',
+  lightValue: 'light',
+};
+
 export const ImagePath = {
   menu: {
     dashboardIcon: '../../assets/icons/dashboard.svg',
@@ -150,4 +162,27 @@ export const MenuItem = {
   wallet: 'My Wallet',
   analytics: 'Analytics',
   account: 'Account',
+};
+
+export const MenuNavItem = {
+  dashboard: {
+    path: Path.DASHBOARD,
+    name: MenuItem.dashboard,
+    image: ImagePath.menu.dashboardIcon,
+  },
+  wallet: {
+    path: Path.WALLET,
+    name: MenuItem.wallet,
+    image: ImagePath.menu.walletIcon,
+  },
+  analytics: {
+    path: Path.ANALYTICS,
+    name: MenuItem.analytics,
+    image: ImagePath.menu.analyticsIcon,
+  },
+  account: {
+    path: Path.ACCOUNT,
+    name: MenuItem.account,
+    image: ImagePath.menu.accountIcon,
+  },
 };

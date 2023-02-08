@@ -46,7 +46,7 @@ class Footer {
 
     const footer = createElement({
       tag: 'footer',
-      classList: [ClassMap.footer.footer],
+      classList: [ClassMap.footer.footer, ClassMap.mode.dark.background, ClassMap.mode.dark.font],
     });
 
     footer.append(footerLogoLink, footerCopyright, footerGithubWrap);

@@ -1,15 +1,16 @@
 import '../../styles/main.scss';
 import './MainMenu.scss';
 import createElement from '../../utils/createElement';
-import Path from '../../types/enums';
 import {
   Attribute,
   ClassMap,
   ClassNameList,
   ImagePath,
-  MenuItem,
+  MenuItem, MenuNavItem, Mode,
   Title,
 } from '../../constants/htmlConstants';
+import { IMenuItem } from '../../types/interfaces';
+import { addDarkMode, addLightMode } from '../../utils/toogleMode';
 
 class MainMenu {
   public render(currPage: string): HTMLElement {
@@ -66,10 +67,10 @@ class MainMenu {
     });
 
     navList.append(
-      this.getNavItem(Path.DASHBOARD, MenuItem.dashboard, ImagePath.menu.dashboardIcon, currPage),
-      this.getNavItem(Path.WALLET, MenuItem.wallet, ImagePath.menu.walletIcon, currPage),
-      this.getNavItem(Path.ANALYTICS, MenuItem.analytics, ImagePath.menu.analyticsIcon, currPage),
-      this.getNavItem(Path.ACCOUNT, MenuItem.account, ImagePath.menu.accountIcon, currPage),
+      this.getNavItem(MenuNavItem.dashboard, currPage),
+      this.getNavItem(MenuNavItem.wallet, currPage),
+      this.getNavItem(MenuNavItem.analytics, currPage),
+      this.getNavItem(MenuNavItem.account, currPage),
     );
 
     return navList;
@@ -174,27 +175,27 @@ class MainMenu {
     return user;
   }
 
-  private getNavItem(url: string, name: string, img: string, currPage: string): HTMLElement {
+  private getNavItem(item: IMenuItem, currPage: string): HTMLElement {
     const navIcon = createElement({
       tag: 'img',
       classList: [ClassMap.menu.navIcon],
     }) as HTMLImageElement;
 
-    navIcon.src = img;
+    navIcon.src = item.image;
 
     const navLink = createElement({
       tag: 'button',
       classList: [ClassMap.menu.navButton, ClassMap.mode.dark.font],
-      content: name,
+      content: item.name,
     }) as HTMLButtonElement;
 
-    navLink.setAttribute(Attribute.dataLink, url);
+    navLink.setAttribute(Attribute.dataLink, item.path);
 
     navLink.addEventListener('click', () => {
-      this.createActiveButton(url);
+      this.createActiveButton(item.path);
     });
 
-    if (url === currPage) {
+    if (item.path === currPage) {
       navLink.classList.add(ClassMap.menu.navButtonActive);
     }
 
@@ -241,6 +242,44 @@ class MainMenu {
     });
 
     buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
+
+    buttonModeInputOff.addEventListener('click', () => {
+      const item = localStorage.getItem(Mode.key);
+      let activeMode = !item ? Mode.darkValue : item;
+
+      if (activeMode === Mode.lightValue) {
+        const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.light.background}`);
+        addDarkMode(backgroundElements, 'background');
+
+        const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
+        backgroundMenu?.classList.remove(ClassMap.mode.light.backgroundMenu);
+        backgroundMenu?.classList.add(ClassMap.mode.dark.backgroundMenu);
+
+        const titleElements = document.querySelectorAll(`.${ClassMap.mode.light.title}`);
+        addDarkMode(titleElements, 'title');
+
+        const fontElements = document.querySelectorAll(`.${ClassMap.mode.light.font}`);
+        addDarkMode(fontElements, 'font');
+
+        activeMode = Mode.darkValue;
+      } else {
+        const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.dark.background}`);
+        addLightMode(backgroundElements, 'background');
+
+        const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
+        backgroundMenu?.classList.remove(ClassMap.mode.dark.backgroundMenu);
+        backgroundMenu?.classList.add(ClassMap.mode.light.backgroundMenu);
+
+        const titleElements = document.querySelectorAll(`.${ClassMap.mode.dark.title}`);
+        addLightMode(titleElements, 'title');
+
+        const fontElements = document.querySelectorAll(`.${ClassMap.mode.dark.font}`);
+        addLightMode(fontElements, 'font');
+
+        activeMode = Mode.lightValue;
+      }
+      localStorage.setItem(Mode.key, activeMode);
+    });
 
     const switchWrapper = createElement({
       tag: 'div',
