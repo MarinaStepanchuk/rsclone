@@ -25,7 +25,7 @@ class MainMenu {
 
     const menuSection = createElement({
       tag: 'section',
-      classList: [ClassMap.menu.menuSection],
+      classList: [ClassMap.menu.menuSection, ClassMap.mode.dark.backgroundMenu, ClassMap.mode.dark.font],
     });
 
     menuSection.append(
@@ -66,10 +66,10 @@ class MainMenu {
     });
 
     navList.append(
-      this.getNavItem(Path.DASHBOARD, 'Dashboard', ImagePath.menu.dashboardIcon, currPage),
-      this.getNavItem(Path.WALLET, 'My Wallet', ImagePath.menu.walletIcon, currPage),
-      this.getNavItem(Path.ANALYTICS, 'Analytics', ImagePath.menu.analyticsIcon, currPage),
-      this.getNavItem(Path.ACCOUNT, 'Account', ImagePath.menu.accountIcon, currPage),
+      this.getNavItem(Path.DASHBOARD, MenuItem.dashboard, ImagePath.menu.dashboardIcon, currPage),
+      this.getNavItem(Path.WALLET, MenuItem.wallet, ImagePath.menu.walletIcon, currPage),
+      this.getNavItem(Path.ANALYTICS, MenuItem.analytics, ImagePath.menu.analyticsIcon, currPage),
+      this.getNavItem(Path.ACCOUNT, MenuItem.account, ImagePath.menu.accountIcon, currPage),
     );
 
     return navList;
@@ -109,7 +109,7 @@ class MainMenu {
 
     const menuAdditionalList = createElement({
       tag: 'ul',
-      classList: [ClassMap.menu.navList],
+      classList: [ClassMap.menu.menuList],
     });
 
     menuAdditionalList.append(menuItemSupport, menuItemButtonTheme);
@@ -135,8 +135,12 @@ class MainMenu {
 
     const userName = createElement({
       tag: 'div',
-      content: MenuItem.user,
     });
+
+    if (userAccount) {
+      const userAccountObj = JSON.parse(userAccount);
+      userName.textContent = userAccountObj.user.username;
+    }
 
     const userWrapper = createElement({
       tag: 'div',
@@ -180,7 +184,7 @@ class MainMenu {
 
     const navLink = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.navButton],
+      classList: [ClassMap.menu.navButton, ClassMap.mode.dark.font],
       content: name,
     }) as HTMLButtonElement;
 

@@ -21,6 +21,10 @@ h1 {
 }
 
 .dark-mode-background {
+  background-color: $color-dark-background;
+}
+
+.dark-mode-menu-background {
   background-color: $color-dark-mode;
 }
 
@@ -34,6 +38,10 @@ h1 {
 
 .light-mode-background {
   background-color: $color-light-mode;
+}
+
+.light-mode-backgroundMenu {
+  background-color: $color-light-sections;
 }
 
 .light-mode-font {
@@ -57,7 +65,6 @@ p {
 .main {
   display: grid;
   grid-template-columns: 320px 1fr;
-  background: $color-dark-background;
 }
 
 .test-class {

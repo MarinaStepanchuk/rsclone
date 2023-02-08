@@ -36,11 +36,13 @@ export const ClassMap = {
   mode: {
     dark: {
       background: 'dark-mode-background',
+      backgroundMenu: 'dark-mode-menu-background',
       title: 'dark-mode-title',
       font: 'dark-mode-font',
     },
     light: {
       background: 'light-mode-background',
+      backgroundMenu: 'light-mode-menu-background',
       title: 'light-mode-title',
       font: 'light-mode-font',
     },
@@ -140,8 +142,12 @@ export const Attribute = {
 };
 
 export const MenuItem = {
+  dashboard: 'Dashboard',
   darkMode: 'Dark Mode',
   support: 'Support',
   user: 'User Name',
   logout: 'Logout',
+  wallet: 'My Wallet',
+  analytics: 'Analytics',
+  account: 'Account',
 };

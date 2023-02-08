@@ -8,6 +8,8 @@ class BasePage {
 
   private mainMenu: MainMenu;
 
+  protected mainContent: HTMLElement | null = null;
+
   constructor() {
     this.footer = new Footer();
     this.mainMenu = new MainMenu();
@@ -24,22 +26,20 @@ class BasePage {
 
     const main = createElement({
       tag: 'main',
-      classList: [ClassMap.main],
+      classList: [ClassMap.main, ClassMap.mode.dark.background],
     });
-    const mainContent = createElement({
+
+    this.mainContent = createElement({
       tag: 'section',
       classList: [ClassMap.mainContent],
     });
 
     const mainMenu = this.mainMenu.render(page);
-    const wrapper = createElement({ tag: 'div' });
     const footer = this.footer.render();
 
-    main.append(mainMenu, mainContent);
-    wrapper.append(main);
-    wrapper.append(footer);
+    main.append(mainMenu, this.mainContent);
 
-    document.body.replaceChildren(wrapper);
+    document.body.replaceChildren(main, footer);
   }
 }
 
