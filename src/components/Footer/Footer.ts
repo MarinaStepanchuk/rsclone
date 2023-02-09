@@ -7,8 +7,12 @@ import {
   Title,
   PageLink,
 } from '../../constants/htmlConstants';
+import { MODE } from '../../types/types';
 
 class Footer {
+  constructor(private modeValue: MODE) {
+  }
+
   public render(): HTMLElement {
     const footerLogoImg = createElement({
       tag: 'img',
@@ -46,7 +50,7 @@ class Footer {
 
     const footer = createElement({
       tag: 'footer',
-      classList: [ClassMap.footer.footer, ClassMap.mode.dark.background, ClassMap.mode.dark.font],
+      classList: [ClassMap.footer.footer, ClassMap.mode[this.modeValue].background, ClassMap.mode[this.modeValue].font],
     });
 
     footer.append(footerLogoLink, footerCopyright, footerGithubWrap);

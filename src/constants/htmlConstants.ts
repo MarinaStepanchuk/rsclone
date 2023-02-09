@@ -1,18 +1,4 @@
 import Path from '../types/enums';
-import { IModeItem } from '../types/interfaces';
-
-export const DarkMode: IModeItem = {
-  background: 'dark-mode-background',
-  backgroundMenu: 'dark-mode-menu-background',
-  title: 'dark-mode-title',
-  font: 'dark-mode-font',
-};
-export const LightMode: IModeItem = {
-  background: 'light-mode-background',
-  backgroundMenu: 'light-mode-menu-background',
-  title: 'light-mode-title',
-  font: 'light-mode-font',
-};
 
 export const ClassMap = {
   alertMessage: {
@@ -50,8 +36,22 @@ export const ClassMap = {
     submit: 'registration-form_submit',
   },
   mode: {
-    dark: DarkMode,
-    light: LightMode,
+    dark: {
+      background: 'dark-mode-background',
+      backgroundMenu: 'dark-mode-menu-background',
+      title: 'dark-mode-title',
+      font: 'dark-mode-font',
+      modal: 'dark-mode-modal-background',
+      modalTitle: 'dark-mode-modal-title',
+    },
+    light: {
+      background: 'light-mode-background',
+      backgroundMenu: 'light-mode-menu-background',
+      title: 'light-mode-title',
+      font: 'light-mode-font',
+      modal: 'light-mode-modal-background',
+      modalTitle: 'light-mode-modal-title',
+    },
   },
   passwordIcon: 'password-icon',
   showPassword: 'show-password',

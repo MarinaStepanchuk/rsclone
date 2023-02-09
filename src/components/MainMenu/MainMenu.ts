@@ -11,8 +11,12 @@ import {
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
 import { addDarkMode, addLightMode } from '../../utils/toogleMode';
+import { MODE } from '../../types/types';
 
 class MainMenu {
+  constructor(private modeValue: MODE) {
+  }
+
   public render(currPage: string): HTMLElement {
     const navWrapper = createElement({
       tag: 'div',
@@ -26,7 +30,7 @@ class MainMenu {
 
     const menuSection = createElement({
       tag: 'section',
-      classList: [ClassMap.menu.menuSection, ClassMap.mode.dark.backgroundMenu, ClassMap.mode.dark.font],
+      classList: [ClassMap.menu.menuSection, ClassMap.mode[this.modeValue].backgroundMenu, ClassMap.mode[this.modeValue].font],
     });
 
     menuSection.append(
@@ -185,7 +189,7 @@ class MainMenu {
 
     const navLink = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.navButton, ClassMap.mode.dark.font],
+      classList: [ClassMap.menu.navButton, ClassMap.mode[this.modeValue].font],
       content: item.name,
     }) as HTMLButtonElement;
 
@@ -229,7 +233,6 @@ class MainMenu {
     }) as HTMLInputElement;
 
     buttonModeInputOff.type = Attribute.inputCheckbox;
-    buttonModeInputOff.setAttribute(Attribute.checked, Attribute.checked);
 
     const buttonSpanOff = createElement({
       tag: 'span',
@@ -244,41 +247,7 @@ class MainMenu {
     buttonModeLabelOff.append(buttonModeInputOff, buttonSpanOff);
 
     buttonModeInputOff.addEventListener('click', () => {
-      const item = localStorage.getItem(Mode.key);
-      let activeMode = !item ? Mode.darkValue : item;
-
-      if (activeMode === Mode.lightValue) {
-        const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.light.background}`);
-        addDarkMode(backgroundElements, 'background');
-
-        const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
-        backgroundMenu?.classList.remove(ClassMap.mode.light.backgroundMenu);
-        backgroundMenu?.classList.add(ClassMap.mode.dark.backgroundMenu);
-
-        const titleElements = document.querySelectorAll(`.${ClassMap.mode.light.title}`);
-        addDarkMode(titleElements, 'title');
-
-        const fontElements = document.querySelectorAll(`.${ClassMap.mode.light.font}`);
-        addDarkMode(fontElements, 'font');
-
-        activeMode = Mode.darkValue;
-      } else {
-        const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.dark.background}`);
-        addLightMode(backgroundElements, 'background');
-
-        const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
-        backgroundMenu?.classList.remove(ClassMap.mode.dark.backgroundMenu);
-        backgroundMenu?.classList.add(ClassMap.mode.light.backgroundMenu);
-
-        const titleElements = document.querySelectorAll(`.${ClassMap.mode.dark.title}`);
-        addLightMode(titleElements, 'title');
-
-        const fontElements = document.querySelectorAll(`.${ClassMap.mode.dark.font}`);
-        addLightMode(fontElements, 'font');
-
-        activeMode = Mode.lightValue;
-      }
-      localStorage.setItem(Mode.key, activeMode);
+      this.changeMode();
     });
 
     const switchWrapper = createElement({
@@ -289,6 +258,41 @@ class MainMenu {
     switchWrapper.append(buttonModeLabelOff);
 
     return switchWrapper;
+  }
+
+  public changeMode() {
+    if (this.modeValue === Mode.lightValue) {
+      const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.light.background}`);
+      addDarkMode(backgroundElements, 'background');
+
+      const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
+      backgroundMenu?.classList.remove(ClassMap.mode.light.backgroundMenu);
+      backgroundMenu?.classList.add(ClassMap.mode.dark.backgroundMenu);
+
+      const titleElements = document.querySelectorAll(`.${ClassMap.mode.light.title}`);
+      addDarkMode(titleElements, 'title');
+
+      const fontElements = document.querySelectorAll(`.${ClassMap.mode.light.font}`);
+      addDarkMode(fontElements, 'font');
+
+      this.modeValue = Mode.darkValue as MODE;
+    } else {
+      const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.dark.background}`);
+      addLightMode(backgroundElements, 'background');
+
+      const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
+      backgroundMenu?.classList.remove(ClassMap.mode.dark.backgroundMenu);
+      backgroundMenu?.classList.add(ClassMap.mode.light.backgroundMenu);
+
+      const titleElements = document.querySelectorAll(`.${ClassMap.mode.dark.title}`);
+      addLightMode(titleElements, 'title');
+
+      const fontElements = document.querySelectorAll(`.${ClassMap.mode.dark.font}`);
+      addLightMode(fontElements, 'font');
+
+      this.modeValue = Mode.lightValue as MODE;
+    }
+    localStorage.setItem(Mode.key, this.modeValue);
   }
 }
 

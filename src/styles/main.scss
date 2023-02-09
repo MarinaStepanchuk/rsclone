@@ -36,12 +36,20 @@ h1 {
   color: $color-light-font;
 }
 
+.dark-mode-modal-background {
+  background-color: $color-light-mode;
+}
+
+.dark-mode-modal-title {
+  color: $color-black-font;
+}
+
 .light-mode-background {
   background-color: $color-light-mode;
 }
 
 .light-mode-menu-background {
-  background-color: $color-light-sections;
+  background-color: $color-secondary;
 }
 
 .light-mode-font {
@@ -50,6 +58,14 @@ h1 {
 
 .light-mode-title {
   color: $color-black-font;
+}
+
+.light-mode-modal-background {
+  background-color: $color-dark-mode;
+}
+
+.light-mode-modal-title {
+  color: $color-light-font;
 }
 
 p {

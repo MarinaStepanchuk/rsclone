@@ -2,7 +2,7 @@ import './AuthorizationForm.scss';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { LANG } from '../../types/types';
+import { LANG, MODE } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
 import { alertTimeout, RegularExpressions } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
@@ -22,7 +22,7 @@ class AutorisationForm {
 
   private signInButton: HTMLButtonElement | null = null;
 
-  constructor(private lang: LANG, private section: HTMLElement) {
+  constructor(private lang: LANG, private section: HTMLElement, private modeValue: MODE) {
     this.init();
     this.fill();
     this.addListeners();
@@ -31,7 +31,7 @@ class AutorisationForm {
   private init(): void {
     this.element = createElement({
       tag: 'form',
-      classList: [ClassMap.authorization.form, ClassMap.mode.light.background],
+      classList: [ClassMap.authorization.form, ClassMap.mode[this.modeValue].background],
     }) as HTMLFormElement;
 
     this.email = createElement({
@@ -109,7 +109,7 @@ class AutorisationForm {
 
     const invitationLink = createElement({
       tag: 'span',
-      classList: [ClassMap.authorization.registrationLink, ClassMap.mode.light.font],
+      classList: [ClassMap.authorization.registrationLink, ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.signUpButton,
       content: Dictionary[this.lang].signUpButton,
     });
@@ -129,7 +129,7 @@ class AutorisationForm {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.authorization.registrationLink)) {
-        const modal = new RegistrationModal(this.lang).element;
+        const modal = new RegistrationModal(this.lang, this.modeValue).element;
         this.section.append(modal as HTMLElement);
       }
 
