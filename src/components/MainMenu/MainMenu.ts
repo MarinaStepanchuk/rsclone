@@ -233,6 +233,9 @@ class MainMenu {
     }) as HTMLInputElement;
 
     buttonModeInputOff.type = Attribute.inputCheckbox;
+    if (this.modeValue === Mode.darkValue) {
+      buttonModeInputOff.setAttribute(Attribute.checked, Attribute.checked);
+    }
 
     const buttonSpanOff = createElement({
       tag: 'span',
