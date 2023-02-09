@@ -1,8 +1,8 @@
 import './RegistrationModal.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, Сurrency } from '../../constants/htmlConstants';
+import { ClassMap, Currency } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { LANG } from '../../types/types';
+import { LANG, MODE } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
 import { alertTimeout, RegularExpressions } from '../../constants/common';
@@ -26,14 +26,14 @@ class RegistrationModal {
 
   private confirmPassword: HTMLInputElement | null = null;
 
-  constructor(private lang: LANG) {
+  constructor(private lang: LANG, private modeValue: MODE) {
     this.init();
     this.fill();
     this.addListeners();
   }
 
   private init(): void {
-    this.form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode.dark.background] }) as HTMLFormElement;
+    this.form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode[this.modeValue].modal] }) as HTMLFormElement;
 
     this.element = createElement({
       tag: 'div',
@@ -73,7 +73,7 @@ class RegistrationModal {
   public fill() {
     const formTitle = createElement({
       tag: 'legend',
-      classList: [ClassMap.registration.formTitle, ClassMap.mode.dark.title],
+      classList: [ClassMap.registration.formTitle, ClassMap.mode[this.modeValue].modalTitle],
       key: DictionaryKeys.registrationTitle,
       content: Dictionary[this.lang].registrationTitle,
     });
@@ -120,7 +120,7 @@ class RegistrationModal {
 
     selectContainerCurrency.append(selectCurrencyLable, this.selectCurrency as HTMLSelectElement);
 
-    Сurrency.forEach((currency) => (this.selectCurrency as HTMLSelectElement).append(this.createOptionCurrency(currency)));
+    Currency.forEach((currency) => (this.selectCurrency as HTMLSelectElement).append(this.createOptionCurrency(currency)));
 
     const inputContainerPassword = createElement({
       tag: 'div',
@@ -183,11 +183,11 @@ class RegistrationModal {
     });
     const firstLine = createElement({
       tag: 'span',
-      classList: [ClassMap.closeLine, ClassMap.mode.light.background],
+      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].background],
     });
     const secondLine = createElement({
       tag: 'span',
-      classList: [ClassMap.closeLine, ClassMap.mode.light.background],
+      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].background],
     });
     closeButton.append(firstLine, secondLine);
 

@@ -1,0 +1,47 @@
+@import './../../styles/variables';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  //background: $color-dark-background;
+  //color: $color-light-mode;
+  padding: 1rem;
+  font-size: 12px;
+  font-weight: 100;
+  box-shadow: inset 0 9px 39px -20px rgba(51,65,135,1);
+
+  &__logo {
+    height: auto;
+    width: 80px;
+    opacity: 0.4;
+    transition: 0.2s all;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  span {
+    opacity: 0.4;
+  }
+
+  &__github-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__github {
+    padding: 0 0.5rem;
+    opacity: 0.3;
+    transition: 0.3s all;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__github-logo {
+    display: block;
+  }
+}

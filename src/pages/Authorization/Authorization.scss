@@ -7,6 +7,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 2rem;
+  min-height: 100vh;
+  font-family: 'GeneralSans', Arial, sans-serif;
+  position: relative;
+  padding: 0;
+  margin: 0 auto;
 
   &__wrapper {
     display: flex;
