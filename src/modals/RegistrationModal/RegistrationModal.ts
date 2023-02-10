@@ -29,9 +29,12 @@ class RegistrationModal {
 
   private modeValue: MODE;
 
-  constructor(private lang: LANG) {
+  private lang: LANG;
+
+  constructor() {
     this.modeValue = AppState.modeValue;
     this.init();
+    this.lang = AppState.lang;
   }
 
   private init(): void {

@@ -24,8 +24,11 @@ class AutorisationForm {
 
   private modeValue: MODE;
 
-  constructor(private lang: LANG, private section: HTMLElement) {
+  private lang: LANG;
+
+  constructor(private section: HTMLElement) {
     this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
     this.init();
   }
 
@@ -134,7 +137,7 @@ class AutorisationForm {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.authorization.registrationLink)) {
-        const modal = new RegistrationModal(this.lang).render();
+        const modal = new RegistrationModal().render();
         this.section.append(modal as HTMLElement);
       }
 

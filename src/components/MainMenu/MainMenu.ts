@@ -20,8 +20,11 @@ import LangSwitcher from '../LangSwitcher/LangSwitcher';
 class MainMenu {
   private modeValue: MODE;
 
-  constructor(private lang: LANG) {
+  private lang: LANG;
+
+  constructor() {
     this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
   }
 
   public render(currPage: string): HTMLElement {

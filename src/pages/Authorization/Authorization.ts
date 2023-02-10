@@ -17,7 +17,7 @@ import { SwitcherSize } from '../../types/enums';
 
 const GreatingImages: string[] = [img1, img2, img3, img4, img5];
 
-class Main {
+class Authorization {
   private lang: LANG;
 
   private modeValue: MODE;
@@ -91,7 +91,7 @@ class Main {
       classList: [ClassMap.authorization.section, ClassMap.mode[this.modeValue].background],
     });
 
-    const form = new AuthorisationForm(this.lang, section).render() as HTMLFormElement;
+    const form = new AuthorisationForm(section).render() as HTMLFormElement;
 
     const switcher = new LangSwitcher(SwitcherSize.BIG).render();
 
@@ -112,4 +112,4 @@ class Main {
   }
 }
 
-export default Main;
+export default Authorization;
