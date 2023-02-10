@@ -1,4 +1,4 @@
-enum Route {
+export enum Route {
   MAIN = '/',
   DASHBOARD = '/dashboard',
   WALLET = '/wallet',
@@ -6,4 +6,17 @@ enum Route {
   ACCOUNT = '/account',
 }
 
-export default Route;
+export enum SwitcherSize {
+  BIG = 'big',
+  SMALL = 'small',
+}
+
+export enum ModeItem {
+  background = 'background',
+  font = 'font',
+  backgroundMenu = 'backgroundMenu',
+  title = 'title',
+  icon = 'icon',
+  modal = 'modal',
+  modalTitle = 'modalTitle',
+}

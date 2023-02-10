@@ -1,3 +1,5 @@
+import { LANG, MODE } from "./types";
+
 export interface IOptionsElement {
   tag: keyof HTMLElementTagNameMap,
   classList?: string[],
@@ -54,17 +56,13 @@ export interface IIncome {
 
 export interface IApplicationState {
   isUserLogin: boolean;
+  modeValue: MODE;
+  lang: LANG;
 }
 
 export interface IMenuItem {
   path: string,
   name: string,
   image: string,
-}
-
-export interface IModeItem {
-  background: string,
-  font: string,
-  backgroundMenu: string,
-  title: string,
+  key: string,
 }

@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: calc(100vh - 56px);
-  padding: 2rem;
+  min-height: calc(100vh - 60px);
+  padding: 1.5rem;
   font-weight: 300;
   font-size: 2rem;
 }
@@ -15,23 +15,23 @@
   &__logo-wrap {
     display: flex;
     align-items: center;
-    padding-top: 1rem;
   }
 
   &__logo {
     width: 50px;
     height: 50px;
     background: url("../../assets/icons/logo-example.svg");
+    background-size: 100%;
     margin-right: 1rem;
   }
 
   &__logo-title {
     font-size: 3rem;
-    font-weight: 400;
+    font-weight: 600;
   }
 
   &__nav {
-    padding: 0 0 1rem 0;
+    padding: 0 0 0 0;
     border-bottom: 1px solid;
     border-color: $color-line-dark;
   }
@@ -39,6 +39,9 @@
   &__nav-item {
     list-style: none;
     margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   &__nav-button {
@@ -47,11 +50,12 @@
     background: transparent;
     border: none;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 1rem;
 
     &:hover {
       cursor: pointer;
       transform: scale(1.05);
+      font-weight: 600;
       box-shadow: inset 0 9px 39px -20px rgba(51,65,135,1);
     }
 
@@ -59,15 +63,26 @@
     &_active,
     &:focus {
       background: $color-primary;
+      color: $color-light-font;
+      fill: currentColor;
+      stroke: $color-light-font;
     }
   }
 
   &__nav-icon {
     padding-right: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
   }
 
   &__list {
-    padding: 0 0 1rem 0;
+    padding: 0 0 0 0;
   }
 
   &__item {
@@ -76,15 +91,9 @@
     font-weight: 300;
     font-size: 2rem;
     border-radius: 1rem;
-    padding: 1.5rem;
+    padding: 1.2rem;
     list-style: none;
     position: relative;
-
-    &:hover {
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: inset 0 9px 39px -20px rgba(51,65,135,1);
-    }
   }
 
   &__switch {
@@ -133,10 +142,11 @@
   }
 }
 
-.menu__list .menu__item:last-child:hover {
-  cursor: auto;
-  font-weight: 300;
-  box-shadow: none;
+.menu__list .menu__item:first-child:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  font-weight: 600;
+  box-shadow: inset 0 9px 39px -20px rgba(51,65,135,1);
 }
 
 
@@ -155,7 +165,7 @@
     font-weight: 400;
     border-top: 1px solid;
     border-color: $color-line-dark;
-    padding: 1rem;
+    padding: 2rem 1rem 1rem 1rem;
   }
 
   &__img {

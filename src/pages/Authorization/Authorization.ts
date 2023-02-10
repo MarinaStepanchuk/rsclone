@@ -1,6 +1,6 @@
 import './Authorization.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, Mode } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 import AuthorisationForm from '../../components/AuthorizationForm/AuthorizationForm';
 import img1 from '../../assets/img/schedule-start-1.png';
 import img2 from '../../assets/img/schedule-start-2.png';
@@ -10,12 +10,12 @@ import img5 from '../../assets/img/schedule-start-5.png';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG_ATTRIBUTE } from '../../constants/common';
 import { LANG, MODE } from '../../types/types';
-// import MainMenu from '../../components/MainMenu/MainMenu';
+import AppState from '../../constants/appState';
+import Footer from '../../components/Footer/Footer';
+import LangSwitcher from '../../components/LangSwitcher/LangSwitcher';
+import { SwitcherSize } from '../../types/enums';
 
 const GreatingImages: string[] = [img1, img2, img3, img4, img5];
-
-// язык приходит с сервера
-const lang = 'EN';
 
 class Main {
   private lang: LANG;
@@ -23,8 +23,8 @@ class Main {
   private modeValue: MODE;
 
   constructor() {
-    this.lang = lang;
-    this.modeValue = (!localStorage.getItem(Mode.key) ? Mode.lightValue : localStorage.getItem(Mode.key)) as MODE;
+    this.lang = AppState.lang;
+    this.modeValue = AppState.modeValue;
   }
 
   public render(): void {
@@ -52,14 +52,14 @@ class Main {
       tag: 'h1',
       classList: [ClassMap.authorization.title, ClassMap.mode[this.modeValue].title],
       key: DictionaryKeys.authorizationTitle,
-      content: Dictionary[lang].authorizationTitle,
+      content: Dictionary[this.lang].authorizationTitle,
     });
 
     const subTitle = createElement({
       tag: 'span',
       classList: [ClassMap.authorization.greeting, ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.authorizationGreeting,
-      content: Dictionary[lang].authorizationGreeting,
+      content: Dictionary[this.lang].authorizationGreeting,
     });
 
     const slider = createElement({
@@ -69,15 +69,15 @@ class Main {
 
     slider.innerHTML = `
       <swiper-container class="authorization__quote mySwiper ${ClassMap.mode[this.modeValue].font}" pagination="true" pagination-clickable="true" space-between="30" centered-slides="true" autoplay-delay="5000" autoplay-disable-on-interaction="false">
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote1}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote1}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote2}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote2}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote3}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote3}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote4}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote4}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote5}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote5}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote6}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote6}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote7}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote7}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote8}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote8}</swiper-slide>
-        <swiper-slide class="${ClassMap.authorization.slide}" key="${DictionaryKeys.quote9}" "data-lang=${LANG_ATTRIBUTE}">${Dictionary[lang].quote9}</swiper-slide>
+        <swiper-slide class="${ClassMap.authorization.slide}" key=${DictionaryKeys.quote1} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote1}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote2} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote2}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote3} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote3}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote4} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote4}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote5} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote5}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote6} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote6}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote7} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote7}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote8} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote8}</swiper-slide>
+        <swiper-slide class=${ClassMap.authorization.slide} key=${DictionaryKeys.quote9} data-lang=${LANG_ATTRIBUTE}>${Dictionary[this.lang].quote9}</swiper-slide>
       </swiper-container>
     `;
 
@@ -91,13 +91,24 @@ class Main {
       classList: [ClassMap.authorization.section, ClassMap.mode[this.modeValue].background],
     });
 
-    const form = new AuthorisationForm(this.lang, section, this.modeValue).element as HTMLFormElement;
+    const form = new AuthorisationForm(this.lang, section).render() as HTMLFormElement;
+
+    const switcher = new LangSwitcher(SwitcherSize.BIG).render();
+
     wrapper.append(imgContainer, form);
-    section.append(title, subTitle, slider, wrapper);
+    section.append(title, subTitle, switcher, slider, wrapper);
 
-    document.body.replaceChildren(section);
+    const main = createElement({
+      tag: 'main',
+      classList: [ClassMap.authorization.main, ClassMap.mode[this.modeValue].background],
+    });
 
-    // new MainMenu().addMode();
+    const footer = new Footer().render();
+
+    main.append(section);
+    document.body.replaceChildren(main, footer);
+
+    document.body.classList.add(ClassMap.mode[this.modeValue].background);
   }
 }
 

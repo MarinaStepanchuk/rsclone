@@ -5,7 +5,7 @@ import {
   RESPONSE_STATUS,
   CONTENT_TYPE_JSON,
 } from './serverConstants';
-import applicationState from '../constants/appState';
+import AppState from '../constants/appState';
 
 class UserApi {
   public static async registrationUser(userData: IUserRegister): Promise<{ status: number; message: string }> {
@@ -19,7 +19,7 @@ class UserApi {
       });
 
       if (response.status === RESPONSE_STATUS.CREATED) {
-        applicationState.isUserLogin = false;
+        AppState.isUserLogin = false;
       }
 
       const dataResponse = await response.json();

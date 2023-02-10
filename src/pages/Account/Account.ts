@@ -1,15 +1,15 @@
 import '../../styles/main.scss';
 import './Account.scss';
 import BasePage from '../BasePage/BasePage';
-import Path from '../../types/enums';
+import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { ClassNameList } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 
 class Account extends BasePage {
   public render(): void {
-    this.createPageStructure(Path.ACCOUNT);
+    this.createPageStructure(Route.ACCOUNT);
 
-    const mainContent = document.querySelector(ClassNameList.mainContent);
+    const mainContent = document.querySelector(`${ClassMap.mainContent}`);
 
     const accountContainer = createElement({
       tag: 'div',

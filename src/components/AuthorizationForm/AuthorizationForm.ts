@@ -4,17 +4,17 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
-import { alertTimeout, RegularExpressions } from '../../constants/common';
+import { alertTimeout, LocalStorageKey, RegularExpressions } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
-import Route from '../../types/enums';
+import { Route } from '../../types/enums';
 import { IUserLogin } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
-import applicationState from '../../constants/appState';
+import AppState from '../../constants/appState';
 import AlertMessage from '../AlertMessage/AlertMessege';
 
 class AutorisationForm {
-  public element: HTMLFormElement | null = null;
+  public form: HTMLFormElement | null = null;
 
   private email: HTMLInputElement | null = null;
 
@@ -22,14 +22,15 @@ class AutorisationForm {
 
   private signInButton: HTMLButtonElement | null = null;
 
-  constructor(private lang: LANG, private section: HTMLElement, private modeValue: MODE) {
+  private modeValue: MODE;
+
+  constructor(private lang: LANG, private section: HTMLElement) {
+    this.modeValue = AppState.modeValue;
     this.init();
-    this.fill();
-    this.addListeners();
   }
 
   private init(): void {
-    this.element = createElement({
+    this.form = createElement({
       tag: 'form',
       classList: [ClassMap.authorization.form, ClassMap.mode[this.modeValue].background],
     }) as HTMLFormElement;
@@ -54,7 +55,7 @@ class AutorisationForm {
     }) as HTMLButtonElement;
   }
 
-  public fill() {
+  public render(): HTMLFormElement {
     const inputContainerEmail = createElement({
       tag: 'div',
       classList: [ClassMap.authorization.formItem, ClassMap.parentInput],
@@ -116,20 +117,24 @@ class AutorisationForm {
 
     registrationInvitation.append(invitationText, invitationLink);
 
-    this.element?.append(
+    this.form?.append(
       inputContainerEmail,
       inputContainerPassword,
       registrationInvitation,
       this.signInButton as HTMLButtonElement,
     );
+
+    this.addListeners();
+
+    return this.form as HTMLFormElement;
   }
 
   private addListeners(): void {
-    this.element?.addEventListener('click', (event) => {
+    this.form?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.authorization.registrationLink)) {
-        const modal = new RegistrationModal(this.lang, this.modeValue).element;
+        const modal = new RegistrationModal(this.lang).render();
         this.section.append(modal as HTMLElement);
       }
 
@@ -190,10 +195,9 @@ class AutorisationForm {
     setTimeout(() => alert.remove(), alertTimeout);
 
     if (response.status === RESPONSE_STATUS.OK) {
-      applicationState.isUserLogin = true;
+      AppState.isUserLogin = true;
       const { token, user } = response;
-      localStorage.setItem('auth', JSON.stringify({ token, user }));
-      // в случае удачного запроса навешивание атрибута и перенаправление на следующую страницу
+      localStorage.setItem(LocalStorageKey.auyh, JSON.stringify({ token, user }));
     }
   }
 }
