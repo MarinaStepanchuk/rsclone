@@ -1,6 +1,7 @@
 import '../../styles/main.scss';
 import './MainMenu.scss';
 import createElement from '../../utils/createElement';
+import SupportModal from '../../modals/SupportModal/SupportModal';
 import {
   Attribute,
   ClassMap,
@@ -11,7 +12,10 @@ import {
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
 import { addDarkMode, addLightMode } from '../../utils/toogleMode';
-import { MODE } from '../../types/types';
+import { LANG, MODE } from '../../types/types';
+
+//! заглушка, язык приходит с файла AppState
+const lang: LANG = 'EN';
 
 class MainMenu {
   constructor(private modeValue: MODE) {
@@ -92,6 +96,12 @@ class MainMenu {
       tag: 'li',
       classList: [ClassMap.menu.menuItem],
       content: MenuItem.support,
+    });
+
+    menuItemSupport.addEventListener('click', () => {
+      const section = document.querySelector(ClassNameList.main);
+      const modal = new SupportModal(lang, this.modeValue).element;
+      section?.append(modal as HTMLElement);
     });
 
     menuItemSupport.prepend(itemIconSupport);
