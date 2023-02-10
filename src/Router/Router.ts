@@ -1,8 +1,12 @@
+import { LocalStorageKey } from '../constants/common';
 import ErrorPage from '../pages/Error/ErrorPage';
-import Routes from './Routes';
+import { Routes, basePath } from './Routes';
 
 class Router {
   public start(): void {
+    if (!localStorage.getItem(LocalStorageKey.auyh)) {
+      window.history.pushState({ basePath }, basePath, basePath);
+    }
     window.onpopstate = this.handleLocation;
     this.handleLocation();
   }

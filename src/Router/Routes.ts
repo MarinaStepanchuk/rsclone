@@ -4,7 +4,7 @@ import Wallet from '../pages/Wallet/Wallet';
 import Analytics from '../pages/Analytics/Analytics';
 import Account from '../pages/Account/Account';
 
-const Routes = {
+export const Routes = {
   '/': (): void => new Authorization().render(),
   '/dashboard': ():void => new Dashboard().render(),
   '/wallet': ():void => new Wallet().render(),
@@ -12,4 +12,4 @@ const Routes = {
   '/account': ():void => new Account().render(),
 };
 
-export default Routes;
+export const basePath = '/';
