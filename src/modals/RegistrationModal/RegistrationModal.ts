@@ -1,18 +1,19 @@
 import './RegistrationModal.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, Currency } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { alertTimeout, RegularExpressions } from '../../constants/common';
+import { alertTimeout, RegularExpressions, Currency } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
 import { IUserRegister } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
+import AppState from '../../constants/appState';
 
 class RegistrationModal {
-  public element: HTMLElement | null = null;
+  public wrapper: HTMLElement | null = null;
 
   private form: HTMLFormElement | null = null;
 
@@ -26,16 +27,20 @@ class RegistrationModal {
 
   private confirmPassword: HTMLInputElement | null = null;
 
-  constructor(private lang: LANG, private modeValue: MODE) {
+  private modeValue: MODE;
+
+  private lang: LANG;
+
+  constructor() {
+    this.modeValue = AppState.modeValue;
     this.init();
-    this.fill();
-    this.addListeners();
+    this.lang = AppState.lang;
   }
 
   private init(): void {
     this.form = createElement({ tag: 'form', classList: [ClassMap.registration.form, ClassMap.mode[this.modeValue].modal] }) as HTMLFormElement;
 
-    this.element = createElement({
+    this.wrapper = createElement({
       tag: 'div',
       classList: [ClassMap.registration.wrapper],
     });
@@ -70,7 +75,7 @@ class RegistrationModal {
     this.confirmPassword.type = 'password';
   }
 
-  public fill() {
+  public render(): HTMLElement {
     const formTitle = createElement({
       tag: 'legend',
       classList: [ClassMap.registration.formTitle, ClassMap.mode[this.modeValue].modalTitle],
@@ -202,7 +207,11 @@ class RegistrationModal {
       closeButton,
     );
 
-    this.element?.append(this.form as HTMLFormElement);
+    this.wrapper?.append(this.form as HTMLFormElement);
+
+    this.addListeners();
+
+    return this.wrapper as HTMLElement;
   }
 
   private createOptionCurrency(currency: string): HTMLOptionElement {
@@ -215,7 +224,7 @@ class RegistrationModal {
   }
 
   private addListeners(): void {
-    this.element?.addEventListener('click', (event) => {
+    this.wrapper?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (
@@ -223,7 +232,7 @@ class RegistrationModal {
         || targetElement.classList.contains(ClassMap.closeModalButton)
         || targetElement.classList.contains(ClassMap.closeLine)
       ) {
-        this.element?.remove();
+        this.wrapper?.remove();
       }
     });
 
@@ -254,7 +263,7 @@ class RegistrationModal {
 
           this.handleRegistrationResponse(userRegistr);
 
-          this.element?.remove();
+          this.wrapper?.remove();
         }
       }
     });

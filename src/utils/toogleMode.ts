@@ -1,16 +1,12 @@
 import { ClassMap } from '../constants/htmlConstants';
-import { IModeItem } from '../types/interfaces';
+import { MODE } from '../types/types';
+import { ModeItem } from '../types/enums';
 
-export function addDarkMode(elements: NodeListOf<Element>, modeValue: keyof IModeItem) {
+export function toggleClassMode(elements: NodeListOf<Element>, modeValue: MODE, previosMode: MODE, modeType: ModeItem) {
   elements.forEach((element: Element) => {
-    element.classList.remove(`${ClassMap.mode.light[modeValue]}`);
-    element.classList.add(`${ClassMap.mode.dark[modeValue]}`);
+    element.classList.toggle(`${ClassMap.mode[modeValue][modeType]}`);
+    element.classList.toggle(`${ClassMap.mode[previosMode][modeType]}`);
   });
 }
 
-export function addLightMode(elements: NodeListOf<Element>, modeValue: keyof IModeItem) {
-  elements.forEach((element: Element) => {
-    element.classList.remove(`${ClassMap.mode.light[modeValue]}`);
-    element.classList.add(`${ClassMap.mode.light[modeValue]}`);
-  });
-}
+export default toggleClassMode;

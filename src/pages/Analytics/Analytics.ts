@@ -1,15 +1,15 @@
 import '../../styles/main.scss';
 import './Analytics.scss';
 import BasePage from '../BasePage/BasePage';
-import Path from '../../types/enums';
+import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { ClassNameList } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 
 class Analytics extends BasePage {
   public render(): void {
-    this.createPageStructure(Path.ANALYTICS);
+    this.createPageStructure(Route.ANALYTICS);
 
-    const mainContent = document.querySelector(ClassNameList.mainContent);
+    const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
     const analyticsContainer = createElement({
       tag: 'div',

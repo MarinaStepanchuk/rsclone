@@ -3,25 +3,27 @@ import createElement from '../../utils/createElement';
 import {
   Attribute,
   ClassMap,
-  ImagePath,
   Title,
   PageLink,
 } from '../../constants/htmlConstants';
 import { MODE } from '../../types/types';
+import AppState from '../../constants/appState';
+import SvgMap from '../../constants/svgMap';
 
 class Footer {
-  constructor(private modeValue: MODE) {
+  private modeValue: MODE;
+
+  constructor() {
+    this.modeValue = AppState.modeValue;
   }
 
   public render(): HTMLElement {
     const footerLogoImg = createElement({
-      tag: 'img',
-      classList: [ClassMap.footer.footerLogo],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.footer.footerLogo, ClassMap.mode[this.modeValue].icon],
+    }) as HTMLElement;
 
-    footerLogoImg.src = ImagePath.footer.footerLogoRs;
-    footerLogoImg.alt = Title.rsSchool;
-    footerLogoImg.title = Title.rsSchool;
+    footerLogoImg.innerHTML = SvgMap.rsLogo;
 
     const footerLogoLink = createElement({ tag: 'a' }) as HTMLLinkElement;
 
@@ -33,7 +35,7 @@ class Footer {
 
     const footerCopyright = createElement({
       tag: 'span',
-      classList: [ClassMap.footer.footerCopyright],
+      classList: [ClassMap.footer.footerCopyright, ClassMap.mode[this.modeValue].title],
       content: Title.copyright,
     });
 
@@ -73,15 +75,13 @@ class Footer {
     return footerGithubLink1;
   }
 
-  private getGithubImage(): HTMLImageElement {
+  private getGithubImage(): HTMLElement {
     const footerGithubLogo = createElement({
-      tag: 'img',
-      classList: [ClassMap.footer.footerGithubLogo],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.footer.footerGithubLogo, ClassMap.mode[this.modeValue].icon],
+    }) as HTMLElement;
 
-    footerGithubLogo.src = ImagePath.footer.footerLogoGithub;
-    footerGithubLogo.alt = Title.github;
-    footerGithubLogo.title = Title.github;
+    footerGithubLogo.innerHTML = SvgMap.gitHubLogo;
     return footerGithubLogo;
   }
 }

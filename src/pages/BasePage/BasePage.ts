@@ -1,8 +1,9 @@
 import Footer from '../../components/Footer/Footer';
 import createElement from '../../utils/createElement';
 import MainMenu from '../../components/MainMenu/MainMenu';
-import { ClassMap, ClassNameList, Mode } from '../../constants/htmlConstants';
-import { MODE } from '../../types/types';
+import { ClassMap } from '../../constants/htmlConstants';
+import { LANG, MODE } from '../../types/types';
+import AppState from '../../constants/appState';
 
 class BasePage {
   private footer: Footer;
@@ -12,15 +13,15 @@ class BasePage {
   private modeValue: MODE;
 
   constructor() {
-    this.modeValue = (!localStorage.getItem(Mode.key) ? Mode.lightValue : localStorage.getItem(Mode.key)) as MODE;
-    this.footer = new Footer(this.modeValue);
-    this.mainMenu = new MainMenu(this.modeValue);
+    this.modeValue = AppState.modeValue;
+    this.footer = new Footer();
+    this.mainMenu = new MainMenu();
   }
 
   protected createPageStructure(page: string): void {
-    const mainSection = document.querySelector(ClassNameList.main);
-    const menuBlock = document.querySelector(ClassNameList.mainMenu);
-    const footerBlock = document.querySelector(ClassNameList.footer);
+    const mainSection = document.querySelector(`.${ClassMap.main}`);
+    const menuBlock = document.querySelector(`.${ClassMap.menu.menuSection}`);
+    const footerBlock = document.querySelector(`.${ClassMap.footer.footer}`);
 
     if (mainSection && menuBlock && footerBlock) {
       return;
@@ -40,6 +41,8 @@ class BasePage {
     const footer = this.footer.render();
 
     main.append(mainMenu, mainContent);
+
+    document.body.classList.add(ClassMap.mode[this.modeValue].background);
 
     document.body.replaceChildren(main, footer);
   }

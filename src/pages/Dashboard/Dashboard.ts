@@ -1,15 +1,15 @@
 import '../../styles/main.scss';
 import './Dashboard.scss';
 import BasePage from '../BasePage/BasePage';
-import Path from '../../types/enums';
+import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { ClassNameList } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 
 class Dashboard extends BasePage {
   public render(): void {
-    this.createPageStructure(Path.DASHBOARD);
+    this.createPageStructure(Route.DASHBOARD);
 
-    const mainContent = document.querySelector(ClassNameList.mainContent);
+    const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
     const greetingContainer = createElement({
       tag: 'div',

@@ -1,25 +1,30 @@
 import '../../styles/main.scss';
 import './MainMenu.scss';
 import createElement from '../../utils/createElement';
-import SupportModal from '../../modals/SupportModal/SupportModal';
 import {
   Attribute,
   ClassMap,
-  ClassNameList,
-  ImagePath,
-  MenuItem, MenuNavItem, Mode,
+  MenuNavItem,
   Title,
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
-import { addDarkMode, addLightMode } from '../../utils/toogleMode';
-import { LANG, MODE } from '../../types/types';
-import Route from '../../types/enums';
-
-//! заглушка, язык приходит с файла AppState
-const lang: LANG = 'EN';
+import { toggleClassMode } from '../../utils/toogleMode';
+import { MODE, LANG } from '../../types/types';
+import AppState from '../../constants/appState';
+import { LocalStorageKey, Mode } from '../../constants/common';
+import { ModeItem, SwitcherSize, Route } from '../../types/enums';
+import SvgMap from '../../constants/svgMap';
+import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
+import LangSwitcher from '../LangSwitcher/LangSwitcher';
 
 class MainMenu {
-  constructor(private modeValue: MODE) {
+  private modeValue: MODE;
+
+  private lang: LANG;
+
+  constructor() {
+    this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
   }
 
   public render(currPage: string): HTMLElement {
@@ -87,48 +92,73 @@ class MainMenu {
 
   private createAdditionalMenuWrap(): HTMLElement {
     const itemIconSupport = createElement({
-      tag: 'img',
-      classList: [ClassMap.menu.navIcon],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
+    });
 
-    itemIconSupport.src = ImagePath.menu.supportIcon;
+    itemIconSupport.innerHTML = SvgMap.support;
 
     const menuItemSupport = createElement({
       tag: 'li',
       classList: [ClassMap.menu.menuItem],
-      content: MenuItem.support,
     });
 
-    menuItemSupport.addEventListener('click', () => {
-      const section = document.querySelector(ClassNameList.main);
-      const modal = new SupportModal(lang, this.modeValue).modalWrapper;
-      section?.append(modal as HTMLElement);
+    const labelSupport = createElement({
+      tag: 'span',
+      key: DictionaryKeys.support,
+      content: Dictionary[this.lang].support,
     });
 
-    menuItemSupport.prepend(itemIconSupport);
+    menuItemSupport.append(itemIconSupport, labelSupport);
 
     const itemIconMode = createElement({
-      tag: 'img',
-      classList: [ClassMap.menu.navIcon],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
+    });
 
-    itemIconMode.src = ImagePath.menu.darkModeIcon;
+    itemIconMode.innerHTML = SvgMap.mode;
 
     const menuItemButtonTheme = createElement({
       tag: 'li',
       classList: [ClassMap.menu.menuItem],
-      content: MenuItem.darkMode,
     });
 
-    menuItemButtonTheme.prepend(itemIconMode);
-    menuItemButtonTheme.append(this.createSwitchButton());
+    const labelTheme = createElement({
+      tag: 'span',
+      key: DictionaryKeys.darkMode,
+      content: Dictionary[this.lang].darkMode,
+    });
+
+    menuItemButtonTheme.append(itemIconMode, labelTheme, this.createSwitchButton());
+
+    const itemIconLang = createElement({
+      tag: 'div',
+      classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
+    });
+
+    itemIconLang.innerHTML = SvgMap.langPlanet;
+
+    const menuItemButtonLang = createElement({
+      tag: 'li',
+      classList: [ClassMap.menu.menuItem],
+    });
+
+    const labelLang = createElement({
+      tag: 'span',
+      key: DictionaryKeys.language,
+      content: Dictionary[this.lang].language,
+    });
+
+    const langSwitcher = new LangSwitcher(SwitcherSize.SMALL).render();
+
+    menuItemButtonLang.append(itemIconLang, labelLang, langSwitcher);
 
     const menuAdditionalList = createElement({
       tag: 'ul',
       classList: [ClassMap.menu.menuList],
     });
 
-    menuAdditionalList.append(menuItemSupport, menuItemButtonTheme);
+    menuAdditionalList.append(menuItemSupport, menuItemButtonTheme, menuItemButtonLang);
 
     return menuAdditionalList;
   }
@@ -166,24 +196,29 @@ class MainMenu {
     userWrapper.append(userIcon, userName);
 
     const logoutImg = createElement({
-      tag: 'img',
-      classList: [ClassMap.menu.navIcon],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
+    });
 
-    logoutImg.src = ImagePath.menu.logoutIcon;
+    logoutImg.innerHTML = SvgMap.logout;
 
     const logout = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.menuItem],
-      content: MenuItem.logout,
+      classList: [ClassMap.menu.menuItem, ClassMap.transitionButoon],
     });
+
+    const labelLogout = createElement({
+      tag: 'span',
+      key: DictionaryKeys.logout,
+      content: Dictionary[this.lang].logout,
+    });
+
+    logout.append(logoutImg, labelLogout);
 
     logout.addEventListener('click', () => {
-      logout.setAttribute('data-link', Route.MAIN);
       localStorage.removeItem('auth');
+      logout.setAttribute('data-link', Route.MAIN);
     });
-
-    logout.prepend(logoutImg);
 
     const user = createElement({
       tag: 'div',
@@ -197,17 +232,22 @@ class MainMenu {
 
   private getNavItem(item: IMenuItem, currPage: string): HTMLElement {
     const navIcon = createElement({
-      tag: 'img',
-      classList: [ClassMap.menu.navIcon],
-    }) as HTMLImageElement;
+      tag: 'div',
+      classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
+    });
 
-    navIcon.src = item.image;
+    navIcon.innerHTML = item.image;
 
     const navLink = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.navButton, ClassMap.mode[this.modeValue].font],
-      content: item.name,
+      classList: [ClassMap.menu.navButton, ClassMap.mode[this.modeValue].font, ClassMap.transitionButoon],
     }) as HTMLButtonElement;
+
+    const navLabel = createElement({
+      tag: 'span',
+      key: item.key,
+      content: item.name,
+    });
 
     navLink.setAttribute(Attribute.dataLink, item.path);
 
@@ -224,14 +264,14 @@ class MainMenu {
       classList: [ClassMap.menu.navItem],
     });
 
-    navLink.prepend(navIcon);
+    navLink.append(navIcon, navLabel);
     navItem.append(navLink);
 
     return navItem;
   }
 
   private createActiveButton(url: string): void {
-    const buttons = document.querySelectorAll(ClassNameList.menu.navButton);
+    const buttons = document.querySelectorAll(`.${ClassMap.menu.navButton}`);
 
     buttons.forEach((item) => {
       item.classList.remove(ClassMap.menu.navButtonActive);
@@ -249,7 +289,7 @@ class MainMenu {
     }) as HTMLInputElement;
 
     buttonModeInputOff.type = Attribute.inputCheckbox;
-    if (this.modeValue === Mode.darkValue) {
+    if (this.modeValue === Mode.dark) {
       buttonModeInputOff.setAttribute(Attribute.checked, Attribute.checked);
     }
 
@@ -280,38 +320,31 @@ class MainMenu {
   }
 
   public changeMode() {
-    if (this.modeValue === Mode.lightValue) {
-      const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.light.background}`);
-      addDarkMode(backgroundElements, 'background');
+    const previosMode = this.modeValue;
 
-      const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
-      backgroundMenu?.classList.remove(ClassMap.mode.light.backgroundMenu);
-      backgroundMenu?.classList.add(ClassMap.mode.dark.backgroundMenu);
-
-      const titleElements = document.querySelectorAll(`.${ClassMap.mode.light.title}`);
-      addDarkMode(titleElements, 'title');
-
-      const fontElements = document.querySelectorAll(`.${ClassMap.mode.light.font}`);
-      addDarkMode(fontElements, 'font');
-
-      this.modeValue = Mode.darkValue as MODE;
+    if (this.modeValue === Mode.light) {
+      this.modeValue = Mode.dark as MODE;
     } else {
-      const backgroundElements = document.querySelectorAll(`.${ClassMap.mode.dark.background}`);
-      addLightMode(backgroundElements, 'background');
-
-      const backgroundMenu = document.querySelector(ClassNameList.mainMenu);
-      backgroundMenu?.classList.remove(ClassMap.mode.dark.backgroundMenu);
-      backgroundMenu?.classList.add(ClassMap.mode.light.backgroundMenu);
-
-      const titleElements = document.querySelectorAll(`.${ClassMap.mode.dark.title}`);
-      addLightMode(titleElements, 'title');
-
-      const fontElements = document.querySelectorAll(`.${ClassMap.mode.dark.font}`);
-      addLightMode(fontElements, 'font');
-
-      this.modeValue = Mode.lightValue as MODE;
+      this.modeValue = Mode.light as MODE;
     }
-    localStorage.setItem(Mode.key, this.modeValue);
+
+    const backgroundElements = document.querySelectorAll(`.${ClassMap.mode[previosMode].background}`);
+    toggleClassMode(backgroundElements, this.modeValue, previosMode, ModeItem.background);
+
+    const titleElements = document.querySelectorAll(`.${ClassMap.mode[previosMode].title}`);
+    toggleClassMode(titleElements, this.modeValue, previosMode, ModeItem.title);
+
+    const fontElements = document.querySelectorAll(`.${ClassMap.mode[previosMode].font}`);
+    toggleClassMode(fontElements, this.modeValue, previosMode, ModeItem.font);
+
+    const backgroundMenu = document.querySelectorAll(`.${ClassMap.menu.menuSection}`);
+    toggleClassMode(backgroundMenu, this.modeValue, previosMode, ModeItem.backgroundMenu);
+
+    const icons = document.querySelectorAll(`.${ClassMap.mode[previosMode].icon}`);
+    toggleClassMode(icons, this.modeValue, previosMode, ModeItem.icon);
+
+    localStorage.setItem(LocalStorageKey.mode, this.modeValue);
+    AppState.modeValue = this.modeValue;
   }
 }
 

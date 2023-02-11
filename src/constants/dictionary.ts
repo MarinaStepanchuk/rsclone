@@ -1,5 +1,12 @@
-// transition создана для теста
-export const Dictionary = {
+import { LANG } from '../types/types';
+
+type DictionaryLang = {
+  [key in LANG]: {
+    [key: string]: string,
+  };
+};
+
+export const Dictionary: DictionaryLang = {
   EN: {
     authorizationTitle: 'Welcome to MAPmoney.',
     authorizationGreeting: 'The best app for manage your finance',
@@ -26,6 +33,14 @@ export const Dictionary = {
     errorMessagePassword: 'Password must contain at least 5 characters.',
     errorMessageConfirmPassword: 'Passwords do not match. Please try again.',
     menuSupport: 'Support',
+    language: 'Language',
+    dashboard: 'Dashboard',
+    darkMode: 'Dark Mode',
+    support: 'Support',
+    logout: 'Logout',
+    wallet: 'My Wallet',
+    analytics: 'Analytics',
+    account: 'Account',
     supportTitle: 'Contact Support',
     labelQuestion: 'Question content',
     supportSubmitButton: 'Send a message',
@@ -56,6 +71,14 @@ export const Dictionary = {
     errorMessagePassword: 'Пароль должен содержать не менее 5 символов.',
     errorMessageConfirmPassword: 'Пароли не совпадают. Повторите ввод.',
     menuSupport: 'Написать в поддержку',
+    language: 'Выбор языка',
+    dashboard: 'Панель управления',
+    darkMode: 'Темная тема',
+    support: 'Служба поддержки',
+    logout: 'Выход из аккаунта',
+    wallet: 'Мои счета',
+    analytics: 'Статистика',
+    account: 'Личный кабинет',
     supportTitle: 'Обращение в службу поддержки',
     labelQuestion: 'Содержание вопроса',
     supportSubmitButton: 'Отправить сообщение',
@@ -86,6 +109,14 @@ export const Dictionary = {
     errorMessagePassword: '',
     errorMessageConfirmPassword: '',
     menuSupport: '',
+    language: '',
+    dashboard: '',
+    darkMode: '',
+    support: '',
+    logout: '',
+    wallet: '',
+    analytics: '',
+    account: '',
     supportTitle: '',
     labelQuestion: '',
     supportSubmitButton: '',
@@ -118,6 +149,14 @@ export const DictionaryKeys = {
   errorMessagePassword: 'errorMessagePassword',
   errorMessageConfirmPassword: 'errorMessageConfirmPassword',
   menuSupport: 'menuSupport',
+  language: 'language',
+  dashboard: 'dashboard',
+  darkMode: 'darkMode',
+  support: 'support',
+  logout: 'logout',
+  wallet: 'wallet',
+  analytics: 'analytics',
+  account: 'account',
   supportTitle: 'supportTitle',
   labelQuestion: 'labelQuestion',
   supportSubmitButton: 'supportSubmitButton',

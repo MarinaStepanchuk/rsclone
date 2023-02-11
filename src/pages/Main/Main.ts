@@ -1,5 +1,5 @@
 import './Main.scss';
-import Path from '../../types/enums';
+import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 // import { dictionary, DictionaryKeys } from '../../constants/dictionary';
 
@@ -23,7 +23,7 @@ class Main {
     // таким образом удаляются все текущие дочерние элементы и вставляются свои
     document.body.replaceChildren(p, a);
     // внутренняя ссылка
-    a.href = Path.DASHBOARD;
+    a.href = Route.DASHBOARD;
     // внешняя ссылка должна начинаться с http
     a.href = 'https://learn.javascript.ru/destructuring-assignment';
     // кнопка, которая переключает страницу

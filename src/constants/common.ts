@@ -7,3 +7,21 @@ export const RegularExpressions = {
 };
 
 export const alertTimeout = 2000;
+
+export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
+
+export const defaultState = {
+  mode: 'light',
+  lang: 'EN',
+};
+
+export const LocalStorageKey = {
+  mode: 'modeYT',
+  lang: 'langYT',
+  auth: 'auth',
+};
+
+export const Mode = {
+  dark: 'dark',
+  light: 'light',
+};

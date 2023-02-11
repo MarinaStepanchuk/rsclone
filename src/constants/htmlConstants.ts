@@ -1,6 +1,11 @@
-import Path from '../types/enums';
+import { Route } from '../types/enums';
+import AppState from './appState';
+import { Dictionary, DictionaryKeys } from './dictionary';
+import SvgMap from './svgMap';
 
 export const ClassMap = {
+  transitionButoon: 'transition-button',
+  transitionLink: 'transition-link',
   alertMessage: {
     wrapper: 'alert-wrapper',
     error: 'alert-wrapper_error',
@@ -22,6 +27,7 @@ export const ClassMap = {
     registrationText: 'authorization__form__registration__text',
     registrationLink: 'authorization__form__registration__link',
     signInButton: 'authorization__form_submit',
+    main: 'main__authorization',
   },
   registration: {
     wrapper: 'registration-wrapper',
@@ -51,6 +57,7 @@ export const ClassMap = {
       font: 'dark-mode-font',
       modal: 'dark-mode-modal-background',
       modalTitle: 'dark-mode-modal-title',
+      icon: 'dark-mode-icon',
     },
     light: {
       background: 'light-mode-background',
@@ -59,6 +66,7 @@ export const ClassMap = {
       font: 'light-mode-font',
       modal: 'light-mode-modal-background',
       modalTitle: 'light-mode-modal-title',
+      icon: 'light-mode-icon',
     },
   },
   passwordIcon: 'password-icon',
@@ -101,46 +109,18 @@ export const ClassMap = {
   },
   main: 'main',
   mainContent: 'main__content',
-};
-
-export const ClassNameList = {
-  menu: {
-    navButton: '.menu__nav-button',
-  },
-  mainContent: '.main__content',
-  main: '.main',
-  mainMenu: '.main__menu',
-  footer: '.footer',
-};
-
-export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
-
-export const Mode = {
-  key: 'mode',
-  darkValue: 'dark',
-  lightValue: 'light',
-};
-
-export const ImagePath = {
-  menu: {
-    dashboardIcon: '../../assets/icons/dashboard.svg',
-    walletIcon: '../../assets/icons/wallet-icon.svg',
-    analyticsIcon: '../../assets/icons/bar-line-icon.svg',
-    accountIcon: '../../assets/icons/user-icon.svg',
-    supportIcon: '../../assets/icons/help-circle.svg',
-    darkModeIcon: '../../assets/icons/moon-01.svg',
-    logoutIcon: '../../assets/icons/logout.svg',
-  },
-  footer: {
-    footerLogoRs: '../../assets/icons/rs-school-js.svg',
-    footerLogoGithub: '../../assets/icons/github-logo.svg',
+  langSwitcher: {
+    button: 'lang-switcher',
+    container: 'lang-switcher__container',
+    item: 'lang-switcher__container__item',
+    big: 'big-switcher',
+    small: 'small-switcher',
+    show: 'switcher-show',
   },
 };
 
 export const Title = {
-  rsSchool: 'Rolling Scopes School',
   copyright: 'All Rights Reserved © Yoda`s team 2023',
-  github: 'GitHub',
   logo: 'MAPmoney',
 };
 
@@ -161,36 +141,29 @@ export const Attribute = {
   inputCheckbox: 'checkbox',
 };
 
-export const MenuItem = {
-  dashboard: 'Dashboard',
-  darkMode: 'Dark Mode',
-  support: 'Support',
-  user: 'User Name',
-  logout: 'Logout',
-  wallet: 'My Wallet',
-  analytics: 'Analytics',
-  account: 'Account',
-};
-
 export const MenuNavItem = {
   dashboard: {
-    path: Path.DASHBOARD,
-    name: MenuItem.dashboard,
-    image: ImagePath.menu.dashboardIcon,
+    path: Route.DASHBOARD,
+    name: Dictionary[AppState.lang].dashboard,
+    key: DictionaryKeys.dashboard,
+    image: SvgMap.dashboard,
   },
   wallet: {
-    path: Path.WALLET,
-    name: MenuItem.wallet,
-    image: ImagePath.menu.walletIcon,
+    path: Route.WALLET,
+    name: Dictionary[AppState.lang].wallet,
+    key: DictionaryKeys.wallet,
+    image: SvgMap.wallet,
   },
   analytics: {
-    path: Path.ANALYTICS,
-    name: MenuItem.analytics,
-    image: ImagePath.menu.analyticsIcon,
+    path: Route.ANALYTICS,
+    name: Dictionary[AppState.lang].analytics,
+    key: DictionaryKeys.analytics,
+    image: SvgMap.analytic,
   },
   account: {
-    path: Path.ACCOUNT,
-    name: MenuItem.account,
-    image: ImagePath.menu.accountIcon,
+    path: Route.ACCOUNT,
+    name: Dictionary[AppState.lang].account,
+    key: DictionaryKeys.account,
+    image: SvgMap.account,
   },
 };
