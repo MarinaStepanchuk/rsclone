@@ -12,6 +12,7 @@ import UserApi from '../../Api/UserApi';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
 import AppState from '../../constants/appState';
 import AlertMessage from '../AlertMessage/AlertMessege';
+import Dashboard from '../../pages/Dashboard/Dashboard';
 
 class AutorisationForm {
   public form: HTMLFormElement | null = null;
@@ -161,8 +162,6 @@ class AutorisationForm {
           };
 
           this.handleLoginResponse(userDataLogin);
-
-          (this.signInButton as HTMLButtonElement).setAttribute('data-link', Route.WALLET);
         }
       }
     });
@@ -200,7 +199,8 @@ class AutorisationForm {
     if (response.status === RESPONSE_STATUS.OK) {
       AppState.isUserLogin = true;
       const { token, user } = response;
-      localStorage.setItem(LocalStorageKey.auyh, JSON.stringify({ token, user }));
+      localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));
+      new Dashboard().render();
     }
   }
 }

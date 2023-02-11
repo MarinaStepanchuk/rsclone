@@ -18,7 +18,7 @@ export const defaultState = {
 export const LocalStorageKey = {
   mode: 'modeYT',
   lang: 'langYT',
-  auyh: 'auth',
+  auth: 'auth',
 };
 
 export const Mode = {

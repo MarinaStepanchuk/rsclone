@@ -3,6 +3,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Wallet from '../pages/Wallet/Wallet';
 import Analytics from '../pages/Analytics/Analytics';
 import Account from '../pages/Account/Account';
+import { LocalStorageKey } from '../constants/common';
 
 export const Routes = {
   '/': (): void => new Authorization().render(),
@@ -12,4 +13,4 @@ export const Routes = {
   '/account': ():void => new Account().render(),
 };
 
-export const basePath = '/';
+export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : '/dashboard';
