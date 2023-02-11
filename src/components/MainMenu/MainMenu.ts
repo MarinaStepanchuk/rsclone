@@ -13,6 +13,7 @@ import {
 import { IMenuItem } from '../../types/interfaces';
 import { addDarkMode, addLightMode } from '../../utils/toogleMode';
 import { LANG, MODE } from '../../types/types';
+import Route from '../../types/enums';
 
 //! заглушка, язык приходит с файла AppState
 const lang: LANG = 'EN';
@@ -172,9 +173,14 @@ class MainMenu {
     logoutImg.src = ImagePath.menu.logoutIcon;
 
     const logout = createElement({
-      tag: 'div',
+      tag: 'button',
       classList: [ClassMap.menu.menuItem],
       content: MenuItem.logout,
+    });
+
+    logout.addEventListener('click', () => {
+      logout.setAttribute('data-link', Route.MAIN);
+      localStorage.removeItem('auth');
     });
 
     logout.prepend(logoutImg);
