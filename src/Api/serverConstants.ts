@@ -4,6 +4,7 @@ export const REQUEST_URL = {
   register: `${BASE_URL}/api/user/register`,
   login: `${BASE_URL}/api/user/login`,
   update: `${BASE_URL}/api/user`,
+  message: `${BASE_URL}/api/message`,
 };
 
 export const REQUEST_METOD = {

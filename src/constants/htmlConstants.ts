@@ -35,6 +35,14 @@ export const ClassMap = {
     inputConfirmPassword: 'registration__form__confirm-password',
     submit: 'registration-form_submit',
   },
+  support: {
+    wrapper: 'support-wrapper',
+    form: 'support-form',
+    formTitle: 'support-form__title',
+    formItem: 'support-form__input',
+    inputMessage: 'support-form__message',
+    submit: 'support-form_submit',
+  },
   mode: {
     dark: {
       background: 'dark-mode-background',

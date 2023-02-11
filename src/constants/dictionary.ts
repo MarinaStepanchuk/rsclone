@@ -26,6 +26,9 @@ export const Dictionary = {
     errorMessagePassword: 'Password must contain at least 5 characters.',
     errorMessageConfirmPassword: 'Passwords do not match. Please try again.',
     menuSupport: 'Support',
+    supportTitle: 'Contact Support',
+    labelQuestion: 'Question content',
+    supportSubmitButton: 'Send a message',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -53,6 +56,9 @@ export const Dictionary = {
     errorMessagePassword: 'Пароль должен содержать не менее 5 символов.',
     errorMessageConfirmPassword: 'Пароли не совпадают. Повторите ввод.',
     menuSupport: 'Написать в поддержку',
+    supportTitle: 'Обращение в службу поддержки',
+    labelQuestion: 'Содержание вопроса',
+    supportSubmitButton: 'Отправить сообщение',
   },
   DE: {
     authorizationTitle: '',
@@ -80,6 +86,9 @@ export const Dictionary = {
     errorMessagePassword: '',
     errorMessageConfirmPassword: '',
     menuSupport: '',
+    supportTitle: '',
+    labelQuestion: '',
+    supportSubmitButton: '',
   },
 };
 
@@ -109,4 +118,7 @@ export const DictionaryKeys = {
   errorMessagePassword: 'errorMessagePassword',
   errorMessageConfirmPassword: 'errorMessageConfirmPassword',
   menuSupport: 'menuSupport',
+  supportTitle: 'supportTitle',
+  labelQuestion: 'labelQuestion',
+  supportSubmitButton: 'supportSubmitButton',
 };
