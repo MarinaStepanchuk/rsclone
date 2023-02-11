@@ -87,6 +87,7 @@
   }
 
   &__item {
+    all: unset;
     display: flex;
     align-items: center;
     font-weight: 300;

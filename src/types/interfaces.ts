@@ -29,7 +29,6 @@ export interface IUserData {
   email: string;
   currency: string;
   avatar: string;
-  language: string;
   phoneNumber: number | null;
 }
 
@@ -52,6 +51,12 @@ export interface IIncome {
   income: number,
   currency: string,
   comment?: string,
+}
+
+export interface ISupportMsg {
+  username: string;
+  email: string;
+  message: string;
 }
 
 export interface IApplicationState {

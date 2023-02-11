@@ -41,6 +41,9 @@ export const Dictionary: DictionaryLang = {
     wallet: 'My Wallet',
     analytics: 'Analytics',
     account: 'Account',
+    supportTitle: 'Contact Support',
+    labelQuestion: 'Question content',
+    supportSubmitButton: 'Send a message',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -76,6 +79,9 @@ export const Dictionary: DictionaryLang = {
     wallet: 'Мои счета',
     analytics: 'Статистика',
     account: 'Личный кабинет',
+    supportTitle: 'Обращение в службу поддержки',
+    labelQuestion: 'Содержание вопроса',
+    supportSubmitButton: 'Отправить сообщение',
   },
   DE: {
     authorizationTitle: '',
@@ -111,6 +117,9 @@ export const Dictionary: DictionaryLang = {
     wallet: '',
     analytics: '',
     account: '',
+    supportTitle: '',
+    labelQuestion: '',
+    supportSubmitButton: '',
   },
 };
 
@@ -148,4 +157,7 @@ export const DictionaryKeys = {
   wallet: 'wallet',
   analytics: 'analytics',
   account: 'account',
+  supportTitle: 'supportTitle',
+  labelQuestion: 'labelQuestion',
+  supportSubmitButton: 'supportSubmitButton',
 };

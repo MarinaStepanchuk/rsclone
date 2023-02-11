@@ -21,7 +21,6 @@ class AlertMessage {
       tag: 'div',
       classList: [
         ClassMap.alertMessage.wrapper,
-        ClassMap.mode.light.background,
         (this.status === RESPONSE_STATUS.OK || this.status === RESPONSE_STATUS.CREATED)
           ? ClassMap.alertMessage.success : ClassMap.alertMessage.error,
       ],

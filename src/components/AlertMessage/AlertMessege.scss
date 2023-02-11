@@ -2,13 +2,13 @@
 @import '../../styles/mixins.scss';
 
 .alert-wrapper {
-  font-size: 1.5rem;
+  font-size: 2.5rem;
   padding: 0.5rem 2rem;
   color: $color-light-font;
   position: fixed;
   border-radius: 0.6rem;
   outline: none;
-  bottom: 2rem;
+  bottom: 8rem;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0.7;
