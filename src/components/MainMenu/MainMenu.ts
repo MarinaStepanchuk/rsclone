@@ -8,14 +8,15 @@ import {
   Title,
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
+import { LANG, MODE } from '../../types/types';
 import { toggleClassMode } from '../../utils/toogleMode';
-import { MODE, LANG } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey, Mode } from '../../constants/common';
 import { ModeItem, SwitcherSize, Route } from '../../types/enums';
 import SvgMap from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
+import SupportModal from '../../modals/SupportModal/SupportModal';
 
 class MainMenu {
   private modeValue: MODE;
@@ -111,6 +112,12 @@ class MainMenu {
 
     menuItemSupport.append(itemIconSupport, labelSupport);
 
+    menuItemSupport.addEventListener('click', () => {
+      const section = document.querySelector(`.${ClassMap.main}`);
+      const modal = new SupportModal(this.lang, this.modeValue).modalWrapper;
+      section?.append(modal as HTMLElement);
+    });
+
     const itemIconMode = createElement({
       tag: 'div',
       classList: [ClassMap.menu.navIcon, ClassMap.mode[this.modeValue].icon],
@@ -204,7 +211,7 @@ class MainMenu {
 
     const logout = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.menuItem, ClassMap.transitionButoon],
+      classList: [ClassMap.menu.menuItem, ClassMap.menu.logout, ClassMap.transitionButoon],
     });
 
     const labelLogout = createElement({

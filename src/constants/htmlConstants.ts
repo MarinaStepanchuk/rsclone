@@ -106,6 +106,7 @@ export const ClassMap = {
     switchSpan: 'menu__button-span',
     switchLabel: 'menu__switch',
     switchWrap: 'switch-wrap',
+    logout: 'menu_logout',
   },
   main: 'main',
   mainContent: 'main__content',
