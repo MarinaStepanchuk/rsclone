@@ -100,7 +100,7 @@ class MainMenu {
 
     menuItemSupport.addEventListener('click', () => {
       const section = document.querySelector(ClassNameList.main);
-      const modal = new SupportModal(lang, this.modeValue).element;
+      const modal = new SupportModal(lang, this.modeValue).modalWrapper;
       section?.append(modal as HTMLElement);
     });
 

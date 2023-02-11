@@ -4,6 +4,11 @@ import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
+import { ISupportMsg } from '../../types/interfaces';
+import TelegramMsgApi from '../../Api/TelegramMsgApi';
+import AlertMessage from '../../components/AlertMessage/AlertMessege';
+import { alertTimeout } from '../../constants/common';
+import { RESPONSE_STATUS } from '../../Api/serverConstants';
 
 const messageContentSettings = {
   rows: 10,
@@ -11,8 +16,10 @@ const messageContentSettings = {
   maxLength: 1000,
 };
 
+const userAccount = localStorage.getItem('auth');
+
 class SupportModal {
-  public element: HTMLElement | null = null;
+  public modalWrapper: HTMLElement | null = null;
 
   private form: HTMLFormElement | null = null;
 
@@ -32,7 +39,7 @@ class SupportModal {
       classList: [ClassMap.support.form, ClassMap.mode[this.modeValue].modal],
     }) as HTMLFormElement;
 
-    this.element = createElement({
+    this.modalWrapper = createElement({
       tag: 'div',
       classList: [ClassMap.support.wrapper],
     });
@@ -102,11 +109,11 @@ class SupportModal {
       closeButton,
     );
 
-    this.element?.append(this.form as HTMLFormElement);
+    this.modalWrapper?.append(this.form as HTMLFormElement);
   }
 
   private addListeners(): void {
-    this.element?.addEventListener('click', (event) => {
+    this.modalWrapper?.addEventListener('click', (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (
@@ -114,7 +121,7 @@ class SupportModal {
         || targetElement.classList.contains(ClassMap.closeModalButton)
         || targetElement.classList.contains(ClassMap.closeLine)
       ) {
-        this.element?.remove();
+        this.modalWrapper?.remove();
       }
     });
 
@@ -128,14 +135,35 @@ class SupportModal {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.support.submit)
-        && (this.submit as HTMLButtonElement).disabled === false) {
+        && (this.submit as HTMLButtonElement).disabled === false
+        && userAccount) {
         event.preventDefault();
 
-        console.log('async func handleSupportResponse');
+        const userName: string = JSON.parse(userAccount).user.username;
+        const userEmail: string = JSON.parse(userAccount).user.email;
+        const userToken: string = JSON.parse(userAccount).token;
 
-        this.element?.remove();
+        const message: ISupportMsg = {
+          username: userName,
+          email: userEmail,
+          message: (this.messageContent as HTMLTextAreaElement).value,
+        };
+
+        this.handleSupportResponse(userToken, message);
       }
     });
+  }
+
+  private async handleSupportResponse(token: string, message: ISupportMsg) {
+    const response = await TelegramMsgApi.sendMsg(token, message);
+
+    const alert = new AlertMessage(response.message, response.status);
+    alert.render();
+    setTimeout(() => alert.remove(), alertTimeout);
+
+    if (response.status === RESPONSE_STATUS.OK) {
+      this.modalWrapper?.remove();
+    }
   }
 }
 
