@@ -9,7 +9,7 @@ class Account extends BasePage {
   public render(): void {
     this.createPageStructure(Route.ACCOUNT);
 
-    const mainContent = document.querySelector(`${ClassMap.mainContent}`);
+    const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
     const accountContainer = createElement({
       tag: 'div',

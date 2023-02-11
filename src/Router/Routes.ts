@@ -14,3 +14,5 @@ export const Routes = {
 };
 
 export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : '/dashboard';
+
+export const basePath = '/';

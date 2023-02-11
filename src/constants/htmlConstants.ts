@@ -4,6 +4,8 @@ import { Dictionary, DictionaryKeys } from './dictionary';
 import SvgMap from './svgMap';
 
 export const ClassMap = {
+  transitionButoon: 'transition-button',
+  transitionLink: 'transition-link',
   alertMessage: {
     wrapper: 'alert-wrapper',
     error: 'alert-wrapper_error',

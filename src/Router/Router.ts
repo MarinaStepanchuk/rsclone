@@ -1,6 +1,7 @@
-import ErrorPage from '../pages/Error/ErrorPage';
-import { Routes, homePagePath } from './Routes';
 import { LocalStorageKey } from '../constants/common';
+import { ClassMap } from '../constants/htmlConstants';
+import ErrorPage from '../pages/Error/ErrorPage';
+import { Routes, homePagePath, basePath } from './Routes';
 
 class Router {
   public start(): void {
@@ -10,37 +11,39 @@ class Router {
   }
 
   public route(event: Event): void {
-    const targetElement = event.target;
+    if (!localStorage.getItem(LocalStorageKey.auth)) {
+      window.history.pushState({ basePath }, basePath, basePath);
+    }
 
-    if (!(targetElement instanceof HTMLAnchorElement) && !(targetElement instanceof HTMLButtonElement)) {
+    const targetElement = event.target as HTMLElement;
+    const parentButton = targetElement.closest(`.${ClassMap.transitionButoon}`);
+    const parentLink = targetElement.closest(`.${ClassMap.transitionLink}`);
+    if (!parentLink && !parentButton) {
       return;
     }
 
-    if (targetElement instanceof HTMLButtonElement && targetElement.hasAttribute('data-link')) {
-      this.buttonRoute(event);
+    if (parentButton) {
+      this.buttonRoute(parentButton as HTMLButtonElement);
     }
 
-    if (targetElement instanceof HTMLAnchorElement) {
-      this.linkRoute(event);
+    if (parentLink) {
+      this.linkRoute(parentLink as HTMLAnchorElement, event);
     }
   }
 
-  private linkRoute(event: Event): void {
-    const linkElement = event.target as HTMLAnchorElement;
-
-    if (linkElement.href.startsWith('http')) {
+  private linkRoute(link: HTMLAnchorElement, event: Event): void {
+    if (link.href.startsWith('http')) {
       return;
     }
 
     event.preventDefault();
-    const { pathname: path } = new URL(linkElement.href);
+    const { pathname: path } = new URL(link.href);
     window.history.pushState({ path }, path, path);
     this.handleLocation();
   }
 
-  private buttonRoute(event: Event): void {
-    const buttonElement = event.target as HTMLButtonElement;
-    const path = buttonElement.getAttribute('data-link') as string;
+  private buttonRoute(button: HTMLButtonElement): void {
+    const path = button.getAttribute('data-link') as string;
     window.history.pushState({ path }, path, path);
     this.handleLocation();
   }

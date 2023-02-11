@@ -12,7 +12,7 @@ import { toggleClassMode } from '../../utils/toogleMode';
 import { MODE, LANG } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey, Mode } from '../../constants/common';
-import { ModeItem, SwitcherSize } from '../../types/enums';
+import { ModeItem, SwitcherSize, Route } from '../../types/enums';
 import SvgMap from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
@@ -203,8 +203,8 @@ class MainMenu {
     logoutImg.innerHTML = SvgMap.logout;
 
     const logout = createElement({
-      tag: 'div',
-      classList: [ClassMap.menu.menuItem],
+      tag: 'button',
+      classList: [ClassMap.menu.menuItem, ClassMap.transitionButoon],
     });
 
     const labelLogout = createElement({
@@ -214,6 +214,11 @@ class MainMenu {
     });
 
     logout.append(logoutImg, labelLogout);
+
+    logout.addEventListener('click', () => {
+      localStorage.removeItem('auth');
+      logout.setAttribute('data-link', Route.MAIN);
+    });
 
     const user = createElement({
       tag: 'div',
@@ -235,7 +240,7 @@ class MainMenu {
 
     const navLink = createElement({
       tag: 'button',
-      classList: [ClassMap.menu.navButton, ClassMap.mode[this.modeValue].font],
+      classList: [ClassMap.menu.navButton, ClassMap.mode[this.modeValue].font, ClassMap.transitionButoon],
     }) as HTMLButtonElement;
 
     const navLabel = createElement({
