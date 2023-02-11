@@ -1,1 +1,39 @@
+@import '../../styles/variables';
+
+.main__content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  padding: 2rem;
+}
+
+.main__dashboard,
+.main__aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard__total-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+
+  .total-price {
+    display: flex;
+    border-radius: 2rem;
+    padding: 2rem;
+    font-weight: 100;
+    font-size: 1.7rem;
+
+    .icon-wrap {
+      width: 45px;
+      height: 45px;
+      border-radius: 10px;
+      background-color: $color-primary;
+      border: 1px solid black;
+      margin-right: 1rem;
+    }
+  }
+
+
+}
 

@@ -10,10 +10,13 @@ class BasePage {
 
   private mainMenu: MainMenu;
 
-  private modeValue: MODE;
+  public modeValue: MODE;
+
+  public lang: LANG;
 
   constructor() {
     this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
     this.footer = new Footer();
     this.mainMenu = new MainMenu();
   }

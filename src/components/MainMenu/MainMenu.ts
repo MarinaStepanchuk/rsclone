@@ -1,12 +1,7 @@
 import '../../styles/main.scss';
 import './MainMenu.scss';
 import createElement from '../../utils/createElement';
-import {
-  Attribute,
-  ClassMap,
-  MenuNavItem,
-  Title,
-} from '../../constants/htmlConstants';
+import { Attribute, ClassMap, MenuNavItem, Title } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
 import { LANG, MODE } from '../../types/types';
 import { toggleClassMode } from '../../utils/toogleMode';
@@ -22,6 +17,7 @@ class MainMenu {
   private modeValue: MODE;
 
   private lang: LANG;
+
 
   constructor() {
     this.modeValue = AppState.modeValue;

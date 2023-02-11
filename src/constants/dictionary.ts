@@ -8,7 +8,7 @@ type DictionaryLang = {
 
 export const Dictionary: DictionaryLang = {
   EN: {
-    authorizationTitle: 'Welcome to MAPmoney.',
+    authorizationTitle: 'Welcome to MAPmoney!',
     authorizationGreeting: 'The best app for manage your finance',
     quote1: 'Money speaks sense in a language all nations understand. Aphra Behn',
     quote2: 'He who will not economize will have to agonize. Confucius',
@@ -44,6 +44,9 @@ export const Dictionary: DictionaryLang = {
     supportTitle: 'Contact Support',
     labelQuestion: 'Question content',
     supportSubmitButton: 'Send a message',
+    welcomeHeader: 'Welcome, ',
+    totalIncome: 'Total Income',
+    totalOutcome: 'Total Outcome',
     accountsTitle: 'Balance: ',
     categoriesTitle: 'Expenses: ',
     transport: 'Transport',
@@ -73,7 +76,7 @@ export const Dictionary: DictionaryLang = {
     allTime: 'All Time',
   },
   RU: {
-    authorizationTitle: 'Добро пожаловать в MAPmoney.',
+    authorizationTitle: 'Добро пожаловать в MAPmoney!',
     authorizationGreeting: 'Лучшее приложение для управления вашими финансами',
     quote1: 'Деньги говорят на языке, который понятен всем нациям. Афра Бен',
     quote2: 'Тот, кто не будет экономить - будет мучиться. Конфуций',
@@ -109,6 +112,9 @@ export const Dictionary: DictionaryLang = {
     supportTitle: 'Обращение в службу поддержки',
     labelQuestion: 'Содержание вопроса',
     supportSubmitButton: 'Отправить сообщение',
+    welcomeHeader: 'Добро пожаловать,',
+    totalIncome: 'Доход итого',
+    totalOutcome: 'Расход итого',
     accountsTitle: 'Баланс: ',
     categoriesTitle: 'Расходы: ',
     transport: 'Транспорт',
@@ -245,6 +251,9 @@ export const DictionaryKeys: DictionaryKeysType = {
   supportTitle: 'supportTitle',
   labelQuestion: 'labelQuestion',
   supportSubmitButton: 'supportSubmitButton',
+  welcomeHeader: 'welcomeHeader',
+  totalIncome: 'totalIncome',
+  totalOutcome: 'totalOutcome',
   accountsTitle: 'accountsTitle',
   categoriesTitle: 'categoriesTitle',
   transport: 'transport',

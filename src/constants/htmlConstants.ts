@@ -120,6 +120,13 @@ export const ClassMap = {
     small: 'small-switcher',
     show: 'switcher-show',
   },
+  dashboard: {
+    mainDashboard: 'main__dashboard',
+    mainAside: 'main__aside',
+    dashboardTotalWrap: 'dashboard__total-wrap',
+    iconWrap: 'icon-wrap',
+    totalPrice: 'total-price',
+  }
   wallet: {
     categoriesSection: 'categories',
     accountsSection: 'accounts',
