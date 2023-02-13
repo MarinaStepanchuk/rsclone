@@ -57,6 +57,7 @@ export const ClassMap = {
       font: 'dark-mode-font',
       modal: 'dark-mode-modal-background',
       modalTitle: 'dark-mode-modal-title',
+      modalFont: 'dark-mode-modal-font',
       icon: 'dark-mode-icon',
     },
     light: {
@@ -66,6 +67,7 @@ export const ClassMap = {
       font: 'light-mode-font',
       modal: 'light-mode-modal-background',
       modalTitle: 'light-mode-modal-title',
+      modalFont: 'light-mode-modal-font',
       icon: 'light-mode-icon',
     },
   },
@@ -129,6 +131,16 @@ export const ClassMap = {
       title: 'accounts__container__item__title',
       icon: 'accounts__container__item__icon',
       balance: 'accounts__container__item__balance',
+      createWrapper: 'account-create-wrapper',
+      createForm: 'account-create-form',
+      createTitle: 'account-create-form__title',
+      createItem: 'account-create-form__item',
+      createInputContainer: 'account-create-form__input-container',
+      createName: 'account-create-form__name',
+      createIcon: 'account-create-form__icon',
+      createBalance: 'account-create-form__balance',
+      createCurrency: 'account-create-form__currency',
+      createSubmit: 'account-create-form__submit',
     },
     category: {
       wrapper: ['wallet__categories', 'categories'],
@@ -136,9 +148,9 @@ export const ClassMap = {
       sum: 'categories__header__sum',
       container: 'categories__container',
       item: 'categories__container__item',
-      title: 'accounts__container__item__title',
-      icon: 'accounts__container__item__icon',
-      balance: 'accounts__container__item__balance',
+      title: 'categories__container__item__title',
+      icon: 'categories__container__item__icon',
+      balance: 'categories__container__item__balance',
     },
   },
   iconBlock: {
@@ -194,4 +206,10 @@ export const MenuNavItem = {
     key: DictionaryKeys.account,
     image: SvgMap.account,
   },
+};
+
+export const startId = {
+  accounts: 'account-',
+  categories: 'category-',
+  svg: 'svg-',
 };

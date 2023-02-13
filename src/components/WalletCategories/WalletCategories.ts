@@ -1,6 +1,6 @@
 import './WalletCategories.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { ClassMap, startId } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
@@ -11,41 +11,49 @@ import { ICategory } from '../../types/interfaces';
 
 const Categories = [
   {
+    id: 'Transport',
     name: 'Transport',
     icon: 'transport',
     sum: 350,
   },
   {
+    id: 'Clothes',
     name: 'Clothes',
     icon: 'clothes',
     sum: 40,
   },
   {
+    id: 'Entertainment',
     name: 'Entertainment',
     icon: 'entertainment',
     sum: 110,
   },
   {
+    id: 'Food',
     name: 'Food',
     icon: 'food',
     sum: 420,
   },
   {
+    id: 'Eating',
     name: 'Eating out',
-    icon: 'eating out',
+    icon: 'cafe',
     sum: 210,
   },
   {
+    id: 'Health',
     name: 'Health',
     icon: 'health',
     sum: 20,
   },
   {
+    id: 'House',
     name: 'House',
     icon: 'house',
     sum: 150,
   },
   {
+    id: 'Sport',
     name: 'Sport',
     icon: 'sport',
     sum: 78,
@@ -136,12 +144,14 @@ class WalletCategories {
   }
 
   private createCategoryItem(category: ICategory): HTMLElement {
-    const { name, icon, sum } = category;
+    const {
+      id, name, icon, sum,
+    } = category;
 
     const item = createElement({
       tag: 'div',
       classList: [ClassMap.iconBlock.item],
-      id: `category-${name}`,
+      id: id as string,
     });
 
     const itemTitle = Dictionary[this.lang][name] && DictionaryKeys[name]

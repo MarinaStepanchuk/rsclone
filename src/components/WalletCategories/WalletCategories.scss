@@ -29,5 +29,20 @@
     justify-content: flex-start;
     align-items: center;
     gap: 3rem;
+
+    &__item__icon {
+      border: 2px solid $color-dark-font;
+      background-color:  $color-secondary;
+      fill: $color-dark-font;
+      stroke: $color-dark-font;
+    }
+  }
+
+  .icon-container__image:last-child {
+    border: 2px solid $color-dark-font;
+    background-color:  $color-secondary;
+    fill: $color-dark-font;
+    stroke: $color-dark-font;
   }
 }
+

@@ -73,12 +73,15 @@ export interface IMenuItem {
 }
 
 export interface IAccount {
-  name: string,
-  icon: string,
+  id?: string,
+  account: string,
   sum: number,
+  icon: string,
+  userId?: string,
 }
 
 export interface ICategory {
+  id?: string,
   name: string,
   icon: string,
   sum: number,

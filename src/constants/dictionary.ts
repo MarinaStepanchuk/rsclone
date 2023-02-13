@@ -56,6 +56,11 @@ export const Dictionary: DictionaryLang = {
     Sport: 'Sport',
     Cash: 'Сash',
     Card: 'Сard',
+    createAccountTitle: 'Creating account',
+    createAccountName: 'Enter account name',
+    createAccountBalance: 'Balance',
+    createAccountSubmit: 'Create account',
+    errorMessageAccountExists: 'Account with the same name already exists',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -106,6 +111,11 @@ export const Dictionary: DictionaryLang = {
     Sport: 'Спорт',
     Cash: 'Наличные',
     Card: 'Карта',
+    createAccountTitle: 'Создание счета',
+    createAccountName: 'Введите имя счета',
+    createAccountBalance: 'Баланс',
+    createAccountSubmit: 'Создать счет',
+    errorMessageAccountExists: 'Счет с таким именем уже существует',
   },
   DE: {
     authorizationTitle: '',
@@ -156,6 +166,11 @@ export const Dictionary: DictionaryLang = {
     Sport: '',
     Cash: '',
     Card: '',
+    createAccountTitle: '',
+    createAccountName: '',
+    createAccountBalance: '',
+    createAccountSubmit: '',
+    errorMessageAccountExists: '',
   },
 };
 
@@ -212,4 +227,9 @@ export const DictionaryKeys: DictionaryKeysType = {
   Sport: 'Sport',
   Cash: 'Cash',
   Card: 'Card',
+  createAccountTitle: 'createAccountTitle',
+  createAccountName: 'createAccountName',
+  createAccountBalance: 'createAccountBalance',
+  createAccountSubmit: 'createAccountSubmit',
+  errorMessageAccountExists: 'errorMessageAccountExists',
 };

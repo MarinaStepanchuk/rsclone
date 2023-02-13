@@ -1,6 +1,6 @@
 import './WalletAccouts.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { ClassMap, startId } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
@@ -8,15 +8,16 @@ import { Currency } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IAccount } from '../../types/interfaces';
+import CreatorAccount from '../../modals/CreatorAccount/CreatorAccount';
 
-const Accounts = [
+export const Accounts = [
   {
-    name: 'Cash',
+    account: 'Cash',
     icon: 'cash',
     sum: 4650,
   },
   {
-    name: 'Card',
+    account: 'Card',
     icon: 'card',
     sum: 2380,
   },
@@ -31,7 +32,7 @@ class WalletAccouts {
 
   private currency: CURRENCY;
 
-  constructor() {
+  constructor(private updateAccountsBlock: () => void) {
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
@@ -39,13 +40,15 @@ class WalletAccouts {
   }
 
   private init(): void {
+
+  }
+
+  public render(): HTMLElement {
     this.section = createElement({
       tag: 'div',
       classList: [...ClassMap.wallet.account.wrapper, ClassMap.mode[this.modeValue].font],
     });
-  }
 
-  public render(): HTMLElement {
     const header = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.account.header, ClassMap.mode[this.modeValue].title],
@@ -79,7 +82,7 @@ class WalletAccouts {
     return amount;
   }
 
-  private getAccouts() {
+  public getAccouts(): IAccount[] {
     // БЭК получаем карты с балансами
     return Accounts;
   }
@@ -91,7 +94,7 @@ class WalletAccouts {
     });
 
     const data = this.getAccouts();
-    const accounts = data.map(((account) => this.createAccountItem(account)));
+    const accounts = data.map(((itemAccount) => this.createAccountItem(itemAccount)));
 
     const plusAccount = createElement({
       tag: 'div',
@@ -102,29 +105,37 @@ class WalletAccouts {
 
     accountsBlock.replaceChildren(...accounts, plusAccount);
 
+    plusAccount.addEventListener('click', () => {
+      const section = document.querySelector(`.${ClassMap.main}`);
+      const modal = new CreatorAccount(this.getAccouts, this.updateAccountsBlock).render();
+      section?.append(modal as HTMLElement);
+    });
+
     return accountsBlock;
   }
 
-  private createAccountItem(account: IAccount): HTMLElement {
-    const { name, icon, sum } = account;
+  private createAccountItem(itemAccount: IAccount): HTMLElement {
+    const {
+      id, account, icon, sum,
+    } = itemAccount;
 
     const item = createElement({
       tag: 'div',
       classList: [ClassMap.iconBlock.item],
-      id: `account-${name}`,
+      id: id as string,
     });
 
-    const itemTitle = Dictionary[this.lang][name] && DictionaryKeys[name]
+    const itemTitle = Dictionary[this.lang][account] && DictionaryKeys[account]
       ? createElement({
         tag: 'span',
         classList: [ClassMap.wallet.account.title],
-        key: DictionaryKeys[account.name],
-        content: Dictionary[this.lang][account.name],
+        key: DictionaryKeys[account],
+        content: Dictionary[this.lang][account],
       })
       : createElement({
         tag: 'span',
         classList: [ClassMap.wallet.account.title],
-        content: name,
+        content: account,
       });
 
     const itemIcon = createElement({
@@ -143,10 +154,6 @@ class WalletAccouts {
     item.replaceChildren(itemTitle, itemIcon, itemAmount);
 
     return item;
-  }
-
-  public updateComponent() {
-    this.render();
   }
 }
 

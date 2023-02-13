@@ -19,11 +19,16 @@ class Wallet extends BasePage {
     });
 
     section.append(
-      new WalletAccouts().render(),
+      new WalletAccouts(this.updateAccountsBlock).render(),
       new WalletCategories().render()
     );
 
     mainContent?.replaceChildren(section);
+  }
+
+  private updateAccountsBlock(): void {
+    const element = document.querySelector(`.${ClassMap.wallet.account.wrapper}`) as HTMLElement;
+    element.replaceWith(new WalletAccouts(this.updateAccountsBlock).render());
   }
 }
 
