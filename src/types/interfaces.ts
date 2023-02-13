@@ -1,4 +1,4 @@
-import { LANG, MODE } from "./types";
+import { LANG, MODE } from './types';
 
 export interface IOptionsElement {
   tag: keyof HTMLElementTagNameMap,
@@ -70,4 +70,16 @@ export interface IMenuItem {
   name: string,
   image: string,
   key: string,
+}
+
+export interface IAccount {
+  name: string,
+  icon: string,
+  sum: number,
+}
+
+export interface ICategory {
+  name: string,
+  icon: string,
+  sum: number,
 }

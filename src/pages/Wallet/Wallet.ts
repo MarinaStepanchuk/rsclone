@@ -4,6 +4,8 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
+import WalletAccouts from '../../components/WalletAccouts/WalletAccouts';
+import WalletCategories from '../../components/WalletCategories/WalletCategories';
 
 class Wallet extends BasePage {
   public render(): void {
@@ -11,13 +13,17 @@ class Wallet extends BasePage {
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
-    const walletContainer = createElement({
-      tag: 'div',
-      classList: ['test-class'],
-      content: 'Тут wallet',
+    const section = createElement({
+      tag: 'section',
+      classList: [ClassMap.wallet.section],
     });
 
-    mainContent?.replaceChildren(walletContainer);
+    section.append(
+      new WalletAccouts().render(),
+      new WalletCategories().render()
+    );
+
+    mainContent?.replaceChildren(section);
   }
 }
 

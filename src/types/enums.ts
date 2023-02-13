@@ -20,3 +20,10 @@ export enum ModeItem {
   modal = 'modal',
   modalTitle = 'modalTitle',
 }
+
+export enum Currency {
+  USD = '$',
+  EUR = '€',
+  BYN = 'Br',
+  RYB = '₽',
+}

@@ -1,7 +1,7 @@
 import { Route } from '../types/enums';
 import AppState from './appState';
 import { Dictionary, DictionaryKeys } from './dictionary';
-import SvgMap from './svgMap';
+import { SvgMap } from './svgMap';
 
 export const ClassMap = {
   transitionButoon: 'transition-button',
@@ -117,6 +117,33 @@ export const ClassMap = {
     big: 'big-switcher',
     small: 'small-switcher',
     show: 'switcher-show',
+  },
+  wallet: {
+    section: 'wallet',
+    account: {
+      wrapper: ['wallet__accounts', 'accounts'],
+      header: 'accounts__header',
+      sum: 'accounts__header__sum',
+      container: 'accounts__container',
+      item: 'categories__container__item',
+      title: 'accounts__container__item__title',
+      icon: 'accounts__container__item__icon',
+      balance: 'accounts__container__item__balance',
+    },
+    category: {
+      wrapper: ['wallet__categories', 'categories'],
+      header: 'categories__header',
+      sum: 'categories__header__sum',
+      container: 'categories__container',
+      item: 'categories__container__item',
+      title: 'accounts__container__item__title',
+      icon: 'accounts__container__item__icon',
+      balance: 'accounts__container__item__balance',
+    },
+  },
+  iconBlock: {
+    item: 'icon-container',
+    icon: 'icon-container__image',
   },
 };
 
