@@ -131,16 +131,6 @@ export const ClassMap = {
       title: 'accounts__container__item__title',
       icon: 'accounts__container__item__icon',
       balance: 'accounts__container__item__balance',
-      createWrapper: 'account-create-wrapper',
-      createForm: 'account-create-form',
-      createTitle: 'account-create-form__title',
-      createItem: 'account-create-form__item',
-      createInputContainer: 'account-create-form__input-container',
-      createName: 'account-create-form__name',
-      createIcon: 'account-create-form__icon',
-      createBalance: 'account-create-form__balance',
-      createCurrency: 'account-create-form__currency',
-      createSubmit: 'account-create-form__submit',
     },
     category: {
       wrapper: ['wallet__categories', 'categories'],
@@ -152,6 +142,18 @@ export const ClassMap = {
       icon: 'categories__container__item__icon',
       balance: 'categories__container__item__balance',
     },
+  },
+  creater: {
+    createWrapper: 'create-wrapper',
+    createForm: 'create-form',
+    createTitle: 'create-form__title',
+    createItem: 'create-form__item',
+    createInputContainer: 'create-form__input-container',
+    createName: 'create-form__name',
+    createIcon: 'create-form__icon',
+    createBalance: 'create-form__balance',
+    createCurrency: 'create-form__currency',
+    createSubmit: 'create-form__submit',
   },
   iconBlock: {
     item: 'icon-container',
@@ -179,6 +181,8 @@ export const Attribute = {
   dataLink: 'data-link',
   checked: 'checked',
   inputCheckbox: 'checkbox',
+  key: 'key',
+  dataLang: 'data-lang',
 };
 
 export const MenuNavItem = {

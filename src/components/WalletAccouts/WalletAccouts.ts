@@ -1,6 +1,6 @@
 import './WalletAccouts.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, startId } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
@@ -9,19 +9,7 @@ import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IAccount } from '../../types/interfaces';
 import CreatorAccount from '../../modals/CreatorAccount/CreatorAccount';
-
-export const Accounts = [
-  {
-    account: 'Cash',
-    icon: 'cash',
-    sum: 4650,
-  },
-  {
-    account: 'Card',
-    icon: 'card',
-    sum: 2380,
-  },
-];
+import { Accounts } from '../../constants/tests';
 
 class WalletAccouts {
   private modeValue: MODE;
@@ -40,15 +28,13 @@ class WalletAccouts {
   }
 
   private init(): void {
-
-  }
-
-  public render(): HTMLElement {
     this.section = createElement({
       tag: 'div',
       classList: [...ClassMap.wallet.account.wrapper, ClassMap.mode[this.modeValue].font],
     });
+  }
 
+  public render(): HTMLElement {
     const header = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.account.header, ClassMap.mode[this.modeValue].title],
@@ -116,7 +102,7 @@ class WalletAccouts {
 
   private createAccountItem(itemAccount: IAccount): HTMLElement {
     const {
-      id, account, icon, sum,
+      _id: id, account, icon, sum,
     } = itemAccount;
 
     const item = createElement({

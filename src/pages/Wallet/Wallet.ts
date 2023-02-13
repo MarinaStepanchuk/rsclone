@@ -20,7 +20,7 @@ class Wallet extends BasePage {
 
     section.append(
       new WalletAccouts(this.updateAccountsBlock).render(),
-      new WalletCategories().render()
+      new WalletCategories(this.updateCategoriesBlock).render(),
     );
 
     mainContent?.replaceChildren(section);
@@ -29,6 +29,11 @@ class Wallet extends BasePage {
   private updateAccountsBlock(): void {
     const element = document.querySelector(`.${ClassMap.wallet.account.wrapper}`) as HTMLElement;
     element.replaceWith(new WalletAccouts(this.updateAccountsBlock).render());
+  }
+
+  private updateCategoriesBlock(): void {
+    const element = document.querySelector(`.${ClassMap.wallet.category.wrapper}`) as HTMLElement;
+    element.replaceWith(new WalletCategories(this.updateCategoriesBlock).render());
   }
 }
 

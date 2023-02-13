@@ -1,6 +1,6 @@
 import './WalletCategories.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, startId } from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
@@ -8,57 +8,8 @@ import { Currency } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
-
-const Categories = [
-  {
-    id: 'Transport',
-    name: 'Transport',
-    icon: 'transport',
-    sum: 350,
-  },
-  {
-    id: 'Clothes',
-    name: 'Clothes',
-    icon: 'clothes',
-    sum: 40,
-  },
-  {
-    id: 'Entertainment',
-    name: 'Entertainment',
-    icon: 'entertainment',
-    sum: 110,
-  },
-  {
-    id: 'Food',
-    name: 'Food',
-    icon: 'food',
-    sum: 420,
-  },
-  {
-    id: 'Eating',
-    name: 'Eating out',
-    icon: 'cafe',
-    sum: 210,
-  },
-  {
-    id: 'Health',
-    name: 'Health',
-    icon: 'health',
-    sum: 20,
-  },
-  {
-    id: 'House',
-    name: 'House',
-    icon: 'house',
-    sum: 150,
-  },
-  {
-    id: 'Sport',
-    name: 'Sport',
-    icon: 'sport',
-    sum: 78,
-  },
-];
+import { Categories } from '../../constants/tests';
+import CreatorCategory from '../../modals/CreatorCategory/CreatorCategory';
 
 class WalletCategories {
   private modeValue: MODE;
@@ -69,7 +20,7 @@ class WalletCategories {
 
   private currency: CURRENCY;
 
-  constructor() {
+  constructor(private updateAccountsBlock: () => void) {
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
@@ -138,6 +89,12 @@ class WalletCategories {
 
     plusCategory.innerHTML = SvgIcons.category.plus;
 
+    plusCategory.addEventListener('click', () => {
+      const section = document.querySelector(`.${ClassMap.main}`);
+      const modal = new CreatorCategory(this.getCategories, this.updateAccountsBlock).render();
+      section?.append(modal as HTMLElement);
+    });
+
     categoriesBlock.replaceChildren(...categories, plusCategory);
 
     return categoriesBlock;
@@ -145,7 +102,7 @@ class WalletCategories {
 
   private createCategoryItem(category: ICategory): HTMLElement {
     const {
-      id, name, icon, sum,
+      _id: id, name, icon, sum,
     } = category;
 
     const item = createElement({

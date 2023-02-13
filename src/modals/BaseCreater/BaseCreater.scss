@@ -1,11 +1,11 @@
 @import '../../styles/variables.scss';
 @import '../../styles/mixins.scss';
 
-.account-create-wrapper {
+.create-wrapper {
   @include modal-wrapper;
 }
 
-.account-create-form {
+.create-form {
   position: relative;
   min-width: 39rem;
   margin: 0 auto;
@@ -19,6 +19,7 @@
 
   &__title {
     font-size: 2.5rem;
+    margin-bottom: 1rem;
   }
 
   &__item {
@@ -78,7 +79,7 @@
   &__submit {
     @include button(100%, 5rem);
     font-size: 2.5rem;
-    margin-top: 1rem;
+    margin-top: 2.5rem;
 
     &:disabled {
       pointer-events: none;

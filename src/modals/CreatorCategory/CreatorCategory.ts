@@ -1,16 +1,16 @@
 import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { IAccount } from '../../types/interfaces';
+import { ICategory } from '../../types/interfaces';
 import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
 import AppState from '../../constants/appState';
+import { SvgIcons } from '../../constants/svgMap';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { Accounts } from '../../constants/tests';
+import { Categories } from '../../constants/tests';
 import BaseCreater from '../BaseCreater/BaseCreater';
-import { SvgIcons } from '../../constants/svgMap';
 
-class CreatorAccount extends BaseCreater {
-  constructor(private getAccount: () => IAccount[], private updateAccountsBlock: () => void) {
+class CreatorCategory extends BaseCreater {
+  constructor(private getCategory: () => ICategory[], private updateCategoriesBlock: () => void) {
     super();
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
@@ -22,31 +22,43 @@ class CreatorAccount extends BaseCreater {
 
   public render(): HTMLElement {
     const submit = this.submit as HTMLButtonElement;
-    submit.innerText = Dictionary[this.lang].createAccountSubmit;
+    submit.innerText = Dictionary[this.lang].createCategorySubmit;
     submit.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
-    submit.setAttribute(Attribute.key, DictionaryKeys.createAccountSubmit);
+    submit.setAttribute(Attribute.key, DictionaryKeys.createCategorySubmit);
 
     const formTitle = this.formTitle as HTMLElement;
-    formTitle.innerText = Dictionary[this.lang].createAccountTitle;
+    formTitle.innerText = Dictionary[this.lang].createCategoryTitle;
     formTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
-    formTitle.setAttribute(Attribute.key, DictionaryKeys.createAccountTitle);
+    formTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryTitle);
 
     const itemNameTitle = this.itemNameTitle as HTMLElement;
-    itemNameTitle.innerText = Dictionary[this.lang].createAccountName;
+    itemNameTitle.innerText = Dictionary[this.lang].createCategoryName;
     itemNameTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
-    itemNameTitle.setAttribute(Attribute.key, DictionaryKeys.createAccountName);
+    itemNameTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryName);
 
     const itemBalanceTitle = this.itemBalanceTitle as HTMLElement;
-    itemBalanceTitle.innerText = Dictionary[this.lang].createAccountBalance;
+    itemBalanceTitle.innerText = Dictionary[this.lang].createCategoryLimit;
     itemBalanceTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
-    itemBalanceTitle.setAttribute(Attribute.key, DictionaryKeys.createAccountBalance);
+    itemBalanceTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryLimit);
 
-    (this.icon as HTMLElement).innerHTML = SvgIcons.account.base;
+    (this.icon as HTMLElement).innerHTML = SvgIcons.category.base;
 
     return this.modalWrapper as HTMLElement;
   }
 
   private addListeners(): void {
+    this.modalWrapper?.addEventListener('click', (event) => {
+      const targetElement = event.target as HTMLElement;
+
+      if (
+        targetElement.classList.contains(ClassMap.creater.createWrapper)
+        || targetElement.classList.contains(ClassMap.closeModalButton)
+        || targetElement.classList.contains(ClassMap.closeLine)
+      ) {
+        this.modalWrapper?.remove();
+      }
+    });
+
     this.inputName?.addEventListener('input', () => {
       const { value } = this.inputName as HTMLInputElement;
 
@@ -56,12 +68,12 @@ class CreatorAccount extends BaseCreater {
         (this.submit as HTMLButtonElement).disabled = true;
       }
 
-      const accounts = this.getAccount();
+      const categories = this.getCategory();
 
-      accounts.forEach((item) => {
-        if (item.account === value) {
+      categories.forEach((item) => {
+        if (item.name === value) {
           (this.submit as HTMLButtonElement).disabled = true;
-          showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageAccountExists);
+          showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
         } else {
           (this.submit as HTMLButtonElement).disabled = false;
           removeErrorValidationMessage(this.inputName as HTMLInputElement);
@@ -79,27 +91,27 @@ class CreatorAccount extends BaseCreater {
 
         const idIcon = (this.icon as HTMLElement).getElementsByTagName('svg')[0].id.split('-')[1];
 
-        const data: IAccount = {
-          account: (this.inputName as HTMLInputElement).value,
+        const data: ICategory = {
+          name: (this.inputName as HTMLInputElement).value,
           sum: Number((this.inputBalance as HTMLInputElement).value),
           icon: idIcon,
         };
 
-        this.addAccountToDatabase(data);
+        this.addCategoryToDatabase(data);
 
-        this.updateAccountsBlock();
+        this.updateCategoriesBlock();
 
         this.modalWrapper?.remove();
       }
     });
   }
 
-  private addAccountToDatabase(data: IAccount): void {
+  private addCategoryToDatabase(data: ICategory): void {
     // тестово
     console.log(data);
-    Accounts.push(data);
+    Categories.push(data);
     // добавляем в базу новый счет
   }
 }
 
-export default CreatorAccount;
+export default CreatorCategory;

@@ -61,6 +61,11 @@ export const Dictionary: DictionaryLang = {
     createAccountBalance: 'Balance',
     createAccountSubmit: 'Create account',
     errorMessageAccountExists: 'Account with the same name already exists',
+    createCategoryTitle: 'Creating category',
+    createCategoryName: 'Enter category name',
+    createCategoryLimit: 'Limit per month',
+    createCategorySubmit: 'Create category',
+    errorMessageCategoryExists: 'Category with the same name already exists',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -116,6 +121,11 @@ export const Dictionary: DictionaryLang = {
     createAccountBalance: 'Баланс',
     createAccountSubmit: 'Создать счет',
     errorMessageAccountExists: 'Счет с таким именем уже существует',
+    createCategoryTitle: 'Создание категории',
+    createCategoryName: 'Введите имя категории',
+    createCategoryLimit: 'Лимит в месяц',
+    createCategorySubmit: 'Создать категорию',
+    errorMessageCategoryExists: 'Категория с таким именем уже существует',
   },
   DE: {
     authorizationTitle: '',
@@ -171,6 +181,11 @@ export const Dictionary: DictionaryLang = {
     createAccountBalance: '',
     createAccountSubmit: '',
     errorMessageAccountExists: '',
+    createCategoryTitle: '',
+    createCategoryName: '',
+    createCategoryLimit: '',
+    createCategorySubmit: '',
+    errorMessageCategoryExists: '',
   },
 };
 
@@ -232,4 +247,9 @@ export const DictionaryKeys: DictionaryKeysType = {
   createAccountBalance: 'createAccountBalance',
   createAccountSubmit: 'createAccountSubmit',
   errorMessageAccountExists: 'errorMessageAccountExists',
+  createCategoryTitle: 'createCategoryTitle',
+  createCategoryName: 'createCategoryName',
+  createCategoryLimit: 'createCategoryLimit',
+  createCategorySubmit: 'createCategorySubmit',
+  errorMessageCategoryExists: 'errorMessageCategoryExists',
 };
