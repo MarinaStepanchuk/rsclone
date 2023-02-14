@@ -172,10 +172,9 @@ class MainMenu {
 
   private createUserWrap(): HTMLElement {
     const userImg = createElement({ tag: 'img' }) as HTMLImageElement;
-    const userAccount = localStorage.getItem('auth');
 
-    if (userAccount) {
-      const userAccountObj = JSON.parse(userAccount);
+    if (AppState.userAccount) {
+      const userAccountObj = JSON.parse(AppState.userAccount);
       userImg.src = userAccountObj.user.avatar;
     }
 
@@ -190,8 +189,8 @@ class MainMenu {
       tag: 'div',
     });
 
-    if (userAccount) {
-      const userAccountObj = JSON.parse(userAccount);
+    if (AppState.userAccount) {
+      const userAccountObj = JSON.parse(AppState.userAccount);
       userName.textContent = userAccountObj.user.username;
     }
 

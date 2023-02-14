@@ -5,6 +5,8 @@ export const REQUEST_URL = {
   login: `${BASE_URL}/api/user/login`,
   update: `${BASE_URL}/api/user`,
   message: `${BASE_URL}/api/message`,
+  expense: `${BASE_URL}/api/expense`,
+  account: `${BASE_URL}/api/account`,
 };
 
 export const REQUEST_METOD = {

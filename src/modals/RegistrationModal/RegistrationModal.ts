@@ -11,6 +11,7 @@ import { IUserRegister } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
 import AppState from '../../constants/appState';
+import setDefaultUserAccount from './setDefaultUserAccount';
 
 class RegistrationModal {
   public wrapper: HTMLElement | null = null;
@@ -315,6 +316,9 @@ class RegistrationModal {
 
   private async handleRegistrationResponse(userRegistr: IUserRegister) {
     const response = await UserApi.registrationUser(userRegistr);
+
+    const { email, password } = userRegistr;
+    await setDefaultUserAccount({ email, password })
 
     const alert = new AlertMessage(response.message, response.status);
     alert.render();
