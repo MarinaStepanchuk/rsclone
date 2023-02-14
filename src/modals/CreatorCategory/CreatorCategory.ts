@@ -71,7 +71,7 @@ class CreatorCategory extends BaseCreater {
       const categories = this.getCategory();
 
       categories.forEach((item) => {
-        if (item.name === value) {
+        if (item.category === value) {
           (this.submit as HTMLButtonElement).disabled = true;
           showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
         } else {
@@ -92,7 +92,7 @@ class CreatorCategory extends BaseCreater {
         const idIcon = (this.icon as HTMLElement).getElementsByTagName('svg')[0].id.split('-')[1];
 
         const data: ICategory = {
-          name: (this.inputName as HTMLInputElement).value,
+          category: (this.inputName as HTMLInputElement).value,
           sum: Number((this.inputBalance as HTMLInputElement).value),
           icon: idIcon,
         };

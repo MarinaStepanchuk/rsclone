@@ -4,7 +4,7 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { CURRENCY, LANG, MODE } from '../../types/types';
 import { LocalStorageKey } from '../../constants/common';
 import AppState from '../../constants/appState';
-import { Currency } from '../../types/enums';
+import { CurrencyMark } from '../../types/enums';
 
 const defaultBalance = '0';
 
@@ -122,7 +122,7 @@ class BaseCreater {
     const iconCurrency = createElement({
       tag: 'div',
       classList: [ClassMap.creater.createCurrency],
-      content: `${Currency[this.currency]}`,
+      content: `${CurrencyMark[this.currency]}`,
     });
 
     itemBalance.append(iconCurrency, containerInputBalance);

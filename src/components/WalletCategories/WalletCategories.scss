@@ -1,48 +1,9 @@
 @import '../../styles/main.scss';
 
-.categories {
-  width: 100%;
-  padding: 2rem;
-
-  &__header {
-    width: 100%;
-    padding-bottom: 1rem;
-    font-size: 2rem;
-    font-weight: 600;
-    border-bottom: 2px solid $color-primary;
-
-    &__title {
-      font-weight: 300;
-    }
-
-    &__sum {
-      font-weight: normal;
-    }
-  }
-
-  &__container {
-    width: 100%;
-    padding: 1rem 1rem;
-    font-size: 1.6rem;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 3rem;
-
-    &__item__icon {
-      border: 2px solid $color-dark-font;
-      background-color:  $color-secondary;
-      fill: $color-dark-font;
-      stroke: $color-dark-font;
-    }
-  }
-
-  .icon-container__image:last-child {
-    border: 2px solid $color-dark-font;
-    background-color:  $color-secondary;
-    fill: $color-dark-font;
-    stroke: $color-dark-font;
-  }
+.wallet__image_light {
+  border: 2px solid $color-dark-font;
+  background-color:  $color-secondary;
+  fill: $color-dark-font;
+  stroke: $color-dark-font;
 }
 

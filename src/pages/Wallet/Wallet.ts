@@ -15,7 +15,7 @@ class Wallet extends BasePage {
 
     const section = createElement({
       tag: 'section',
-      classList: [ClassMap.wallet.section],
+      classList: [ClassMap.wallet.wrapper],
     });
 
     section.append(
@@ -27,12 +27,12 @@ class Wallet extends BasePage {
   }
 
   private updateAccountsBlock(): void {
-    const element = document.querySelector(`.${ClassMap.wallet.account.wrapper}`) as HTMLElement;
+    const element = document.querySelector(`.${ClassMap.wallet.accountsSection}`) as HTMLElement;
     element.replaceWith(new WalletAccouts(this.updateAccountsBlock).render());
   }
 
   private updateCategoriesBlock(): void {
-    const element = document.querySelector(`.${ClassMap.wallet.category.wrapper}`) as HTMLElement;
+    const element = document.querySelector(`.${ClassMap.wallet.categoriesSection}`) as HTMLElement;
     element.replaceWith(new WalletCategories(this.updateCategoriesBlock).render());
   }
 }

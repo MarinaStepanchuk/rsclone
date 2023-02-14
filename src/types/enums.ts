@@ -21,9 +21,14 @@ export enum ModeItem {
   modalTitle = 'modalTitle',
 }
 
-export enum Currency {
+export enum CurrencyMark {
   USD = '$',
   EUR = '€',
   BYN = 'Br',
   RYB = '₽',
+}
+
+export enum SectionWallet {
+  category = 'category',
+  account = 'account',
 }

@@ -4,12 +4,13 @@ import { ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
-import { Currency } from '../../types/enums';
+import { CurrencyMark, SectionWallet } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
 import { Categories } from '../../constants/tests';
 import CreatorCategory from '../../modals/CreatorCategory/CreatorCategory';
+import createIconBlock from '../../utils/createIconBlock';
 
 class WalletCategories {
   private modeValue: MODE;
@@ -30,14 +31,14 @@ class WalletCategories {
   private init(): void {
     this.section = createElement({
       tag: 'div',
-      classList: [...ClassMap.wallet.category.wrapper, ClassMap.mode[this.modeValue].font],
+      classList: [ClassMap.wallet.section, ClassMap.wallet.categoriesSection, ClassMap.mode[this.modeValue].font],
     });
   }
 
   public render(): HTMLElement {
     const header = createElement({
       tag: 'div',
-      classList: [ClassMap.wallet.category.header, ClassMap.mode[this.modeValue].title],
+      classList: [ClassMap.wallet.subTitle, ClassMap.mode[this.modeValue].title],
     });
 
     const title = createElement({
@@ -48,10 +49,10 @@ class WalletCategories {
 
     const sum = createElement({
       tag: 'span',
-      classList: [ClassMap.wallet.category.sum],
+      classList: [ClassMap.wallet.sum],
     });
 
-    sum.innerText = `${this.getCategoriesAmount()} ${Currency[this.currency]}`;
+    sum.innerText = `${this.getCategoriesAmount()} ${CurrencyMark[this.currency]}`;
 
     header.append(title, sum);
 
@@ -76,18 +77,24 @@ class WalletCategories {
   private getCategoriesBlock(): HTMLElement {
     const categoriesBlock = createElement({
       tag: 'div',
-      classList: [ClassMap.wallet.category.container],
+      classList: [ClassMap.wallet.itemContainer],
     });
 
     const data = this.getCategories();
-    const categories = data.map(((category) => this.createCategoryItem(category)));
+    const categories = data.map(((category) => createIconBlock(category, SectionWallet.category)));
+
+    const plusContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.item],
+    });
 
     const plusCategory = createElement({
       tag: 'div',
-      classList: [ClassMap.iconBlock.icon],
+      classList: [ClassMap.wallet.image, ClassMap.wallet.lightIcon],
     });
 
     plusCategory.innerHTML = SvgIcons.category.plus;
+    plusContainer.append(plusCategory);
 
     plusCategory.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
@@ -95,55 +102,9 @@ class WalletCategories {
       section?.append(modal as HTMLElement);
     });
 
-    categoriesBlock.replaceChildren(...categories, plusCategory);
+    categoriesBlock.replaceChildren(...categories, plusContainer);
 
     return categoriesBlock;
-  }
-
-  private createCategoryItem(category: ICategory): HTMLElement {
-    const {
-      _id: id, name, icon, sum,
-    } = category;
-
-    const item = createElement({
-      tag: 'div',
-      classList: [ClassMap.iconBlock.item],
-      id: id as string,
-    });
-
-    const itemTitle = Dictionary[this.lang][name] && DictionaryKeys[name]
-      ? createElement({
-        tag: 'span',
-        classList: [ClassMap.wallet.category.title],
-        key: DictionaryKeys[category.name],
-        content: Dictionary[this.lang][category.name],
-      })
-      : createElement({
-        tag: 'span',
-        classList: [ClassMap.wallet.category.title],
-        content: name,
-      });
-
-    const itemIcon = createElement({
-      tag: 'div',
-      classList: [ClassMap.iconBlock.icon, ClassMap.wallet.category.icon],
-    });
-
-    itemIcon.innerHTML = SvgIcons.category[icon] ? SvgIcons.category[icon] : SvgIcons.category.base;
-
-    const itemAmount = createElement({
-      tag: 'span',
-      classList: [ClassMap.wallet.category.balance],
-      content: `${sum} ${Currency[this.currency]}`,
-    });
-
-    item.replaceChildren(itemTitle, itemIcon, itemAmount);
-
-    return item;
-  }
-
-  public updateComponent() {
-    this.render();
   }
 }
 

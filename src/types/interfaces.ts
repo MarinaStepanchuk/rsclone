@@ -78,11 +78,13 @@ export interface IAccount {
   sum: number,
   icon: string,
   userId?: string,
+  key?: string,
 }
 
 export interface ICategory {
   _id?: string,
-  name: string,
+  category: string,
   icon: string,
   sum: number,
+  key?: string,
 }
