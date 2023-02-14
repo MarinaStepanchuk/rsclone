@@ -28,30 +28,68 @@ export const Mode = {
   light: 'light',
 };
 
-export const defaultAccountCash: IAccount = {
-  account: 'Cash',
-  sum: 0,
-  icon: 'cash',
-};
-
-export const defaultAccountCard: IAccount = {
-  account: 'Card',
-  sum: 0,
-  icon: 'card',
-};
-
 export const defaultAccounts: IAccount[] = [
-  { account: 'Cash', sum: 0, icon: 'cash' },
-  { account: 'Card', sum: 0, icon: 'card' },
+  {
+    account: 'Cash',
+    sum: 0,
+    icon: 'cash',
+    key: 'cash',
+  },
+  {
+    account: 'Card',
+    sum: 0,
+    icon: 'card',
+    key: 'card',
+  },
 ];
 
 export const defaultExpenseCategories: ICategory[] = [
-  { category: 'Transport', icon: 'transport' },
-  { category: 'Clothes', icon: 'clothes' },
-  { category: 'Eating out', icon: 'cafe' },
-  { category: 'Entertainment', icon: 'entertainment' },
-  { category: 'Food', icon: 'food' },
-  { category: 'Health', icon: 'health' },
-  { category: 'House', icon: 'house' },
-  { category: 'Sport', icon: 'sport' },
+  {
+    category: 'Transport',
+    icon: 'transport',
+    limit: 0,
+    key: 'transport',
+  },
+  {
+    category: 'Clothes',
+    icon: 'clothes',
+    limit: 0,
+    key: 'clothes',
+  },
+  {
+    category: 'Eating out',
+    icon: 'cafe',
+    limit: 0,
+    key: 'cafe',
+  },
+  {
+    category: 'Entertainment',
+    icon: 'entertainment',
+    limit: 0,
+    key: 'entertainment',
+  },
+  {
+    category: 'Food',
+    icon: 'food',
+    limit: 0,
+    key: 'food',
+  },
+  {
+    category: 'Health',
+    icon: 'health',
+    limit: 0,
+    key: 'health',
+  },
+  {
+    category: 'House',
+    icon: 'house',
+    limit: 0,
+    key: 'house',
+  },
+  {
+    category: 'Sport',
+    icon: 'sport',
+    limit: 0,
+    key: 'sport',
+  },
 ];

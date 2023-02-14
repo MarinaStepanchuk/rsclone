@@ -44,16 +44,6 @@ export interface IExpense {
   comment?: string,
 }
 
-export interface IExpenseUpdate {
-  readonly _id: string,
-  date?: Date,
-  account?: string,
-  category?: string,
-  expense?: number,
-  currency?: string,
-  comment?: string,
-}
-
 export interface IIncome {
   readonly _id: string,
   readonly __v: number,
@@ -70,15 +60,9 @@ export interface IAccount {
   readonly __v?: number,
   readonly userId?: string,
   account: string,
-  sum: number,
   icon: string,
-}
-
-export interface IAccountUpdate {
-  readonly _id: string,
-  account?: string,
   sum?: number,
-  icon?: string,
+  key?: string,
 }
 
 export interface ICategory {
@@ -87,12 +71,8 @@ export interface ICategory {
   readonly userId?: string,
   category: string,
   icon: string,
-}
-
-export interface ICategoryUpdate {
-  readonly _id: string,
-  category?: string,
-  icon?: string,
+  limit?: number,
+  key?: string,
 }
 
 export interface ISupportMsg {

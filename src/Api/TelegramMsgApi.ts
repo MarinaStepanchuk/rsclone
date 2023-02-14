@@ -1,13 +1,14 @@
 import { ISupportMsg } from '../types/interfaces';
 import {
-  REQUEST_URL,
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
+  BASE_URL,
+  Endpoint,
 } from './serverConstants';
 
 class TelegramMsgApi {
   public static async sendMsg(token: string, userMessage: ISupportMsg) {
-    const url = `${REQUEST_URL.message}`;
+    const url = `${BASE_URL}${Endpoint.MESSEAGE}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {

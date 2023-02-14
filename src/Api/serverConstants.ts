@@ -1,14 +1,14 @@
-const BASE_URL = 'http://localhost:3005';
+export const BASE_URL = 'http://localhost:3005';
 
-export const REQUEST_URL = {
-  register: `${BASE_URL}/api/user/register`,
-  login: `${BASE_URL}/api/user/login`,
-  update: `${BASE_URL}/api/user`,
-  message: `${BASE_URL}/api/message`,
-  expense: `${BASE_URL}/api/expense`,
-  account: `${BASE_URL}/api/account`,
-  category: `${BASE_URL}/api/category`,
-};
+export enum Endpoint {
+  REGISTER = '/api/user/register',
+  LOGIN = '/api/user/login',
+  USER_UPDATE = '/api/user',
+  MESSEAGE = '/api/message',
+  ACCOUNT = '/api/account',
+  CATEGORY = '/api/category',
+  EXPENSE = '/api/expense',
+}
 
 export const REQUEST_METOD = {
   GET: 'GET',

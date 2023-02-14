@@ -4,11 +4,10 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import { IAccount, IAccountUpdate, ICategory, ICategoryUpdate, IExpense, IExpenseUpdate } from '../../types/interfaces';
-import ExpenseApi from '../../Api/ExpenseApi';
-import AccountApi from '../../Api/AccountApi';
+import { IAccount, ICategory, IExpense } from '../../types/interfaces';
 import AppState from '../../constants/appState';
-import CategoryApi from '../../Api/CategoryApi';
+import RequestApi from '../../Api/RequestsApi';
+import { Endpoint } from '../../Api/serverConstants';
 
 class Analytics extends BasePage {
   public render(): void {
@@ -34,33 +33,34 @@ class Analytics extends BasePage {
       // TODO Account Api
       //! создание пользовательского счета
       // const fakeNewAccount: IAccount = {
-      //   account: 'My new account3',
+      //   account: 'New account',
       //   sum: 500,
       //   icon: 'icon',
       // };
-      // const newAccount: IAccount = await AccountApi.createAccount(userToken, fakeNewAccount);
+      // const newAccount: IAccount = await RequestApi.create(Endpoint.ACCOUNT, userToken, fakeNewAccount);
       // console.log(newAccount);
 
       //! изменение счета (id и любые параметры)
-      // const fakeСhangedAccount: IAccountUpdate = {
-      //   _id: '63ea34643559e1d7fd9b99cf',
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63eb73429e3431e4fb34286a';
+      // const fakeСhangedAccount: Partial<IAccount> = {
       //   icon: 'icon4',
       // };
-      // const changedAccount: IAccount = await AccountApi.updateAccount(userToken, fakeСhangedAccount);
+      // const changedAccount: IAccount = await RequestApi.update(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
       // console.log(changedAccount);
 
+      //! получение счета по id
+      // const fakeId = '63eb73429e3431e4fb34286a';
+      // const account: IAccount = await RequestApi.get(Endpoint.ACCOUNT, userToken, fakeId);
+      // console.log(account);
+
       //! удаление счета
-      // const fakeId = '63ea3b753559e1d7fd9b99d7';
-      // await AccountApi.deleteAccount(userToken, fakeId);
+      // const fakeId2 = '63eb73429e3431e4fb34286a';
+      // await RequestApi.delete(Endpoint.ACCOUNT, userToken, fakeId2);
 
       //! получение всeх счетов пользовтеля
-      // const accountsData: IAccount[] = await AccountApi.getAccounts(userToken);
+      // const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
       // console.log(accountsData);
-
-      //! получение счета по id
-      // const fakeId = '63ea225822d0c00117d651d6';
-      // const account = await AccountApi.getAccount(userToken, fakeId);
-      // console.log(account);
 
       // TODO Category Api
       //! создание категории
@@ -68,35 +68,32 @@ class Analytics extends BasePage {
       //   category: 'My new category',
       //   icon: 'category-icon',
       // };
-      // const newCategory: ICategory = await CategoryApi.createCategory(userToken, fakeNewCategory);
+      // const newCategory: ICategory = await RequestApi.create(Endpoint.CATEGORY, userToken, fakeNewCategory);
       // console.log(newCategory);
 
       //! изменение категории (id и любые параметры)
-      // const fakeСhangedCategory: ICategoryUpdate = {
-      //   _id: '63eb331cc9812010d1b8ffd5',
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63eb82429e3431e4fb342878';
+      // const fakeСhangedCategory: Partial<ICategory> = {
       //   icon: 'icon8',
       // };
-      // const changedCategory: ICategory = await CategoryApi.updateCategory(userToken, fakeСhangedCategory);
+      // const changedCategory: ICategory = await RequestApi.update(Endpoint.CATEGORY, userToken, fakeId, fakeСhangedCategory);
       // console.log(changedCategory);
 
-      //! удаление категории
-      // const fakeId = '63eb34d1c9812010d1b8ffdc';
-      // await CategoryApi.deleteCategory(userToken, fakeId);
-
-      //! получение всeх категорий пользователя
-      // const categoriesData: ICategory[] = await CategoryApi.getCategories(userToken);
-      // console.log(categoriesData);
-
       //! получение категории по id
-      // const fakeId = '63eb34cec9812010d1b8ffda';
-      // const category = await CategoryApi.getCategory(userToken, fakeId);
+      // const fakeId = '63eb82429e3431e4fb342878';
+      // const category: ICategory = await RequestApi.get(Endpoint.CATEGORY, userToken, fakeId);
       // console.log(category);
 
-      // TODO Expense Api
-      //! получение всех расходов пользователя
-      // const expensesData: IExpense[] = await ExpenseApi.getExpenses(userToken);
-      // console.log(expensesData);
+      //! удаление категории
+      // const fakeId2 = '63eb83839e3431e4fb342882';
+      // await RequestApi.delete(Endpoint.CATEGORY, userToken, fakeId2);
 
+      //! получение всeх категорий пользователя
+      // const categoriesData: ICategory[] = await RequestApi.getAll(Endpoint.CATEGORY, userToken);
+      // console.log(categoriesData);
+
+      // TODO Expense Api
       //! создание расхода
       // const fakeNewExpense: IExpense = {
       //   date: new Date(),
@@ -106,30 +103,31 @@ class Analytics extends BasePage {
       //   currency: 'USD',
       //   comment: 'optional parameter',
       // };
-      // const newExpense: IExpense = await ExpenseApi.createExpense(userToken, fakeNewExpense);
+      // const newExpense: IExpense = await RequestApi.create(Endpoint.EXPENSE, userToken, fakeNewExpense);
       // console.log(newExpense);
 
-      //! изменение категории (id и любые параметры)
-      // const fakeСhangedExpense: IExpenseUpdate = {
-      //   _id: '63eb3c65c9812010d1b8ffe1',
-      //   comment: 'new comment',
+      //! изменение расхода (id и любые параметры)
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63eb85139e3431e4fb34288d';
+      // const fakeСhangedExpense: Partial<IExpense> = {
+      //   comment: 'new comment2',
       // };
-      // const changedExpense: IExpense = await ExpenseApi.updateExpense(userToken, fakeСhangedExpense);
+      // const changedExpense: IExpense = await RequestApi.update(Endpoint.EXPENSE, userToken, fakeId, fakeСhangedExpense);
       // console.log(changedExpense);
 
-      //! удаление категории
-      // const fakeId = '63eb3c65c9812010d1b8ffe1';
-      // await ExpenseApi.deleteExpense(userToken, fakeId);
-
       //! получение расхода по id
-      // const fakeId = '63eb3c65c9812010d1b8ffe1';
-      // const expense = await ExpenseApi.getExpense(userToken, fakeId);
+      // const fakeId = '63eb85139e3431e4fb34288d';
+      // const expense: IExpense = await RequestApi.get(Endpoint.EXPENSE, userToken, fakeId);
       // console.log(expense);
-    }
-  }
 
-  private async handleCreateAccountResponse(token: string, accountData: IAccount) {
-    const response = await AccountApi.createAccount(token, accountData);
+      //! удаление категории
+      // const fakeId = '63eb85139e3431e4fb34288d';
+      // await RequestApi.delete(Endpoint.EXPENSE, userToken, fakeId);
+
+      //! получение всех расходов пользователя
+      // const expensesData: IExpense[] = await RequestApi.getAll(Endpoint.EXPENSE, userToken);
+      // console.log(expensesData);
+    }
   }
 }
 

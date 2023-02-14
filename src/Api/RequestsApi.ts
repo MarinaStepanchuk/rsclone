@@ -1,51 +1,70 @@
-import { ICategory, ICategoryUpdate } from '../types/interfaces';
 import {
-  REQUEST_URL,
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
+  Endpoint,
+  BASE_URL,
 } from './serverConstants';
 
-class CategoryApi {
-  public static async createCategory(token: string, categoryData: ICategory): Promise<ICategory> {
-    const url = `${REQUEST_URL.category}`;
+class RequestApi {
+  public static async create<T>(endpoint: Endpoint, token: string, data: T): Promise<T> {
+    const url = `${BASE_URL}${endpoint}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
       const response = await fetch(url, {
         method: REQUEST_METOD.POST,
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
-        body: JSON.stringify(categoryData),
+        body: JSON.stringify(data),
       });
 
-      const newCategory = await response.json();
+      const result = await response.json();
 
-      return newCategory;
+      return result;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public static async updateCategory(token: string, categoryData: ICategoryUpdate): Promise<ICategory> {
-    const url = `${REQUEST_URL.category}/${categoryData._id}`;
+  public static async update<T>(endpoint: Endpoint, token: string, id: string, data: Partial<T>): Promise<T> {
+    const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
       const response = await fetch(url, {
         method: REQUEST_METOD.PATCH,
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
-        body: JSON.stringify(categoryData),
+        body: JSON.stringify(data),
       });
 
-      const changedCategory = await response.json();
+      const result = await response.json();
 
-      return changedCategory;
+      return result;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public static async deleteCategory(token: string, id: string): Promise<void> {
-    const url = `${REQUEST_URL.category}/${id}`;
+  public static async get<T>(endpoint: Endpoint, token: string, id: string): Promise<T> {
+    const url = `${BASE_URL}${endpoint}/${id}`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.GET,
+        headers: authorization,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      throw new Error(`${error}`);
+    }
+  }
+
+  public static async delete(endpoint: Endpoint, token: string, id: string): Promise<void> {
+    const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
@@ -63,27 +82,8 @@ class CategoryApi {
     }
   }
 
-  public static async getCategory(token: string, id: string): Promise<ICategory> {
-    const url = `${REQUEST_URL.category}/${id}`;
-    const authorization = { Authorization: `Bearer ${token}` };
-
-    try {
-      const response = await fetch(url, {
-        method: REQUEST_METOD.GET,
-        headers: authorization,
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      throw new Error(`${error}`);
-    }
-  }
-
-  public static async getCategories(token: string): Promise<ICategory[]> {
-    const url = `${REQUEST_URL.category}`;
+  public static async getAll<T>(endpoint: Endpoint, token: string): Promise<T[]> {
+    const url = `${BASE_URL}${endpoint}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
@@ -92,7 +92,7 @@ class CategoryApi {
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
       });
 
-      const dataResponse: ICategory[] = await response.json();
+      const dataResponse: T[] = await response.json();
 
       return dataResponse;
     } catch (error) {
@@ -101,4 +101,4 @@ class CategoryApi {
   }
 }
 
-export default CategoryApi;
+export default RequestApi;

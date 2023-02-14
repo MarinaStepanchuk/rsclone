@@ -5,13 +5,20 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { alertTimeout, RegularExpressions, Currency } from '../../constants/common';
+import {
+  alertTimeout,
+  RegularExpressions,
+  Currency,
+  defaultAccounts,
+  defaultExpenseCategories,
+} from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
 import { IUserRegister } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
 import AppState from '../../constants/appState';
-import setDefaultUserAccount from './setDefaultUserAccount';
+import setDefaultUserProperties from './setDefaultUserProperties';
+import { Endpoint } from '../../Api/serverConstants';
 
 class RegistrationModal {
   public wrapper: HTMLElement | null = null;
@@ -318,7 +325,8 @@ class RegistrationModal {
     const response = await UserApi.registrationUser(userRegistr);
 
     const { email, password } = userRegistr;
-    await setDefaultUserAccount({ email, password });
+    await setDefaultUserProperties(Endpoint.ACCOUNT, { email, password }, defaultAccounts);
+    await setDefaultUserProperties(Endpoint.CATEGORY, { email, password }, defaultExpenseCategories);
 
     const alert = new AlertMessage(response.message, response.status);
     alert.render();
