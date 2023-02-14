@@ -318,7 +318,7 @@ class RegistrationModal {
     const response = await UserApi.registrationUser(userRegistr);
 
     const { email, password } = userRegistr;
-    await setDefaultUserAccount({ email, password })
+    await setDefaultUserAccount({ email, password });
 
     const alert = new AlertMessage(response.message, response.status);
     alert.render();

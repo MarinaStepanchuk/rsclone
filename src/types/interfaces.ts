@@ -79,6 +79,12 @@ export interface ICategory {
   icon: string,
 }
 
+export interface ICategoryUpdate {
+  readonly _id: string,
+  category?: string,
+  icon?: string,
+}
+
 export interface ISupportMsg {
   username: string;
   email: string;

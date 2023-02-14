@@ -7,6 +7,7 @@ export const REQUEST_URL = {
   message: `${BASE_URL}/api/message`,
   expense: `${BASE_URL}/api/expense`,
   account: `${BASE_URL}/api/account`,
+  category: `${BASE_URL}/api/category`,
 };
 
 export const REQUEST_METOD = {

@@ -6,7 +6,6 @@ import { LANG, MODE } from '../../types/types';
 import RegistrationModal from '../../modals/RegistrationModal/RegistrationModal';
 import { alertTimeout, LocalStorageKey, RegularExpressions } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
-import { Route } from '../../types/enums';
 import { IUserLogin } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';

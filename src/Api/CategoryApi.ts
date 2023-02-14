@@ -1,51 +1,51 @@
-import { IAccount, IAccountUpdate } from '../types/interfaces';
+import { ICategory, ICategoryUpdate } from '../types/interfaces';
 import {
   REQUEST_URL,
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
 } from './serverConstants';
 
-class AccountApi {
-  public static async createAccount(token: string, accountData: IAccount): Promise<IAccount> {
-    const url = `${REQUEST_URL.account}`;
+class CategoryApi {
+  public static async createCategory(token: string, categoryData: ICategory): Promise<ICategory> {
+    const url = `${REQUEST_URL.category}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
       const response = await fetch(url, {
         method: REQUEST_METOD.POST,
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
-        body: JSON.stringify(accountData),
+        body: JSON.stringify(categoryData),
       });
 
-      const newAccount = await response.json();
+      const newCategory = await response.json();
 
-      return newAccount;
+      return newCategory;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public static async updateAccount(token: string, accountData: IAccountUpdate): Promise<IAccount> {
-    const url = `${REQUEST_URL.account}/${accountData._id}`;
+  public static async updateCategory(token: string, categoryData: ICategoryUpdate): Promise<ICategory> {
+    const url = `${REQUEST_URL.category}/${categoryData._id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
       const response = await fetch(url, {
         method: REQUEST_METOD.PATCH,
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
-        body: JSON.stringify(accountData),
+        body: JSON.stringify(categoryData),
       });
 
-      const changedAccount = await response.json();
+      const changedCategory = await response.json();
 
-      return changedAccount;
+      return changedCategory;
     } catch (error) {
       throw new Error(`${error}`);
     }
   }
 
-  public static async deleteAccount(token: string, id: string): Promise<void> {
-    const url = `${REQUEST_URL.account}/${id}`;
+  public static async deleteCategory(token: string, id: string): Promise<void> {
+    const url = `${REQUEST_URL.category}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
@@ -63,8 +63,8 @@ class AccountApi {
     }
   }
 
-  public static async getAccount(token: string, id: string): Promise<IAccount> {
-    const url = `${REQUEST_URL.account}/${id}`;
+  public static async getCategory(token: string, id: string): Promise<ICategory> {
+    const url = `${REQUEST_URL.category}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
@@ -82,8 +82,8 @@ class AccountApi {
     }
   }
 
-  public static async getAccounts(token: string): Promise<IAccount[]> {
-    const url = `${REQUEST_URL.account}`;
+  public static async getCategories(token: string): Promise<ICategory[]> {
+    const url = `${REQUEST_URL.category}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
     try {
@@ -92,7 +92,7 @@ class AccountApi {
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
       });
 
-      const dataResponse: IAccount[] = await response.json();
+      const dataResponse: ICategory[] = await response.json();
 
       return dataResponse;
     } catch (error) {
@@ -101,4 +101,4 @@ class AccountApi {
   }
 }
 
-export default AccountApi;
+export default CategoryApi;

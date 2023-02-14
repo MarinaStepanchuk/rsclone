@@ -1,4 +1,4 @@
-import { IAccount, ICategory } from "../types/interfaces";
+import { IAccount, ICategory } from '../types/interfaces';
 
 export const LANG_ATTRIBUTE = 'lang';
 
@@ -43,15 +43,15 @@ export const defaultAccountCard: IAccount = {
 export const defaultAccounts: IAccount[] = [
   { account: 'Cash', sum: 0, icon: 'cash' },
   { account: 'Card', sum: 0, icon: 'card' },
-]
+];
 
 export const defaultExpenseCategories: ICategory[] = [
-  { category: 'Transport', icon: 'transport', },
-  { category: 'Clothes', icon: 'clothes', },
-  { category: 'Eating out', icon: 'cafe', },
-  { category: 'Entertainment', icon: 'entertainment', },
-  { category: 'Food', icon: 'food', },
-  { category: 'Health', icon: 'health', },
-  { category: 'House', icon: 'house', },
-  { category: 'Sport', icon: 'sport', },
+  { category: 'Transport', icon: 'transport' },
+  { category: 'Clothes', icon: 'clothes' },
+  { category: 'Eating out', icon: 'cafe' },
+  { category: 'Entertainment', icon: 'entertainment' },
+  { category: 'Food', icon: 'food' },
+  { category: 'Health', icon: 'health' },
+  { category: 'House', icon: 'house' },
+  { category: 'Sport', icon: 'sport' },
 ];

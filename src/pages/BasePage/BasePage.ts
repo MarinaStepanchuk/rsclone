@@ -2,7 +2,7 @@ import Footer from '../../components/Footer/Footer';
 import createElement from '../../utils/createElement';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import { ClassMap } from '../../constants/htmlConstants';
-import { LANG, MODE } from '../../types/types';
+import { MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 
 class BasePage {
