@@ -1,4 +1,4 @@
-import { IAccount, ICategory } from '../types/interfaces';
+import { ICategory, IAccount } from '../types/interfaces';
 
 export const LANG_ATTRIBUTE = 'lang';
 
@@ -43,7 +43,7 @@ export const defaultAccounts: IAccount[] = [
   },
 ];
 
-export const defaultExpenseCategories: ICategory[] = [
+export const defaultCategories: ICategory[] = [
   {
     category: 'Transport',
     icon: 'transport',

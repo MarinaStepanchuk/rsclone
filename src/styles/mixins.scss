@@ -27,6 +27,7 @@
   border: 1px solid $color-dark-mode;
   color: $color-dark-mode;
   outline: none;
+  padding-left: 1rem;
   
   &:focus {
     filter: drop-shadow(0 0 1rem $color-primary);

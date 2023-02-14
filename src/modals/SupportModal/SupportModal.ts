@@ -26,7 +26,13 @@ class SupportModal {
 
   private submit: HTMLButtonElement | null = null;
 
-  constructor(private lang: LANG, private modeValue: MODE) {
+  private modeValue: MODE;
+
+  private lang: LANG;
+
+  constructor() {
+    this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
     this.init();
     this.fill();
     this.addListeners();

@@ -1,7 +1,7 @@
 import { Route } from '../types/enums';
 import AppState from './appState';
 import { Dictionary, DictionaryKeys } from './dictionary';
-import SvgMap from './svgMap';
+import { SvgMap } from './svgMap';
 
 export const ClassMap = {
   transitionButoon: 'transition-button',
@@ -57,6 +57,7 @@ export const ClassMap = {
       font: 'dark-mode-font',
       modal: 'dark-mode-modal-background',
       modalTitle: 'dark-mode-modal-title',
+      modalFont: 'dark-mode-modal-font',
       icon: 'dark-mode-icon',
     },
     light: {
@@ -66,6 +67,7 @@ export const ClassMap = {
       font: 'light-mode-font',
       modal: 'light-mode-modal-background',
       modalTitle: 'light-mode-modal-title',
+      modalFont: 'light-mode-modal-font',
       icon: 'light-mode-icon',
     },
   },
@@ -118,6 +120,32 @@ export const ClassMap = {
     small: 'small-switcher',
     show: 'switcher-show',
   },
+  wallet: {
+    categoriesSection: 'categories',
+    accountsSection: 'accounts',
+    wrapper: 'wallet-wrapper',
+    section: 'wallet',
+    subTitle: 'wallet__subtitle',
+    sum: 'wallet__sum',
+    itemContainer: 'wallet__container',
+    item: 'wallet__item',
+    title: 'wallet__title',
+    image: 'wallet__image',
+    balance: 'wallet__balance',
+    lightIcon: 'wallet__image_light',
+  },
+  creater: {
+    createWrapper: 'create-wrapper',
+    createForm: 'create-form',
+    createTitle: 'create-form__title',
+    createItem: 'create-form__item',
+    createInputContainer: 'create-form__input-container',
+    createName: 'create-form__name',
+    createIcon: 'create-form__icon',
+    createBalance: 'create-form__balance',
+    createCurrency: 'create-form__currency',
+    createSubmit: 'create-form__submit',
+  },
 };
 
 export const Title = {
@@ -140,6 +168,8 @@ export const Attribute = {
   dataLink: 'data-link',
   checked: 'checked',
   inputCheckbox: 'checkbox',
+  key: 'key',
+  dataLang: 'data-lang',
 };
 
 export const MenuNavItem = {
@@ -167,4 +197,10 @@ export const MenuNavItem = {
     key: DictionaryKeys.account,
     image: SvgMap.account,
   },
+};
+
+export const startId = {
+  accounts: 'account-',
+  categories: 'category-',
+  svg: 'svg-',
 };

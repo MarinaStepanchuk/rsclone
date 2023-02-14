@@ -42,7 +42,7 @@ h1 {
   }
 
   &-modal-background {
-    background-color: $color-light-mode;
+    background-color: $color-secondary;
   }
 
   &-modal-title {
@@ -52,6 +52,10 @@ h1 {
   &-icon {
     fill: $color-light-font;
     stroke: currentColor;
+  }
+
+  &-modal-font {
+    color: $color-dim-font;
   }
 }
 
@@ -85,6 +89,10 @@ h1 {
     fill: $color-dark-font;
     stroke: currentColor;
   }
+
+  &-modal-font {
+    color: $color-secondary;
+  }
 }
 
 p {
@@ -106,4 +114,33 @@ p {
   font-size: 2rem;
   color: $color-light-mode;
   margin: 0 auto;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 10.5rem;
+
+
+  &__image {
+    background-color: $color-primary;
+    width: 6rem;
+    height: 6rem;
+    color: $color-light-font;
+    fill: $color-light-font;
+    stroke: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      width: 50%;
+      height: 50%;
+    }
+  }
 }
