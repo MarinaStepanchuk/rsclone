@@ -7,7 +7,6 @@ import { LocalStorageKey } from '../../constants/common';
 import { CurrencyMark, SectionWallet } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { ICategory } from '../../types/interfaces';
 import { Categories } from '../../constants/tests';
 import CreatorCategory from '../../modals/CreatorCategory/CreatorCategory';
 import createIconBlock from '../../utils/createIconBlock';
