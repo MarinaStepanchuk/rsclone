@@ -4,7 +4,7 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import { IAccount, IAccountUpdate, ICategory, ICategoryUpdate, IExpense } from '../../types/interfaces';
+import { IAccount, IAccountUpdate, ICategory, ICategoryUpdate, IExpense, IExpenseUpdate } from '../../types/interfaces';
 import ExpenseApi from '../../Api/ExpenseApi';
 import AccountApi from '../../Api/AccountApi';
 import AppState from '../../constants/appState';
@@ -71,7 +71,7 @@ class Analytics extends BasePage {
       // const newCategory: ICategory = await CategoryApi.createCategory(userToken, fakeNewCategory);
       // console.log(newCategory);
 
-      //! изменение rfntujhbb (id и любые параметры)
+      //! изменение категории (id и любые параметры)
       // const fakeСhangedCategory: ICategoryUpdate = {
       //   _id: '63eb331cc9812010d1b8ffd5',
       //   icon: 'icon8',
@@ -96,6 +96,35 @@ class Analytics extends BasePage {
       //! получение всех расходов пользователя
       // const expensesData: IExpense[] = await ExpenseApi.getExpenses(userToken);
       // console.log(expensesData);
+
+      //! создание расхода
+      // const fakeNewExpense: IExpense = {
+      //   date: new Date(),
+      //   account: 'Cash',
+      //   category: 'House',
+      //   expense: 10,
+      //   currency: 'USD',
+      //   comment: 'optional parameter',
+      // };
+      // const newExpense: IExpense = await ExpenseApi.createExpense(userToken, fakeNewExpense);
+      // console.log(newExpense);
+
+      //! изменение категории (id и любые параметры)
+      // const fakeСhangedExpense: IExpenseUpdate = {
+      //   _id: '63eb3c65c9812010d1b8ffe1',
+      //   comment: 'new comment',
+      // };
+      // const changedExpense: IExpense = await ExpenseApi.updateExpense(userToken, fakeСhangedExpense);
+      // console.log(changedExpense);
+
+      //! удаление категории
+      // const fakeId = '63eb3c65c9812010d1b8ffe1';
+      // await ExpenseApi.deleteExpense(userToken, fakeId);
+
+      //! получение расхода по id
+      // const fakeId = '63eb3c65c9812010d1b8ffe1';
+      // const expense = await ExpenseApi.getExpense(userToken, fakeId);
+      // console.log(expense);
     }
   }
 

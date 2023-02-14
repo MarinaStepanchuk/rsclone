@@ -33,14 +33,24 @@ export interface IUserData {
 }
 
 export interface IExpense {
-  readonly _id: string,
-  readonly __v: number,
-  readonly userId: string,
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
   date: Date,
   account: string,
   category: string,
   expense: number,
   currency: string,
+  comment?: string,
+}
+
+export interface IExpenseUpdate {
+  readonly _id: string,
+  date?: Date,
+  account?: string,
+  category?: string,
+  expense?: number,
+  currency?: string,
   comment?: string,
 }
 
