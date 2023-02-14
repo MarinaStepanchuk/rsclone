@@ -13,7 +13,7 @@ import { toggleClassMode } from '../../utils/toogleMode';
 import AppState from '../../constants/appState';
 import { LocalStorageKey, Mode } from '../../constants/common';
 import { ModeItem, SwitcherSize, Route } from '../../types/enums';
-import SvgMap from '../../constants/svgMap';
+import { SvgMap } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import LangSwitcher from '../LangSwitcher/LangSwitcher';
 import SupportModal from '../../modals/SupportModal/SupportModal';
@@ -114,7 +114,7 @@ class MainMenu {
 
     menuItemSupport.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new SupportModal(this.lang, this.modeValue).modalWrapper;
+      const modal = new SupportModal().modalWrapper;
       section?.append(modal as HTMLElement);
     });
 
@@ -172,7 +172,7 @@ class MainMenu {
 
   private createUserWrap(): HTMLElement {
     const userImg = createElement({ tag: 'img' }) as HTMLImageElement;
-    const userAccount = localStorage.getItem('auth');
+    const userAccount = localStorage.getItem(LocalStorageKey.auth);
 
     if (userAccount) {
       const userAccountObj = JSON.parse(userAccount);
@@ -223,7 +223,7 @@ class MainMenu {
     logout.append(logoutImg, labelLogout);
 
     logout.addEventListener('click', () => {
-      localStorage.removeItem('auth');
+      localStorage.removeItem(LocalStorageKey.auth);
       logout.setAttribute('data-link', Route.MAIN);
     });
 

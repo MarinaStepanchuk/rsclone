@@ -9,6 +9,7 @@ import TelegramMsgApi from '../../Api/TelegramMsgApi';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
 import { alertTimeout } from '../../constants/common';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
+import AppState from '../../constants/appState';
 
 const messageContentSettings = {
   rows: 10,
@@ -27,7 +28,13 @@ class SupportModal {
 
   private submit: HTMLButtonElement | null = null;
 
-  constructor(private lang: LANG, private modeValue: MODE) {
+  private modeValue: MODE;
+
+  private lang: LANG;
+
+  constructor() {
+    this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
     this.init();
     this.fill();
     this.addListeners();

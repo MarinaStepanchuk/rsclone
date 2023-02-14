@@ -8,7 +8,7 @@ import {
 } from '../../constants/htmlConstants';
 import { MODE } from '../../types/types';
 import AppState from '../../constants/appState';
-import SvgMap from '../../constants/svgMap';
+import { SvgMap } from '../../constants/svgMap';
 
 class Footer {
   private modeValue: MODE;

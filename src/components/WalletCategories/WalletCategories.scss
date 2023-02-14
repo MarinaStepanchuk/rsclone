@@ -1,0 +1,9 @@
+@import '../../styles/main.scss';
+
+.wallet__image_light {
+  border: 2px solid $color-dark-font;
+  background-color:  $color-secondary;
+  fill: $color-dark-font;
+  stroke: $color-dark-font;
+}
+
