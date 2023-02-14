@@ -64,9 +64,9 @@ class WalletAccouts {
   }
 
   private getAccoutsAmount(): number {
-    const data = this.getAccouts();
-    const amount = data.reduce((accum, account) => accum + account.sum, 0);
-    return amount;
+    // const data = this.getAccouts();
+    // const amount = data.reduce((accum, account) => accum + account.sum, 0);
+    return 0;
   }
 
   public getAccouts(): IAccount[] {

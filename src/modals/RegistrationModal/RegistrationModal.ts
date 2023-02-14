@@ -10,7 +10,7 @@ import {
   RegularExpressions,
   Currency,
   defaultAccounts,
-  defaultExpenseCategories,
+  defaultCategories,
 } from '../../constants/common';
 import checkForValidity from '../../utils/checkForValidity';
 import { IUserRegister } from '../../types/interfaces';
@@ -326,7 +326,7 @@ class RegistrationModal {
 
     const { email, password } = userRegistr;
     await setDefaultUserProperties(Endpoint.ACCOUNT, { email, password }, defaultAccounts);
-    await setDefaultUserProperties(Endpoint.CATEGORY, { email, password }, defaultExpenseCategories);
+    await setDefaultUserProperties(Endpoint.CATEGORY, { email, password }, defaultCategories);
 
     const alert = new AlertMessage(response.message, response.status);
     alert.render();
