@@ -28,68 +28,68 @@ export const Mode = {
   light: 'light',
 };
 
+export const defaultAccounts: IAccount[] = [
+  {
+    account: 'Cash',
+    sum: 0,
+    icon: 'cash',
+    key: 'cash',
+  },
+  {
+    account: 'Card',
+    sum: 0,
+    icon: 'card',
+    key: 'card',
+  },
+];
+
 export const defaultCategories: ICategory[] = [
   {
     category: 'Transport',
     icon: 'transport',
-    sum: 0,
+    limit: 0,
     key: 'transport',
   },
   {
     category: 'Clothes',
     icon: 'clothes',
-    sum: 0,
+    limit: 0,
     key: 'clothes',
+  },
+  {
+    category: 'Eating out',
+    icon: 'cafe',
+    limit: 0,
+    key: 'cafe',
   },
   {
     category: 'Entertainment',
     icon: 'entertainment',
-    sum: 0,
+    limit: 0,
     key: 'entertainment',
   },
   {
     category: 'Food',
     icon: 'food',
-    sum: 0,
+    limit: 0,
     key: 'food',
-  },
-  {
-    category: 'Eating out',
-    icon: 'cafe',
-    sum: 0,
-    key: 'eatingOut',
   },
   {
     category: 'Health',
     icon: 'health',
-    sum: 0,
+    limit: 0,
     key: 'health',
   },
   {
     category: 'House',
     icon: 'house',
-    sum: 0,
+    limit: 0,
     key: 'house',
   },
   {
-    category: 'sport',
+    category: 'Sport',
     icon: 'sport',
-    sum: 0,
+    limit: 0,
     key: 'sport',
-  },
-];
-
-export const defaultAccounts: IAccount[] = [
-  {
-    account: 'Cash',
-    icon: 'cash',
-    sum: 0,
-    key: 'cash',
-  },
-  {
-    account: 'Card',
-    icon: 'card',
-    sum: 0,
-    key: 'card',
   },
 ];

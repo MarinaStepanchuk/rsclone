@@ -33,8 +33,9 @@ export interface IUserData {
 }
 
 export interface IExpense {
-  _id: string,
-  userId: string,
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
   date: Date,
   account: string,
   category: string,
@@ -44,13 +45,36 @@ export interface IExpense {
 }
 
 export interface IIncome {
-  _id: string,
-  userId: string,
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
   date: Date,
   account: string,
   income: number,
-  currency: string,
+  currency?: string,
   comment?: string,
+}
+
+export interface IAccount {
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
+  account: string,
+  icon: string,
+  sum?: number,
+  key?: string,
+  currency?: string,
+}
+
+export interface ICategory {
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
+  category: string,
+  icon: string,
+  limit?: number,
+  sum?: number,
+  key?: string,
 }
 
 export interface ISupportMsg {
@@ -63,6 +87,7 @@ export interface IApplicationState {
   isUserLogin: boolean;
   modeValue: MODE;
   lang: LANG;
+  userAccount: string | null;
 }
 
 export interface IMenuItem {
@@ -70,21 +95,4 @@ export interface IMenuItem {
   name: string,
   image: string,
   key: string,
-}
-
-export interface IAccount {
-  _id?: string,
-  account: string,
-  sum: number,
-  icon: string,
-  userId?: string,
-  key?: string,
-}
-
-export interface ICategory {
-  _id?: string,
-  category: string,
-  icon: string,
-  sum: number,
-  key?: string,
 }

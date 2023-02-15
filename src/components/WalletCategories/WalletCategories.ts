@@ -63,9 +63,10 @@ class WalletCategories {
   }
 
   private getCategoriesAmount(): number {
-    const data = this.getCategories();
-    const amount = data.reduce((accum, category) => accum + category.sum, 0);
-    return amount;
+    // const data = this.getCategories();
+    // const amount = data.reduce((accum, category) => accum + category.sum, 0);
+    // return amount;
+    return 0;
   }
 
   private getCategories() {

@@ -26,6 +26,7 @@
     "comma-dangle": "off",
     "@typescript-eslint/comma-dangle": "warn",
     "max-len": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "@typescript-eslint/explicit-member-accessibility": [
       "error", 
       {

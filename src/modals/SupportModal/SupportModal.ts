@@ -17,8 +17,6 @@ const messageContentSettings = {
   maxLength: 1000,
 };
 
-const userAccount = localStorage.getItem('auth');
-
 class SupportModal {
   public modalWrapper: HTMLElement | null = null;
 
@@ -143,12 +141,12 @@ class SupportModal {
 
       if (targetElement.classList.contains(ClassMap.support.submit)
         && (this.submit as HTMLButtonElement).disabled === false
-        && userAccount) {
+        && AppState.userAccount) {
         event.preventDefault();
 
-        const userName: string = JSON.parse(userAccount).user.username;
-        const userEmail: string = JSON.parse(userAccount).user.email;
-        const userToken: string = JSON.parse(userAccount).token;
+        const userName: string = JSON.parse(AppState.userAccount).user.username;
+        const userEmail: string = JSON.parse(AppState.userAccount).user.email;
+        const userToken: string = JSON.parse(AppState.userAccount).token;
 
         const message: ISupportMsg = {
           username: userName,
