@@ -108,6 +108,8 @@ p {
 .main {
   display: grid;
   grid-template-columns: 320px 1fr;
+  box-shadow: 0px 0px 26px -3px rgba(80,99,191,0.66);
+  z-index: 1;
 }
 
 .test-class {

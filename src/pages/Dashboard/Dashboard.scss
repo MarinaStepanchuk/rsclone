@@ -1,4 +1,5 @@
 @import '../../styles/variables';
+@import '../../styles/mixins.scss';
 
 .main__content {
   display: grid;
@@ -12,10 +13,41 @@
   flex-direction: column;
 }
 
+.balance__value {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 32px;
+}
+
+.total-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.icon-wrap {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: $color-primary;
+  margin-right: 2rem;
+  color: $color-light-font;
+  fill: $color-light-font;
+  stroke: currentColor;
+
+  svg {
+    width: 1.5rem;
+    height: 1.7rem;
+  }
+}
+
 .dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  margin: 2rem 0;
 
   &__title {
     font-size: 24px;
@@ -33,45 +65,35 @@
     font-size: 1.7rem;
   }
 
-  &__balance {
-    font-weight: 600;
-    font-size: 24px;
-    line-height: 32px;
-  }
-
-  &__icon-wrap {
-    width: 4.5rem;
-    height: 4.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 1rem;
-    background-color: $color-primary;
-    margin-right: 2rem;
-    color: $color-light-font;
+  .icon-wrap svg {
     fill: $color-light-font;
-    stroke: currentColor;
-
-    svg {
-      fill: $color-light-font;
-      width: 1.5rem;
-      height: 1.7rem;
-    }
-
-    //&_light {
-    //  fill: $color-dark-font;
-    //  color: $color-dark-font;
-    //}
   }
 }
 
 .balance {
-  display: flex;
-  align-items: center;
   border-radius: 2rem;
   padding: 2rem;
   font-weight: 100;
   font-size: 1.7rem;
+
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+    border-color: $color-primary;
+    padding: 2rem 0;
+
+    .icon-wrap svg {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  &__button {
+    @include button(30%, 5rem);
+    //font-weight: 400;
+  }
 }
 
 

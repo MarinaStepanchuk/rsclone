@@ -18,7 +18,6 @@ class MainMenu {
 
   private lang: LANG;
 
-
   constructor() {
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
@@ -254,7 +253,7 @@ class MainMenu {
     navLink.setAttribute(Attribute.dataLink, item.path);
 
     navLink.addEventListener('click', () => {
-      this.createActiveButton(item.path);
+      MainMenu.createActiveButton(item.path);
     });
 
     if (item.path === currPage) {
@@ -272,7 +271,7 @@ class MainMenu {
     return navItem;
   }
 
-  private createActiveButton(url: string): void {
+  public static createActiveButton(url: string): void {
     const buttons = document.querySelectorAll(`.${ClassMap.menu.navButton}`);
 
     buttons.forEach((item) => {

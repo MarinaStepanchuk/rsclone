@@ -3,11 +3,12 @@ import './Dashboard.scss';
 import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
+import MainMenu from '../../components/MainMenu/MainMenu';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -116,17 +117,131 @@ class Dashboard extends BasePage {
 
     totalFinanceWrap.append(totalIncome, totalOutcome);
 
+    const cardBalanceIcon = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.iconWrap],
+    });
+
+    cardBalanceIcon.innerHTML = SvgIcons.account.card;
+
+    const cardBalanceValue = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.totalBalance],
+      content: '12345',
+    })
+
+    const cardBalance = createElement({
+      tag: 'div',
+      classList: [ClassMap.mode[this.modeValue].font],
+      key: DictionaryKeys.cardBalance,
+      content: Dictionary[this.lang].cardBalance,
+    })
+
+    cardBalance.append(cardBalanceValue)
+
+    const cardBalanceWrap = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.totalWrap]
+    });
+
+    cardBalanceWrap.append(cardBalanceIcon, cardBalance);
+
+    const cashBalanceIcon = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.iconWrap],
+    });
+
+    cashBalanceIcon.innerHTML = SvgIcons.account.cash;
+
+    const cashBalanceValue = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.totalBalance],
+      content: '98765',
+    })
+
+    const cashBalance = createElement({
+      tag: 'div',
+      classList: [ClassMap.mode[this.modeValue].font],
+      key: DictionaryKeys.cashBalance,
+      content: Dictionary[this.lang].cashBalance,
+    })
+
+    cashBalance.append(cashBalanceValue)
+
+    const cashBalanceWrap = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.totalWrap]
+    });
+
+    cashBalanceWrap.append(cashBalanceIcon, cashBalance);
+
+    const updateWalletButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.dashboard.balanceButton, ClassMap.transitionButoon],
+      key: DictionaryKeys.updateWalletButton,
+      content: Dictionary[this.lang].updateWalletButton,
+    }) as HTMLButtonElement;
+
+    updateWalletButton.setAttribute(Attribute.dataLink, Route.WALLET);
+
+    updateWalletButton.addEventListener('click', () => {
+      MainMenu.createActiveButton(Route.WALLET);
+    });
+
     const balanceWrap = createElement({
-      tag: 'section',
+      tag: 'div',
       classList: [ClassMap.dashboard.balanceWrap],
     });
+
+    balanceWrap.append(cardBalanceWrap, cashBalanceWrap, updateWalletButton);
+
+    const addIncomeButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.dashboard.balanceButton],
+      key: DictionaryKeys.addIncome,
+      content: Dictionary[this.lang].addIncome,
+    }) as HTMLButtonElement;
+
+    const addOutcomeButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.dashboard.balanceButton],
+      key: DictionaryKeys.addOutcome,
+      content: Dictionary[this.lang].addOutcome,
+    }) as HTMLButtonElement;
+
+    const addLimitButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.dashboard.balanceButton, ClassMap.transitionButoon],
+      key: DictionaryKeys.addLimit,
+      content: Dictionary[this.lang].addLimit,
+    }) as HTMLButtonElement;
+
+    addLimitButton.setAttribute(Attribute.dataLink, Route.WALLET);
+
+    addLimitButton.addEventListener('click', () => {
+      MainMenu.createActiveButton(Route.WALLET);
+    });
+
+    const buttonsWrap = createElement( {
+      tag: 'div',
+      classList: [ClassMap.dashboard.balanceWrap],
+    })
+
+    buttonsWrap.append(addIncomeButton, addOutcomeButton, addLimitButton)
+
+    const balanceSection = createElement({
+      tag: 'section',
+      classList: [ClassMap.dashboard.balance, ClassMap.mode[this.modeValue].backgroundSection],
+    });
+
+    balanceSection.append(balanceWrap, buttonsWrap);
 
     const mainDashboard = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceWrap);
+    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection);
 
     const mainAside = createElement({
       tag: 'section',
