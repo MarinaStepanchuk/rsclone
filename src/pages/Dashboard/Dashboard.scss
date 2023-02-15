@@ -12,28 +12,66 @@
   flex-direction: column;
 }
 
-.dashboard__total-wrap {
+.dashboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 
-  .total-price {
+  &__title {
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 600;
+    margin: 0 0 2rem;
+  }
+
+  &__total-price {
     display: flex;
+    align-items: center;
     border-radius: 2rem;
     padding: 2rem;
     font-weight: 100;
     font-size: 1.7rem;
-
-    .icon-wrap {
-      width: 45px;
-      height: 45px;
-      border-radius: 10px;
-      background-color: $color-primary;
-      border: 1px solid black;
-      margin-right: 1rem;
-    }
   }
 
+  &__balance {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+  }
 
+  &__icon-wrap {
+    width: 4.5rem;
+    height: 4.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1rem;
+    background-color: $color-primary;
+    margin-right: 2rem;
+    color: $color-light-font;
+    fill: $color-light-font;
+    stroke: currentColor;
+
+    svg {
+      fill: $color-light-font;
+      width: 1.5rem;
+      height: 1.7rem;
+    }
+
+    //&_light {
+    //  fill: $color-dark-font;
+    //  color: $color-dark-font;
+    //}
+  }
 }
+
+.balance {
+  display: flex;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 2rem;
+  font-weight: 100;
+  font-size: 1.7rem;
+}
+
 

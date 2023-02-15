@@ -37,7 +37,7 @@ class MainMenu {
 
     const menuSection = createElement({
       tag: 'section',
-      classList: [ClassMap.menu.menuSection, ClassMap.mode[this.modeValue].backgroundMenu, ClassMap.mode[this.modeValue].font],
+      classList: [ClassMap.menu.menuSection, ClassMap.mode[this.modeValue].backgroundSection, ClassMap.mode[this.modeValue].font],
     });
 
     menuSection.append(
@@ -339,8 +339,8 @@ class MainMenu {
     const fontElements = document.querySelectorAll(`.${ClassMap.mode[previosMode].font}`);
     toggleClassMode(fontElements, this.modeValue, previosMode, ModeItem.font);
 
-    const backgroundMenu = document.querySelectorAll(`.${ClassMap.menu.menuSection}`);
-    toggleClassMode(backgroundMenu, this.modeValue, previosMode, ModeItem.backgroundMenu);
+    const backgroundMenu = document.querySelectorAll(`.${ClassMap.mode[previosMode].backgroundSection}`);
+    toggleClassMode(backgroundMenu, this.modeValue, previosMode, ModeItem.backgroundSection);
 
     const icons = document.querySelectorAll(`.${ClassMap.mode[previosMode].icon}`);
     toggleClassMode(icons, this.modeValue, previosMode, ModeItem.icon);

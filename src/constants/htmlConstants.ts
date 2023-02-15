@@ -52,7 +52,7 @@ export const ClassMap = {
   mode: {
     dark: {
       background: 'dark-mode-background',
-      backgroundMenu: 'dark-mode-menu-background',
+      backgroundSection: 'dark-mode-menu-background',
       title: 'dark-mode-title',
       font: 'dark-mode-font',
       modal: 'dark-mode-modal-background',
@@ -62,7 +62,7 @@ export const ClassMap = {
     },
     light: {
       background: 'light-mode-background',
-      backgroundMenu: 'light-mode-menu-background',
+      backgroundSection: 'light-mode-menu-background',
       title: 'light-mode-title',
       font: 'light-mode-font',
       modal: 'light-mode-modal-background',
@@ -123,10 +123,14 @@ export const ClassMap = {
   dashboard: {
     mainDashboard: 'main__dashboard',
     mainAside: 'main__aside',
-    dashboardTotalWrap: 'dashboard__total-wrap',
-    iconWrap: 'icon-wrap',
-    totalPrice: 'total-price',
-  }
+    dashboard: 'dashboard',
+    iconWrap: 'dashboard__icon-wrap',
+    iconWrapLight: 'dashboard__icon-wrap_light',
+    totalPrice: 'dashboard__total-price',
+    title: 'dashboard__title',
+    totalBalance: 'dashboard__balance',
+    balanceWrap: 'balance',
+  },
   wallet: {
     categoriesSection: 'categories',
     accountsSection: 'accounts',
