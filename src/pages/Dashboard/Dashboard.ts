@@ -10,6 +10,7 @@ import AppState from '../../constants/appState';
 
 class Dashboard extends BasePage {
   public lang: LANG;
+  public modeValue: MODE;
 
   constructor() {
     super();
@@ -63,7 +64,7 @@ class Dashboard extends BasePage {
 
     const totalIncome = createElement({
       tag: 'div',
-      classList: [ ClassMap.dashboard.totalPrice,  ClassMap.mode[this.modeValue].backgroundMenu],
+      classList: [ ClassMap.dashboard.totalPrice, ClassMap.mode[this.modeValue].backgroundMenu],
     });
 
     totalIncome.append(incomeIcon, incomeWrap);
