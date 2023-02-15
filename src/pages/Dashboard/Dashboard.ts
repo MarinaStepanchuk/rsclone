@@ -9,6 +9,8 @@ import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
+import SupportModal from "../../modals/SupportModal/SupportModal";
+import IncomeForm from "../../components/IncomeForm/IncomeForm";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -201,6 +203,12 @@ class Dashboard extends BasePage {
       key: DictionaryKeys.addIncome,
       content: Dictionary[this.lang].addIncome,
     }) as HTMLButtonElement;
+
+    addIncomeButton.addEventListener('click', () => {
+      const section = document.querySelector(`.${ClassMap.main}`);
+      const modal = new IncomeForm().render();
+      section?.append(modal as HTMLElement);
+    });
 
     const addOutcomeButton = createElement({
       tag: 'button',

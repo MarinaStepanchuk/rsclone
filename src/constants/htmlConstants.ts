@@ -133,6 +133,12 @@ export const ClassMap = {
     balance: 'balance',
     totalWrap: 'total-wrap',
     balanceButton: 'balance__button',
+    incomeForm: 'form',
+    formWrapper: 'form__wrapper',
+    formTitle: 'form__title',
+    formItem: 'form__item',
+    formSelect: 'form__select',
+    formInput: 'form__input',
   },
   wallet: {
     categoriesSection: 'categories',

@@ -3,6 +3,7 @@
 
 .registration-wrapper {
   @include modal-wrapper;
+  height: calc(100vh - 4rem);
 }
 
 .registration-form {
@@ -107,6 +108,6 @@
   }
 
   :last-child {
-    transform: rotate(-45deg); 
+    transform: rotate(-45deg);
   }
 }
