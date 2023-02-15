@@ -8,6 +8,7 @@ export enum Endpoint {
   ACCOUNT = '/api/account',
   CATEGORY = '/api/category',
   EXPENSE = '/api/expense',
+  INCOME = '/api/income',
 }
 
 export const REQUEST_METOD = {

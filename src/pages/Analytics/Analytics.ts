@@ -4,7 +4,7 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import { IAccount, ICategory, IExpense } from '../../types/interfaces';
+import { IAccount, ICategory, IExpense, IIncome } from '../../types/interfaces';
 import AppState from '../../constants/appState';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
@@ -120,13 +120,47 @@ class Analytics extends BasePage {
       // const expense: IExpense = await RequestApi.get(Endpoint.EXPENSE, userToken, fakeId);
       // console.log(expense);
 
-      //! удаление категории
+      //! удаление расхода
       // const fakeId = '63eb85139e3431e4fb34288d';
       // await RequestApi.delete(Endpoint.EXPENSE, userToken, fakeId);
 
       //! получение всех расходов пользователя
       // const expensesData: IExpense[] = await RequestApi.getAll(Endpoint.EXPENSE, userToken);
       // console.log(expensesData);
+
+      // TODO Income Api
+      //! создание дохода
+      // const fakeNewIncome: IIncome = {
+      //   date: new Date(),
+      //   account: 'Cash',
+      //   income: 2000,
+      //   currency: 'USD', // optional
+      //   comment: 'optional parameter',
+      // };
+      // const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, fakeNewIncome);
+      // console.log(newIncome);
+
+      //! изменение дохода (id и любые параметры)
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63ec60a7109d6a118269bd11';
+      // const fakeСhangedIncome: Partial<IIncome> = {
+      //   income: 2500,
+      // };
+      // const changedIncome: IIncome = await RequestApi.update(Endpoint.INCOME, userToken, fakeId, fakeСhangedIncome);
+      // console.log(changedIncome);
+
+      //! получение дохода по id
+      // const fakeId = '63ec60a7109d6a118269bd11';
+      // const income: IIncome = await RequestApi.get(Endpoint.INCOME, userToken, fakeId);
+      // console.log(income);
+
+      //! удаление дохода
+      // const fakeId = '63ec60a7109d6a118269bd11';
+      // await RequestApi.delete(Endpoint.INCOME, userToken, fakeId);
+
+      //! получение всех доходов пользователя
+      // const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
+      // console.log(incomesData);
     }
   }
 }

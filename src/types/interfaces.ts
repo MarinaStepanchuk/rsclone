@@ -45,13 +45,13 @@ export interface IExpense {
 }
 
 export interface IIncome {
-  readonly _id: string,
-  readonly __v: number,
-  readonly userId: string,
+  readonly _id?: string,
+  readonly __v?: number,
+  readonly userId?: string,
   date: Date,
   account: string,
   income: number,
-  currency: string,
+  currency?: string,
   comment?: string,
 }
 
@@ -63,6 +63,7 @@ export interface IAccount {
   icon: string,
   sum?: number,
   key?: string,
+  currency?: string,
 }
 
 export interface ICategory {
