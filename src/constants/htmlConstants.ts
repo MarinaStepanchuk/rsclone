@@ -139,6 +139,8 @@ export const ClassMap = {
     formItem: 'form__item',
     formSelect: 'form__select',
     formInput: 'form__input',
+    formLabel: 'form__label',
+    formSubmitButton: 'form__button',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -230,3 +232,11 @@ export const startId = {
   categories: 'category-',
   svg: 'svg-',
 };
+
+export const TextArea = {
+  minLength: 3,
+  maxLength: 100,
+  rows: 1,
+}
+
+export const MinDate = '2012-01-01';
