@@ -8,6 +8,7 @@ import { IAccount, ICategory, IExpense, IIncome } from '../../types/interfaces';
 import AppState from '../../constants/appState';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
+import { IFilterParams } from '../../types/interfaces';
 
 class Analytics extends BasePage {
   public render(): void {
@@ -96,9 +97,9 @@ class Analytics extends BasePage {
       // TODO Expense Api
       //! создание расхода
       // const fakeNewExpense: IExpense = {
-      //   date: new Date(),
+      //   date: new Date('2023-01-12'),
       //   account: 'Cash',
-      //   category: 'House',
+      //   category: 'Clothes',
       //   expense: 10,
       //   currency: 'USD',
       //   comment: 'optional parameter',
@@ -126,6 +127,19 @@ class Analytics extends BasePage {
 
       //! получение всех расходов пользователя
       // const expensesData: IExpense[] = await RequestApi.getAll(Endpoint.EXPENSE, userToken);
+      // console.log(expensesData);
+
+      // ? получение всeх расходов пользователя с фильтрами
+      // все параметры не обязательные, без параметров = методу RequestApi.getAll
+      // const params: IFilterParams = {
+      //   startDate: '2023-01-02',
+      //   endDate: '2023-02-03',
+      //   account: 'Card',
+      //   category: 'Clothes',
+      //   currency: 'USD',
+      // };
+
+      // const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
       // console.log(expensesData);
 
       // TODO Income Api
@@ -160,6 +174,18 @@ class Analytics extends BasePage {
 
       //! получение всех доходов пользователя
       // const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
+      // console.log(incomesData);
+
+      // ? получение всeх расходов пользователя с фильтрами
+      // все параметры не обязательные, без параметров = методу RequestApi.getAll
+      // const params: IFilterParams = {
+      //   startDate: '2023-01-02',
+      //   endDate: '2023-02-03',
+      //   account: 'Card',
+      //   currency: 'USD',
+      // };
+
+      // const incomesData: IIncome[] = await RequestApi.getFiltered(Endpoint.INCOME, userToken, params);
       // console.log(incomesData);
     }
   }
