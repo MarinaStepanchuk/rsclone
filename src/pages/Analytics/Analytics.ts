@@ -132,11 +132,13 @@ class Analytics extends BasePage {
       // ? получение всeх расходов пользователя с фильтрами
       // все параметры не обязательные, без параметров = методу RequestApi.getAll
       // const params: IFilterParams = {
-      //   startDate: '2023-01-02',
-      //   endDate: '2023-02-03',
+      //   startDate: '2022-01-01',
+      //   endDate: '2022-12-31',
       //   account: 'Card',
-      //   category: 'Clothes',
+      //   category: 'House',
       //   currency: 'USD',
+      //   page: 1,
+      //   limit: 5,
       // };
 
       // const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
@@ -176,13 +178,15 @@ class Analytics extends BasePage {
       // const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
       // console.log(incomesData);
 
-      // ? получение всeх расходов пользователя с фильтрами
+      // ? получение всeх доходов пользователя с фильтрами
       // все параметры не обязательные, без параметров = методу RequestApi.getAll
       // const params: IFilterParams = {
       //   startDate: '2023-01-02',
       //   endDate: '2023-02-03',
       //   account: 'Card',
       //   currency: 'USD',
+      //   page: 1,
+      //   limit: 10,
       // };
 
       // const incomesData: IIncome[] = await RequestApi.getFiltered(Endpoint.INCOME, userToken, params);

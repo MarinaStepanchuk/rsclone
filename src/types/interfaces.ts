@@ -61,6 +61,8 @@ export interface IFilterParams {
   account?: string,
   category?: string,
   currency?: string,
+  page?: number,
+  limit?: number,
 }
 
 export interface IAccount {
