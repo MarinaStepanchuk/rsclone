@@ -55,6 +55,14 @@ export interface IIncome {
   comment?: string,
 }
 
+export interface IFilterParams {
+  startDate?: string,
+  endDate?: string,
+  account?: string,
+  category?: string,
+  currency?: string,
+}
+
 export interface IAccount {
   readonly _id?: string,
   readonly __v?: number,
