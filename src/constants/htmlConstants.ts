@@ -237,6 +237,16 @@ export const TextArea = {
   minLength: 3,
   maxLength: 100,
   rows: 1,
+};
+
+export const InputValue = {
+  minNum: '1',
+  maxNum: '10000000',
 }
 
 export const MinDate = '2012-01-01';
+
+export const InputType = {
+  number: 'number',
+  date: 'date',
+}

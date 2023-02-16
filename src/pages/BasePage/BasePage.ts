@@ -2,9 +2,8 @@ import Footer from '../../components/Footer/Footer';
 import createElement from '../../utils/createElement';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import { ClassMap } from '../../constants/htmlConstants';
-import { MODE } from '../../types/types';
+import { MODE, LANG } from '../../types/types';
 import AppState from '../../constants/appState';
-import { LANG } from '../../types/types';
 
 class BasePage {
   private footer: Footer;

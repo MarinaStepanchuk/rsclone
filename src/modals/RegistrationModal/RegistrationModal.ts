@@ -48,7 +48,7 @@ class RegistrationModal {
   private init(): void {
     this.form = createElement({
       tag: 'form',
-      classList: [ClassMap.registration.form, ClassMap.mode[this.modeValue].modal]
+      classList: [ClassMap.registration.form, ClassMap.mode[this.modeValue].modal],
     }) as HTMLFormElement;
 
     this.wrapper = createElement({

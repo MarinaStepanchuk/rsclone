@@ -1,10 +1,12 @@
 import './IncomeForm.scss';
-import { LANG, MODE } from '../../types/types';
+import {LANG, MODE} from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
-import {ClassMap, MinDate, TextArea} from '../../constants/htmlConstants';
-import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { Currency } from '../../constants/common';
+import {ClassMap, InputType, InputValue, MinDate, TextArea} from '../../constants/htmlConstants';
+import {Dictionary, DictionaryKeys} from '../../constants/dictionary';
+import RequestApi from "../../Api/RequestsApi";
+import {Endpoint} from "../../Api/serverConstants";
+import {LocalStorageKey} from "../../constants/common";
 
 class IncomeForm {
   private modeValue: MODE;
@@ -45,7 +47,20 @@ class IncomeForm {
       classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
     });
 
-    Currency.forEach((currency) => (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(currency)));
+    const categories = this.getAllCategories();
+    console.log(categories);
+
+    // const userAccount = localStorage.getItem(LocalStorageKey.auth);
+    // let token;
+    //
+    // if (userAccount) {
+    //   const userAccountObj = JSON.parse(userAccount);
+    //   token = userAccountObj.token;
+    // }
+    //
+    // await RequestApi.getAll(Endpoint.CATEGORY, token);
+
+    // Currency.forEach((currency) => (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(currency)));
 
     categoryWrap.append(categoryLabel, categorySelect);
 
@@ -61,7 +76,20 @@ class IncomeForm {
       classList: [ClassMap.dashboard.formInput],
     }) as HTMLInputElement;
 
-    sumInput.type = 'number';
+    sumInput.type = InputType.number;
+    sumInput.min = InputValue.minNum;
+    sumInput.max = InputValue.maxNum;
+    sumInput.required = true;
+
+    sumInput.addEventListener('change', () => {
+      const currSum = Number(sumInput.value);
+
+      if (!Number.isInteger(currSum)) {
+        sumInput.value = currSum.toFixed(2).toString();
+      } else {
+        sumInput.value = currSum.toString();
+      }
+    });
 
     const sumWrap = createElement({
       tag: 'div',
@@ -82,7 +110,7 @@ class IncomeForm {
       classList: [ClassMap.dashboard.formInput],
     }) as HTMLInputElement;
 
-    dataInput.type = 'date';
+    dataInput.type = InputType.date;
     dataInput.min = MinDate;
 
     dataInput.addEventListener('change', () => {
@@ -94,16 +122,16 @@ class IncomeForm {
       const month = currDate.getMonth() + 1;
       const day = currDate.getDate();
 
-      const currFullDate = `${year}-${month.toString().padStart(2, '0')}-${day}`
+      const currFullDate = `${year}-${month.toString().padStart(2, '0')}-${day}`;
 
       if (userDate.getTime() > currDate.getTime()) {
-         dataInput.value = currFullDate;
+        dataInput.value = currFullDate;
       }
 
       if (minDate.getTime() > userDate.getTime()) {
         dataInput.value = MinDate;
       }
-    })
+    });
 
     const dataWrap = createElement({
       tag: 'div',
@@ -131,7 +159,7 @@ class IncomeForm {
     const noteWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.formItem],
-    })
+    });
 
     noteWrap.append(noteLabel, noteText);
 
@@ -208,6 +236,20 @@ class IncomeForm {
         this.modalWrapper?.remove();
       }
     });
+  }
+
+  private async getAllCategories() {
+    const userAccount = localStorage.getItem(LocalStorageKey.auth);
+    let token;
+
+    if (userAccount) {
+      const userAccountObj = JSON.parse(userAccount);
+      token = userAccountObj.token;
+    }
+
+    const response = await RequestApi.getAll(Endpoint.CATEGORY, token);
+    console.log(token);
+    return response;
   }
 }
 

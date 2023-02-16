@@ -9,11 +9,11 @@ import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
-import SupportModal from "../../modals/SupportModal/SupportModal";
-import IncomeForm from "../../components/IncomeForm/IncomeForm";
+import IncomeForm from '../../components/IncomeForm/IncomeForm';
 
 class Dashboard extends BasePage {
   public lang: LANG;
+
   public modeValue: MODE;
 
   constructor() {
@@ -61,11 +61,11 @@ class Dashboard extends BasePage {
 
     incomeIcon.innerHTML = SvgIcons.dashboard.arrowDown;
 
-    const incomeBalance = createElement( {
+    const incomeBalance = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
       content: '111',
-    })
+    });
 
     const incomeWrap = createElement({
       tag: 'div',
@@ -78,7 +78,7 @@ class Dashboard extends BasePage {
 
     const totalIncome = createElement({
       tag: 'div',
-      classList: [ ClassMap.dashboard.totalPrice, ClassMap.mode[this.modeValue].backgroundSection],
+      classList: [ClassMap.dashboard.totalPrice, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     totalIncome.append(incomeIcon, incomeWrap);
@@ -90,11 +90,11 @@ class Dashboard extends BasePage {
 
     outcomeIcon.innerHTML = SvgIcons.dashboard.arrowUp;
 
-    const outcomeBalance = createElement( {
+    const outcomeBalance = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
       content: '222',
-    })
+    });
 
     const outcomeWrap = createElement({
       tag: 'div',
@@ -130,20 +130,20 @@ class Dashboard extends BasePage {
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance],
       content: '12345',
-    })
+    });
 
     const cardBalance = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.cardBalance,
       content: Dictionary[this.lang].cardBalance,
-    })
+    });
 
-    cardBalance.append(cardBalanceValue)
+    cardBalance.append(cardBalanceValue);
 
     const cardBalanceWrap = createElement({
       tag: 'div',
-      classList: [ClassMap.dashboard.totalWrap]
+      classList: [ClassMap.dashboard.totalWrap],
     });
 
     cardBalanceWrap.append(cardBalanceIcon, cardBalance);
@@ -159,20 +159,20 @@ class Dashboard extends BasePage {
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance],
       content: '98765',
-    })
+    });
 
     const cashBalance = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.cashBalance,
       content: Dictionary[this.lang].cashBalance,
-    })
+    });
 
-    cashBalance.append(cashBalanceValue)
+    cashBalance.append(cashBalanceValue);
 
     const cashBalanceWrap = createElement({
       tag: 'div',
-      classList: [ClassMap.dashboard.totalWrap]
+      classList: [ClassMap.dashboard.totalWrap],
     });
 
     cashBalanceWrap.append(cashBalanceIcon, cashBalance);
@@ -230,12 +230,12 @@ class Dashboard extends BasePage {
       MainMenu.createActiveButton(Route.WALLET);
     });
 
-    const buttonsWrap = createElement( {
+    const buttonsWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.balanceWrap],
-    })
+    });
 
-    buttonsWrap.append(addIncomeButton, addOutcomeButton, addLimitButton)
+    buttonsWrap.append(addIncomeButton, addOutcomeButton, addLimitButton);
 
     const balanceSection = createElement({
       tag: 'section',
