@@ -10,9 +10,9 @@ import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeForm from '../../components/IncomeForm/IncomeForm';
-import {IIncome} from "../../types/interfaces";
-import RequestApi from "../../Api/RequestsApi";
-import {Endpoint} from "../../Api/serverConstants";
+import { IIncome } from '../../types/interfaces';
+import RequestApi from '../../Api/RequestsApi';
+import { Endpoint } from '../../Api/serverConstants';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -67,16 +67,7 @@ class Dashboard extends BasePage {
     const incomeBalance = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
-      content: '0',
-    });
-
-    incomeBalance.id = 'incomeBalance';
-
-    const allIncomes = this.getAllIncomes();
-
-    allIncomes.then((incomes) => {
-      const res = incomes.reduce((acc, curr) => {return acc + curr.income;}, 0);
-      incomeBalance.textContent = `${res}`;
+      content: '',
     });
 
     const incomeTitle = createElement({
@@ -149,7 +140,7 @@ class Dashboard extends BasePage {
     const cardBalanceValue = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance],
-      content: '12345',
+      content: '',
     });
 
     const cardBalanceTitle = createElement({
@@ -182,7 +173,7 @@ class Dashboard extends BasePage {
     const cashBalanceValue = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance],
-      content: '98765',
+      content: '',
     });
 
     const cashBalanceTitle = createElement({
@@ -285,7 +276,27 @@ class Dashboard extends BasePage {
       content: 'Тут aside',
     });
 
+    this.updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue)
+
     mainContent?.replaceChildren(mainDashboard, mainAside);
+  }
+
+  private updateIncomes(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): void {
+    const allIncomes = this.getAllIncomes();
+    allIncomes.then((incomes) => {
+      const res = incomes.reduce((acc, curr) => {return acc + curr.income;}, 0);
+      totalBalance.textContent = `${res}`;
+
+      const cardIncomes = incomes
+        .filter((category) => category.account === 'card')
+        .reduce((acc, curr) => { return acc + curr.income }, 0);
+      cardBalance.textContent = `${cardIncomes}`
+
+      const cashIncomes = incomes
+        .filter((category) => category.account === 'cash')
+        .reduce((acc, curr) => { return acc + curr.income }, 0);
+      cashBalance.textContent = `${cashIncomes}`;
+    });
   }
 
   private async getAllIncomes(): Promise<IIncome[]> {

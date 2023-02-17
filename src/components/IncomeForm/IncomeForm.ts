@@ -165,7 +165,6 @@ class IncomeForm {
     }) as HTMLButtonElement;
 
     submitButton.addEventListener('click', (e) => {
-      e.preventDefault();
       const currAccount = categorySelect.value;
       const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
       const income = Number(sumInput.value);
