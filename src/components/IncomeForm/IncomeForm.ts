@@ -1,12 +1,13 @@
 import './IncomeForm.scss';
-import {LANG, MODE} from '../../types/types';
+import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
-import {ClassMap, InputType, InputValue, MinDate, TextArea} from '../../constants/htmlConstants';
-import {Dictionary, DictionaryKeys} from '../../constants/dictionary';
-import RequestApi from "../../Api/RequestsApi";
-import {Endpoint} from "../../Api/serverConstants";
-import {LocalStorageKey} from "../../constants/common";
+import { ClassMap, InputType, InputValue, MinDate, TextArea } from '../../constants/htmlConstants';
+import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
+import RequestApi from '../../Api/RequestsApi';
+import { Endpoint } from '../../Api/serverConstants';
+import { LocalStorageKey } from '../../constants/common';
+import {IAccount, IIncome} from "../../types/interfaces";
 
 class IncomeForm {
   private modeValue: MODE;
@@ -60,7 +61,7 @@ class IncomeForm {
     //
     // await RequestApi.getAll(Endpoint.CATEGORY, token);
 
-    // Currency.forEach((currency) => (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(currency)));
+    categories.forEach((category) => (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(category)));
 
     categoryWrap.append(categoryLabel, categorySelect);
 
@@ -239,17 +240,26 @@ class IncomeForm {
   }
 
   private async getAllCategories() {
-    const userAccount = localStorage.getItem(LocalStorageKey.auth);
-    let token;
-
-    if (userAccount) {
-      const userAccountObj = JSON.parse(userAccount);
-      token = userAccountObj.token;
+    // if (AppState.userAccount) {
+    //   const userToken: string = JSON.parse(AppState.userAccount);
+    //   const userAccount = localStorage.getItem(LocalStorageKey.auth);
+    //   let token;
+    //
+    //   if (userAccount) {
+    //     const userAccountObj = JSON.parse(userAccount);
+    //     token = userAccountObj.token;
+    //   }
+    //
+    //   const response = await RequestApi.getAll(Endpoint.ACCOUNT, token);
+    //   console.log(token);
+    //   return response;
+    // }
+    // }
+    if (AppState.userAccount) {
+      const userToken: string = JSON.parse(AppState.userAccount).token;
+      const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
+      return accountsData;
     }
-
-    const response = await RequestApi.getAll(Endpoint.CATEGORY, token);
-    console.log(token);
-    return response;
   }
 }
 
