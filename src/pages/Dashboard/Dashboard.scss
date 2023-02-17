@@ -49,11 +49,17 @@
   gap: 2rem;
   margin: 2rem 0;
 
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
   &__title {
     font-size: 24px;
     line-height: 32px;
     font-weight: 600;
-    margin: 0 0 2rem;
+    margin: 0 1rem 0 0;
   }
 
   &__total-price {
@@ -72,7 +78,7 @@
 
 .balance {
   border-radius: 2rem;
-  padding: 2rem;
+  padding: 0 2rem;
   font-weight: 100;
   font-size: 1.7rem;
 
@@ -83,6 +89,10 @@
     border-bottom: 1px solid;
     border-color: $color-primary;
     padding: 2rem 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
 
     .icon-wrap svg {
       width: 3rem;

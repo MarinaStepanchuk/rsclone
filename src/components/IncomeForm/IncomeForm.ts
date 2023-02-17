@@ -6,7 +6,6 @@ import { ClassMap, InputType, InputValue, MinDate, TextArea } from '../../consta
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { LocalStorageKey } from '../../constants/common';
 import {IAccount, IIncome} from "../../types/interfaces";
 
 class IncomeForm {
@@ -48,20 +47,14 @@ class IncomeForm {
       classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
     });
 
-    const categories = this.getAllCategories();
-    console.log(categories);
+    const categoriesAll = this.getAllCategories();
 
-    // const userAccount = localStorage.getItem(LocalStorageKey.auth);
-    // let token;
-    //
-    // if (userAccount) {
-    //   const userAccountObj = JSON.parse(userAccount);
-    //   token = userAccountObj.token;
-    // }
-    //
-    // await RequestApi.getAll(Endpoint.CATEGORY, token);
-
-    categories.forEach((category) => (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(category)));
+    categoriesAll.then(categories => {
+      categories.forEach((category) => {
+        (categorySelect as HTMLSelectElement).append(
+          this.createOptionCurrency(!category.key ? '' : category.key))
+      });
+    })
 
     categoryWrap.append(categoryLabel, categorySelect);
 
@@ -171,6 +164,27 @@ class IncomeForm {
       content: Dictionary[this.lang].addIncomeButton,
     }) as HTMLButtonElement;
 
+    submitButton.addEventListener('click', (e) => {
+      const currAccount = categorySelect.value;
+      const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
+      const income = Number(sumInput.value);
+      const comment = noteText.value;
+
+      const newIncome: IIncome = {
+        date: currDate,
+        account: currAccount,
+        income: income,
+        currency: 'USD', // optional
+        comment: comment,
+      };
+
+      const incomeRes = this.createNewIncome(newIncome);
+
+      incomeRes.then(() => {
+
+      })
+    })
+
     const closeFormButton = createElement({
       tag: 'div',
       classList: [ClassMap.closeModalButton],
@@ -239,26 +253,21 @@ class IncomeForm {
     });
   }
 
-  private async getAllCategories() {
-    // if (AppState.userAccount) {
-    //   const userToken: string = JSON.parse(AppState.userAccount);
-    //   const userAccount = localStorage.getItem(LocalStorageKey.auth);
-    //   let token;
-    //
-    //   if (userAccount) {
-    //     const userAccountObj = JSON.parse(userAccount);
-    //     token = userAccountObj.token;
-    //   }
-    //
-    //   const response = await RequestApi.getAll(Endpoint.ACCOUNT, token);
-    //   console.log(token);
-    //   return response;
-    // }
-    // }
+  private async getAllCategories(): Promise<IAccount[]> {
     if (AppState.userAccount) {
       const userToken: string = JSON.parse(AppState.userAccount).token;
       const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
       return accountsData;
+    }
+
+    return [];
+  }
+
+  private async createNewIncome(income: IIncome): Promise<void> {
+    if (AppState.userAccount) {
+      const userToken: string = JSON.parse(AppState.userAccount).token;
+      const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
+      console.log(newIncome);
     }
   }
 }

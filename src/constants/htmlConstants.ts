@@ -124,6 +124,7 @@ export const ClassMap = {
     mainDashboard: 'main__dashboard',
     mainAside: 'main__aside',
     dashboard: 'dashboard',
+    header: 'dashboard__header',
     iconWrap: 'icon-wrap',
     iconWrapLight: 'icon-wrap_light',
     totalPrice: 'dashboard__total-price',

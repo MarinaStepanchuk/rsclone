@@ -29,7 +29,8 @@ class Dashboard extends BasePage {
     const userAccount = localStorage.getItem('auth');
 
     const userName = createElement({
-      tag: 'span',
+      tag: 'div',
+      classList: [ClassMap.dashboard.title, ClassMap.mode[this.modeValue].font],
     });
 
     if (userAccount) {
@@ -46,13 +47,12 @@ class Dashboard extends BasePage {
       content: Dictionary[this.lang].welcomeHeader,
     });
 
-    headerWelcomeTitle.append(userName);
-
     const dashboardHeader = createElement({
       tag: 'header',
+      classList: [ClassMap.dashboard.header],
     });
 
-    dashboardHeader.append(headerWelcomeTitle);
+    dashboardHeader.append(headerWelcomeTitle, userName);
 
     const incomeIcon = createElement({
       tag: 'div',
@@ -67,14 +67,18 @@ class Dashboard extends BasePage {
       content: '111',
     });
 
-    const incomeWrap = createElement({
+    const incomeTitle = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.totalIncome,
       content: Dictionary[this.lang].totalIncome,
     });
 
-    incomeWrap.append(incomeBalance);
+    const incomeWrap = createElement({
+      tag: 'div',
+    });
+
+    incomeWrap.append(incomeTitle, incomeBalance);
 
     const totalIncome = createElement({
       tag: 'div',
@@ -96,14 +100,18 @@ class Dashboard extends BasePage {
       content: '222',
     });
 
-    const outcomeWrap = createElement({
+    const outcomeTitle = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.totalOutcome,
       content: Dictionary[this.lang].totalOutcome,
     });
 
-    outcomeWrap.append(outcomeBalance);
+    const outcomeWrap = createElement({
+      tag: 'div',
+    });
+
+    outcomeWrap.append(outcomeTitle, outcomeBalance);
 
     const totalOutcome = createElement({
       tag: 'div',
@@ -132,14 +140,18 @@ class Dashboard extends BasePage {
       content: '12345',
     });
 
-    const cardBalance = createElement({
+    const cardBalanceTitle = createElement({
       tag: 'div',
-      classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.cardBalance,
       content: Dictionary[this.lang].cardBalance,
     });
 
-    cardBalance.append(cardBalanceValue);
+    const cardBalance = createElement({
+      tag: 'div',
+      classList: [ClassMap.mode[this.modeValue].font],
+    });
+
+    cardBalance.append(cardBalanceTitle, cardBalanceValue);
 
     const cardBalanceWrap = createElement({
       tag: 'div',
@@ -161,14 +173,18 @@ class Dashboard extends BasePage {
       content: '98765',
     });
 
-    const cashBalance = createElement({
+    const cashBalanceTitle = createElement({
       tag: 'div',
-      classList: [ClassMap.mode[this.modeValue].font],
       key: DictionaryKeys.cashBalance,
       content: Dictionary[this.lang].cashBalance,
     });
 
-    cashBalance.append(cashBalanceValue);
+    const cashBalance = createElement({
+      tag: 'div',
+      classList: [ClassMap.mode[this.modeValue].font],
+    });
+
+    cashBalance.append(cashBalanceTitle, cashBalanceValue);
 
     const cashBalanceWrap = createElement({
       tag: 'div',
