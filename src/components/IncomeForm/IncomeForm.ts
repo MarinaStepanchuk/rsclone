@@ -165,6 +165,7 @@ class IncomeForm {
     }) as HTMLButtonElement;
 
     submitButton.addEventListener('click', (e) => {
+      e.preventDefault();
       const currAccount = categorySelect.value;
       const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
       const income = Number(sumInput.value);
@@ -180,8 +181,16 @@ class IncomeForm {
 
       const incomeRes = this.createNewIncome(newIncome);
 
-      incomeRes.then(() => {
+      incomeRes.then((income) => {
+        const totalIncomeWrap = document.getElementById('incomeBalance');
 
+        if (totalIncomeWrap) {
+          const prevSum = totalIncomeWrap.textContent;
+          const newSum = Number(prevSum) + income.income;
+          console.log(newSum);
+
+          totalIncomeWrap.textContent = `${newSum}`;
+        }
       })
     })
 
@@ -263,12 +272,15 @@ class IncomeForm {
     return [];
   }
 
-  private async createNewIncome(income: IIncome): Promise<void> {
+  private async createNewIncome(income: IIncome): Promise<IIncome> {
     if (AppState.userAccount) {
       const userToken: string = JSON.parse(AppState.userAccount).token;
       const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
-      console.log(newIncome);
+      return newIncome;
     }
+
+    console.log('error: failed to add new income');
+    throw new Error();
   }
 }
 

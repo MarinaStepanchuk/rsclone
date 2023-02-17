@@ -10,6 +10,9 @@ import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeForm from '../../components/IncomeForm/IncomeForm';
+import {IIncome} from "../../types/interfaces";
+import RequestApi from "../../Api/RequestsApi";
+import {Endpoint} from "../../Api/serverConstants";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -64,7 +67,16 @@ class Dashboard extends BasePage {
     const incomeBalance = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
-      content: '111',
+      content: '0',
+    });
+
+    incomeBalance.id = 'incomeBalance';
+
+    const allIncomes = this.getAllIncomes();
+
+    allIncomes.then((incomes) => {
+      const res = incomes.reduce((acc, curr) => {return acc + curr.income;}, 0);
+      incomeBalance.textContent = `${res}`;
     });
 
     const incomeTitle = createElement({
@@ -274,6 +286,17 @@ class Dashboard extends BasePage {
     });
 
     mainContent?.replaceChildren(mainDashboard, mainAside);
+  }
+
+  private async getAllIncomes(): Promise<IIncome[]> {
+    if (AppState.userAccount) {
+      const userToken: string = JSON.parse(AppState.userAccount).token;
+      const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
+      return incomesData;
+    }
+
+    console.log('error: failed to get all incomes');
+    throw new Error();
   }
 }
 
