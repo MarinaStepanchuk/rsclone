@@ -146,6 +146,12 @@ export const ClassMap = {
     createCurrency: 'create-form__currency',
     createSubmit: 'create-form__submit',
   },
+  analytic: {
+    title: 'analytic__title',
+    chartYearExpenses: {
+      container: 'analytic__chart-year-expenses',
+    },
+  },
 };
 
 export const Title = {
@@ -203,4 +209,9 @@ export const startId = {
   accounts: 'account-',
   categories: 'category-',
   svg: 'svg-',
+};
+
+export const Id = {
+  chartYearIncomes: 'chart-year-incomes',
+  chartYearExpenses: 'chart-year-expenses',
 };

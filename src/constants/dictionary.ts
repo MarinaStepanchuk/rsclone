@@ -66,6 +66,8 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: 'Limit per month',
     createCategorySubmit: 'Create category',
     errorMessageCategoryExists: 'Category with the same name already exists',
+    expenses: 'expenses',
+    chartYearExpensesTitle: 'Schedule of daily expenses for the year',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -126,6 +128,8 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: 'Лимит в месяц',
     createCategorySubmit: 'Создать категорию',
     errorMessageCategoryExists: 'Категория с таким именем уже существует',
+    expenses: 'расходы',
+    chartYearExpensesTitle: 'График ежедневных расходов за год',
   },
   DE: {
     authorizationTitle: '',
@@ -186,6 +190,8 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: '',
     createCategorySubmit: '',
     errorMessageCategoryExists: '',
+    expense: '',
+    chartYearExpensesTitle: '',
   },
 };
 
@@ -252,4 +258,5 @@ export const DictionaryKeys: DictionaryKeysType = {
   createCategoryLimit: 'createCategoryLimit',
   createCategorySubmit: 'createCategorySubmit',
   errorMessageCategoryExists: 'errorMessageCategoryExists',
+  chartYearExpensesTitle: 'chartYearExpensesTitle',
 };

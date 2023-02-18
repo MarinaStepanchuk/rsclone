@@ -9,7 +9,7 @@ export const Routes = {
   '/': (): void => new Authorization().render(),
   '/dashboard': ():void => new Dashboard().render(),
   '/wallet': ():void => new Wallet().render(),
-  '/analytics': ():void => new Analytics().render(),
+  '/analytics': ():Promise<void> => new Analytics().render(),
   '/account': ():void => new Account().render(),
 };
 
