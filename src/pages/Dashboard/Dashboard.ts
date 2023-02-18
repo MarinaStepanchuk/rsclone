@@ -10,9 +10,7 @@ import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeForm from '../../components/IncomeForm/IncomeForm';
-import { IIncome } from '../../types/interfaces';
-import RequestApi from '../../Api/RequestsApi';
-import { Endpoint } from '../../Api/serverConstants';
+import updateIncomes from '../../utils/updateIncomes';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -225,7 +223,7 @@ class Dashboard extends BasePage {
 
     addIncomeButton.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new IncomeForm().render();
+      const modal = new IncomeForm().render(incomeBalance, cardBalanceValue, cashBalanceValue);
       section?.append(modal as HTMLElement);
     });
 
@@ -276,38 +274,9 @@ class Dashboard extends BasePage {
       content: 'Тут aside',
     });
 
-    this.updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue)
+    updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue);
 
     mainContent?.replaceChildren(mainDashboard, mainAside);
-  }
-
-  private updateIncomes(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): void {
-    const allIncomes = this.getAllIncomes();
-    allIncomes.then((incomes) => {
-      const res = incomes.reduce((acc, curr) => {return acc + curr.income;}, 0);
-      totalBalance.textContent = `${res}`;
-
-      const cardIncomes = incomes
-        .filter((category) => category.account === 'card')
-        .reduce((acc, curr) => { return acc + curr.income }, 0);
-      cardBalance.textContent = `${cardIncomes}`
-
-      const cashIncomes = incomes
-        .filter((category) => category.account === 'cash')
-        .reduce((acc, curr) => { return acc + curr.income }, 0);
-      cashBalance.textContent = `${cashIncomes}`;
-    });
-  }
-
-  private async getAllIncomes(): Promise<IIncome[]> {
-    if (AppState.userAccount) {
-      const userToken: string = JSON.parse(AppState.userAccount).token;
-      const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
-      return incomesData;
-    }
-
-    console.log('error: failed to get all incomes');
-    throw new Error();
   }
 }
 

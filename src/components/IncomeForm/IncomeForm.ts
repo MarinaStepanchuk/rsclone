@@ -2,11 +2,18 @@ import './IncomeForm.scss';
 import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
-import { ClassMap, InputType, InputValue, MinDate, TextArea } from '../../constants/htmlConstants';
+import {
+  ClassMap,
+  InputType,
+  InputValue,
+  MinDate,
+  TextArea,
+} from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import {IAccount, IIncome} from "../../types/interfaces";
+import { IAccount, IIncome } from '../../types/interfaces';
+import updateIncomes from '../../utils/updateIncomes';
 
 class IncomeForm {
   private modeValue: MODE;
@@ -22,7 +29,7 @@ class IncomeForm {
     this.lang = AppState.lang;
   }
 
-  public render(): HTMLElement {
+  public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
     const formTitle = createElement({
       tag: 'legend',
       classList: [ClassMap.dashboard.formTitle, ClassMap.mode[this.modeValue].modalTitle],
@@ -49,12 +56,11 @@ class IncomeForm {
 
     const categoriesAll = this.getAllCategories();
 
-    categoriesAll.then(categories => {
+    categoriesAll.then((categories) => {
       categories.forEach((category) => {
-        (categorySelect as HTMLSelectElement).append(
-          this.createOptionCurrency(!category.key ? '' : category.key))
+        (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(!category.key ? '' : category.key));
       });
-    })
+    });
 
     categoryWrap.append(categoryLabel, categorySelect);
 
@@ -107,19 +113,22 @@ class IncomeForm {
     dataInput.type = InputType.date;
     dataInput.min = MinDate;
 
+    const todayDate = new Date();
+
+    const year = todayDate.getFullYear();
+    const month = todayDate.getMonth() + 1;
+    const day = todayDate.getDate();
+
+    const todayFullDate = `${year}-${month.toString().padStart(2, '0')}-${day}`;
+
+    dataInput.value = todayFullDate;
+
     dataInput.addEventListener('change', () => {
-      const currDate = new Date();
       const userDate = new Date(dataInput.value);
       const minDate = new Date(MinDate);
 
-      const year = currDate.getFullYear();
-      const month = currDate.getMonth() + 1;
-      const day = currDate.getDate();
-
-      const currFullDate = `${year}-${month.toString().padStart(2, '0')}-${day}`;
-
-      if (userDate.getTime() > currDate.getTime()) {
-        dataInput.value = currFullDate;
+      if (userDate.getTime() > todayDate.getTime()) {
+        dataInput.value = todayFullDate;
       }
 
       if (minDate.getTime() > userDate.getTime()) {
@@ -165,6 +174,8 @@ class IncomeForm {
     }) as HTMLButtonElement;
 
     submitButton.addEventListener('click', (e) => {
+      e.preventDefault();
+
       const currAccount = categorySelect.value;
       const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
       const income = Number(sumInput.value);
@@ -173,25 +184,27 @@ class IncomeForm {
       const newIncome: IIncome = {
         date: currDate,
         account: currAccount,
-        income: income,
+        income,
         currency: 'USD', // optional
-        comment: comment,
+        comment,
       };
 
       const incomeRes = this.createNewIncome(newIncome);
 
-      incomeRes.then((income) => {
+      incomeRes.then((incomeValue) => {
         const totalIncomeWrap = document.getElementById('incomeBalance');
 
         if (totalIncomeWrap) {
           const prevSum = totalIncomeWrap.textContent;
-          const newSum = Number(prevSum) + income.income;
-          console.log(newSum);
+          const newSum = Number(prevSum) + incomeValue.income;
 
           totalIncomeWrap.textContent = `${newSum}`;
         }
-      })
-    })
+
+        updateIncomes(totalBalance, cardBalance, cashBalance);
+        this.modalWrapper?.remove();
+      });
+    });
 
     const closeFormButton = createElement({
       tag: 'div',
