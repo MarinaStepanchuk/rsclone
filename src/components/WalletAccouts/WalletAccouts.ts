@@ -9,8 +9,8 @@ import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IAccount } from '../../types/interfaces';
 import CreatorAccount from '../../modals/CreatorAccount/CreatorAccount';
-import { Accounts } from '../../constants/tests';
-import createIconBlock from '../../utils/createIconBlock';
+import RequestApi from '../../Api/RequestsApi';
+import { Endpoint } from '../../Api/serverConstants';
 
 class WalletAccouts {
   private modeValue: MODE;
@@ -35,7 +35,7 @@ class WalletAccouts {
     });
   }
 
-  public render(): HTMLElement {
+  public async render(): Promise<HTMLElement> {
     const header = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.subTitle, ClassMap.mode[this.modeValue].title],
@@ -52,36 +52,39 @@ class WalletAccouts {
       classList: [ClassMap.wallet.sum],
     });
 
-    sum.innerText = `${this.getAccoutsAmount()} ${CurrencyMark[this.currency]}`;
+    const amount = await this.getAccoutsAmount();
+
+    sum.innerText = `${amount} ${CurrencyMark[this.currency]}`;
 
     header.append(title, sum);
 
-    const accountsBlock = this.getAccoutsBlock();
+    const accountsBlock = await this.getAccoutsBlock();
 
     this.section?.replaceChildren(header, accountsBlock);
 
     return this.section as HTMLElement;
   }
 
-  private getAccoutsAmount(): number {
-    // const data = this.getAccouts();
-    // const amount = data.reduce((accum, account) => accum + account.sum, 0);
-    return 0;
+  private async getAccoutsAmount(): Promise<number> {
+    const data = await this.getAccouts();
+    const amount = data.reduce((accum, account) => accum + account.sum, 0);
+    return amount;
   }
 
-  public getAccouts(): IAccount[] {
-    // БЭК получаем карты с балансами
-    return Accounts;
+  public async getAccouts(): Promise<IAccount[]> {
+    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
+    return accountsData;
   }
 
-  private getAccoutsBlock(): HTMLElement {
+  private async getAccoutsBlock(): Promise<HTMLElement> {
     const accountsBlock = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.itemContainer],
     });
 
-    const data = this.getAccouts();
-    const accounts = data.map(((itemAccount) => createIconBlock(itemAccount, SectionWallet.account)));
+    const data = await this.getAccouts();
+    const accounts = data.map(((itemAccount) => this.createIconBlock(itemAccount, SectionWallet.account)));
 
     const plusContainer = createElement({
       tag: 'div',
@@ -106,6 +109,52 @@ class WalletAccouts {
     });
 
     return accountsBlock;
+  }
+
+  private createIconBlock(data: IAccount, type: SectionWallet): HTMLElement {
+    const {
+      _id: id, icon, sum, key = '', account: name,
+    } = data;
+
+    const item = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.item],
+      id: id as string,
+    });
+
+    const itemTitle = Dictionary[this.lang][key] && DictionaryKeys[key]
+      ? createElement({
+        tag: 'span',
+        classList: [ClassMap.wallet.title],
+        key: DictionaryKeys[key],
+        content: Dictionary[this.lang][key],
+      })
+      : createElement({
+        tag: 'span',
+        classList: [ClassMap.wallet.title],
+        content: name,
+      });
+
+    const itemIcon = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.image],
+    });
+
+    if (type === SectionWallet.category) {
+      itemIcon.classList.add(ClassMap.wallet.lightIcon);
+    }
+
+    itemIcon.innerHTML = SvgIcons[type][icon] ? SvgIcons[type][icon] : SvgIcons[type].base;
+
+    const itemAmount = createElement({
+      tag: 'span',
+      classList: [ClassMap.wallet.balance],
+      content: `${sum} ${CurrencyMark[this.currency]}`,
+    });
+
+    item.replaceChildren(itemTitle, itemIcon, itemAmount);
+
+    return item;
   }
 }
 

@@ -6,11 +6,12 @@ import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { Categories } from '../../constants/tests';
 import BaseCreater from '../BaseCreater/BaseCreater';
+import { Endpoint } from '../../Api/serverConstants';
+import RequestApi from '../../Api/RequestsApi';
 
 class CreatorCategory extends BaseCreater {
-  constructor(private getCategory: () => ICategory[], private updateCategoriesBlock: () => void) {
+  constructor(private getCategory: () => Promise<ICategory[]>, private updateCategoriesBlock: () => void) {
     super();
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
@@ -59,7 +60,7 @@ class CreatorCategory extends BaseCreater {
       }
     });
 
-    this.inputName?.addEventListener('input', () => {
+    this.inputName?.addEventListener('input', async () => {
       const { value } = this.inputName as HTMLInputElement;
 
       if (value.length > 0) {
@@ -68,7 +69,7 @@ class CreatorCategory extends BaseCreater {
         (this.submit as HTMLButtonElement).disabled = true;
       }
 
-      const categories = this.getCategory();
+      const categories = await this.getCategory();
 
       categories.forEach((item) => {
         if (item.category === value) {
@@ -81,7 +82,7 @@ class CreatorCategory extends BaseCreater {
       });
     });
 
-    this.form?.addEventListener('click', (event) => {
+    this.form?.addEventListener('click', async (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.creater.createSubmit)
@@ -91,13 +92,18 @@ class CreatorCategory extends BaseCreater {
 
         const idIcon = (this.icon as HTMLElement).getElementsByTagName('svg')[0].id.split('-')[1];
 
+        const limit = (this.inputBalance as HTMLInputElement).value;
+
         const data: ICategory = {
           category: (this.inputName as HTMLInputElement).value,
-          sum: Number((this.inputBalance as HTMLInputElement).value),
           icon: idIcon,
         };
 
-        this.addCategoryToDatabase(data);
+        if (limit) {
+          data.limit = Number(limit);
+        }
+
+        await this.addCategoryToDatabase(data);
 
         this.updateCategoriesBlock();
 
@@ -106,11 +112,11 @@ class CreatorCategory extends BaseCreater {
     });
   }
 
-  private addCategoryToDatabase(data: ICategory): void {
-    // тестово
-    console.log(data);
-    Categories.push(data);
-    // добавляем в базу новый счет
+  private async addCategoryToDatabase(data: ICategory): Promise<ICategory> {
+    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const newCategory: ICategory = await RequestApi.create(Endpoint.CATEGORY, userToken, data);
+
+    return newCategory;
   }
 }
 

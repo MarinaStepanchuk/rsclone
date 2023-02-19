@@ -133,6 +133,7 @@ export const ClassMap = {
     image: 'wallet__image',
     balance: 'wallet__balance',
     lightIcon: 'wallet__image_light',
+    plusIconCategory: 'wallet__plus',
   },
   creater: {
     createWrapper: 'create-wrapper',
