@@ -1,9 +1,12 @@
+import AlertMessage from '../components/AlertMessage/AlertMessege';
+import { alertTimeout } from '../constants/common';
 import { IFilterParams } from '../types/interfaces';
 import {
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
   Endpoint,
   BASE_URL,
+  RESPONSE_STATUS,
 } from './serverConstants';
 
 class RequestApi {
@@ -42,6 +45,29 @@ class RequestApi {
       return result;
     } catch (error) {
       throw new Error(`${error}`);
+    }
+  }
+
+  public static async updateSum<T>(endpoint: Endpoint, token: string, id: string, data: { updateSum: number }): Promise<T | null> {
+    const url = `${BASE_URL}${endpoint}/${id}/sum`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.PATCH,
+        headers: Object.assign(authorization, CONTENT_TYPE_JSON),
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      const alert = new AlertMessage('Something broke. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+
+      return null;
     }
   }
 
@@ -97,7 +123,7 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      throw new Error(`${error}`);
+      return [];
     }
   }
 
@@ -116,7 +142,7 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      throw new Error(`${error}`);
+      return [];
     }
   }
 }

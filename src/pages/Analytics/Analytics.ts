@@ -63,6 +63,15 @@ class Analytics extends BasePage {
       // const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
       // console.log(accountsData);
 
+      //! Обновление суммы счета
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63f37060d3206af9d4c9584b';
+      // const fakeСhangedAccount: { updateSum: number } = {
+      //   updateSum: 50, // + Прибавить, - отнять
+      // };
+      // const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
+      // console.log(changedAccountSum);
+
       // TODO Category Api
       //! создание категории
       // const fakeNewCategory: ICategory = {
