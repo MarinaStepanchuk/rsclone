@@ -62,8 +62,8 @@ class IncomeModal {
     const categoriesAll = this.getAllCategories();
 
     categoriesAll.then((categories) => {
-      categories.forEach((category) => {
-        (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(!category.key ? '' : category.key));
+      categories.forEach((account) => {
+        (categorySelect as HTMLSelectElement).append(this.createOptionAccount(account));
       });
     });
 
@@ -204,14 +204,10 @@ class IncomeModal {
       const incomeRes = this.createNewIncome(newIncome);
 
       incomeRes.then((incomeValue) => {
-        const totalIncomeWrap = document.getElementById('incomeBalance');
+        const prevSum = totalBalance.textContent;
+        const newSum = Number(prevSum) + incomeValue.income;
 
-        if (totalIncomeWrap) {
-          const prevSum = totalIncomeWrap.textContent;
-          const newSum = Number(prevSum) + incomeValue.income;
-
-          totalIncomeWrap.textContent = `${newSum}`;
-        }
+        totalBalance.textContent = `${newSum}`;
 
         updateIncomes(totalBalance, cardBalance, cashBalance);
         this.modalWrapper?.remove();
@@ -262,22 +258,21 @@ class IncomeModal {
     return this.modalWrapper;
   }
 
-  private createOptionCurrency(category: string, key = ''): HTMLOptionElement {
+  private createOptionAccount(account: IAccount): HTMLOptionElement {
+    const { key = '', account: name } = account;
 
     const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
-    ? createElement({
-      tag: 'option',
-      key: DictionaryKeys[key],
-      content: Dictionary[this.lang][key],
-    }) as HTMLOptionElement
-    : createElement({
+      ? createElement({
         tag: 'option',
-        content: category,
+        key: DictionaryKeys[key],
+        content: Dictionary[this.lang][key],
+      }) as HTMLOptionElement
+      : createElement({
+        tag: 'option',
+        content: name,
       }) as HTMLOptionElement;
 
-    console.log(category);
-
-    optionCurrency.value = category;
+    optionCurrency.value = name;
 
     return optionCurrency;
   }

@@ -16,6 +16,16 @@ async function getAllIncomes(): Promise<IIncome[]> {
   return [];
 }
 
+// export function updateIncomesWithoutParams() {
+//   return this.updateIncomesWithoutParams(document)
+// }
+// export function updateIncomesWithoutParams(documentVar) {
+//   documentVar.querySelector()
+//   documentVar.querySelector()
+//   documentVar.querySelector()
+//   return this.updateIncomes(1, 2 ,3)
+// }
+
 export default function updateIncomes(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): void {
   const allIncomes = getAllIncomes();
   allIncomes.then((incomes) => {

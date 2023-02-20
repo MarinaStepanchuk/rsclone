@@ -63,7 +63,7 @@ class ExpenseModal {
 
     accountsAll.then((accounts) => {
       accounts.forEach((account) => {
-        (accountSelect as HTMLSelectElement).append(this.createOptionCurrency(!account.key ? '' : account.key));
+        (accountSelect as HTMLSelectElement).append(this.createOptionAccount(account));
       });
     });
 
@@ -90,7 +90,7 @@ class ExpenseModal {
 
     categoriesAll.then((categories) => {
       categories.forEach((category) => {
-        (categorySelect as HTMLSelectElement).append(this.createOptionCurrency(!category.key ? '' : category.key));
+        (categorySelect as HTMLSelectElement).append(this.createOptionCategory(category));
       });
     });
 
@@ -292,7 +292,8 @@ class ExpenseModal {
     return this.modalWrapper;
   }
 
-  private createOptionCurrency(category: string, key = ''): HTMLOptionElement {
+  private createOptionAccount(account: IAccount): HTMLOptionElement {
+    const { key = '', account: name } = account;
 
     const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
       ? createElement({
@@ -302,12 +303,29 @@ class ExpenseModal {
       }) as HTMLOptionElement
       : createElement({
         tag: 'option',
-        content: category,
+        content: name,
       }) as HTMLOptionElement;
 
-    console.log(category);
+    optionCurrency.value = name;
 
-    optionCurrency.value = category;
+    return optionCurrency;
+  }
+
+  private createOptionCategory(category: ICategory): HTMLOptionElement {
+    const { key = '', category: name } = category;
+
+    const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
+      ? createElement({
+        tag: 'option',
+        key: DictionaryKeys[key],
+        content: Dictionary[this.lang][key],
+      }) as HTMLOptionElement
+      : createElement({
+        tag: 'option',
+        content: name,
+      }) as HTMLOptionElement;
+
+    optionCurrency.value = name;
 
     return optionCurrency;
   }

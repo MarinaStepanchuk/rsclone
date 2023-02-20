@@ -13,7 +13,7 @@ import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import updateExpenses from "../../utils/updateExpenses";
+import updateExpenses from '../../utils/updateExpenses';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -71,9 +71,8 @@ class Dashboard extends BasePage {
     const incomeBalance = createElement({
       tag: 'div',
       content: '0',
+      id: 'incomeBalance',
     });
-
-    incomeBalance.id = 'incomeBalance';
 
     const incomeBalanceWrap = createElement({
       tag: 'div',
@@ -112,9 +111,8 @@ class Dashboard extends BasePage {
     const expenseBalance = createElement({
       tag: 'div',
       content: '0',
+      id: 'expenseBalance'
     });
-
-    expenseBalance.id = 'expenseBalance';
 
     const expenseBalanceWrap = createElement({
       tag: 'div',
@@ -160,6 +158,7 @@ class Dashboard extends BasePage {
     const cardBalanceValue = createElement({
       tag: 'div',
       content: '0',
+      id: 'cardBalance',
     });
 
     const cardBalanceValueWrap = createElement({
@@ -199,6 +198,7 @@ class Dashboard extends BasePage {
     const cashBalanceValue = createElement({
       tag: 'div',
       content: '0',
+      id: 'cashBalance',
     });
 
     const cashBalanceValueWrap = createElement({
