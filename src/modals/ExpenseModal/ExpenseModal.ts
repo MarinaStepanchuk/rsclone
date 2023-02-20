@@ -292,11 +292,20 @@ class ExpenseModal {
     return this.modalWrapper;
   }
 
-  private createOptionCurrency(category: string): HTMLOptionElement {
-    const optionCurrency = createElement({
-      tag: 'option',
-      content: Dictionary[this.lang][category],
-    }) as HTMLOptionElement;
+  private createOptionCurrency(category: string, key = ''): HTMLOptionElement {
+
+    const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
+      ? createElement({
+        tag: 'option',
+        key: DictionaryKeys[key],
+        content: Dictionary[this.lang][key],
+      }) as HTMLOptionElement
+      : createElement({
+        tag: 'option',
+        content: category,
+      }) as HTMLOptionElement;
+
+    console.log(category);
 
     optionCurrency.value = category;
 
