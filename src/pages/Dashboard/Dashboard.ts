@@ -9,7 +9,7 @@ import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
-import IncomeForm from '../../components/IncomeForm/IncomeForm';
+import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
 
@@ -251,7 +251,7 @@ class Dashboard extends BasePage {
 
     addIncomeButton.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new IncomeForm().render(incomeBalance, cardBalanceValue, cashBalanceValue);
+      const modal = new IncomeModal().render(incomeBalance, cardBalanceValue, cashBalanceValue);
       section?.append(modal as HTMLElement);
     });
 

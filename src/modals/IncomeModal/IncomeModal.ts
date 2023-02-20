@@ -1,4 +1,4 @@
-import './IncomeForm.scss';
+import './IncomeModal.scss';
 import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
@@ -17,12 +17,12 @@ import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
 import { CurrencyMark } from '../../types/enums';
 
-class IncomeForm {
+class IncomeModal {
   private modeValue: MODE;
 
-  private lang: LANG;
+  private readonly lang: LANG;
 
-  private currency: CURRENCY;
+  private readonly currency: CURRENCY;
 
   public modalWrapper: HTMLElement | null = null;
 
@@ -98,9 +98,9 @@ class IncomeForm {
 
       if (!Number.isInteger(currSum)) {
         sumInput.value = currSum.toFixed(2);
-      } else {
-        sumInput.value = currSum.toString();
       }
+
+      sumInput.value = currSum.toString();
     });
 
     const sumWrap = createElement({
@@ -137,14 +137,14 @@ class IncomeForm {
 
     dataInput.addEventListener('change', () => {
       const userDate = new Date(dataInput.value);
-      const minDate = new Date(MinDate);
+      // const minDate = new Date(MinDate);
+
+      // if (minDate.getTime() > userDate.getTime()) {
+      //     dataInput.value = MinDate;
+      //   }
 
       if (userDate.getTime() > todayDate.getTime()) {
         dataInput.value = todayFullDate;
-      }
-
-      if (minDate.getTime() > userDate.getTime()) {
-        dataInput.value = MinDate;
       }
     });
 
@@ -262,13 +262,14 @@ class IncomeForm {
     return this.modalWrapper;
   }
 
-  private createOptionCurrency(currency: string): HTMLOptionElement {
+  private createOptionCurrency(category: string): HTMLOptionElement {
     const optionCurrency = createElement({
       tag: 'option',
-      content: currency,
+      content: Dictionary[this.lang][category],
     }) as HTMLOptionElement;
 
-    optionCurrency.value = currency;
+    optionCurrency.value = category;
+
     return optionCurrency;
   }
 
@@ -299,4 +300,4 @@ class IncomeForm {
   }
 }
 
-export default IncomeForm;
+export default IncomeModal;

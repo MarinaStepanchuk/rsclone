@@ -1,5 +1,5 @@
-@import '../../styles/variables.scss';
-@import '../../styles/mixins.scss';
+@import '../../styles/variables';
+@import '../../styles/mixins';
 
 .form {
   display: flex;
@@ -45,6 +45,7 @@
       position: absolute;
       top: 3.3rem;
       right: 1rem;
+      z-index: 2;
     }
   }
 
