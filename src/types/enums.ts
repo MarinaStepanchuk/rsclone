@@ -14,7 +14,7 @@ export enum SwitcherSize {
 export enum ModeItem {
   background = 'background',
   font = 'font',
-  backgroundMenu = 'backgroundMenu',
+  backgroundSection = 'backgroundSection',
   title = 'title',
   icon = 'icon',
   modal = 'modal',

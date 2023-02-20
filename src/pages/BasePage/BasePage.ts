@@ -2,7 +2,7 @@ import Footer from '../../components/Footer/Footer';
 import createElement from '../../utils/createElement';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import { ClassMap } from '../../constants/htmlConstants';
-import { MODE } from '../../types/types';
+import { MODE, LANG } from '../../types/types';
 import AppState from '../../constants/appState';
 
 class BasePage {
@@ -10,10 +10,13 @@ class BasePage {
 
   private mainMenu: MainMenu;
 
-  private modeValue: MODE;
+  public modeValue: MODE;
+
+  public lang: LANG;
 
   constructor() {
     this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
     this.footer = new Footer();
     this.mainMenu = new MainMenu();
   }
