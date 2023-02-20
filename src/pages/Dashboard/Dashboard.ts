@@ -12,6 +12,8 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
+import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
+import updateExpenses from "../../utils/updateExpenses";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -71,6 +73,8 @@ class Dashboard extends BasePage {
       content: '0',
     });
 
+    incomeBalance.id = 'incomeBalance';
+
     const incomeBalanceWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
@@ -98,51 +102,53 @@ class Dashboard extends BasePage {
 
     totalIncome.append(incomeIcon, incomeWrap);
 
-    const outcomeIcon = createElement({
+    const expenseIcon = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.iconWrap, ClassMap.dashboard.iconWrapLight],
     });
 
-    outcomeIcon.innerHTML = SvgIcons.dashboard.arrowUp;
+    expenseIcon.innerHTML = SvgIcons.dashboard.arrowUp;
 
-    const outcomeBalance = createElement({
+    const expenseBalance = createElement({
       tag: 'div',
       content: '0',
     });
 
-    const outcomeBalanceWrap = createElement({
+    expenseBalance.id = 'expenseBalance';
+
+    const expenseBalanceWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
     });
 
-    outcomeBalanceWrap.append(outcomeBalance, this.addCurrency());
+    expenseBalanceWrap.append(expenseBalance, this.addCurrency());
 
-    const outcomeTitle = createElement({
+    const expenseTitle = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
-      key: DictionaryKeys.totalOutcome,
-      content: Dictionary[this.lang].totalOutcome,
+      key: DictionaryKeys.totalExpense,
+      content: Dictionary[this.lang].totalExpense,
     });
 
-    const outcomeWrap = createElement({
+    const expenseWrap = createElement({
       tag: 'div',
     });
 
-    outcomeWrap.append(outcomeTitle, outcomeBalanceWrap);
+    expenseWrap.append(expenseTitle, expenseBalanceWrap);
 
-    const totalOutcome = createElement({
+    const totalExpense = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalPrice, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
-    totalOutcome.append(outcomeIcon, outcomeWrap);
+    totalExpense.append(expenseIcon, expenseWrap);
 
     const totalFinanceWrap = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.dashboard],
     });
 
-    totalFinanceWrap.append(totalIncome, totalOutcome);
+    totalFinanceWrap.append(totalIncome, totalExpense);
 
     const cardBalanceIcon = createElement({
       tag: 'div',
@@ -255,12 +261,18 @@ class Dashboard extends BasePage {
       section?.append(modal as HTMLElement);
     });
 
-    const addOutcomeButton = createElement({
+    const addExpenseButton = createElement({
       tag: 'button',
       classList: [ClassMap.dashboard.balanceButton],
-      key: DictionaryKeys.addOutcome,
-      content: Dictionary[this.lang].addOutcome,
+      key: DictionaryKeys.addExpense,
+      content: Dictionary[this.lang].addExpense,
     }) as HTMLButtonElement;
+
+    addExpenseButton.addEventListener('click', () => {
+      const section = document.querySelector(`.${ClassMap.main}`);
+      const modal = new ExpenseModal().render(expenseBalance);
+      section?.append(modal as HTMLElement);
+    });
 
     const addLimitButton = createElement({
       tag: 'button',
@@ -280,7 +292,7 @@ class Dashboard extends BasePage {
       classList: [ClassMap.dashboard.balanceWrap],
     });
 
-    buttonsWrap.append(addIncomeButton, addOutcomeButton, addLimitButton);
+    buttonsWrap.append(addIncomeButton, addExpenseButton, addLimitButton);
 
     const balanceSection = createElement({
       tag: 'section',
@@ -303,6 +315,7 @@ class Dashboard extends BasePage {
     });
 
     updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue);
+    updateExpenses(expenseBalance);
 
     mainContent?.replaceChildren(mainDashboard, mainAside);
   }
