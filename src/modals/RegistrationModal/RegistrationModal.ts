@@ -328,9 +328,11 @@ class RegistrationModal {
     await setDefaultUserProperties(Endpoint.ACCOUNT, { email, password }, defaultAccounts);
     await setDefaultUserProperties(Endpoint.CATEGORY, { email, password }, defaultCategories);
 
-    const alert = new AlertMessage(response.message, response.status);
-    alert.render();
-    setTimeout(() => alert.remove(), alertTimeout);
+    if (response) {
+      const alert = new AlertMessage(response.message, response.status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
   }
 }
 

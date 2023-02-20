@@ -31,6 +31,7 @@ class Calendar {
         ClassMap.calendar.input,
       ],
     }) as HTMLInputElement;
+    this.calendarInput.placeholder = Dictionary[this.lang].calendarInput;
     this.calendarInput.disabled = true;
 
     this.calendarEl = createElement({
@@ -148,19 +149,21 @@ class Calendar {
   private renderButtons(parentElement: HTMLElement) {
     const { calendarInput } = this;
 
-    const todayButton = createElement({
+    const lastYearButton = createElement({
       tag: 'button',
       classList: [ClassMap.calendar.button],
-      key: DictionaryKeys.today,
-      content: Dictionary[this.lang].today,
+      key: DictionaryKeys.lastYear,
+      content: Dictionary[this.lang].lastYear,
     }) as HTMLButtonElement;
 
-    todayButton.addEventListener('click', () => {
-      AppState.startDate = todayDate;
+    lastYearButton.addEventListener('click', () => {
+      const startDate = calculationDateDifferense(new Date(), 365).toISOString().split('T')[0] as FormatDateString;
+
+      AppState.startDate = startDate;
       AppState.endDate = todayDate;
 
       if (calendarInput) {
-        calendarInput.value = todayDate;
+        calendarInput.value = `${startDate} : ${todayDate}`;
         calendarInput.dispatchEvent(new Event('input'));
       }
     });
@@ -203,6 +206,25 @@ class Calendar {
       }
     });
 
+    const currentMonthButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.calendar.button],
+      key: DictionaryKeys.currentMonth,
+      content: Dictionary[this.lang].currentMonth,
+    }) as HTMLButtonElement;
+
+    const currentMonth = (`0${new Date().getMonth() + 1}`).slice(-2);
+
+    currentMonthButton.addEventListener('click', () => {
+      AppState.startDate = `${new Date().getFullYear()}-${currentMonth}-01` as FormatDateString;
+      AppState.endDate = todayDate;
+
+      if (calendarInput) {
+        calendarInput.value = `${new Date().getFullYear()}-${currentMonth}-01 : ${todayDate}`;
+        calendarInput.dispatchEvent(new Event('input'));
+      }
+    });
+
     const currentYearButton = createElement({
       tag: 'button',
       classList: [ClassMap.calendar.button],
@@ -237,9 +259,10 @@ class Calendar {
       }
     });
 
-    parentElement.append(todayButton);
     parentElement.append(lastSevenDaysButton);
     parentElement.append(lastThirtyDaysButton);
+    parentElement.append(lastYearButton);
+    parentElement.append(currentMonthButton);
     parentElement.append(currentYearButton);
     parentElement.append(allTimeButton);
   }

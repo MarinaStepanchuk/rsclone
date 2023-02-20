@@ -6,7 +6,7 @@ import { IAccount, ICategory, IUserLogin } from '../../types/interfaces';
 async function setDefaultUserProperties(endpoint: Endpoint, userLogin: IUserLogin, prop: IAccount[] | ICategory[]): Promise<void> {
   const response = await UserApi.loginUser(userLogin);
 
-  if (response.status === RESPONSE_STATUS.OK) {
+  if (response?.status === RESPONSE_STATUS.OK) {
     const { token } = response;
 
     prop.forEach(async (account) => {

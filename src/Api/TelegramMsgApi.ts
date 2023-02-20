@@ -1,9 +1,12 @@
+import AlertMessage from '../components/AlertMessage/AlertMessege';
+import { alertTimeout } from '../constants/common';
 import { ISupportMsg } from '../types/interfaces';
 import {
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
   BASE_URL,
   Endpoint,
+  RESPONSE_STATUS,
 } from './serverConstants';
 
 class TelegramMsgApi {
@@ -25,7 +28,10 @@ class TelegramMsgApi {
         ...dataResponse,
       };
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 }

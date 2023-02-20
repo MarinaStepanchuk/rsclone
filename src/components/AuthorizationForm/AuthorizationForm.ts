@@ -191,11 +191,13 @@ class AutorisationForm {
   private async handleLoginResponse(userLogin: IUserLogin) {
     const response = await UserApi.loginUser(userLogin);
 
-    const alert = new AlertMessage(response.message, response.status);
-    alert.render();
-    setTimeout(() => alert.remove(), alertTimeout);
+    if (response) {
+      const alert = new AlertMessage(response.message, response.status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
 
-    if (response.status === RESPONSE_STATUS.OK) {
+    if (response?.status === RESPONSE_STATUS.OK) {
       AppState.isUserLogin = true;
       const { token, user } = response;
       localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));

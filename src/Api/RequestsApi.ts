@@ -10,7 +10,7 @@ import {
 } from './serverConstants';
 
 class RequestApi {
-  public static async create<T>(endpoint: Endpoint, token: string, data: T): Promise<T> {
+  public static async create<T>(endpoint: Endpoint, token: string, data: T): Promise<T | null> {
     const url = `${BASE_URL}${endpoint}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -25,11 +25,14 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
-  public static async update<T>(endpoint: Endpoint, token: string, id: string, data: Partial<T>): Promise<T> {
+  public static async update<T>(endpoint: Endpoint, token: string, id: string, data: Partial<T>): Promise<T | null> {
     const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -44,7 +47,10 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
@@ -63,15 +69,14 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      const alert = new AlertMessage('Something broke. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
-
       return null;
     }
   }
 
-  public static async get<T>(endpoint: Endpoint, token: string, id: string): Promise<T> {
+  public static async get<T>(endpoint: Endpoint, token: string, id: string): Promise<T | null> {
     const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -82,15 +87,20 @@ class RequestApi {
       });
 
       if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
+        const alert = new AlertMessage(`Error! status: ${response.status}`, RESPONSE_STATUS.BAD_REQUEST);
+        alert.render();
+        setTimeout(() => alert.remove(), alertTimeout);
       }
       return await response.json();
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
-  public static async delete(endpoint: Endpoint, token: string, id: string): Promise<void> {
+  public static async delete(endpoint: Endpoint, token: string, id: string): Promise<void | null> {
     const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -101,11 +111,16 @@ class RequestApi {
       });
 
       if (!response.ok) {
-        throw new Error(`Error! status: ${response.status}`);
+        const alert = new AlertMessage(`Error! status: ${response.status}`, RESPONSE_STATUS.BAD_REQUEST);
+        alert.render();
+        setTimeout(() => alert.remove(), alertTimeout);
       }
       return await response.json();
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
@@ -123,6 +138,9 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
       return [];
     }
   }
@@ -142,6 +160,9 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
       return [];
     }
   }
