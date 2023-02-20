@@ -13,7 +13,7 @@ async function getAllIncomes(): Promise<IIncome[]> {
       console.log('error: failed to get all incomes');
     }
   }
-  return []
+  return [];
 }
 
 export default function updateIncomes(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): void {

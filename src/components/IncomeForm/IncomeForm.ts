@@ -1,5 +1,5 @@
 import './IncomeForm.scss';
-import { LANG, MODE } from '../../types/types';
+import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
 import {
@@ -14,11 +14,15 @@ import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IAccount, IIncome } from '../../types/interfaces';
 import updateIncomes from '../../utils/updateIncomes';
+import { LocalStorageKey } from '../../constants/common';
+import { CurrencyMark } from '../../types/enums';
 
 class IncomeForm {
   private modeValue: MODE;
 
   private lang: LANG;
+
+  private currency: CURRENCY;
 
   public modalWrapper: HTMLElement | null = null;
 
@@ -27,6 +31,7 @@ class IncomeForm {
   constructor() {
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
+    this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
   public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
@@ -71,6 +76,13 @@ class IncomeForm {
       content: Dictionary[this.lang].labelSum,
     }) as HTMLLabelElement;
 
+    const currencyValue = createElement({
+      tag: 'span',
+      content: `${CurrencyMark[this.currency]}`,
+    });
+
+    sumLabel.append(currencyValue);
+
     const sumInput = createElement({
       tag: 'input',
       classList: [ClassMap.dashboard.formInput],
@@ -85,7 +97,7 @@ class IncomeForm {
       const currSum = Number(sumInput.value);
 
       if (!Number.isInteger(currSum)) {
-        sumInput.value = currSum.toFixed(2).toString();
+        sumInput.value = currSum.toFixed(2);
       } else {
         sumInput.value = currSum.toString();
       }
@@ -152,7 +164,7 @@ class IncomeForm {
 
     const noteText = createElement({
       tag: 'textarea',
-      classList: [ClassMap.dashboard.formInput],
+      classList: [ClassMap.dashboard.formInput, ClassMap.dashboard.formTextarea],
     }) as HTMLTextAreaElement;
 
     noteText.rows = TextArea.rows;
@@ -185,7 +197,7 @@ class IncomeForm {
         date: currDate,
         account: currAccount,
         income,
-        currency: 'USD', // optional
+        currency: this.currency,
         comment,
       };
 
@@ -275,24 +287,15 @@ class IncomeForm {
   }
 
   private async getAllCategories(): Promise<IAccount[]> {
-    if (AppState.userAccount) {
-      const userToken: string = JSON.parse(AppState.userAccount).token;
-      const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
-      return accountsData;
-    }
-
-    return [];
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
+    return accountsData;
   }
 
   private async createNewIncome(income: IIncome): Promise<IIncome> {
-    if (AppState.userAccount) {
-      const userToken: string = JSON.parse(AppState.userAccount).token;
-      const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
-      return newIncome;
-    }
-
-    console.log('error: failed to add new income');
-    throw new Error();
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
+    return newIncome;
   }
 }
 

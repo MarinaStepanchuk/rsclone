@@ -142,6 +142,7 @@ export const ClassMap = {
     formInput: 'form__input',
     formLabel: 'form__label',
     formSubmitButton: 'form__button',
+    formTextarea: 'form__textarea',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -237,7 +238,7 @@ export const startId = {
 export const TextArea = {
   minLength: 3,
   maxLength: 100,
-  rows: 1,
+  rows: 3,
 };
 
 export const InputValue = {
