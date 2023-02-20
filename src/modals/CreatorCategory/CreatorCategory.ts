@@ -1,3 +1,4 @@
+import './CreatorCategory.scss';
 import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
@@ -9,6 +10,7 @@ import removeErrorValidationMessage from '../../utils/removeErrorValidationMessa
 import BaseCreater from '../BaseCreater/BaseCreater';
 import { Endpoint } from '../../Api/serverConstants';
 import RequestApi from '../../Api/RequestsApi';
+import createElement from '../../utils/createElement';
 
 class CreatorCategory extends BaseCreater {
   constructor(private getCategory: () => Promise<ICategory[]>, private updateCategoriesBlock: () => void) {
@@ -38,9 +40,21 @@ class CreatorCategory extends BaseCreater {
     itemNameTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryName);
 
     const itemBalanceTitle = this.itemBalanceTitle as HTMLElement;
+    itemBalanceTitle.classList.add(ClassMap.creater.createLimit);
     itemBalanceTitle.innerText = Dictionary[this.lang].createCategoryLimit;
     itemBalanceTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
     itemBalanceTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryLimit);
+
+    const checkbox = createElement({
+      tag: 'input',
+      classList: [],
+    }) as HTMLInputElement;
+    checkbox.type = 'checkbox';
+    itemBalanceTitle.prepend(checkbox);
+
+    const limit = this.inputBalance as HTMLInputElement;
+    limit.value = '';
+    limit.setAttribute(Attribute.disabled, Attribute.disabled);
 
     (this.icon as HTMLElement).innerHTML = SvgIcons.category.base;
 

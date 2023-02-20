@@ -1,9 +1,9 @@
 import './WalletCategories.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
-import { LocalStorageKey } from '../../constants/common';
+import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
 import { CurrencyMark, SectionWallet } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
@@ -11,6 +11,7 @@ import CreatorCategory from '../../modals/CreatorCategory/CreatorCategory';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { ICategory, IExpense, IFilterParams } from '../../types/interfaces';
+import WalletPeriodSelect from '../WalletPeriodSelect/WalletPeriodSelect';
 
 class WalletCategories {
   private modeValue: MODE;
@@ -18,6 +19,10 @@ class WalletCategories {
   private lang: LANG;
 
   private section: HTMLElement | null = null;
+
+  private sum: HTMLElement | null = null;
+
+  private categoriesBlock: HTMLElement | null = null;
 
   private currency: CURRENCY;
 
@@ -33,6 +38,16 @@ class WalletCategories {
       tag: 'div',
       classList: [ClassMap.wallet.section, ClassMap.wallet.categoriesSection, ClassMap.mode[this.modeValue].font],
     });
+
+    this.sum = createElement({
+      tag: 'span',
+      classList: [ClassMap.wallet.sum],
+    });
+
+    this.categoriesBlock = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.itemContainer],
+    });
   }
 
   public async render(): Promise<HTMLElement> {
@@ -41,24 +56,44 @@ class WalletCategories {
       classList: [ClassMap.wallet.subTitle, ClassMap.mode[this.modeValue].title],
     });
 
-    const title = createElement({
+    const periodTitle = createElement({
+      tag: 'span',
+      key: DictionaryKeys.walletPeriodTitle,
+      content: Dictionary[this.lang].walletPeriodTitle,
+    });
+
+    const selectPeriod = new WalletPeriodSelect(this.fillCategoriesBlock, this.countCategoriesAmount).render();
+
+    const periodContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.subTitleItem],
+    });
+
+    periodContainer.append(periodTitle, selectPeriod);
+
+    const sumTitle = createElement({
       tag: 'span',
       key: DictionaryKeys.categoriesTitle,
       content: Dictionary[this.lang].categoriesTitle,
     });
 
-    const sum = createElement({
-      tag: 'span',
-      classList: [ClassMap.wallet.sum],
+    const sumContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.subTitleItem],
     });
 
-    // sum.innerText = `${await this.getCategoriesAmount()} ${CurrencyMark[this.currency]}`;
+    sumContainer.append(sumTitle, this.sum as HTMLElement);
 
-    header.append(title, sum);
+    const defaultStartDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`;
+    const defaultEndDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
 
-    const categoriesBlock = await this.getCategoriesBlock();
+    header.append(sumContainer, periodContainer);
 
-    this.section?.replaceChildren(header, categoriesBlock);
+    await this.fillCategoriesBlock(defaultStartDate, defaultEndDate);
+
+    this.section?.replaceChildren(header, this.categoriesBlock as HTMLElement);
+
+    this.countCategoriesAmount();
 
     return this.section as HTMLElement;
   }
@@ -69,16 +104,20 @@ class WalletCategories {
     return categoriesData;
   }
 
-  private async getCategoriesBlock(): Promise<HTMLElement> {
-    const categoriesBlock = createElement({
-      tag: 'div',
-      classList: [ClassMap.wallet.itemContainer],
-    });
+  private countCategoriesAmount(): void {
+    const categories = [...(this.section as HTMLElement).querySelectorAll(`.${ClassMap.wallet.balance}`)];
+    const amount = categories.reduce((acc, value) => acc + Number(value.textContent?.split(' ')[0]), 0);
+    (this.sum as HTMLElement).innerText = `${amount} ${CurrencyMark[this.currency]}`;
+  }
+
+  private async fillCategoriesBlock(start: string, end: string): Promise<void> {
+    const categoriesBlock = this.categoriesBlock as HTMLElement;
+    categoriesBlock.innerHTML = '';
 
     const data = await this.getCategories();
 
     const categories = data.map((async (category) => {
-      const block = await this.createIconBlock(category, SectionWallet.category);
+      const block = await this.createIconBlock(category, start, end);
       return block;
     }));
 
@@ -88,7 +127,7 @@ class WalletCategories {
 
     const plusContainer = createElement({
       tag: 'div',
-      classList: [ClassMap.wallet.item, ClassMap.wallet.plusIconCategory],
+      classList: [ClassMap.wallet.item],
     });
 
     const plusCategory = createElement({
@@ -106,11 +145,9 @@ class WalletCategories {
     });
 
     categoriesBlock.append(plusContainer);
-
-    return categoriesBlock;
   }
 
-  private async createIconBlock(data: ICategory, type: SectionWallet): Promise<HTMLElement> {
+  private async createIconBlock(data: ICategory, start: string, end: string): Promise<HTMLElement> {
     const {
       _id: id, icon, key = '', category: name,
     } = data;
@@ -139,22 +176,19 @@ class WalletCategories {
       classList: [ClassMap.wallet.image],
     });
 
-    if (type === SectionWallet.category) {
-      itemIcon.classList.add(ClassMap.wallet.lightIcon);
-    }
+    itemIcon.classList.add(ClassMap.wallet.lightIcon);
 
-    itemIcon.innerHTML = SvgIcons[type][icon] ? SvgIcons[type][icon] : SvgIcons[type].base;
+    itemIcon.innerHTML = SvgIcons.category[icon] ? SvgIcons.category[icon] : SvgIcons.category.base;
 
     const itemAmount = createElement({
       tag: 'span',
       classList: [ClassMap.wallet.balance],
     });
 
-    const allExpenses = await this.getAllExpensesCategory(name);
-
-    if (allExpenses.length > 0) {
+    const monthlyExpenses = await this.getExpensesCategory(name, start, end);
+    if (monthlyExpenses.length > 0) {
       let sum = 0;
-      allExpenses.forEach((expenses) => {
+      monthlyExpenses.forEach((expenses) => {
         sum += expenses.expense;
       });
       itemAmount.innerText = `${sum} ${CurrencyMark[this.currency]}`;
@@ -162,48 +196,45 @@ class WalletCategories {
       itemAmount.innerText = `0 ${CurrencyMark[this.currency]}`;
     }
 
-    const itemMonthlAmount = createElement({
-      tag: 'span',
-      classList: [ClassMap.wallet.balance],
-    });
-
-    const monthlyExpenses = await this.getMonthlyExpensesCategory(name);
-    if (monthlyExpenses.length > 0) {
-      let sum = 0;
-      monthlyExpenses.forEach((expenses) => {
-        sum += expenses.expense;
-      });
-      itemMonthlAmount.innerText = `${sum} ${CurrencyMark[this.currency]}`;
-    } else {
-      itemMonthlAmount.innerText = `0 ${CurrencyMark[this.currency]}`;
-    }
-
-    item.replaceChildren(itemTitle, itemIcon, itemAmount, itemMonthlAmount);
+    item.replaceChildren(itemTitle, itemIcon, itemAmount);
 
     return item;
   }
 
-  private async getAllExpensesCategory(categoryName: string): Promise<IExpense[]> {
+  // private async getYearExpensesCategory(categoryName: string): Promise<IExpense[]> {
+  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+
+  //   const params: IFilterParams = {
+  //     startDate: `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
+  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
+  //     category: categoryName,
+  //   };
+
+  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
+
+  //   return expensesData;
+  // }
+
+  // private async getCurrentMonthlyExpensesCategory(categoryName: string): Promise<IExpense[]> {
+  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+
+  //   const params: IFilterParams = {
+  //     startDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`,
+  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
+  //     category: categoryName,
+  //   };
+
+  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
+
+  //   return expensesData;
+  // }
+
+  private async getExpensesCategory(categoryName: string, start: string, end: string): Promise<IExpense[]> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
 
     const params: IFilterParams = {
-      category: categoryName,
-    };
-
-    const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-    return expensesData;
-  }
-
-  private async getMonthlyExpensesCategory(categoryName: string): Promise<IExpense[]> {
-    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-    const start = new Date(new Date().setDate(1));
-    const end = new Date();
-
-    const params: IFilterParams = {
-      startDate: `${start.getFullYear()}-${start.getMonth() + 1}-${start.getDate()}`,
-      endDate: `${end.getFullYear()}-${end.getMonth() + 1}-${end.getDate()}`,
+      startDate: start,
+      endDate: end,
       category: categoryName,
     };
 

@@ -7,7 +7,15 @@
   stroke: $color-dark-font;
 }
 
-.wallet__plus {
-  padding-bottom: 2.2rem;
-}
+.wallet__subtitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
 
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+}

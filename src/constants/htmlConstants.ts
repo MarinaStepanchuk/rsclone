@@ -126,6 +126,7 @@ export const ClassMap = {
     wrapper: 'wallet-wrapper',
     section: 'wallet',
     subTitle: 'wallet__subtitle',
+    subTitleItem: 'wallet__subtitle__item',
     sum: 'wallet__sum',
     itemContainer: 'wallet__container',
     item: 'wallet__item',
@@ -133,7 +134,14 @@ export const ClassMap = {
     image: 'wallet__image',
     balance: 'wallet__balance',
     lightIcon: 'wallet__image_light',
-    plusIconCategory: 'wallet__plus',
+    select: 'wallet__select',
+  },
+  customSelect: {
+    container: 'customselect',
+    title: 'customselect__title',
+    arrow: 'customselect__arrow',
+    arrowLeft: 'customselect__arrow_left',
+    arrowRight: 'customselect__arrow_right',
   },
   creater: {
     createWrapper: 'create-wrapper',
@@ -146,6 +154,8 @@ export const ClassMap = {
     createBalance: 'create-form__balance',
     createCurrency: 'create-form__currency',
     createSubmit: 'create-form__submit',
+    createLimit: 'create-form__limit',
+    createCheckbox: 'create-form__limit_checkbox',
   },
 };
 
@@ -171,6 +181,7 @@ export const Attribute = {
   inputCheckbox: 'checkbox',
   key: 'key',
   dataLang: 'data-lang',
+  disabled: 'disabled',
 };
 
 export const MenuNavItem = {
@@ -204,4 +215,8 @@ export const startId = {
   accounts: 'account-',
   categories: 'category-',
   svg: 'svg-',
+};
+
+export const ellementId = {
+  walletSelect: 'wallet-select',
 };

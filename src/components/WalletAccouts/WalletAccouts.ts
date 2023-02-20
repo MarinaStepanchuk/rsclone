@@ -52,11 +52,18 @@ class WalletAccouts {
       classList: [ClassMap.wallet.sum],
     });
 
+    const sumContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.subTitleItem],
+    });
+
+    sumContainer.append(title, sum);
+
     const amount = await this.getAccoutsAmount();
 
     sum.innerText = `${amount} ${CurrencyMark[this.currency]}`;
 
-    header.append(title, sum);
+    header.append(sumContainer);
 
     const accountsBlock = await this.getAccoutsBlock();
 
