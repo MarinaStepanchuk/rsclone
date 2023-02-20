@@ -91,7 +91,7 @@ class WalletAccouts {
     });
 
     const data = await this.getAccouts();
-    const accounts = data.map(((itemAccount) => this.createIconBlock(itemAccount, SectionWallet.account)));
+    const accounts = data.map(((itemAccount) => this.createIconBlock(itemAccount)));
 
     const plusContainer = createElement({
       tag: 'div',
@@ -118,7 +118,7 @@ class WalletAccouts {
     return accountsBlock;
   }
 
-  private createIconBlock(data: IAccount, type: SectionWallet): HTMLElement {
+  private createIconBlock(data: IAccount): HTMLElement {
     const {
       _id: id, icon, sum, key = '', account: name,
     } = data;
@@ -147,11 +147,7 @@ class WalletAccouts {
       classList: [ClassMap.wallet.image],
     });
 
-    if (type === SectionWallet.category) {
-      itemIcon.classList.add(ClassMap.wallet.lightIcon);
-    }
-
-    itemIcon.innerHTML = SvgIcons[type][icon] ? SvgIcons[type][icon] : SvgIcons[type].base;
+    itemIcon.innerHTML = SvgIcons.account[icon] ? SvgIcons.account[icon] : SvgIcons.account.base;
 
     const itemAmount = createElement({
       tag: 'span',

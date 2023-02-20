@@ -1,5 +1,5 @@
 import './CreatorCategory.scss';
-import { Attribute, ClassMap } from '../../constants/htmlConstants';
+import { Attribute, ClassMap, ellementId } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
 import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
@@ -13,6 +13,8 @@ import RequestApi from '../../Api/RequestsApi';
 import createElement from '../../utils/createElement';
 
 class CreatorCategory extends BaseCreater {
+  private checkbox: HTMLInputElement | null = null;
+
   constructor(private getCategory: () => Promise<ICategory[]>, private updateCategoriesBlock: () => void) {
     super();
     this.modeValue = AppState.modeValue;
@@ -20,7 +22,6 @@ class CreatorCategory extends BaseCreater {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
     super.init();
     super.fill();
-    this.addListeners();
   }
 
   public render(): HTMLElement {
@@ -39,24 +40,35 @@ class CreatorCategory extends BaseCreater {
     itemNameTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
     itemNameTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryName);
 
-    const itemBalanceTitle = this.itemBalanceTitle as HTMLElement;
-    itemBalanceTitle.classList.add(ClassMap.creater.createLimit);
-    itemBalanceTitle.innerText = Dictionary[this.lang].createCategoryLimit;
-    itemBalanceTitle.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
-    itemBalanceTitle.setAttribute(Attribute.key, DictionaryKeys.createCategoryLimit);
+    const limitContainer = createElement({
+      tag: 'div',
+    });
 
-    const checkbox = createElement({
+    this.checkbox = createElement({
       tag: 'input',
-      classList: [],
+      classList: [ClassMap.creater.createCheckbox],
+      id: ellementId.limitCheckbox,
     }) as HTMLInputElement;
-    checkbox.type = 'checkbox';
-    itemBalanceTitle.prepend(checkbox);
+    this.checkbox.type = 'checkbox';
+
+    const limitLabel = createElement({
+      tag: 'label',
+      classList: [ClassMap.creater.createLimit, ClassMap.mode[this.modeValue].modalFont],
+      key: DictionaryKeys.createCategoryLimit,
+      content: Dictionary[this.lang].createCategoryLimit,
+    }) as HTMLLabelElement;
+    limitLabel.setAttribute(Attribute.for, ellementId.limitCheckbox);
+
+    limitContainer.append(this.checkbox, limitLabel);
+    (this.itemBalanceTitle as HTMLElement).replaceWith(limitContainer);
 
     const limit = this.inputBalance as HTMLInputElement;
     limit.value = '';
     limit.setAttribute(Attribute.disabled, Attribute.disabled);
 
     (this.icon as HTMLElement).innerHTML = SvgIcons.category.base;
+
+    this.addListeners();
 
     return this.modalWrapper as HTMLElement;
   }
@@ -94,6 +106,14 @@ class CreatorCategory extends BaseCreater {
           removeErrorValidationMessage(this.inputName as HTMLInputElement);
         }
       });
+    });
+
+    this.checkbox?.addEventListener('click', () => {
+      if (this.checkbox?.checked === true) {
+        (this.inputBalance as HTMLInputElement).removeAttribute(Attribute.disabled);
+      } else {
+        (this.inputBalance as HTMLInputElement).setAttribute(Attribute.disabled, Attribute.disabled);
+      }
     });
 
     this.form?.addEventListener('click', async (event) => {

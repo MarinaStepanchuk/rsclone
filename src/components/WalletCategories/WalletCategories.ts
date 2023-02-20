@@ -3,8 +3,8 @@ import createElement from '../../utils/createElement';
 import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
-import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
-import { CurrencyMark, SectionWallet } from '../../types/enums';
+import { LocalStorageKey } from '../../constants/common';
+import { CurrencyMark } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import CreatorCategory from '../../modals/CreatorCategory/CreatorCategory';
@@ -62,7 +62,7 @@ class WalletCategories {
       content: Dictionary[this.lang].walletPeriodTitle,
     });
 
-    const selectPeriod = new WalletPeriodSelect(this.fillCategoriesBlock, this.countCategoriesAmount).render();
+    const selectPeriod = new WalletPeriodSelect().render();
 
     const periodContainer = createElement({
       tag: 'div',
@@ -84,9 +84,8 @@ class WalletCategories {
 
     sumContainer.append(sumTitle, this.sum as HTMLElement);
 
-    const defaultStartDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`;
-    const defaultEndDate = `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
-
+    const defaultStartDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
+    const defaultEndDate = new Date().toISOString().split('T')[0];
     header.append(sumContainer, periodContainer);
 
     await this.fillCategoriesBlock(defaultStartDate, defaultEndDate);
@@ -94,6 +93,33 @@ class WalletCategories {
     this.section?.replaceChildren(header, this.categoriesBlock as HTMLElement);
 
     this.countCategoriesAmount();
+
+    document.addEventListener('select', async (event) => {
+      const customEvent = event as CustomEvent;
+      const button = document.querySelector(`.${ClassMap.customSelect.title}`) as HTMLElement;
+      button.setAttribute(Attribute.key, customEvent.detail.key);
+      const currentDate = new Date();
+      const endDate = currentDate.toISOString().split('T')[0];
+
+      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodYear) {
+        const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
+
+        await this.fillCategoriesBlock(startDate, endDate);
+        this.countCategoriesAmount();
+      }
+
+      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodMonth) {
+        const startDate = new Date(currentDate.setMonth(currentDate.getMonth() - 1)).toISOString().split('T')[0];
+        await this.fillCategoriesBlock(startDate, endDate);
+        this.countCategoriesAmount();
+      }
+
+      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodCurrentMonth) {
+        const startDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
+        await this.fillCategoriesBlock(startDate, endDate);
+        this.countCategoriesAmount();
+      }
+    });
 
     return this.section as HTMLElement;
   }

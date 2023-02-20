@@ -212,6 +212,7 @@ export const Attribute = {
   key: 'key',
   dataLang: 'data-lang',
   disabled: 'disabled',
+  for: 'for',
 };
 
 export const MenuNavItem = {
@@ -249,6 +250,7 @@ export const startId = {
 
 export const ellementId = {
   walletSelect: 'wallet-select',
+  limitCheckbox: 'wallet-limit-checkbox',
 };
 
 export const TextArea = {
