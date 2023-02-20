@@ -66,6 +66,11 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: 'Limit per month',
     createCategorySubmit: 'Create category',
     errorMessageCategoryExists: 'Category with the same name already exists',
+    today: 'Today',
+    lastSevenDays: 'Last 7 Days',
+    lastThirtyDays: 'Last 30 Days',
+    currentYear: 'Current Year',
+    allTime: 'All Time',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -126,6 +131,11 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: 'Лимит в месяц',
     createCategorySubmit: 'Создать категорию',
     errorMessageCategoryExists: 'Категория с таким именем уже существует',
+    today: 'Сегодня',
+    lastSevenDays: 'Последние 7 дней',
+    lastThirtyDays: 'Последние 30 дней',
+    currentYear: 'Текущий год',
+    allTime: 'Все',
   },
   DE: {
     authorizationTitle: '',
@@ -186,6 +196,11 @@ export const Dictionary: DictionaryLang = {
     createCategoryLimit: '',
     createCategorySubmit: '',
     errorMessageCategoryExists: '',
+    today: '',
+    lastSevenDays: '',
+    lastThirtyDays: '',
+    allTime: '',
+    currentYear: '',
   },
 };
 
@@ -252,4 +267,9 @@ export const DictionaryKeys: DictionaryKeysType = {
   createCategoryLimit: 'createCategoryLimit',
   createCategorySubmit: 'createCategorySubmit',
   errorMessageCategoryExists: 'errorMessageCategoryExists',
+  today: 'today',
+  lastSevenDays: 'lastSevenDays',
+  lastThirtyDays: 'lastThirtyDays',
+  allTime: 'allTime',
+  currentYear: 'currentYear',
 };

@@ -146,6 +146,12 @@ export const ClassMap = {
     createCurrency: 'create-form__currency',
     createSubmit: 'create-form__submit',
   },
+  calendar: {
+    input: 'calendar__input',
+    body: 'calendar__body',
+    buttons: 'calendar__button-wrap',
+    button: 'calendar__button',
+  },
 };
 
 export const Title = {
