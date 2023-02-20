@@ -1,4 +1,4 @@
-import { LANG, MODE } from './types';
+import { FormatDateString, LANG, MODE } from './types';
 
 export interface IOptionsElement {
   tag: keyof HTMLElementTagNameMap,
@@ -97,6 +97,8 @@ export interface IApplicationState {
   modeValue: MODE;
   lang: LANG;
   userAccount: string | null;
+  startDate: FormatDateString,
+  endDate: FormatDateString,
 }
 
 export interface IMenuItem {

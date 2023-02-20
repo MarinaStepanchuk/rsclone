@@ -52,7 +52,7 @@ export const ClassMap = {
   mode: {
     dark: {
       background: 'dark-mode-background',
-      backgroundMenu: 'dark-mode-menu-background',
+      backgroundSection: 'dark-mode-menu-background',
       title: 'dark-mode-title',
       font: 'dark-mode-font',
       modal: 'dark-mode-modal-background',
@@ -62,7 +62,7 @@ export const ClassMap = {
     },
     light: {
       background: 'light-mode-background',
-      backgroundMenu: 'light-mode-menu-background',
+      backgroundSection: 'light-mode-menu-background',
       title: 'light-mode-title',
       font: 'light-mode-font',
       modal: 'light-mode-modal-background',
@@ -120,6 +120,30 @@ export const ClassMap = {
     small: 'small-switcher',
     show: 'switcher-show',
   },
+  dashboard: {
+    mainDashboard: 'main__dashboard',
+    mainAside: 'main__aside',
+    dashboard: 'dashboard',
+    header: 'dashboard__header',
+    iconWrap: 'icon-wrap',
+    iconWrapLight: 'icon-wrap_light',
+    totalPrice: 'dashboard__total-price',
+    title: 'dashboard__title',
+    totalBalance: 'balance__value',
+    balanceWrap: 'balance__wrap',
+    balance: 'balance',
+    totalWrap: 'total-wrap',
+    balanceButton: 'balance__button',
+    incomeForm: 'form',
+    formWrapper: 'form__wrapper',
+    formTitle: 'form__title',
+    formItem: 'form__item',
+    formSelect: 'form__select',
+    formInput: 'form__input',
+    formLabel: 'form__label',
+    formSubmitButton: 'form__button',
+    formTextarea: 'form__textarea',
+  },
   wallet: {
     categoriesSection: 'categories',
     accountsSection: 'accounts',
@@ -156,6 +180,12 @@ export const ClassMap = {
     createSubmit: 'create-form__submit',
     createLimit: 'create-form__limit',
     createCheckbox: 'create-form__limit_checkbox',
+  },
+  calendar: {
+    input: 'calendar__input',
+    body: 'calendar__body',
+    buttons: 'calendar__button-wrap',
+    button: 'calendar__button',
   },
 };
 
@@ -219,4 +249,22 @@ export const startId = {
 
 export const ellementId = {
   walletSelect: 'wallet-select',
+};
+
+export const TextArea = {
+  minLength: 3,
+  maxLength: 100,
+  rows: 3,
+};
+
+export const InputValue = {
+  minNum: '1',
+  maxNum: '10000000',
+};
+
+export const MinDate = '2012-01-01';
+
+export const InputType = {
+  number: 'number',
+  date: 'date',
 };
