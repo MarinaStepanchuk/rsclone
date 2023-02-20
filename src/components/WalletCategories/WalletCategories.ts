@@ -101,20 +101,20 @@ class WalletCategories {
       const currentDate = new Date();
       const endDate = currentDate.toISOString().split('T')[0];
 
-      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodYear) {
+      if (customEvent.detail.key === DictionaryKeys.walletPeriodYear) {
         const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
 
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
       }
 
-      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodMonth) {
+      if (customEvent.detail.key === DictionaryKeys.walletPeriodMonth) {
         const startDate = new Date(currentDate.setMonth(currentDate.getMonth() - 1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
       }
 
-      if (customEvent.detail.title === Dictionary[this.lang].walletPeriodCurrentMonth) {
+      if (customEvent.detail.key === DictionaryKeys.walletPeriodCurrentMonth) {
         const startDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
