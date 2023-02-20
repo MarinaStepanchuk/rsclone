@@ -3,11 +3,32 @@
 
 .calendar {
   &__input {
-    width: 50%;
+    text-align: center;
+    width: 100%;
+    margin: 0 1rem;
+    background: $color-secondary;
+    border-radius: 0.5rem;
   }
 
   &__body {
-    width: 50%;
+    width: 100%;
+    margin: 1rem;
+    border: 2px solid $color-dark-font;
+    border-radius: 1rem;
+  }
+
+  &__button-wrap {
+    width: 100%;
+    margin: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  &__button {
+    @include button(30%, 4rem);
+    font-size: 1.4rem;
+    flex: 1 1 auto;
   }
 }
 
@@ -21,7 +42,6 @@
   grid-template-columns: 1fr;
   background-color: $color-secondary;
   padding: 1.2rem;
-  border-radius: 0.4rem;
 
   &_multiple {
     #{$calendar} {
@@ -101,7 +121,7 @@
       font-size: 1.4rem;
       line-height: 1.6rem;
       font-weight: 700;
-      color: $color-primary;
+      //color: $color-primary;
       width: 2.8rem;
       height: 1.8rem;
       margin-bottom: 0.5rem;
@@ -152,7 +172,7 @@
       top: 0.5rem;
       width: 1rem;
       height: 1px;
-      background-color: black;
+      background-color: $color-primary;
       transform: rotateZ(45deg);
     }
 
@@ -163,7 +183,7 @@
       bottom: 0.5rem;
       width: 1rem;
       height: 1px;
-      background-color: black;
+      background-color: $color-primary;
       transform: rotateZ(-45deg);
     }
 
@@ -188,7 +208,6 @@
     column-gap: 0.6rem;
     row-gap: 1.2rem;
     grid-template-columns: repeat(4, 1fr);
-    background-color: white;
     flex-grow: 1;
     align-items: center;
 
@@ -249,7 +268,7 @@
     font-size: 1.6rem;
     line-height: 2rem;
     font-weight: 700;
-    color: black;
+    color: $color-dark-font;
     cursor: pointer;
     border-radius: 0.4rem;
     padding: 2px;
@@ -276,7 +295,6 @@
     column-gap: 0.6rem;
     row-gap: 1.2rem;
     grid-template-columns: repeat(5, 1fr);
-    background-color: white;
     flex-grow: 1;
     align-items: center;
 
@@ -337,7 +355,7 @@
     font-size: 1.6rem;
     line-height: 2rem;
     font-weight: 700;
-    color: black;
+    color: $color-dark-font;
     cursor: pointer;
     border-radius: 0.4rem;
     padding: 2px;
@@ -562,20 +580,18 @@
         }
 
         &#{$btn}_selected {
-          background-color: $color-calendar-weekend-dark;
+          background-color: $color-line-dark;
           color: white;
 
           &:hover {
-            background-color: $color-calendar-weekend-dark;
             color: white;
           }
 
           &#{$btn}_intermediate {
-            background-color: $color-calendar-weekend;
+            background-color: $color-primary;
             color: white;
 
             &:hover {
-              background-color: $color-calendar-weekend;
               color: white;
             }
           }
