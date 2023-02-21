@@ -97,7 +97,7 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      throw new Error(`${error}`);
+      return [];
     }
   }
 
@@ -116,7 +116,7 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      throw new Error(`${error}`);
+      return [];
     }
   }
 }
