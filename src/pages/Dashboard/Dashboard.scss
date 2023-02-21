@@ -1,1 +1,113 @@
+@import '../../styles/variables';
+@import '../../styles/mixins.scss';
+
+// .main__content {
+//   display: grid;
+//   grid-template-columns: 2fr 1fr;
+//   padding: 2rem;
+// }
+
+.main__dashboard,
+.main__aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.balance__value {
+  display: flex;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+
+  span {
+    padding-left: 0.5rem;
+  }
+}
+
+.total-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.icon-wrap {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: $color-primary;
+  margin-right: 2rem;
+  color: $color-light-font;
+  fill: $color-light-font;
+  stroke: currentColor;
+
+  svg {
+    width: 1.5rem;
+    height: 1.7rem;
+  }
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    font-weight: 600;
+    margin: 0 0.5rem 0 0;
+  }
+
+  &__total-price {
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    padding: 2rem;
+    font-weight: 100;
+    font-size: 1.7rem;
+  }
+
+  .icon-wrap svg {
+    fill: $color-light-font;
+  }
+}
+
+.balance {
+  border-radius: 2rem;
+  padding: 0 2rem;
+  font-weight: 100;
+  font-size: 1.7rem;
+
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+    border-color: $color-primary;
+    padding: 2rem 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .icon-wrap svg {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  &__button {
+    @include button(30%, 5rem);
+  }
+}
+
 

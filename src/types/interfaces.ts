@@ -1,4 +1,4 @@
-import { LANG, MODE } from './types';
+import { FormatDateString, LANG, MODE } from './types';
 
 export interface IOptionsElement {
   tag: keyof HTMLElementTagNameMap,
@@ -55,13 +55,23 @@ export interface IIncome {
   comment?: string,
 }
 
+export interface IFilterParams {
+  startDate?: string,
+  endDate?: string,
+  account?: string,
+  category?: string,
+  currency?: string,
+  page?: number,
+  limit?: number,
+}
+
 export interface IAccount {
   readonly _id?: string,
   readonly __v?: number,
   readonly userId?: string,
   account: string,
   icon: string,
-  sum?: number,
+  sum: number,
   key?: string,
   currency?: string,
 }
@@ -73,7 +83,6 @@ export interface ICategory {
   category: string,
   icon: string,
   limit?: number,
-  sum?: number,
   key?: string,
 }
 
@@ -88,6 +97,8 @@ export interface IApplicationState {
   modeValue: MODE;
   lang: LANG;
   userAccount: string | null;
+  startDate: FormatDateString,
+  endDate: FormatDateString,
 }
 
 export interface IMenuItem {

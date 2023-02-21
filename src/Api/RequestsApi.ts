@@ -1,3 +1,4 @@
+import { IFilterParams } from '../types/interfaces';
 import {
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
@@ -96,7 +97,26 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      throw new Error(`${error}`);
+      return [];
+    }
+  }
+
+  public static async getFiltered<T>(endpoint: Endpoint, token: string, params: IFilterParams): Promise<T[]> {
+    const filterParams = new URLSearchParams(params as { [key: string]: string });
+    const url = `${BASE_URL}${endpoint}?${filterParams}`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.GET,
+        headers: Object.assign(authorization, CONTENT_TYPE_JSON),
+      });
+
+      const dataResponse: T[] = await response.json();
+
+      return dataResponse;
+    } catch (error) {
+      return [];
     }
   }
 }

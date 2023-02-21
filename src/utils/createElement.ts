@@ -1,5 +1,6 @@
 import { IOptionsElement } from '../types/interfaces';
 import { LANG_ATTRIBUTE } from '../constants/common';
+import { Attribute } from '../constants/htmlConstants';
 
 const createElement = ({
   tag = 'div',
@@ -23,8 +24,8 @@ const createElement = ({
   }
 
   if (key) {
-    element.setAttribute('data-lang', LANG_ATTRIBUTE);
-    element.setAttribute('key', key);
+    element.setAttribute(Attribute.dataLang, LANG_ATTRIBUTE);
+    element.setAttribute(Attribute.key, key);
   }
 
   return element;
