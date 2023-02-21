@@ -8,11 +8,13 @@ import { LocalStorageKey } from '../constants/common';
 export const Routes = {
   '/': (): void => new Authorization().render(),
   '/dashboard': ():void => new Dashboard().render(),
-  '/wallet': ():void => new Wallet().render(),
+  '/wallet': ():Promise<void> => new Wallet().render(),
   '/analytics': ():void => new Analytics().render(),
   '/account': ():void => new Account().render(),
 };
 
-export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : '/dashboard';
+const path = window.location.pathname;
+
+export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : path.substring(0, path.indexOf('/', 1));
 
 export const basePath = '/';

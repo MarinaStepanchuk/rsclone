@@ -5,12 +5,13 @@ import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
 import AppState from '../../constants/appState';
 import showErrorValidationMessage from '../../utils/showErrorValidationMessage';
 import removeErrorValidationMessage from '../../utils/removeErrorValidationMessage';
-import { Accounts } from '../../constants/tests';
 import BaseCreater from '../BaseCreater/BaseCreater';
 import { SvgIcons } from '../../constants/svgMap';
+import RequestApi from '../../Api/RequestsApi';
+import { Endpoint } from '../../Api/serverConstants';
 
 class CreatorAccount extends BaseCreater {
-  constructor(private getAccount: () => IAccount[], private updateAccountsBlock: () => void) {
+  constructor(private getAccount: () => Promise<IAccount[]>, private updateAccountsBlock: () => void) {
     super();
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
@@ -47,7 +48,7 @@ class CreatorAccount extends BaseCreater {
   }
 
   private addListeners(): void {
-    this.inputName?.addEventListener('input', () => {
+    this.inputName?.addEventListener('input', async () => {
       const { value } = this.inputName as HTMLInputElement;
 
       if (value.length > 0) {
@@ -56,7 +57,7 @@ class CreatorAccount extends BaseCreater {
         (this.submit as HTMLButtonElement).disabled = true;
       }
 
-      const accounts = this.getAccount();
+      const accounts = await this.getAccount();
 
       accounts.forEach((item) => {
         if (item.account === value) {
@@ -69,7 +70,7 @@ class CreatorAccount extends BaseCreater {
       });
     });
 
-    this.form?.addEventListener('click', (event) => {
+    this.form?.addEventListener('click', async (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.creater.createSubmit)
@@ -81,11 +82,11 @@ class CreatorAccount extends BaseCreater {
 
         const data: IAccount = {
           account: (this.inputName as HTMLInputElement).value,
-          sum: Number((this.inputBalance as HTMLInputElement).value),
+          sum: Number((this.inputBalance as HTMLInputElement).value) || 0,
           icon: idIcon,
         };
 
-        this.addAccountToDatabase(data);
+        await this.addAccountToDatabase(data);
 
         this.updateAccountsBlock();
 
@@ -94,11 +95,11 @@ class CreatorAccount extends BaseCreater {
     });
   }
 
-  private addAccountToDatabase(data: IAccount): void {
-    // тестово
-    console.log(data);
-    Accounts.push(data);
-    // добавляем в базу новый счет
+  private async addAccountToDatabase(data: IAccount): Promise<IAccount> {
+    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const newAccount: IAccount = await RequestApi.create(Endpoint.ACCOUNT, userToken, data);
+
+    return newAccount;
   }
 }
 

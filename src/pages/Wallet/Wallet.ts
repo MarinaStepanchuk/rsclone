@@ -8,7 +8,7 @@ import WalletAccouts from '../../components/WalletAccouts/WalletAccouts';
 import WalletCategories from '../../components/WalletCategories/WalletCategories';
 
 class Wallet extends BasePage {
-  public render(): void {
+  public async render(): Promise<void> {
     this.createPageStructure(Route.WALLET);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
@@ -19,21 +19,21 @@ class Wallet extends BasePage {
     });
 
     section.append(
-      new WalletAccouts(this.updateAccountsBlock).render(),
-      new WalletCategories(this.updateCategoriesBlock).render(),
+      await new WalletAccouts(this.updateAccountsBlock).render(),
+      await new WalletCategories(this.updateCategoriesBlock).render(),
     );
 
     mainContent?.replaceChildren(section);
   }
 
-  private updateAccountsBlock(): void {
+  private async updateAccountsBlock(): Promise<void> {
     const element = document.querySelector(`.${ClassMap.wallet.accountsSection}`) as HTMLElement;
-    element.replaceWith(new WalletAccouts(this.updateAccountsBlock).render());
+    element.replaceWith(await new WalletAccouts(this.updateAccountsBlock).render());
   }
 
-  private updateCategoriesBlock(): void {
+  private async updateCategoriesBlock(): Promise<void> {
     const element = document.querySelector(`.${ClassMap.wallet.categoriesSection}`) as HTMLElement;
-    element.replaceWith(new WalletCategories(this.updateCategoriesBlock).render());
+    element.replaceWith(await new WalletCategories(this.updateCategoriesBlock).render());
   }
 }
 
