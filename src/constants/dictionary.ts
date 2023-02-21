@@ -73,6 +73,7 @@ export const Dictionary: DictionaryLang = {
     allTime: 'All Time',
     currentMonth: 'Current Month',
     calendarInput: 'Choose period',
+    error: 'Error. Please try again later',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney.',
@@ -140,6 +141,7 @@ export const Dictionary: DictionaryLang = {
     allTime: 'Все',
     currentMonth: 'Текущий месяц',
     calendarInput: 'Выберите период',
+    error: 'Ошибка. Пожалуйста, повторите попытку позже',
   },
   DE: {
     authorizationTitle: '',
@@ -207,6 +209,7 @@ export const Dictionary: DictionaryLang = {
     currentYear: '',
     currentMonth: '',
     calendarInput: '',
+    error: '',
   },
 };
 
@@ -280,4 +283,5 @@ export const DictionaryKeys: DictionaryKeysType = {
   currentYear: 'currentYear',
   currentMonth: 'currentMonth',
   calendarInput: 'calendarInput',
+  error: 'error',
 };

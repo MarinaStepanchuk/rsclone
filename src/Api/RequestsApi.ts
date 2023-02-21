@@ -1,5 +1,7 @@
 import AlertMessage from '../components/AlertMessage/AlertMessege';
+import AppState from '../constants/appState';
 import { alertTimeout } from '../constants/common';
+import { Dictionary } from '../constants/dictionary';
 import { IFilterParams } from '../types/interfaces';
 import {
   REQUEST_METOD,
@@ -25,7 +27,7 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;
@@ -47,7 +49,7 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;
@@ -69,9 +71,6 @@ class RequestApi {
 
       return result;
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
-      alert.render();
-      setTimeout(() => alert.remove(), alertTimeout);
       return null;
     }
   }
@@ -87,15 +86,10 @@ class RequestApi {
       });
 
       if (!response.ok) {
-        const alert = new AlertMessage(`Error! status: ${response.status}`, RESPONSE_STATUS.BAD_REQUEST);
-        alert.render();
-        setTimeout(() => alert.remove(), alertTimeout);
+        return null;
       }
       return await response.json();
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
-      alert.render();
-      setTimeout(() => alert.remove(), alertTimeout);
       return null;
     }
   }
@@ -111,13 +105,11 @@ class RequestApi {
       });
 
       if (!response.ok) {
-        const alert = new AlertMessage(`Error! status: ${response.status}`, RESPONSE_STATUS.BAD_REQUEST);
-        alert.render();
-        setTimeout(() => alert.remove(), alertTimeout);
+        return null;
       }
       return await response.json();
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;
@@ -138,7 +130,7 @@ class RequestApi {
 
       return dataResponse;
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return [];
@@ -156,11 +148,15 @@ class RequestApi {
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
       });
 
+      if (!response.ok) {
+        return [];
+      }
+
       const dataResponse: T[] = await response.json();
 
       return dataResponse;
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return [];
