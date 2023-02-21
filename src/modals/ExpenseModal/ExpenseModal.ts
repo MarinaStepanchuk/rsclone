@@ -15,8 +15,7 @@ import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
 import { CurrencyMark } from '../../types/enums';
 import { IAccount, ICategory, IExpense } from '../../types/interfaces';
-import updateExpenses from '../../utils/updateExpenses';
-
+import {updateExpenses} from "../../utils/updateSum";
 class ExpenseModal {
   private modeValue: MODE;
 
@@ -34,7 +33,7 @@ class ExpenseModal {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
-  public render(totalBalance: HTMLElement): HTMLElement {
+  public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
     const formTitle = createElement({
       tag: 'legend',
       classList: [ClassMap.dashboard.formTitle, ClassMap.mode[this.modeValue].modalTitle],
@@ -242,6 +241,7 @@ class ExpenseModal {
           totalExpenseWrap.textContent = `${newSum}`;
         }
 
+        // updateExpenses(totalBalance, cardBalance, cashBalance);
         updateExpenses(totalBalance);
         this.modalWrapper?.remove();
       });
@@ -353,6 +353,8 @@ class ExpenseModal {
   private async createNewExpense(expense: IExpense): Promise<IExpense> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
     const newExpense: IExpense = await RequestApi.create(Endpoint.EXPENSE, userToken, expense);
+
+    // const updateSumResponse =
     return newExpense;
   }
 

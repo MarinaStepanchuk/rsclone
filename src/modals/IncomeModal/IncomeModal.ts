@@ -13,9 +13,9 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IAccount, IIncome } from '../../types/interfaces';
-import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
 import { CurrencyMark } from '../../types/enums';
+import {updateBalances, updateIncomes} from '../../utils/updateSum';
 
 class IncomeModal {
   private modeValue: MODE;
@@ -59,7 +59,7 @@ class IncomeModal {
       classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
     });
 
-    const categoriesAll = this.getAllCategories();
+    const categoriesAll = this.getAllAccounts();
 
     categoriesAll.then((categories) => {
       categories.forEach((account) => {
@@ -204,12 +204,16 @@ class IncomeModal {
       const incomeRes = this.createNewIncome(newIncome);
 
       incomeRes.then((incomeValue) => {
-        const prevSum = totalBalance.textContent;
-        const newSum = Number(prevSum) + incomeValue.income;
+        incomeValue.account
 
-        totalBalance.textContent = `${newSum}`;
+        // const prevSum = totalBalance.textContent;
+        // const newSum = Number(prevSum) + incomeValue.income;
+        //
+        // totalBalance.textContent = `${newSum}`;
 
-        updateIncomes(totalBalance, cardBalance, cashBalance);
+        // updateIncomes(totalBalance, cardBalance, cashBalance);
+        updateIncomes(totalBalance);
+        updateBalances(cardBalance, cashBalance)
         this.modalWrapper?.remove();
       });
     });
@@ -291,7 +295,7 @@ class IncomeModal {
     });
   }
 
-  private async getAllCategories(): Promise<IAccount[]> {
+  private async getAllAccounts(): Promise<IAccount[]> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
     const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
     return accountsData;

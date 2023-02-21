@@ -10,10 +10,9 @@ import AppState from '../../constants/appState';
 import { SvgIcons } from '../../constants/svgMap';
 import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
-import updateIncomes from '../../utils/updateIncomes';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import updateExpenses from '../../utils/updateExpenses';
+import {updateBalances, updateExpenses, updateIncomes} from "../../utils/updateSum";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -270,7 +269,7 @@ class Dashboard extends BasePage {
 
     addExpenseButton.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new ExpenseModal().render(expenseBalance);
+      const modal = new ExpenseModal().render(expenseBalance, cardBalanceValue, cashBalanceValue);
       section?.append(modal as HTMLElement);
     });
 
@@ -314,8 +313,11 @@ class Dashboard extends BasePage {
       content: 'Тут aside',
     });
 
-    updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue);
+    // updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue);
+    // updateExpenses(expenseBalance, cardBalanceValue, cashBalanceValue);
+    updateIncomes(incomeBalance);
     updateExpenses(expenseBalance);
+    updateBalances(cardBalanceValue, cashBalanceValue);
 
     mainContent?.replaceChildren(mainDashboard, mainAside);
   }
