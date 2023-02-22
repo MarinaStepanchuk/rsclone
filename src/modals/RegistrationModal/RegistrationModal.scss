@@ -3,6 +3,7 @@
 
 .registration-wrapper {
   @include modal-wrapper;
+  height: calc(100vh - 4rem);
 }
 
 .registration-form {
@@ -85,28 +86,5 @@
 }
 
 .close-modal {
-  position: absolute;
-  z-index: 30;
-  top: 0;
-  right: 0;
-  margin: 2rem;
-  width: 3rem;
-  height: 3rem;
-  cursor: pointer;
-
-  span {
-    position: absolute;
-    display: block;
-    width: 3rem;
-    height: 0.3rem;
-    margin: 1rem;
-  }
-
-  :first-child {
-    transform: rotate(45deg);
-  }
-
-  :last-child {
-    transform: rotate(-45deg); 
-  }
+  @include close-modal-button;
 }

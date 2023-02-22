@@ -51,49 +51,41 @@ export const defaultCategories: ICategory[] = [
   {
     category: 'Transport',
     icon: 'transport',
-    limit: 0,
     key: 'transport',
   },
   {
     category: 'Clothes',
     icon: 'clothes',
-    limit: 0,
     key: 'clothes',
   },
   {
     category: 'Eating out',
     icon: 'cafe',
-    limit: 0,
     key: 'cafe',
   },
   {
     category: 'Entertainment',
     icon: 'entertainment',
-    limit: 0,
     key: 'entertainment',
   },
   {
     category: 'Food',
     icon: 'food',
-    limit: 0,
     key: 'food',
   },
   {
     category: 'Health',
     icon: 'health',
-    limit: 0,
     key: 'health',
   },
   {
     category: 'House',
     icon: 'house',
-    limit: 0,
     key: 'house',
   },
   {
     category: 'Sport',
     icon: 'sport',
-    limit: 0,
     key: 'sport',
   },
 ];

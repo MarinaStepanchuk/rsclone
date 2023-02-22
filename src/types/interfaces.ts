@@ -71,7 +71,7 @@ export interface IAccount {
   readonly userId?: string,
   account: string,
   icon: string,
-  sum?: number,
+  sum: number,
   key?: string,
   currency?: string,
 }
@@ -83,7 +83,6 @@ export interface ICategory {
   category: string,
   icon: string,
   limit?: number,
-  sum?: number,
   key?: string,
 }
 

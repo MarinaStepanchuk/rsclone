@@ -4,11 +4,13 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import { IAccount, ICategory, IExpense, IIncome } from '../../types/interfaces';
+import {
+  IAccount, ICategory, IExpense, IIncome,
+  IFilterParams,
+} from '../../types/interfaces';
 import AppState from '../../constants/appState';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { IFilterParams } from '../../types/interfaces';
 
 class Analytics extends BasePage {
   public render(): void {

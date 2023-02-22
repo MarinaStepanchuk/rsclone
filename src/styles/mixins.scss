@@ -10,7 +10,7 @@
   border: 1px solid $color-primary;
   color: $color-light-font;
   cursor: pointer;
-  
+
   &:hover {
     filter: drop-shadow(0 0 1rem $color-primary);
     color: $color-primary;
@@ -28,7 +28,7 @@
   color: $color-dark-mode;
   outline: none;
   padding-left: 1rem;
-  
+
   &:focus {
     filter: drop-shadow(0 0 1rem $color-primary);
   }
@@ -45,4 +45,36 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@mixin close-modal-button {
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  margin: 2rem;
+  width: 3rem;
+  height: 3rem;
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  span {
+    position: absolute;
+    display: block;
+    width: 3rem;
+    height: 0.3rem;
+    margin: 1rem;
+  }
+
+  :first-child {
+    transform: rotate(45deg);
+  }
+
+  :last-child {
+    transform: rotate(-45deg);
+  }
 }
