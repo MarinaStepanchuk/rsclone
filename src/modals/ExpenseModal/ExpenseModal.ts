@@ -21,19 +21,19 @@ class ExpenseModal extends BaseModal {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const currAccountElem = document.getElementById('accountSelect') as HTMLSelectElement;
+      const currAccountElem = document.querySelector('#accountSelect') as HTMLSelectElement;
       const currAccount = currAccountElem.value;
 
-      const currCategoryElem = document.getElementById('categorySelect') as HTMLSelectElement;
+      const currCategoryElem = document.querySelector('#categorySelect') as HTMLSelectElement;
       const currCategory = currCategoryElem.value;
 
-      const currDateElem = document.getElementById('dateValue') as HTMLInputElement;
+      const currDateElem = document.querySelector('#dateValue') as HTMLInputElement;
       const currDate = currDateElem.value ? new Date(currDateElem.value) : new Date();
 
-      const sumInput = document.getElementById('sumInput') as HTMLInputElement;
+      const sumInput = document.querySelector('#sumInput') as HTMLInputElement;
       const expense = Number(sumInput.value);
 
-      const commentElem = document.getElementById('comment') as HTMLTextAreaElement;
+      const commentElem = document.querySelector('#comment') as HTMLTextAreaElement;
       const comment = commentElem.value;
 
       const newExpense: IExpense = {
@@ -78,32 +78,42 @@ class ExpenseModal extends BaseModal {
     return this.modalWrapper;
   }
 
-  private async createNewExpense(expense: IExpense): Promise<IExpense> {
+  private async createNewExpense(expense: IExpense): Promise<IExpense | null> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newExpense: IExpense = await RequestApi.create(Endpoint.EXPENSE, userToken, expense);
+    const newExpense: IExpense | null = await RequestApi.create(Endpoint.EXPENSE, userToken, expense);
 
-    // const updateSumResponse =
     return newExpense;
   }
 
-  private submitForm(e: MouseEvent, newExpense: IExpense, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
+  private async submitForm(e: MouseEvent, newExpense: IExpense, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
     e.preventDefault();
 
-    const expenseRes = this.createNewExpense(newExpense);
+    const expenseValue = await this.createNewExpense(newExpense);
+    const accounts = await this.getAllAccounts();
 
-    expenseRes.then((expenseValue) => {
-      expenseValue.account;
+    if (expenseValue) {
+      const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+      const card = accounts.filter((account) => account.account === expenseValue.account).pop();
+      const cardId = card?._id as string;
 
-      // const prevSum = totalBalance.textContent;
-      // const newSum = Number(prevSum) + incomeValue.income;
-      //
-      // totalBalance.textContent = `${newSum}`;
+      const changedCardAccount: { updateSum: number } = {
+        updateSum: -expenseValue.expense,
+      };
 
-      updateExpenses(totalBalance);
-      updateBalances(cardBalance, cashBalance);
+      const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(
+        Endpoint.ACCOUNT,
+        userToken,
+        cardId,
+        changedCardAccount
+      );
 
-      this.modalWrapper?.remove();
-    });
+      console.log(changedAccountSum);
+    }
+
+    updateExpenses(totalBalance);
+    updateBalances(cardBalance, cashBalance);
+
+    this.modalWrapper?.remove();
   }
 }
 

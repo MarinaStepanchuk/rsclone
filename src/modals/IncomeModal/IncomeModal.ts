@@ -21,16 +21,16 @@ class IncomeModal extends BaseModal {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const currAccountElem = document.getElementById('accountSelect') as HTMLSelectElement;
+      const currAccountElem = document.querySelector('#accountSelect') as HTMLSelectElement;
       const currAccount = currAccountElem.value;
 
-      const currDateElem = document.getElementById('dateValue') as HTMLInputElement;
+      const currDateElem = document.querySelector('#dateValue') as HTMLInputElement;
       const currDate = currDateElem.value ? new Date(currDateElem.value) : new Date();
 
-      const sumInput = document.getElementById('sumInput') as HTMLInputElement;
+      const sumInput = document.querySelector('#sumInput') as HTMLInputElement;
       const income = Number(sumInput.value);
 
-      const commentElem = document.getElementById('comment') as HTMLTextAreaElement;
+      const commentElem = document.querySelector('#comment') as HTMLTextAreaElement;
       const comment = commentElem.value;
 
       const newIncome: IIncome = {
@@ -41,37 +41,7 @@ class IncomeModal extends BaseModal {
         comment,
       };
 
-      this.submitForm(e, newIncome, totalBalance, cardBalance, cashBalance);
-      //   e.preventDefault();
-      //
-      //   const currAccount = categorySelect.value;
-      //   const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
-      //   const income = Number(sumInput.value);
-      //   const comment = noteText.value;
-      //
-      //   const newIncome: IIncome = {
-      //     date: currDate,
-      //     account: currAccount,
-      //     income,
-      //     currency: this.currency,
-      //     comment,
-      //   };
-      //
-      //   const incomeRes = this.createNewIncome(newIncome);
-      //
-      //   incomeRes.then((incomeValue) => {
-      //     incomeValue.account
-      //
-      //     // const prevSum = totalBalance.textContent;
-      //     // const newSum = Number(prevSum) + incomeValue.income;
-      //     //
-      //     // totalBalance.textContent = `${newSum}`;
-      //
-      //     // updateIncomes(totalBalance, cardBalance, cashBalance);
-      //     updateIncomes(totalBalance);
-      //     updateBalances(cardBalance, cashBalance)
-      //     this.modalWrapper?.remove();
-      //   });
+      this.submitExpenseForm(e, newIncome, totalBalance, cardBalance, cashBalance);
     });
 
     const closeFormButton = this.createCloseButton();
@@ -103,58 +73,40 @@ class IncomeModal extends BaseModal {
     return this.modalWrapper;
   }
 
-  private async createNewIncome(income: IIncome): Promise<IIncome> {
+  private async createNewIncome(income: IIncome): Promise<IIncome | null> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
+    const newIncome: IIncome | null = await RequestApi.create(Endpoint.INCOME, userToken, income);
     return newIncome;
   }
 
-  private async updateSum() {
-    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-    if (incomeValue.account === 'card') {
-      const fakeId = '63f37060d3206af9d4c9584b';
-      const changedCardAccount: { updateSum: number } = {
-        updateSum: 50, // + Прибавить, - отнять
-      };
-
-      const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(
-        Endpoint.ACCOUNT,
-        userToken,
-        fakeId,
-        changedCardAccount
-      );
-      console.log(changedAccountSum);
-    }
-  }
-
-  private submitForm(e: MouseEvent, newIncome: IIncome, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
+  private async submitExpenseForm(e: MouseEvent, newIncome: IIncome, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement)
+  : Promise<void> {
     e.preventDefault();
 
-    const incomeRes = this.createNewIncome(newIncome);
+    const incomeValue = await this.createNewIncome(newIncome);
+    const accounts = await this.getAllAccounts();
 
-    incomeRes.then((incomeValue) => {
+    if (incomeValue) {
+      const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+      const card = accounts.filter((account) => account.account === incomeValue.account).pop();
+      const cardId = card?._id as string;
 
+      const changedCardAccount: { updateSum: number } = {
+        updateSum: incomeValue.income,
+      };
 
-      //! Обновление суммы счета
-      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
-      // const fakeId = '63f37060d3206af9d4c9584b';
-      // const fakeСhangedAccount: { updateSum: number } = {
-      //   updateSum: 50, // + Прибавить, - отнять
-      // };
-      // const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
-      // console.log(changedAccountSum);
+      await RequestApi.updateSum(
+        Endpoint.ACCOUNT,
+        userToken,
+        cardId,
+        changedCardAccount
+      );
+    }
 
-      // const prevSum = totalBalance.textContent;
-      // const newSum = Number(prevSum) + incomeValue.income;
-      //
-      // totalBalance.textContent = `${newSum}`;
+    updateIncomes(totalBalance);
+    updateBalances(cardBalance, cashBalance);
 
-      updateIncomes(totalBalance);
-      updateBalances(cardBalance, cashBalance);
-
-      this.modalWrapper?.remove();
-    });
+    this.modalWrapper?.remove();
   }
 }
 

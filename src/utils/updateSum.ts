@@ -48,9 +48,6 @@ export function updateBalances(cardBalanceValue: HTMLElement, cashBalanceValue: 
       .filter((account) => account.key === 'card')
       .pop();
 
-    console.log(cardAccount);
-    console.log(cardAccount?.sum);
-
     cardBalanceValue.textContent = `${cardAccount?.sum}`;
 
     const cashAccount = accounts
@@ -59,23 +56,6 @@ export function updateBalances(cardBalanceValue: HTMLElement, cashBalanceValue: 
 
     cashBalanceValue.textContent = `${cashAccount?.sum}`;
   });
-  // const allIncomes = getAllIncomes();
-//   allIncomes.then((incomes) => {
-//     const res = incomes.reduce((acc, curr) => acc + curr.income, 0);
-//     totalBalance.textContent = `${res}`;
-//
-//     const cardIncomes = incomes
-//       .filter((category) => category.account === 'card')
-//       .reduce((acc, curr) => acc + curr.income, 0);
-//     console.log(cardIncomes);
-//     cardBalance.textContent = `${cardIncomes}`;
-//
-//     const cashIncomes = incomes
-//       .filter((category) => category.account === 'cash')
-//       .reduce((acc, curr) => acc + curr.income, 0);
-//     console.log(cashIncomes);
-//     cashBalance.textContent = `${cashIncomes}`;
-//   });
 }
 
 export function updateIncomes(incomeBalance: HTMLElement): void {

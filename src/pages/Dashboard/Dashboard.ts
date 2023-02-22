@@ -313,8 +313,6 @@ class Dashboard extends BasePage {
       content: 'Тут aside',
     });
 
-    // updateIncomes(incomeBalance, cardBalanceValue, cashBalanceValue);
-    // updateExpenses(expenseBalance, cardBalanceValue, cashBalanceValue);
     updateIncomes(incomeBalance);
     updateExpenses(expenseBalance);
     updateBalances(cardBalanceValue, cashBalanceValue);
