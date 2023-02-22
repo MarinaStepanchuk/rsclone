@@ -187,6 +187,7 @@ export const ClassMap = {
     buttons: 'calendar__button-wrap',
     button: 'calendar__button',
   },
+  preloader: 'load',
 };
 
 export const Title = {

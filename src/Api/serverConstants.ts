@@ -22,6 +22,7 @@ export const RESPONSE_STATUS = {
   OK: 200,
   CREATED: 201,
   FORBIDDEN: 403,
+  BAD_REQUEST: 400,
 };
 
 export const CONTENT_TYPE_JSON = { 'Content-Type': 'application/json' };

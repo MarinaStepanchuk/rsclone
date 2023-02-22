@@ -206,7 +206,7 @@ class IncomeModal {
       incomeRes.then((incomeValue) => {
         const totalIncomeWrap = document.getElementById('incomeBalance');
 
-        if (totalIncomeWrap) {
+        if (totalIncomeWrap && incomeValue) {
           const prevSum = totalIncomeWrap.textContent;
           const newSum = Number(prevSum) + incomeValue.income;
 
@@ -293,10 +293,10 @@ class IncomeModal {
     return accountsData;
   }
 
-  private async createNewIncome(income: IIncome): Promise<IIncome> {
+  private async createNewIncome(income: IIncome): Promise<IIncome | null> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
-    return newIncome;
+    const newIncome: IIncome | null = await RequestApi.create(Endpoint.INCOME, userToken, income);
+    return newIncome || null;
   }
 }
 

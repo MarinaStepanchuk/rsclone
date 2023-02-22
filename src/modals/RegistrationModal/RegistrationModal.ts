@@ -18,7 +18,7 @@ import UserApi from '../../Api/UserApi';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
 import AppState from '../../constants/appState';
 import setDefaultUserProperties from './setDefaultUserProperties';
-import { Endpoint } from '../../Api/serverConstants';
+import { Endpoint, RESPONSE_STATUS } from '../../Api/serverConstants';
 
 class RegistrationModal {
   public wrapper: HTMLElement | null = null;
@@ -247,7 +247,7 @@ class RegistrationModal {
       }
     });
 
-    this.form?.addEventListener('click', (event) => {
+    this.form?.addEventListener('click', async (event) => {
       const targetElement = event.target as HTMLElement;
 
       if (targetElement.classList.contains(ClassMap.passwordIcon)) {
@@ -263,6 +263,7 @@ class RegistrationModal {
         const errors = [...document.querySelectorAll(`.${ClassMap.errorValidation}`)];
         errors.forEach((error) => error.remove());
         const isValid = this.validation();
+        let registrationResponse = false;
 
         if (isValid) {
           const userRegistr: IUserRegister = {
@@ -272,8 +273,10 @@ class RegistrationModal {
             currency: (this.selectCurrency as HTMLSelectElement).value,
           };
 
-          this.handleRegistrationResponse(userRegistr);
+          registrationResponse = await this.handleRegistrationResponse(userRegistr);
+        }
 
+        if (registrationResponse) {
           this.wrapper?.remove();
         }
       }
@@ -324,16 +327,40 @@ class RegistrationModal {
     return false;
   }
 
-  private async handleRegistrationResponse(userRegistr: IUserRegister) {
+  private async handleRegistrationResponse(userRegistr: IUserRegister): Promise<boolean> {
     const response = await UserApi.registrationUser(userRegistr);
+
+    let message = '';
+    let status = 0;
+    let result = false;
+
+    if (response && response.message.includes('Registration error')) {
+      message = `${Dictionary[AppState.lang].RegistrationError}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (response && response.message.includes('already exists')) {
+      message = `${Dictionary[AppState.lang].EmailAlreadyExists}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (response && response.message.includes('successfully')) {
+      message = `${Dictionary[AppState.lang].Registered}`;
+      status = RESPONSE_STATUS.CREATED;
+      result = true;
+    }
+
+    if (message && status > 0) {
+      const alert = new AlertMessage(message, status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
 
     const { email, password } = userRegistr;
     await setDefaultUserProperties(Endpoint.ACCOUNT, { email, password }, defaultAccounts);
     await setDefaultUserProperties(Endpoint.CATEGORY, { email, password }, defaultCategories);
 
-    const alert = new AlertMessage(response.message, response.status);
-    alert.render();
-    setTimeout(() => alert.remove(), alertTimeout);
+    return result;
   }
 }
 
