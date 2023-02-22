@@ -12,6 +12,7 @@ import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { ICategory, IExpense, IFilterParams } from '../../types/interfaces';
 import WalletPeriodSelect from '../WalletPeriodSelect/WalletPeriodSelect';
+import Preloader from '../Preloader/Preloader';
 
 class WalletCategories {
   private modeValue: MODE;
@@ -140,6 +141,9 @@ class WalletCategories {
     const categoriesBlock = this.categoriesBlock as HTMLElement;
     categoriesBlock.innerHTML = '';
 
+    const preloader = new Preloader(categoriesBlock);
+    preloader.render();
+
     const data = await this.getCategories();
 
     const categories = data.map((async (category) => {
@@ -148,6 +152,8 @@ class WalletCategories {
     }));
 
     const allCategories = await Promise.all(categories);
+
+    preloader.remove();
 
     categoriesBlock.append(...allCategories);
 
