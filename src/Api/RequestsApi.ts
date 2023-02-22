@@ -126,8 +126,11 @@ class RequestApi {
         headers: Object.assign(authorization, CONTENT_TYPE_JSON),
       });
 
-      const dataResponse: T[] = await response.json();
+      if (!response.ok) {
+        return [];
+      }
 
+      const dataResponse: T[] = await response.json();
       return dataResponse;
     } catch (error) {
       const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);

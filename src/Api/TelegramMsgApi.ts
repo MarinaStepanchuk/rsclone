@@ -1,5 +1,7 @@
 import AlertMessage from '../components/AlertMessage/AlertMessege';
+import AppState from '../constants/appState';
 import { alertTimeout } from '../constants/common';
+import { Dictionary } from '../constants/dictionary';
 import { ISupportMsg } from '../types/interfaces';
 import {
   REQUEST_METOD,
@@ -28,7 +30,7 @@ class TelegramMsgApi {
         ...dataResponse,
       };
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;

@@ -95,11 +95,11 @@ class CreatorAccount extends BaseCreater {
     });
   }
 
-  private async addAccountToDatabase(data: IAccount): Promise<IAccount> {
+  private async addAccountToDatabase(data: IAccount): Promise<IAccount | null> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newAccount: IAccount = await RequestApi.create(Endpoint.ACCOUNT, userToken, data);
+    const newAccount: IAccount | null = await RequestApi.create(Endpoint.ACCOUNT, userToken, data);
 
-    return newAccount;
+    return newAccount || null;
   }
 }
 
