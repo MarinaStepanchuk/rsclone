@@ -1,7 +1,7 @@
 import './ChartYearExpenses.scss';
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
-import { ClassMap, Id } from '../../constants/htmlConstants';
+import { ClassMap, ellementId } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IExpense } from '../../types/interfaces';
@@ -44,7 +44,7 @@ class ChartYearExpenses {
 
     this.schedule = createElement({
       tag: 'div',
-      id: Id.chartYearExpenses,
+      id: ellementId.chartYearExpenses,
     });
 
     container.append(sheduleTitle, this.schedule);
@@ -81,9 +81,9 @@ class ChartYearExpenses {
   }
 
   public addChart() {
-    Highcharts.chart(Id.chartYearExpenses, {
+    Highcharts.chart(ellementId.chartYearExpenses, {
       title: {
-        text: undefined;
+        text: undefined,
       },
       xAxis: {
         type: 'datetime',

@@ -94,7 +94,7 @@ class WalletCategories {
 
     this.countCategoriesAmount();
 
-    document.addEventListener('select', async (event) => {
+    this.section?.addEventListener('select', async (event) => {
       const customEvent = event as CustomEvent;
       const button = document.querySelector(`.${ClassMap.customSelect.title}`) as HTMLElement;
       button.setAttribute(Attribute.key, customEvent.detail.key);
@@ -103,7 +103,6 @@ class WalletCategories {
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodYear) {
         const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
-
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
       }
@@ -139,7 +138,6 @@ class WalletCategories {
   private async fillCategoriesBlock(start: string, end: string): Promise<void> {
     const categoriesBlock = this.categoriesBlock as HTMLElement;
     categoriesBlock.innerHTML = '';
-
     const data = await this.getCategories();
 
     const categories = data.map((async (category) => {

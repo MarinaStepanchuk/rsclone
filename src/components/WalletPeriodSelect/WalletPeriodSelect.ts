@@ -1,4 +1,3 @@
-import './WalletPeriodSelect.scss';
 import createElement from '../../utils/createElement';
 import { ClassMap, ellementId } from '../../constants/htmlConstants';
 import { LANG, MODE } from '../../types/types';

@@ -254,14 +254,11 @@ export const startId = {
   svg: 'svg-',
 };
 
-export const Id = {
-  chartYearIncomes: 'chart-year-incomes',
-  chartYearExpenses: 'chart-year-expenses',
-};
-
 export const ellementId = {
   walletSelect: 'wallet-select',
   limitCheckbox: 'wallet-limit-checkbox',
+  chartYearIncomes: 'chart-year-incomes',
+  chartYearExpenses: 'chart-year-expenses',
 };
 
 export const TextArea = {
