@@ -1,9 +1,14 @@
+import AlertMessage from '../components/AlertMessage/AlertMessege';
+import AppState from '../constants/appState';
+import { alertTimeout } from '../constants/common';
+import { Dictionary } from '../constants/dictionary';
 import { ISupportMsg } from '../types/interfaces';
 import {
   REQUEST_METOD,
   CONTENT_TYPE_JSON,
   BASE_URL,
   Endpoint,
+  RESPONSE_STATUS,
 } from './serverConstants';
 
 class TelegramMsgApi {
@@ -25,7 +30,10 @@ class TelegramMsgApi {
         ...dataResponse,
       };
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 }

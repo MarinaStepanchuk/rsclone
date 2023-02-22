@@ -7,9 +7,11 @@ import {
   Endpoint,
 } from './serverConstants';
 import AppState from '../constants/appState';
+import AlertMessage from '../components/AlertMessage/AlertMessege';
+import { alertTimeout } from '../constants/common';
 
 class UserApi {
-  public static async registrationUser(userData: IUserRegister): Promise<{ status: number; message: string }> {
+  public static async registrationUser(userData: IUserRegister): Promise<{ status: number; message: string } | null> {
     const url = `${BASE_URL}${Endpoint.REGISTER}`;
 
     try {
@@ -30,12 +32,15 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
   public static async loginUser(loginUserData: IUserLogin):
-  Promise<{ status: number; message: string, token?: string, user?: IUserData }> {
+  Promise<{ status: number; message: string, token?: string, user?: IUserData } | null> {
     const url = `${BASE_URL}${Endpoint.LOGIN}`;
 
     try {
@@ -52,11 +57,14 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 
-  public static async updateUser(token: string, updateUserData: Partial<IUserData>): Promise<{ status: number; message: string }> {
+  public static async updateUser(token: string, updateUserData: Partial<IUserData>): Promise<{ status: number; message: string } | null> {
     const url = `${BASE_URL}${Endpoint.USER_UPDATE}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -74,7 +82,10 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      throw new Error(`${error}`);
+      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
     }
   }
 }

@@ -42,36 +42,36 @@ class IncomeModal extends BaseModal {
       };
 
       this.submitForm(e, newIncome, totalBalance, cardBalance, cashBalance);
-    //   e.preventDefault();
-    //
-    //   const currAccount = categorySelect.value;
-    //   const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
-    //   const income = Number(sumInput.value);
-    //   const comment = noteText.value;
-    //
-    //   const newIncome: IIncome = {
-    //     date: currDate,
-    //     account: currAccount,
-    //     income,
-    //     currency: this.currency,
-    //     comment,
-    //   };
-    //
-    //   const incomeRes = this.createNewIncome(newIncome);
-    //
-    //   incomeRes.then((incomeValue) => {
-    //     incomeValue.account
-    //
-    //     // const prevSum = totalBalance.textContent;
-    //     // const newSum = Number(prevSum) + incomeValue.income;
-    //     //
-    //     // totalBalance.textContent = `${newSum}`;
-    //
-    //     // updateIncomes(totalBalance, cardBalance, cashBalance);
-    //     updateIncomes(totalBalance);
-    //     updateBalances(cardBalance, cashBalance)
-    //     this.modalWrapper?.remove();
-    //   });
+      //   e.preventDefault();
+      //
+      //   const currAccount = categorySelect.value;
+      //   const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
+      //   const income = Number(sumInput.value);
+      //   const comment = noteText.value;
+      //
+      //   const newIncome: IIncome = {
+      //     date: currDate,
+      //     account: currAccount,
+      //     income,
+      //     currency: this.currency,
+      //     comment,
+      //   };
+      //
+      //   const incomeRes = this.createNewIncome(newIncome);
+      //
+      //   incomeRes.then((incomeValue) => {
+      //     incomeValue.account
+      //
+      //     // const prevSum = totalBalance.textContent;
+      //     // const newSum = Number(prevSum) + incomeValue.income;
+      //     //
+      //     // totalBalance.textContent = `${newSum}`;
+      //
+      //     // updateIncomes(totalBalance, cardBalance, cashBalance);
+      //     updateIncomes(totalBalance);
+      //     updateBalances(cardBalance, cashBalance)
+      //     this.modalWrapper?.remove();
+      //   });
     });
 
     const closeFormButton = this.createCloseButton();

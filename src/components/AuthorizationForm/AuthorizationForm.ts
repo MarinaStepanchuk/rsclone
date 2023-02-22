@@ -191,11 +191,31 @@ class AutorisationForm {
   private async handleLoginResponse(userLogin: IUserLogin) {
     const response = await UserApi.loginUser(userLogin);
 
-    const alert = new AlertMessage(response.message, response.status);
-    alert.render();
-    setTimeout(() => alert.remove(), alertTimeout);
+    let message = '';
+    let status = 0;
 
-    if (response.status === RESPONSE_STATUS.OK) {
+    if (response && response.message.includes('successful')) {
+      message = `${Dictionary[AppState.lang].loginStatus}`;
+      status = RESPONSE_STATUS.OK;
+    }
+
+    if (response && response.message.includes('not found')) {
+      message = `${Dictionary[AppState.lang].EmailNotFound}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (response && response.message.includes('Invalid password')) {
+      message = `${Dictionary[AppState.lang].InvalidPassword}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (message && status > 0) {
+      const alert = new AlertMessage(message, status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
+
+    if (response?.status === RESPONSE_STATUS.OK) {
       AppState.isUserLogin = true;
       const { token, user } = response;
       localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));

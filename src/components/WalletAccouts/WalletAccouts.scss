@@ -17,6 +17,8 @@
   }
 
   &__container {
+    position: relative;
+    min-height: 20rem;
     width: 100%;
     padding: 1rem 1rem;
     font-size: 1.6rem;
