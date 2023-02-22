@@ -1,15 +1,22 @@
-import { ClassMap } from '../../constants/htmlConstants';
+import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import BaseModal from '../BaseModal/BaseModal';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import createElement from '../../utils/createElement';
-import { IExpense } from '../../types/interfaces';
+import { IBalances, IExpense } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
 import { updateBalances, updateExpenses } from '../../utils/updateSum';
+import { getAllAccounts } from '../../utils/getModalApi';
+import {
+  getComment,
+  getDateValue,
+  getSelectedValue,
+  getSum,
+} from '../../utils/getModalValue';
 
 class ExpenseModal extends BaseModal {
-  public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
+  public render(expenseBalances: IBalances): HTMLElement {
     const formTitle = this.createFormTitle(DictionaryKeys.formExpenseTitle, Dictionary[this.lang].formExpenseTitle);
     const accountWrap = this.createAccountWrap();
     const categoryWrap = this.createCategoriesWrap();
@@ -21,31 +28,16 @@ class ExpenseModal extends BaseModal {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const currAccountElem = document.querySelector('#accountSelect') as HTMLSelectElement;
-      const currAccount = currAccountElem.value;
-
-      const currCategoryElem = document.querySelector('#categorySelect') as HTMLSelectElement;
-      const currCategory = currCategoryElem.value;
-
-      const currDateElem = document.querySelector('#dateValue') as HTMLInputElement;
-      const currDate = currDateElem.value ? new Date(currDateElem.value) : new Date();
-
-      const sumInput = document.querySelector('#sumInput') as HTMLInputElement;
-      const expense = Number(sumInput.value);
-
-      const commentElem = document.querySelector('#comment') as HTMLTextAreaElement;
-      const comment = commentElem.value;
-
       const newExpense: IExpense = {
-        date: currDate,
-        account: currAccount,
-        category: currCategory,
-        expense,
+        date: getDateValue(),
+        account: getSelectedValue(IdMap.accountSelect),
+        category: getSelectedValue(IdMap.categorySelect),
+        expense: getSum(),
         currency: this.currency,
-        comment,
+        comment: getComment(),
       };
 
-      this.submitForm(e, newExpense, totalBalance, cardBalance, cashBalance);
+      this.submitForm(e, newExpense, expenseBalances);
     });
 
     const closeFormButton = this.createCloseButton();
@@ -85,11 +77,11 @@ class ExpenseModal extends BaseModal {
     return newExpense;
   }
 
-  private async submitForm(e: MouseEvent, newExpense: IExpense, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
+  private async submitForm(e: MouseEvent, newExpense: IExpense, expenseBalances: IBalances) {
     e.preventDefault();
 
     const expenseValue = await this.createNewExpense(newExpense);
-    const accounts = await this.getAllAccounts();
+    const accounts = await getAllAccounts();
 
     if (expenseValue) {
       const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
@@ -100,18 +92,16 @@ class ExpenseModal extends BaseModal {
         updateSum: -expenseValue.expense,
       };
 
-      const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(
+      await RequestApi.updateSum(
         Endpoint.ACCOUNT,
         userToken,
         cardId,
-        changedCardAccount
+        changedCardAccount,
       );
-
-      console.log(changedAccountSum);
     }
 
-    updateExpenses(totalBalance);
-    updateBalances(cardBalance, cashBalance);
+    await updateExpenses(expenseBalances);
+    await updateBalances(expenseBalances);
 
     this.modalWrapper?.remove();
   }

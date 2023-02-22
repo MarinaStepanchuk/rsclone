@@ -1,77 +1,40 @@
-import { IAccount, IExpense, IIncome } from '../types/interfaces';
-import AppState from '../constants/appState';
-import RequestApi from '../Api/RequestsApi';
-import { Endpoint } from '../Api/serverConstants';
-import { LocalStorageKey } from '../constants/common';
+import { getAllAccounts, getAllExpenses, getAllIncomes } from './getModalApi';
+import { IBalances } from '../types/interfaces';
 
-async function getAllIncomes(): Promise<IIncome[]> {
-  if (AppState.userAccount) {
-    const userToken: string = JSON.parse(AppState.userAccount).token;
+export async function updateBalances(balances: IBalances): Promise<void> {
+  const allAccounts = await getAllAccounts();
 
-    try {
-      const incomesData: IIncome[] = await RequestApi.getAll(Endpoint.INCOME, userToken);
-      return incomesData;
-    } catch (e) {
-      console.log('error: failed to get all incomes');
-    }
-  }
-  return [];
+  const cardAccount = allAccounts
+    .filter((account) => account.key === 'card')
+    .pop();
+
+  const newCardBalance = balances.cardBalance;
+  newCardBalance.textContent = `${cardAccount?.sum}`;
+
+  const cashAccount = allAccounts
+    .filter((account) => account.key === 'cash')
+    .pop();
+
+  const newCashBalance = balances.cashBalance;
+  newCashBalance.textContent = `${cashAccount?.sum}`;
 }
 
-async function getAllExpenses(): Promise<IExpense[]> {
-  if (AppState.userAccount) {
-    const userToken: string = JSON.parse(AppState.userAccount).token;
+export async function updateIncomes(balances: IBalances): Promise<void> {
+  const allIncomes = await getAllIncomes();
+  const res = allIncomes.reduce((acc, curr) => acc + curr.income, 0);
 
-    try {
-      const expensesData: IExpense[] = await RequestApi.getAll(Endpoint.EXPENSE, userToken);
-      return expensesData;
-    } catch (e) {
-      console.log('error: failed to get all expenses');
-    }
-  }
-  return [];
+  await updateBalances(balances);
+
+  const totalIncomes = balances.totalBalance;
+  totalIncomes.textContent = `${res}`;
 }
 
-async function getAllAccounts(): Promise<IAccount[]> {
-  const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-  const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
-  console.log(accountsData);
-  return accountsData;
-}
+export async function updateExpenses(balances: IBalances): Promise<void> {
+  const allExpenses = await getAllExpenses();
+  const res = allExpenses.reduce((acc, curr) => acc + curr.expense, 0);
 
-export function updateBalances(cardBalanceValue: HTMLElement, cashBalanceValue: HTMLElement): void {
-  const allAccounts = getAllAccounts();
+  await updateBalances(balances);
 
-  allAccounts.then((accounts) => {
-    console.log(accounts);
-    const cardAccount = accounts
-      .filter((account) => account.key === 'card')
-      .pop();
-
-    cardBalanceValue.textContent = `${cardAccount?.sum}`;
-
-    const cashAccount = accounts
-      .filter((account) => account.key === 'cash')
-      .pop();
-
-    cashBalanceValue.textContent = `${cashAccount?.sum}`;
-  });
-}
-
-export function updateIncomes(incomeBalance: HTMLElement): void {
-  const allIncomes = getAllIncomes();
-
-  allIncomes.then((incomes) => {
-    const res = incomes.reduce((acc, curr) => acc + curr.income, 0);
-    incomeBalance.textContent = `${res}`;
-  });
-}
-
-export function updateExpenses(expenseBalance: HTMLElement): void {
-  const allExpenses = getAllExpenses();
-
-  allExpenses.then((expenses) => {
-    const res = expenses.reduce((acc, curr) => acc + curr.expense, 0);
-    expenseBalance.textContent = `${res}`;
-  });
+  const totalExpenses = balances.totalBalance;
+  totalExpenses.textContent = `${res}`;
 }

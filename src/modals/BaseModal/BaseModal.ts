@@ -1,13 +1,12 @@
 import './BaseModal.scss';
 import { IAccount, ICategory } from '../../types/interfaces';
 import { LocalStorageKey } from '../../constants/common';
-import RequestApi from '../../Api/RequestsApi';
-import { Endpoint } from '../../Api/serverConstants';
 import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
 import {
   ClassMap,
+  IdMap,
   InputType,
   InputValue,
   MinDate,
@@ -15,6 +14,7 @@ import {
 } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { CurrencyMark } from '../../types/enums';
+import { getAllAccounts, getAllCategories } from '../../utils/getModalApi';
 
 class BaseModal {
   protected modeValue: MODE;
@@ -55,7 +55,7 @@ class BaseModal {
     const accountSelect = createElement({
       tag: 'select',
       classList: [ClassMap.dashboard.formSelect],
-      id: 'accountSelect',
+      id: IdMap.accountSelect,
     }) as HTMLSelectElement;
 
     const accountWrap = createElement({
@@ -63,7 +63,7 @@ class BaseModal {
       classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
     });
 
-    const accountsAll = this.getAllAccounts();
+    const accountsAll = getAllAccounts();
 
     accountsAll.then((accounts) => {
       accounts.forEach((account) => {
@@ -87,7 +87,7 @@ class BaseModal {
     const categorySelect = createElement({
       tag: 'select',
       classList: [ClassMap.dashboard.formSelect],
-      id: 'categorySelect',
+      id: IdMap.categorySelect,
     }) as HTMLSelectElement;
 
     const categoryWrap = createElement({
@@ -95,7 +95,7 @@ class BaseModal {
       classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
     });
 
-    const categoriesAll = this.getAllCategories();
+    const categoriesAll = getAllCategories();
 
     categoriesAll.then((categories) => {
       categories.forEach((category) => {
@@ -126,7 +126,7 @@ class BaseModal {
     const sumInput = createElement({
       tag: 'input',
       classList: [ClassMap.dashboard.formInput],
-      id: 'sumInput',
+      id: IdMap.sumInput,
     }) as HTMLInputElement;
 
     sumInput.type = InputType.number;
@@ -165,7 +165,7 @@ class BaseModal {
     const dateInput = createElement({
       tag: 'input',
       classList: [ClassMap.dashboard.formInput],
-      id: 'dateValue',
+      id: IdMap.dateValue,
     }) as HTMLInputElement;
 
     dateInput.type = InputType.date;
@@ -208,7 +208,7 @@ class BaseModal {
       classList: [ClassMap.dashboard.formLabel],
       key: DictionaryKeys.labelNote,
       content: Dictionary[this.lang].labelNote,
-      id: 'comment',
+      id: IdMap.comment,
     }) as HTMLLabelElement;
 
     const commentText = createElement({
@@ -261,43 +261,18 @@ class BaseModal {
     return submitButton;
   }
 
-  public async getAllAccounts(): Promise<IAccount[]> {
-    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
-
-    return accountsData;
-  }
-
-  private async getAllCategories(): Promise<ICategory[]> {
-    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const accountsData: ICategory[] = await RequestApi.getAll(Endpoint.CATEGORY, userToken);
-
-    return accountsData;
-  }
-
   private createOptionAccount(account: IAccount): HTMLOptionElement {
     const { key = '', account: name } = account;
-
-    const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
-      ? createElement({
-        tag: 'option',
-        key: DictionaryKeys[key],
-        content: Dictionary[this.lang][key],
-      }) as HTMLOptionElement
-      : createElement({
-        tag: 'option',
-        content: name,
-      }) as HTMLOptionElement;
-
-    optionCurrency.value = name;
-
-    return optionCurrency;
+    return this.createOptionItem(key, name);
   }
 
   private createOptionCategory(category: ICategory): HTMLOptionElement {
     const { key = '', category: name } = category;
+    return this.createOptionItem(key, name);
+  }
 
-    const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
+  private createOptionItem(key: string, name: string): HTMLOptionElement {
+    const optionItem = Dictionary[this.lang][key] && DictionaryKeys[key]
       ? createElement({
         tag: 'option',
         key: DictionaryKeys[key],
@@ -308,9 +283,8 @@ class BaseModal {
         content: name,
       }) as HTMLOptionElement;
 
-    optionCurrency.value = name;
-
-    return optionCurrency;
+    optionItem.value = name;
+    return optionItem;
   }
 
   public addListeners(): void {

@@ -12,7 +12,8 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import { updateBalances, updateExpenses, updateIncomes } from '../../utils/updateSum';
+import { updateExpenses, updateIncomes } from '../../utils/updateSum';
+import { IBalances } from '../../types/interfaces';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -254,9 +255,15 @@ class Dashboard extends BasePage {
       content: Dictionary[this.lang].addIncome,
     }) as HTMLButtonElement;
 
+    const incomeBalances: IBalances = {
+      totalBalance: incomeBalance,
+      cardBalance: cardBalanceValue,
+      cashBalance: cashBalanceValue,
+    };
+
     addIncomeButton.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new IncomeModal().render(incomeBalance, cardBalanceValue, cashBalanceValue);
+      const modal = new IncomeModal().render(incomeBalances);
       section?.append(modal as HTMLElement);
     });
 
@@ -267,9 +274,15 @@ class Dashboard extends BasePage {
       content: Dictionary[this.lang].addExpense,
     }) as HTMLButtonElement;
 
+    const expenseBalances: IBalances = {
+      totalBalance: expenseBalance,
+      cardBalance: cardBalanceValue,
+      cashBalance: cashBalanceValue,
+    };
+
     addExpenseButton.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new ExpenseModal().render(expenseBalance, cardBalanceValue, cashBalanceValue);
+      const modal = new ExpenseModal().render(expenseBalances);
       section?.append(modal as HTMLElement);
     });
 
@@ -313,11 +326,17 @@ class Dashboard extends BasePage {
       content: 'Тут aside',
     });
 
-    updateIncomes(incomeBalance);
-    updateExpenses(expenseBalance);
-    updateBalances(cardBalanceValue, cashBalanceValue);
+    updateIncomes(incomeBalances);
+    updateExpenses(expenseBalances);
 
-    mainContent?.replaceChildren(mainDashboard, mainAside);
+    const mainDashboardWrap = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.mainDashboardWrap],
+    });
+
+    mainDashboardWrap.append(mainDashboard, mainAside);
+
+    mainContent?.replaceChildren(mainDashboardWrap);
   }
 
   private addCurrency(): HTMLElement {

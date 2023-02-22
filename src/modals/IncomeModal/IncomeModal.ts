@@ -1,15 +1,22 @@
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
 import { updateBalances, updateIncomes } from '../../utils/updateSum';
 import BaseModal from '../BaseModal/BaseModal';
-import { IIncome } from '../../types/interfaces';
+import { IBalances, IIncome } from '../../types/interfaces';
+import { getAllAccounts } from '../../utils/getModalApi';
+import {
+  getComment,
+  getDateValue,
+  getSelectedValue,
+  getSum,
+} from '../../utils/getModalValue';
 
 class IncomeModal extends BaseModal {
-  public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
+  public render(incomeBalances: IBalances): HTMLElement {
     const formTitle = this.createFormTitle(DictionaryKeys.formIncomeTitle, Dictionary[this.lang].formIncomeTitle);
     const accountWrap = this.createAccountWrap();
     const sumWrap = this.createSumWrap();
@@ -21,27 +28,15 @@ class IncomeModal extends BaseModal {
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const currAccountElem = document.querySelector('#accountSelect') as HTMLSelectElement;
-      const currAccount = currAccountElem.value;
-
-      const currDateElem = document.querySelector('#dateValue') as HTMLInputElement;
-      const currDate = currDateElem.value ? new Date(currDateElem.value) : new Date();
-
-      const sumInput = document.querySelector('#sumInput') as HTMLInputElement;
-      const income = Number(sumInput.value);
-
-      const commentElem = document.querySelector('#comment') as HTMLTextAreaElement;
-      const comment = commentElem.value;
-
       const newIncome: IIncome = {
-        date: currDate,
-        account: currAccount,
-        income,
+        date: getDateValue(),
+        account: getSelectedValue(IdMap.accountSelect),
+        income: getSum(),
         currency: this.currency,
-        comment,
+        comment: getComment(),
       };
 
-      this.submitExpenseForm(e, newIncome, totalBalance, cardBalance, cashBalance);
+      this.submitExpenseForm(e, newIncome, incomeBalances);
     });
 
     const closeFormButton = this.createCloseButton();
@@ -76,19 +71,21 @@ class IncomeModal extends BaseModal {
   private async createNewIncome(income: IIncome): Promise<IIncome | null> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
     const newIncome: IIncome | null = await RequestApi.create(Endpoint.INCOME, userToken, income);
+
     return newIncome;
   }
 
-  private async submitExpenseForm(e: MouseEvent, newIncome: IIncome, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement)
-  : Promise<void> {
+  private async submitExpenseForm(e: MouseEvent, newIncome: IIncome, incomeBalances: IBalances): Promise<void> {
     e.preventDefault();
 
     const incomeValue = await this.createNewIncome(newIncome);
-    const accounts = await this.getAllAccounts();
+    const accounts = await getAllAccounts();
 
     if (incomeValue) {
       const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-      const card = accounts.filter((account) => account.account === incomeValue.account).pop();
+      const card = accounts
+        .filter((account) => account.account === incomeValue.account)
+        .pop();
       const cardId = card?._id as string;
 
       const changedCardAccount: { updateSum: number } = {
@@ -99,12 +96,12 @@ class IncomeModal extends BaseModal {
         Endpoint.ACCOUNT,
         userToken,
         cardId,
-        changedCardAccount
+        changedCardAccount,
       );
     }
 
-    updateIncomes(totalBalance);
-    updateBalances(cardBalance, cashBalance);
+    await updateIncomes(incomeBalances);
+    await updateBalances(incomeBalances);
 
     this.modalWrapper?.remove();
   }

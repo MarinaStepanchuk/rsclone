@@ -121,6 +121,7 @@ export const ClassMap = {
     show: 'switcher-show',
   },
   dashboard: {
+    mainDashboardWrap: 'main__dashboard-wrap',
     mainDashboard: 'main__dashboard',
     mainAside: 'main__aside',
     dashboard: 'dashboard',
@@ -188,6 +189,14 @@ export const ClassMap = {
     button: 'calendar__button',
   },
   preloader: 'load',
+};
+
+export const IdMap = {
+  accountSelect: 'accountSelect',
+  categorySelect: 'categorySelect',
+  dateValue: 'dateValue',
+  sumInput: 'sumInput',
+  comment: 'comment',
 };
 
 export const Title = {
