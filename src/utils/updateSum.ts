@@ -1,8 +1,8 @@
-import {IAccount, IExpense, IIncome} from '../types/interfaces';
+import { IAccount, IExpense, IIncome } from '../types/interfaces';
 import AppState from '../constants/appState';
 import RequestApi from '../Api/RequestsApi';
 import { Endpoint } from '../Api/serverConstants';
-import { LocalStorageKey } from "../constants/common";
+import { LocalStorageKey } from '../constants/common';
 
 async function getAllIncomes(): Promise<IIncome[]> {
   if (AppState.userAccount) {
@@ -35,7 +35,7 @@ async function getAllExpenses(): Promise<IExpense[]> {
 async function getAllAccounts(): Promise<IAccount[]> {
   const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
   const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
-  console.log(accountsData)
+  console.log(accountsData);
   return accountsData;
 }
 
@@ -43,7 +43,7 @@ export function updateBalances(cardBalanceValue: HTMLElement, cashBalanceValue: 
   const allAccounts = getAllAccounts();
 
   allAccounts.then((accounts) => {
-    console.log(accounts)
+    console.log(accounts);
     const cardAccount = accounts
       .filter((account) => account.key === 'card')
       .pop();
@@ -58,7 +58,7 @@ export function updateBalances(cardBalanceValue: HTMLElement, cashBalanceValue: 
       .pop();
 
     cashBalanceValue.textContent = `${cashAccount?.sum}`;
-  })
+  });
   // const allIncomes = getAllIncomes();
 //   allIncomes.then((incomes) => {
 //     const res = incomes.reduce((acc, curr) => acc + curr.income, 0);
@@ -85,7 +85,6 @@ export function updateIncomes(incomeBalance: HTMLElement): void {
     const res = incomes.reduce((acc, curr) => acc + curr.income, 0);
     incomeBalance.textContent = `${res}`;
   });
-
 }
 
 export function updateExpenses(expenseBalance: HTMLElement): void {

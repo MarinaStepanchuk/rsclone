@@ -12,7 +12,7 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import {updateBalances, updateExpenses, updateIncomes} from "../../utils/updateSum";
+import { updateBalances, updateExpenses, updateIncomes } from '../../utils/updateSum';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -110,7 +110,7 @@ class Dashboard extends BasePage {
     const expenseBalance = createElement({
       tag: 'div',
       content: '0',
-      id: 'expenseBalance'
+      id: 'expenseBalance',
     });
 
     const expenseBalanceWrap = createElement({

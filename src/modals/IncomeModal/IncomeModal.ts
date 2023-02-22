@@ -1,197 +1,37 @@
-import './IncomeModal.scss';
-import { CURRENCY, LANG, MODE } from '../../types/types';
-import AppState from '../../constants/appState';
 import createElement from '../../utils/createElement';
-import {
-  ClassMap,
-  InputType,
-  InputValue,
-  MinDate,
-  TextArea,
-} from '../../constants/htmlConstants';
+import { ClassMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { IAccount, IIncome } from '../../types/interfaces';
 import { LocalStorageKey } from '../../constants/common';
-import { CurrencyMark } from '../../types/enums';
-import {updateBalances, updateIncomes} from '../../utils/updateSum';
+import { updateBalances, updateIncomes } from '../../utils/updateSum';
+import BaseModal from '../BaseModal/BaseModal';
+import { IIncome } from '../../types/interfaces';
 
-class IncomeModal {
-  private modeValue: MODE;
-
-  private readonly lang: LANG;
-
-  private readonly currency: CURRENCY;
-
-  public modalWrapper: HTMLElement | null = null;
-
-  private form: HTMLFormElement | null = null;
-
-  constructor() {
-    this.modeValue = AppState.modeValue;
-    this.lang = AppState.lang;
-    this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
-  }
-
+class IncomeModal extends BaseModal {
   public render(totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement): HTMLElement {
-    const formTitle = createElement({
-      tag: 'legend',
-      classList: [ClassMap.dashboard.formTitle, ClassMap.mode[this.modeValue].modalTitle],
-      key: DictionaryKeys.formIncomeTitle,
-      content: Dictionary[this.lang].formIncomeTitle,
-    });
+    const formTitle = this.createFormTitle(DictionaryKeys.formIncomeTitle, Dictionary[this.lang].formIncomeTitle);
+    const accountWrap = this.createAccountWrap();
+    const sumWrap = this.createSumWrap();
+    const dateWrap = this.createDateWrap();
+    const commentWrap = this.createCommentWrap();
 
-    const categoryLabel = createElement({
-      tag: 'label',
-      classList: [ClassMap.dashboard.formLabel],
-      key: DictionaryKeys.labelCategory,
-      content: Dictionary[this.lang].labelCategory,
-    }) as HTMLLabelElement;
-
-    const categorySelect = createElement({
-      tag: 'select',
-      classList: [ClassMap.dashboard.formSelect],
-    }) as HTMLSelectElement;
-
-    const categoryWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.formItem, ClassMap.parentInput],
-    });
-
-    const categoriesAll = this.getAllAccounts();
-
-    categoriesAll.then((categories) => {
-      categories.forEach((account) => {
-        (categorySelect as HTMLSelectElement).append(this.createOptionAccount(account));
-      });
-    });
-
-    categoryWrap.append(categoryLabel, categorySelect);
-
-    const sumLabel = createElement({
-      tag: 'label',
-      classList: [ClassMap.dashboard.formLabel],
-      key: DictionaryKeys.labelSum,
-      content: Dictionary[this.lang].labelSum,
-    }) as HTMLLabelElement;
-
-    const currencyValue = createElement({
-      tag: 'span',
-      content: `${CurrencyMark[this.currency]}`,
-    });
-
-    sumLabel.append(currencyValue);
-
-    const sumInput = createElement({
-      tag: 'input',
-      classList: [ClassMap.dashboard.formInput],
-    }) as HTMLInputElement;
-
-    sumInput.type = InputType.number;
-    sumInput.min = InputValue.minNum;
-    sumInput.max = InputValue.maxNum;
-    sumInput.required = true;
-
-    sumInput.addEventListener('change', () => {
-      const currSum = Number(sumInput.value);
-
-      if (!Number.isInteger(currSum)) {
-        sumInput.value = currSum.toFixed(2);
-      }
-
-      sumInput.value = currSum.toString();
-    });
-
-    const sumWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.formItem],
-    });
-
-    sumWrap.append(sumLabel, sumInput);
-
-    const dataLabel = createElement({
-      tag: 'label',
-      classList: [ClassMap.dashboard.formLabel],
-      key: DictionaryKeys.labelDate,
-      content: Dictionary[this.lang].labelDate,
-    }) as HTMLLabelElement;
-
-    const dataInput = createElement({
-      tag: 'input',
-      classList: [ClassMap.dashboard.formInput],
-    }) as HTMLInputElement;
-
-    dataInput.type = InputType.date;
-    dataInput.min = MinDate;
-
-    const todayDate = new Date();
-
-    const year = todayDate.getFullYear();
-    const month = todayDate.getMonth() + 1;
-    const day = todayDate.getDate();
-
-    const todayFullDate = `${year}-${month.toString().padStart(2, '0')}-${day}`;
-
-    dataInput.value = todayFullDate;
-
-    dataInput.addEventListener('change', () => {
-      const userDate = new Date(dataInput.value);
-      // const minDate = new Date(MinDate);
-
-      // if (minDate.getTime() > userDate.getTime()) {
-      //     dataInput.value = MinDate;
-      //   }
-
-      if (userDate.getTime() > todayDate.getTime()) {
-        dataInput.value = todayFullDate;
-      }
-    });
-
-    const dataWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.formItem],
-    });
-
-    dataWrap.append(dataLabel, dataInput);
-
-    const noteLabel = createElement({
-      tag: 'label',
-      classList: [ClassMap.dashboard.formLabel],
-      key: DictionaryKeys.labelNote,
-      content: Dictionary[this.lang].labelNote,
-    }) as HTMLLabelElement;
-
-    const noteText = createElement({
-      tag: 'textarea',
-      classList: [ClassMap.dashboard.formInput, ClassMap.dashboard.formTextarea],
-    }) as HTMLTextAreaElement;
-
-    noteText.rows = TextArea.rows;
-    noteText.minLength = TextArea.minLength;
-    noteText.maxLength = TextArea.maxLength;
-
-    const noteWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.formItem],
-    });
-
-    noteWrap.append(noteLabel, noteText);
-
-    const submitButton = createElement({
-      tag: 'button',
-      classList: [ClassMap.dashboard.formSubmitButton],
-      key: DictionaryKeys.addIncomeButton,
-      content: Dictionary[this.lang].addIncomeButton,
-    }) as HTMLButtonElement;
+    const submitButton = this.createFormSubmitButton(DictionaryKeys.addIncomeButton, Dictionary[this.lang].addIncomeButton);
 
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const currAccount = categorySelect.value;
-      const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
+      const currAccountElem = document.getElementById('accountSelect') as HTMLSelectElement;
+      const currAccount = currAccountElem.value;
+
+      const currDateElem = document.getElementById('dateValue') as HTMLInputElement;
+      const currDate = currDateElem.value ? new Date(currDateElem.value) : new Date();
+
+      const sumInput = document.getElementById('sumInput') as HTMLInputElement;
       const income = Number(sumInput.value);
-      const comment = noteText.value;
+
+      const commentElem = document.getElementById('comment') as HTMLTextAreaElement;
+      const comment = commentElem.value;
 
       const newIncome: IIncome = {
         date: currDate,
@@ -201,39 +41,40 @@ class IncomeModal {
         comment,
       };
 
-      const incomeRes = this.createNewIncome(newIncome);
-
-      incomeRes.then((incomeValue) => {
-        incomeValue.account
-
-        // const prevSum = totalBalance.textContent;
-        // const newSum = Number(prevSum) + incomeValue.income;
-        //
-        // totalBalance.textContent = `${newSum}`;
-
-        // updateIncomes(totalBalance, cardBalance, cashBalance);
-        updateIncomes(totalBalance);
-        updateBalances(cardBalance, cashBalance)
-        this.modalWrapper?.remove();
-      });
+      this.submitForm(e, newIncome, totalBalance, cardBalance, cashBalance);
+    //   e.preventDefault();
+    //
+    //   const currAccount = categorySelect.value;
+    //   const currDate = dataInput.value ? new Date(dataInput.value) : new Date();
+    //   const income = Number(sumInput.value);
+    //   const comment = noteText.value;
+    //
+    //   const newIncome: IIncome = {
+    //     date: currDate,
+    //     account: currAccount,
+    //     income,
+    //     currency: this.currency,
+    //     comment,
+    //   };
+    //
+    //   const incomeRes = this.createNewIncome(newIncome);
+    //
+    //   incomeRes.then((incomeValue) => {
+    //     incomeValue.account
+    //
+    //     // const prevSum = totalBalance.textContent;
+    //     // const newSum = Number(prevSum) + incomeValue.income;
+    //     //
+    //     // totalBalance.textContent = `${newSum}`;
+    //
+    //     // updateIncomes(totalBalance, cardBalance, cashBalance);
+    //     updateIncomes(totalBalance);
+    //     updateBalances(cardBalance, cashBalance)
+    //     this.modalWrapper?.remove();
+    //   });
     });
 
-    const closeFormButton = createElement({
-      tag: 'div',
-      classList: [ClassMap.closeModalButton],
-    });
-
-    const firstLine = createElement({
-      tag: 'span',
-      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].background],
-    });
-
-    const secondLine = createElement({
-      tag: 'span',
-      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].background],
-    });
-
-    closeFormButton.append(firstLine, secondLine);
+    const closeFormButton = this.createCloseButton();
 
     this.form = createElement({
       tag: 'form',
@@ -242,10 +83,10 @@ class IncomeModal {
 
     this.form.append(
       formTitle,
-      categoryWrap,
+      accountWrap,
       sumWrap,
-      dataWrap,
-      noteWrap,
+      dateWrap,
+      commentWrap,
       submitButton,
       closeFormButton,
     );
@@ -262,49 +103,50 @@ class IncomeModal {
     return this.modalWrapper;
   }
 
-  private createOptionAccount(account: IAccount): HTMLOptionElement {
-    const { key = '', account: name } = account;
-
-    const optionCurrency = Dictionary[this.lang][key] && DictionaryKeys[key]
-      ? createElement({
-        tag: 'option',
-        key: DictionaryKeys[key],
-        content: Dictionary[this.lang][key],
-      }) as HTMLOptionElement
-      : createElement({
-        tag: 'option',
-        content: name,
-      }) as HTMLOptionElement;
-
-    optionCurrency.value = name;
-
-    return optionCurrency;
-  }
-
-  private addListeners(): void {
-    this.modalWrapper?.addEventListener('click', (event) => {
-      const targetElement = event.target as HTMLElement;
-
-      if (
-        targetElement.classList.contains(ClassMap.dashboard.formWrapper)
-        || targetElement.classList.contains(ClassMap.closeModalButton)
-        || targetElement.classList.contains(ClassMap.closeLine)
-      ) {
-        this.modalWrapper?.remove();
-      }
-    });
-  }
-
-  private async getAllAccounts(): Promise<IAccount[]> {
-    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const accountsData: IAccount[] = await RequestApi.getAll(Endpoint.ACCOUNT, userToken);
-    return accountsData;
-  }
-
   private async createNewIncome(income: IIncome): Promise<IIncome> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
     const newIncome: IIncome = await RequestApi.create(Endpoint.INCOME, userToken, income);
     return newIncome;
+  }
+
+  private async updateSum() {
+    //! Обновление суммы счета
+    // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+    // const fakeId = '63f37060d3206af9d4c9584b';
+    // const fakeСhangedAccount: { updateSum: number } = {
+    //   updateSum: 50, // + Прибавить, - отнять
+    // };
+    // const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
+    // console.log(changedAccountSum);
+  }
+
+  private submitForm(e: MouseEvent, newIncome: IIncome, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
+    e.preventDefault();
+
+    const incomeRes = this.createNewIncome(newIncome);
+
+    incomeRes.then((incomeValue) => {
+      incomeValue.account;
+
+      //! Обновление суммы счета
+      // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
+      // const fakeId = '63f37060d3206af9d4c9584b';
+      // const fakeСhangedAccount: { updateSum: number } = {
+      //   updateSum: 50, // + Прибавить, - отнять
+      // };
+      // const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
+      // console.log(changedAccountSum);
+
+      // const prevSum = totalBalance.textContent;
+      // const newSum = Number(prevSum) + incomeValue.income;
+      //
+      // totalBalance.textContent = `${newSum}`;
+
+      updateIncomes(totalBalance);
+      updateBalances(cardBalance, cashBalance);
+
+      this.modalWrapper?.remove();
+    });
   }
 }
 
