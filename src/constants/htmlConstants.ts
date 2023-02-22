@@ -144,6 +144,7 @@ export const ClassMap = {
     formLabel: 'form__label',
     formSubmitButton: 'form__button',
     formTextarea: 'form__textarea',
+    calculatorWrap: 'calculator-wrap',
   },
   wallet: {
     categoriesSection: 'categories',

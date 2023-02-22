@@ -14,6 +14,7 @@ import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
 import { updateExpenses, updateIncomes } from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
+import Calculator from '../../components/Сalculator/Сalculator';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -316,11 +317,22 @@ class Dashboard extends BasePage {
 
     mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection);
 
+    const calculator = new Calculator().render();
+
+    const calculatorWrap = createElement({
+      tag: 'section',
+      classList: [ClassMap.dashboard.calculatorWrap, ClassMap.mode[this.modeValue].backgroundSection],
+    });
+
+    calculatorWrap.append(calculator);
+
     const mainAside = createElement({
       tag: 'section',
-      classList: [ClassMap.dashboard.mainDashboard],
+      classList: [ClassMap.dashboard.mainAside],
       content: 'Тут aside',
     });
+
+    mainAside.append(calculatorWrap);
 
     updateIncomes(incomeBalances);
     updateExpenses(expenseBalances);
