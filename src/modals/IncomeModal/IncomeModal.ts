@@ -110,14 +110,22 @@ class IncomeModal extends BaseModal {
   }
 
   private async updateSum() {
-    //! Обновление суммы счета
-    // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра
-    // const fakeId = '63f37060d3206af9d4c9584b';
-    // const fakeСhangedAccount: { updateSum: number } = {
-    //   updateSum: 50, // + Прибавить, - отнять
-    // };
-    // const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(Endpoint.ACCOUNT, userToken, fakeId, fakeСhangedAccount);
-    // console.log(changedAccountSum);
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+
+    if (incomeValue.account === 'card') {
+      const fakeId = '63f37060d3206af9d4c9584b';
+      const changedCardAccount: { updateSum: number } = {
+        updateSum: 50, // + Прибавить, - отнять
+      };
+
+      const changedAccountSum: { updateSum: number } | null = await RequestApi.updateSum(
+        Endpoint.ACCOUNT,
+        userToken,
+        fakeId,
+        changedCardAccount
+      );
+      console.log(changedAccountSum);
+    }
   }
 
   private submitForm(e: MouseEvent, newIncome: IIncome, totalBalance: HTMLElement, cardBalance: HTMLElement, cashBalance: HTMLElement) {
@@ -126,7 +134,7 @@ class IncomeModal extends BaseModal {
     const incomeRes = this.createNewIncome(newIncome);
 
     incomeRes.then((incomeValue) => {
-      incomeValue.account;
+
 
       //! Обновление суммы счета
       // id Пришлось прописывать отдельно, при использовании дженерика не смог придумать иной выход, поэтому и в функции 4 параметра

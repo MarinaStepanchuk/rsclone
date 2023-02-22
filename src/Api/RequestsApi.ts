@@ -64,6 +64,26 @@ class RequestApi {
     }
   }
 
+  public static async updateSum<T>(endpoint: Endpoint, token: string, id: string, data: { updateSum: number }): Promise<T | null> {
+    const url = `${BASE_URL}${endpoint}/${id}/sum`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.PATCH,
+        headers: Object.assign(authorization, CONTENT_TYPE_JSON),
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      return result;
+    } catch (error) {
+      return null;
+    }
+  }
+
+
   public static async delete(endpoint: Endpoint, token: string, id: string): Promise<void> {
     const url = `${BASE_URL}${endpoint}/${id}`;
     const authorization = { Authorization: `Bearer ${token}` };
