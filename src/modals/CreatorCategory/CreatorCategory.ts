@@ -146,11 +146,11 @@ class CreatorCategory extends BaseCreater {
     });
   }
 
-  private async addCategoryToDatabase(data: ICategory): Promise<ICategory> {
+  private async addCategoryToDatabase(data: ICategory): Promise<ICategory | null> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newCategory: ICategory = await RequestApi.create(Endpoint.CATEGORY, userToken, data);
+    const newCategory: ICategory | null = await RequestApi.create(Endpoint.CATEGORY, userToken, data);
 
-    return newCategory;
+    return newCategory || null;
   }
 }
 

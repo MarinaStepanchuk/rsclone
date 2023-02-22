@@ -193,6 +193,7 @@ export const ClassMap = {
       container: 'analytic__chart-year-expenses',
     },
   },
+  preloader: 'load',
 };
 
 export const Title = {
