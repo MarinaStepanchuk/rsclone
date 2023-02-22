@@ -71,7 +71,6 @@ class Dashboard extends BasePage {
     const incomeBalance = createElement({
       tag: 'div',
       content: '0',
-      id: 'incomeBalance',
     });
 
     const incomeBalanceWrap = createElement({
@@ -111,7 +110,6 @@ class Dashboard extends BasePage {
     const expenseBalance = createElement({
       tag: 'div',
       content: '0',
-      id: 'expenseBalance',
     });
 
     const expenseBalanceWrap = createElement({
@@ -158,7 +156,6 @@ class Dashboard extends BasePage {
     const cardBalanceValue = createElement({
       tag: 'div',
       content: '0',
-      id: 'cardBalance',
     });
 
     const cardBalanceValueWrap = createElement({
@@ -198,7 +195,6 @@ class Dashboard extends BasePage {
     const cashBalanceValue = createElement({
       tag: 'div',
       content: '0',
-      id: 'cashBalance',
     });
 
     const cashBalanceValueWrap = createElement({
