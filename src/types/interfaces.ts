@@ -107,3 +107,9 @@ export interface IMenuItem {
   image: string,
   key: string,
 }
+
+export interface IBalances {
+  totalBalance: HTMLElement,
+  cardBalance: HTMLElement,
+  cashBalance: HTMLElement,
+}
