@@ -6,7 +6,8 @@ class Calculator {
     <article class="calculator">
 
       <form id="screen">
-        <input id="equation" name="equation" type="text" value="" onkeyup="this.value = this.value.replace(/[^\\d]/g,'');">
+        <input id="equation" name="equation" type="text" value="" 
+        onkeyup="this.value = this.value.replace(/[^\.\+\-\\d]/g,'');" readonly="readonly">
         <output for="equation" id="result" name="result"></output>
       </form>
 
@@ -51,7 +52,6 @@ class Calculator {
     const expression = calculatorElem.querySelector('#equation') as HTMLInputElement;
     const result = calculatorElem.querySelector('#result') as HTMLOutputElement;
     const buttons = calculatorElem.querySelectorAll('.button');
-
 
     for (let button of buttons) {
       button.addEventListener('click', (e) => {

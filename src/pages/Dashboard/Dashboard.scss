@@ -113,12 +113,14 @@
 
 .main__aside {
   justify-content: end;
+  align-items: center;
   padding-left: 2rem;
 
 }
 
 .calculator-wrap {
   display: flex;
+  max-width: 270px;
   justify-content: center;
   padding: 2rem;
   border-radius: 2rem;

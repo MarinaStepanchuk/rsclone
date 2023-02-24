@@ -181,14 +181,13 @@ class BaseModal {
 
     dateInput.addEventListener('change', () => {
       const userDate = new Date(dateInput.value);
-      // const minDate = new Date(MinDate);
-
-      // if (minDate.getTime() > userDate.getTime()) {
-      //     dataInput.value = MinDate;
-      //   }
 
       if (userDate.getTime() > todayDate.getTime()) {
         dateInput.value = todayFullDate;
+      }
+
+      if (dateInput.value < dateInput.min) {
+        return;
       }
     });
 
