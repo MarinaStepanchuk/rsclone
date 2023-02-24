@@ -1,7 +1,9 @@
 import { ICategory, IAccount } from '../types/interfaces';
 import { FormatDateString } from '../types/types';
+import calculationDateDifferense from '../utils/calculationDateDifference';
 
 export const minRangeDate: FormatDateString = '2000-01-01';
+export const initStartDate = calculationDateDifferense(new Date(), 365).toISOString().split('T')[0] as FormatDateString;
 export const todayDate: FormatDateString = new Date().toISOString().split('T')[0] as FormatDateString;
 
 export const LANG_ATTRIBUTE = 'lang';
