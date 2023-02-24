@@ -123,6 +123,7 @@ export const ClassMap = {
     show: 'switcher-show',
   },
   dashboard: {
+    mainDashboardWrap: 'main__dashboard-wrap',
     mainDashboard: 'main__dashboard',
     mainAside: 'main__aside',
     dashboard: 'dashboard',
@@ -145,6 +146,7 @@ export const ClassMap = {
     formLabel: 'form__label',
     formSubmitButton: 'form__button',
     formTextarea: 'form__textarea',
+    calculatorWrap: 'calculator-wrap',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -204,6 +206,14 @@ export const ClassMap = {
     },
   },
   preloader: 'load',
+};
+
+export const IdMap = {
+  accountSelect: 'accountSelect',
+  categorySelect: 'categorySelect',
+  dateValue: 'dateValue',
+  sumInput: 'sumInput',
+  comment: 'comment',
 };
 
 export const Title = {

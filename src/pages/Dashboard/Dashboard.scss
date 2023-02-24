@@ -1,11 +1,12 @@
 @import '../../styles/variables';
 @import '../../styles/mixins.scss';
 
-// .main__content {
-//   display: grid;
-//   grid-template-columns: 2fr 1fr;
-//   padding: 2rem;
-// }
+.main__dashboard-wrap {
+ display: grid;
+ grid-template-columns: 2fr 1fr;
+ padding: 2rem;
+  height: calc(100vh - 60px);
+}
 
 .main__dashboard,
 .main__aside {
@@ -109,5 +110,21 @@
     @include button(30%, 5rem);
   }
 }
+
+.main__aside {
+  justify-content: end;
+  align-items: center;
+  padding-left: 2rem;
+
+}
+
+.calculator-wrap {
+  display: flex;
+  max-width: 270px;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 2rem;
+}
+
 
 

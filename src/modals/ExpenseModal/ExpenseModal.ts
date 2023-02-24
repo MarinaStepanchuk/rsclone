@@ -1,12 +1,12 @@
-import createElement from '../../utils/createElement';
 import { ClassMap, IdMap } from '../../constants/htmlConstants';
+import BaseModal from '../BaseModal/BaseModal';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
+import createElement from '../../utils/createElement';
+import { IBalances, IExpense } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
-import { updateBalances, updateIncomes } from '../../utils/updateSum';
-import BaseModal from '../BaseModal/BaseModal';
-import { IBalances, IIncome } from '../../types/interfaces';
+import { updateBalances, updateExpenses } from '../../utils/updateSum';
 import { getAllAccounts } from '../../utils/getModalApi';
 import {
   getComment,
@@ -15,28 +15,29 @@ import {
   getSum,
 } from '../../utils/getModalValue';
 
-class IncomeModal extends BaseModal {
-  public render(incomeBalances: IBalances): HTMLElement {
-    const formTitle = this.createFormTitle(DictionaryKeys.formIncomeTitle, Dictionary[this.lang].formIncomeTitle);
+class ExpenseModal extends BaseModal {
+  public render(expenseBalances: IBalances): HTMLElement {
+    const formTitle = this.createFormTitle(DictionaryKeys.formExpenseTitle, Dictionary[this.lang].formExpenseTitle);
     const accountWrap = this.createAccountWrap();
+    const categoryWrap = this.createCategoriesWrap();
     const sumWrap = this.createSumWrap();
     const dateWrap = this.createDateWrap();
     const commentWrap = this.createCommentWrap();
-
-    const submitButton = this.createFormSubmitButton(DictionaryKeys.addIncomeButton, Dictionary[this.lang].addIncomeButton);
+    const submitButton = this.createFormSubmitButton(DictionaryKeys.addExpenseButton, Dictionary[this.lang].addExpenseButton);
 
     submitButton.addEventListener('click', (e) => {
       e.preventDefault();
 
-      const newIncome: IIncome = {
+      const newExpense: IExpense = {
         date: getDateValue(),
         account: getSelectedValue(IdMap.accountSelect),
-        income: getSum(),
+        category: getSelectedValue(IdMap.categorySelect),
+        expense: getSum(),
         currency: this.currency,
         comment: getComment(),
       };
 
-      this.submitExpenseForm(e, newIncome, incomeBalances);
+      this.submitForm(e, newExpense, expenseBalances);
     });
 
     const closeFormButton = this.createCloseButton();
@@ -49,6 +50,7 @@ class IncomeModal extends BaseModal {
     this.form.append(
       formTitle,
       accountWrap,
+      categoryWrap,
       sumWrap,
       dateWrap,
       commentWrap,
@@ -68,28 +70,26 @@ class IncomeModal extends BaseModal {
     return this.modalWrapper;
   }
 
-  private async createNewIncome(income: IIncome): Promise<IIncome | null> {
+  private async createNewExpense(expense: IExpense): Promise<IExpense | null> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const newIncome: IIncome | null = await RequestApi.create(Endpoint.INCOME, userToken, income);
+    const newExpense: IExpense | null = await RequestApi.create(Endpoint.EXPENSE, userToken, expense);
 
-    return newIncome;
+    return newExpense;
   }
 
-  private async submitExpenseForm(e: MouseEvent, newIncome: IIncome, incomeBalances: IBalances): Promise<void> {
+  private async submitForm(e: MouseEvent, newExpense: IExpense, expenseBalances: IBalances) {
     e.preventDefault();
 
-    const incomeValue = await this.createNewIncome(newIncome);
+    const expenseValue = await this.createNewExpense(newExpense);
     const accounts = await getAllAccounts();
 
-    if (incomeValue) {
+    if (expenseValue) {
       const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-      const card = accounts
-        .filter((account) => account.account === incomeValue.account)
-        .pop();
+      const card = accounts.filter((account) => account.account === expenseValue.account).pop();
       const cardId = card?._id as string;
 
       const changedCardAccount: { updateSum: number } = {
-        updateSum: incomeValue.income,
+        updateSum: -expenseValue.expense,
       };
 
       await RequestApi.updateSum(
@@ -100,11 +100,11 @@ class IncomeModal extends BaseModal {
       );
     }
 
-    await updateIncomes(incomeBalances);
-    await updateBalances(incomeBalances);
+    await updateExpenses(expenseBalances);
+    await updateBalances(expenseBalances);
 
     this.modalWrapper?.remove();
   }
 }
 
-export default IncomeModal;
+export default ExpenseModal;
