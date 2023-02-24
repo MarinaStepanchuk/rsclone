@@ -188,9 +188,17 @@ export const ClassMap = {
     button: 'calendar__button',
   },
   analytic: {
+    main: 'analytic',
+    calendar: 'analytic__calendar',
     title: 'analytic__title',
     chartYearExpenses: {
-      container: 'analytic__chart-year-expenses',
+      container: 'analytic__chart-daily-expenses',
+    },
+    chartMonthlyExpIncom: {
+      container: 'analytic__chart-monthly-expenses-incomes',
+    },
+    chartCategoriesColumns: {
+      container: 'analytic__chart-categories-columns',
     },
   },
   preloader: 'load',
@@ -255,11 +263,12 @@ export const startId = {
   svg: 'svg-',
 };
 
-export const ellementId = {
+export const IdMap = {
   walletSelect: 'wallet-select',
   limitCheckbox: 'wallet-limit-checkbox',
-  chartYearIncomes: 'chart-year-incomes',
-  chartYearExpenses: 'chart-year-expenses',
+  chartDailyExpenses: 'chart-daily-expenses',
+  chartMonthlyExpIncom: 'chart-monthly-expenses-incomes',
+  chartCategoriesColumns: 'chart-categories-columns',
 };
 
 export const TextArea = {

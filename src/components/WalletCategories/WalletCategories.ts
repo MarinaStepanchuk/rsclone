@@ -232,34 +232,6 @@ class WalletCategories {
     return item;
   }
 
-  // private async getYearExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
-
-  // private async getCurrentMonthlyExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
-
   private async getExpensesCategory(categoryName: string, start: string, end: string): Promise<IExpense[]> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
 

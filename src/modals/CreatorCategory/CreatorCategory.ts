@@ -1,5 +1,5 @@
 import './CreatorCategory.scss';
-import { Attribute, ClassMap, ellementId } from '../../constants/htmlConstants';
+import { Attribute, ClassMap, IdMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
 import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
@@ -47,7 +47,7 @@ class CreatorCategory extends BaseCreater {
     this.checkbox = createElement({
       tag: 'input',
       classList: [ClassMap.creater.createCheckbox],
-      id: ellementId.limitCheckbox,
+      id: IdMap.limitCheckbox,
     }) as HTMLInputElement;
     this.checkbox.type = 'checkbox';
 
@@ -57,7 +57,7 @@ class CreatorCategory extends BaseCreater {
       key: DictionaryKeys.createCategoryLimit,
       content: Dictionary[this.lang].createCategoryLimit,
     }) as HTMLLabelElement;
-    limitLabel.setAttribute(Attribute.for, ellementId.limitCheckbox);
+    limitLabel.setAttribute(Attribute.for, IdMap.limitCheckbox);
 
     limitContainer.append(this.checkbox, limitLabel);
     (this.itemBalanceTitle as HTMLElement).replaceWith(limitContainer);

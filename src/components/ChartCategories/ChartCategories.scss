@@ -1,0 +1,9 @@
+.analytic {
+  &__chart-categories-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    background-color: #1D1D41;
+    border-radius: 2rem;
+  }
+}

@@ -13,20 +13,25 @@ import AppState from '../../constants/appState';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
-import ChartYearExpenses from '../../components/ChartYearExpenses/ChartYearExpenses';
-
-interface IСhartLine {
-  type?: string
-  date: Date,
-  sum: number,
-}
+import ChartDailyExpenses from '../../components/ChartDailyExpenses/ChartDailyExpenses';
+import Calendar from '../../components/Calendar/Calendar';
+import ChartMonthlyExpIncom from '../../components/ChartMonthlyExpIncom/ChartMonthlyExpIncom';
+import ChartCategories from '../../components/ChartCategories/ChartCategories';
 
 class Analytics extends BasePage {
-  private chartYearExpenses: ChartYearExpenses;
+  private chartDailyExpenses: ChartDailyExpenses;
+
+  private chartMonthlyExpIncom: ChartMonthlyExpIncom;
+
+  private chartCategories: ChartCategories;
 
   constructor() {
     super();
-    this.chartYearExpenses = new ChartYearExpenses();
+    const endDate = new Date();
+    const startDate = new Date(new Date().setFullYear(endDate.getFullYear() - 1));
+    this.chartDailyExpenses = new ChartDailyExpenses(startDate, endDate);
+    this.chartMonthlyExpIncom = new ChartMonthlyExpIncom(startDate, endDate);
+    this.chartCategories = new ChartCategories(startDate, endDate);
   }
 
   public async render(): Promise<void> {
@@ -34,12 +39,45 @@ class Analytics extends BasePage {
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
-    const yearExpenses = await this.chartYearExpenses.render();
+    const calendarContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.analytic.calendar],
+    });
 
-    mainContent?.replaceChildren(yearExpenses);
+    const calendar = new Calendar(calendarContainer);
+    calendar.init();
 
-    this.chartYearExpenses.addChart();
+    const dailyExpenses = await this.chartDailyExpenses.render();
+    const monthlyExpIncom = await this.chartMonthlyExpIncom.render();
+    const categoriesChart = await this.chartCategories.render();
+
+    const analyticPage = createElement({
+      tag: 'div',
+      classList: [ClassMap.analytic.main],
+    });
+
+    analyticPage.replaceChildren(calendarContainer, dailyExpenses, monthlyExpIncom, categoriesChart);
+
+    mainContent?.replaceChildren(analyticPage);
+
+    this.chartDailyExpenses.addChart();
+    this.chartMonthlyExpIncom.addChart();
+    this.chartCategories.addChart();
     this.init();
+
+    (calendar.calendarInput as HTMLInputElement).addEventListener('input', async () => {
+      const newDailyExpenses = new ChartDailyExpenses(new Date(AppState.startDate), new Date(AppState.endDate));
+      dailyExpenses.replaceWith(await newDailyExpenses.render());
+      newDailyExpenses.addChart();
+
+      const newMonthlyExpIncom = new ChartMonthlyExpIncom(new Date(AppState.startDate), new Date(AppState.endDate));
+      monthlyExpIncom.replaceWith(await newMonthlyExpIncom.render());
+      newMonthlyExpIncom.addChart();
+
+      const newCategoriesChart = new ChartCategories(new Date(AppState.startDate), new Date(AppState.endDate));
+      categoriesChart.replaceWith(await newCategoriesChart.render());
+      newCategoriesChart.addChart();
+    });
   }
 
   public async init() {
