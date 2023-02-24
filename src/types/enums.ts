@@ -25,7 +25,7 @@ export enum CurrencyMark {
   USD = '$',
   EUR = '€',
   BYN = 'Br',
-  RYB = '₽',
+  RUB = '₽',
 }
 
 export enum SectionWallet {
