@@ -15,7 +15,6 @@ export const Routes = {
 
 const path = window.location.pathname;
 
-// eslint-disable-next-line no-nested-ternary
 export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : path.substring(0, path.indexOf('/', 1)) === '' ? '/dashboard' : path.substring(0, path.indexOf('/', 1));
 
 export const basePath = '/';

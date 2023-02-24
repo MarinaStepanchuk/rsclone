@@ -39,6 +39,7 @@
           "parameterProperties": "explicit"
         }
       }
-    ]
+    ],
+    "no-nested-ternary": "off"
   }
 }
