@@ -1,19 +1,13 @@
-import './ChartCategories.scss';
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
 import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { IExpense, IFilterParams, IIncome } from '../../types/interfaces';
+import { IExpense, IFilterParams } from '../../types/interfaces';
 import { LocalStorageKey } from '../../constants/common';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
-
-interface IChartLine {
-  x: string,
-  y: number,
-}
 
 class ChartCategories {
   private schedule: HTMLElement | null = null;

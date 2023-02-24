@@ -1,4 +1,3 @@
-import './ChartDailyExpenses.scss';
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
 import { ClassMap, IdMap } from '../../constants/htmlConstants';

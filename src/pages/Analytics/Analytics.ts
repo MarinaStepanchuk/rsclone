@@ -1,18 +1,10 @@
 import '../../styles/main.scss';
 import './Analytics.scss';
-import Highcharts from 'highcharts';
 import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import {
-  IAccount, ICategory, IExpense, IIncome,
-  IFilterParams,
-} from '../../types/interfaces';
 import AppState from '../../constants/appState';
-import RequestApi from '../../Api/RequestsApi';
-import { Endpoint } from '../../Api/serverConstants';
-import { LocalStorageKey } from '../../constants/common';
 import ChartDailyExpenses from '../../components/ChartDailyExpenses/ChartDailyExpenses';
 import Calendar from '../../components/Calendar/Calendar';
 import ChartMonthlyExpIncom from '../../components/ChartMonthlyExpIncom/ChartMonthlyExpIncom';
