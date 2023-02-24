@@ -59,6 +59,7 @@ export const ClassMap = {
       modalTitle: 'dark-mode-modal-title',
       modalFont: 'dark-mode-modal-font',
       icon: 'dark-mode-icon',
+      logo: 'dark-mode-logo',
     },
     light: {
       background: 'light-mode-background',
@@ -69,6 +70,7 @@ export const ClassMap = {
       modalTitle: 'light-mode-modal-title',
       modalFont: 'light-mode-modal-font',
       icon: 'light-mode-icon',
+      logo: 'light-mode-logo',
     },
   },
   passwordIcon: 'password-icon',
