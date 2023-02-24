@@ -1,7 +1,7 @@
 import './WalletPeriodSelect.scss';
 import createElement from '../../utils/createElement';
 import { ClassMap, ellementId } from '../../constants/htmlConstants';
-import { LANG, MODE } from '../../types/types';
+import { LANG } from '../../types/types';
 import AppState from '../../constants/appState';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import CustomSelect from '../СustomSelect/СustomSelect';

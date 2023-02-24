@@ -113,4 +113,3 @@ export interface IBalances {
   cardBalance: HTMLElement,
   cashBalance: HTMLElement,
 }
-

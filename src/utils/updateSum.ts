@@ -1,7 +1,5 @@
 import { getAllAccounts, getAllExpenses, getAllIncomes } from './getModalApi';
 import { IBalances } from '../types/interfaces';
-import ExpenseList from "../components/ExpenseList/ExpenseList";
-import { ClassMap } from "../constants/htmlConstants";
 
 export async function updateBalances(balances: IBalances): Promise<void> {
   const allAccounts = await getAllAccounts();
@@ -39,14 +37,4 @@ export async function updateExpenses(balances: IBalances): Promise<void> {
 
   const totalExpenses = balances.totalBalance;
   totalExpenses.textContent = `${res}`;
-}
-
-export function updateExpenseList() {
-  const expenseListWrap = document.querySelector(`.${ClassMap.dashboard.expenseSection}`);
-  const parentElem = document.querySelector(`.${ClassMap.dashboard.mainDashboard}`);
-
-  const expenseList = new ExpenseList().render();
-
-  expenseListWrap?.remove();
-  parentElem?.append(expenseList);
 }

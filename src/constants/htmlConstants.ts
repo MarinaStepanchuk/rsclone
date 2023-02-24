@@ -147,8 +147,17 @@ export const ClassMap = {
     calculatorWrap: 'calculator-wrap',
     expenseSection: 'expense-wrap',
     expenseTitle: 'expense__title',
+    expenseTitleWrap: 'expense__title-wrap',
     expenseList: 'expense__list',
-    expenseHeaderItem: 'expense__header-item',
+    expenseHeaderItem: 'expense__list_header',
+    expenseItem: 'expense__item',
+    expensePaginationWrap: 'expense__pagination',
+    paginationButton: 'expense__pagination_button',
+    paginationButtonLeft: 'pagination__button_left',
+    paginationButtonRight: 'pagination__button_right',
+    paginationPageNum: 'expense__pagination__page-num',
+    paginationInput: 'expense__pagination_input',
+    emptyExpenseList: 'expense',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -277,6 +286,8 @@ export const TextArea = {
 export const InputValue = {
   minNum: '1',
   maxNum: '10000000',
+  limitPage: 10,
+  maxLimitPage: '20',
 };
 
 export const MinDate = '2012-01-01';
@@ -284,6 +295,7 @@ export const MinDate = '2012-01-01';
 export const InputType = {
   number: 'number',
   date: 'date',
+  text: 'text',
 };
 
-export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense','commentExpense'];
+export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense', 'commentExpense'];

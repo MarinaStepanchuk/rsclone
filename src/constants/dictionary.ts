@@ -109,6 +109,8 @@ export const Dictionary: DictionaryLang = {
     amountExpense: 'Amount',
     accountExpense: 'Account',
     commentExpense: 'Comment',
+    paginationLimit: 'Show per page:',
+    emptyExpenseList: 'Your expense list is empty.',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -212,6 +214,8 @@ export const Dictionary: DictionaryLang = {
     amountExpense: 'Сумма',
     accountExpense: 'Счет',
     commentExpense: 'Комментарий',
+    paginationLimit: 'Показать на странице:',
+    emptyExpenseList: 'В Вашей таблице пока нет расходов',
   },
   DE: {
     authorizationTitle: '',
@@ -309,6 +313,8 @@ export const Dictionary: DictionaryLang = {
     amountExpense: '',
     accountExpense: '',
     commentExpense: '',
+    paginationLimit: '',
+    emptyExpenseList: '',
   },
 };
 
@@ -417,4 +423,6 @@ export const DictionaryKeys: DictionaryKeysType = {
   amountExpense: 'amountExpense',
   accountExpense: 'accountExpense',
   commentExpense: 'commentExpense',
+  paginationLimit: 'paginationLimit',
+  emptyExpenseList: 'emptyExpenseList',
 };

@@ -1,4 +1,4 @@
-export function createDateValue(date: Date): string {
+export default function createDateValue(date: Date): string {
   const currDate = new Date(date);
 
   const year = currDate.getFullYear();

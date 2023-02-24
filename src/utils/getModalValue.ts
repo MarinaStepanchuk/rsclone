@@ -1,4 +1,4 @@
-import { IdMap } from '../constants/htmlConstants';
+import { ClassMap, IdMap } from '../constants/htmlConstants';
 
 export function getSelectedValue(id: string): string {
   const selectElem = document.querySelector(`#${id}`) as HTMLSelectElement;
@@ -18,6 +18,8 @@ export function getSum(): number {
 }
 
 export function getComment(): string {
-  const commentElem = document.querySelector(`#${IdMap.comment}`) as HTMLTextAreaElement;
-  return commentElem.value;
+  const commentElem = document.querySelector(`.${ClassMap.dashboard.formTextarea}`) as HTMLTextAreaElement;
+  const commentText = commentElem?.value;
+
+  return commentText;
 }

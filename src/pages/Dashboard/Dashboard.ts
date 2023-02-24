@@ -12,10 +12,10 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import {updateExpenseList, updateExpenses, updateIncomes} from '../../utils/updateSum';
+import { updateExpenses, updateIncomes } from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
-import ExpenseList from "../../components/ExpenseList/ExpenseList";
+import ExpenseList from '../../components/ExpenseList/ExpenseList';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -318,7 +318,7 @@ class Dashboard extends BasePage {
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection, expenseList);
+    mainDashboard.append(totalFinanceWrap, balanceSection, expenseList);
 
     const calculator = new Calculator().render();
 
@@ -332,7 +332,6 @@ class Dashboard extends BasePage {
     const mainAside = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainAside],
-      content: 'Тут aside',
     });
 
     mainAside.append(calculatorWrap);
@@ -347,7 +346,7 @@ class Dashboard extends BasePage {
 
     mainDashboardWrap.append(mainDashboard, mainAside);
 
-    mainContent?.replaceChildren(mainDashboardWrap);
+    mainContent?.replaceChildren(dashboardHeader, mainDashboardWrap);
   }
 
   private addCurrency(): HTMLElement {
