@@ -208,14 +208,6 @@ export const ClassMap = {
   preloader: 'load',
 };
 
-export const IdMap = {
-  accountSelect: 'accountSelect',
-  categorySelect: 'categorySelect',
-  dateValue: 'dateValue',
-  sumInput: 'sumInput',
-  comment: 'comment',
-};
-
 export const Title = {
   copyright: 'All Rights Reserved © Yoda`s team 2023',
   logo: 'MAPmoney',
@@ -276,6 +268,11 @@ export const startId = {
 };
 
 export const IdMap = {
+  accountSelect: 'accountSelect',
+  categorySelect: 'categorySelect',
+  dateValue: 'dateValue',
+  sumInput: 'sumInput',
+  comment: 'comment',
   walletSelect: 'wallet-select',
   limitCheckbox: 'wallet-limit-checkbox',
   chartDailyExpenses: 'chart-daily-expenses',
