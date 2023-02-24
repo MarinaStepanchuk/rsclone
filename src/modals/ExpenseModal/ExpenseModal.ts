@@ -6,7 +6,7 @@ import { IBalances, IExpense } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
-import { updateBalances, updateExpenses } from '../../utils/updateSum';
+import {updateBalances, updateExpenseList, updateExpenses} from '../../utils/updateSum';
 import { getAllAccounts } from '../../utils/getModalApi';
 import {
   getComment,
@@ -102,6 +102,7 @@ class ExpenseModal extends BaseModal {
 
     await updateExpenses(expenseBalances);
     await updateBalances(expenseBalances);
+    updateExpenseList();
 
     this.modalWrapper?.remove();
   }

@@ -12,9 +12,10 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import IncomeModal from '../../modals/IncomeModal/IncomeModal';
 import { LocalStorageKey } from '../../constants/common';
 import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
-import { updateExpenses, updateIncomes } from '../../utils/updateSum';
+import {updateExpenseList, updateExpenses, updateIncomes} from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
+import ExpenseList from "../../components/ExpenseList/ExpenseList";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -310,12 +311,14 @@ class Dashboard extends BasePage {
 
     balanceSection.append(balanceWrap, buttonsWrap);
 
+    const expenseList = new ExpenseList().render();
+
     const mainDashboard = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection);
+    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection, expenseList);
 
     const calculator = new Calculator().render();
 

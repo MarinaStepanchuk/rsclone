@@ -5,7 +5,7 @@
  display: grid;
  grid-template-columns: 2fr 1fr;
  padding: 2rem;
-  height: calc(100vh - 60px);
+  //height: calc(100vh - 60px);
 }
 
 .main__dashboard,
@@ -53,12 +53,13 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  margin: 2rem 0;
+  margin: 1rem 0;
 
   &__header {
     display: flex;
     align-items: center;
     padding: 0 1rem;
+    margin-bottom: 1rem;
   }
 
   &__title {
@@ -87,6 +88,7 @@
   padding: 0 2rem;
   font-weight: 100;
   font-size: 1.7rem;
+  margin: 1rem 0;
 
   &__wrap {
     display: flex;
@@ -112,10 +114,9 @@
 }
 
 .main__aside {
-  justify-content: end;
+  //justify-content: end;
   align-items: center;
   padding-left: 2rem;
-
 }
 
 .calculator-wrap {

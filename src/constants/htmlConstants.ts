@@ -145,6 +145,10 @@ export const ClassMap = {
     formSubmitButton: 'form__button',
     formTextarea: 'form__textarea',
     calculatorWrap: 'calculator-wrap',
+    expenseSection: 'expense-wrap',
+    expenseTitle: 'expense__title',
+    expenseList: 'expense__list',
+    expenseHeaderItem: 'expense__header-item',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -281,3 +285,5 @@ export const InputType = {
   number: 'number',
   date: 'date',
 };
+
+export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense','commentExpense'];
