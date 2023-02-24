@@ -6,15 +6,18 @@ import {
   Title,
   PageLink,
 } from '../../constants/htmlConstants';
-import { MODE } from '../../types/types';
+import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { SvgMap } from '../../constants/svgMap';
 
 class Footer {
   private modeValue: MODE;
 
+  private lang: LANG;
+
   constructor() {
     this.modeValue = AppState.modeValue;
+    this.lang = AppState.lang;
   }
 
   public render(): HTMLElement {

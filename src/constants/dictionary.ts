@@ -102,6 +102,7 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: 'Registration Error',
     EmailAlreadyExists: 'A user with email already exists',
     Registered: 'User successfully registered',
+    footerTitle: 'All Rights Reserved © Yoda`s team 2023',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -198,6 +199,7 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: 'Ошибка регистрации',
     EmailAlreadyExists: 'Пользователь с таким адресом электронной почты уже существует',
     Registered: 'Пользователь успешно зарегистрирован',
+    footerTitle: 'Все права защищены © Yoda`s team 2023',
   },
   DE: {
     authorizationTitle: '',
@@ -288,6 +290,7 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: '',
     EmailAlreadyExists: '',
     Registered: '',
+    footerTitle: ' © Yoda`s team 2023',
   },
 };
 
