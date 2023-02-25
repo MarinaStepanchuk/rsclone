@@ -302,7 +302,7 @@ export const InputType = {
 };
 
 export const chartColor = {
-  white: '#ffffff',
+  text: '#5063BF',
   dark: '#5063BF',
   startGradient: '#6876bb',
   endGradient: 'rgba(231, 235, 255, 0)',

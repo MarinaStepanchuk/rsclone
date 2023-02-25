@@ -33,7 +33,7 @@ class ChartMonthlyExpIncom {
   public async render() {
     const container = createElement({
       tag: 'div',
-      classList: [ClassMap.analytic.chartMonthlyExpIncom.container],
+      classList: [ClassMap.analytic.chartMonthlyExpIncom.container, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     const sheduleTitle = createElement({
@@ -135,7 +135,7 @@ class ChartMonthlyExpIncom {
         type: 'datetime',
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
         tickInterval: 2592000000,
@@ -146,14 +146,14 @@ class ChartMonthlyExpIncom {
         },
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
-        gridLineColor: chartColor.white,
+        gridLineColor: chartColor.text,
       },
       legend: {
         itemStyle: {
-          color: chartColor.white,
+          color: chartColor.text,
           fontWeight: 'normal',
         },
       },

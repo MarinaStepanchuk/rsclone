@@ -28,7 +28,7 @@ class ChartCategories {
   public async render() {
     const container = createElement({
       tag: 'div',
-      classList: [ClassMap.analytic.chartCategoriesColumns.container],
+      classList: [ClassMap.analytic.chartCategoriesColumns.container, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     const sheduleTitle = createElement({
@@ -82,7 +82,7 @@ class ChartCategories {
         categories: this.categories,
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
       },
@@ -98,10 +98,10 @@ class ChartCategories {
         },
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
-        gridLineColor: chartColor.white,
+        gridLineColor: chartColor.text,
       },
       plotOptions: {
         series: {

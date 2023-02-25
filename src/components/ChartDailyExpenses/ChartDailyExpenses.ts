@@ -34,7 +34,7 @@ class ChartDailyExpenses {
   public async render() {
     const container = createElement({
       tag: 'div',
-      classList: [ClassMap.analytic.chartYearExpenses.container],
+      classList: [ClassMap.analytic.chartYearExpenses.container, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     const sheduleTitle = createElement({
@@ -120,7 +120,7 @@ class ChartDailyExpenses {
         type: 'datetime',
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
       },
@@ -136,10 +136,10 @@ class ChartDailyExpenses {
         },
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
-        gridLineColor: chartColor.white,
+        gridLineColor: chartColor.text,
       },
       series: [{
         type: 'area',
