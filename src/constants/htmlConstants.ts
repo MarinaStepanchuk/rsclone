@@ -165,6 +165,7 @@ export const ClassMap = {
     select: 'wallet__select',
     chart: 'wallet__chart',
     main: 'wallet-page',
+    plus: 'wallet__plus-item',
   },
   customSelect: {
     container: 'customselect',
@@ -186,6 +187,15 @@ export const ClassMap = {
     createSubmit: 'create-form__submit',
     createLimit: 'create-form__limit',
     createCheckbox: 'create-form__limit_checkbox',
+  },
+  updater: {
+    deleteButton: 'updater-delete-button',
+    createButton: 'updater-create-button',
+  },
+  iconsBlock: {
+    wrapper: 'icons-wrapper',
+    container: 'icons__container',
+    item: 'icons__item',
   },
   calendar: {
     input: 'calendar__input',

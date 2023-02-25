@@ -11,6 +11,7 @@ import BaseCreater from '../BaseCreater/BaseCreater';
 import { Endpoint } from '../../Api/serverConstants';
 import RequestApi from '../../Api/RequestsApi';
 import createElement from '../../utils/createElement';
+import SvgModal from '../SvgModal/SvgModal';
 
 class CreatorCategory extends BaseCreater {
   private checkbox: HTMLInputElement | null = null;
@@ -96,16 +97,25 @@ class CreatorCategory extends BaseCreater {
       }
 
       const categories = await this.getCategory();
+      let matchFound = false;
 
       categories.forEach((item) => {
         if (item.category === value) {
-          (this.submit as HTMLButtonElement).disabled = true;
-          showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
-        } else {
-          (this.submit as HTMLButtonElement).disabled = false;
-          removeErrorValidationMessage(this.inputName as HTMLInputElement);
+          matchFound = true;
         }
       });
+
+      if (matchFound) {
+        (this.submit as HTMLButtonElement).disabled = true;
+        showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
+      } else {
+        (this.submit as HTMLButtonElement).disabled = false;
+        removeErrorValidationMessage(this.inputName as HTMLInputElement);
+      }
+
+      if (value === '') {
+        (this.submit as HTMLButtonElement).disabled = true;
+      }
     });
 
     this.checkbox?.addEventListener('click', () => {
@@ -142,6 +152,11 @@ class CreatorCategory extends BaseCreater {
         this.updateCategoriesBlock();
 
         this.modalWrapper?.remove();
+      }
+
+      if (targetElement.closest(`.${ClassMap.creater.createIcon}`)) {
+        const section = document.querySelector(`.${ClassMap.mainContent}`);
+        section?.append(new SvgModal(SvgIcons.category).render());
       }
     });
   }

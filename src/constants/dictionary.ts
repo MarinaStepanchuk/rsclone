@@ -106,6 +106,10 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: 'Registration Error',
     EmailAlreadyExists: 'A user with email already exists',
     Registered: 'User successfully registered',
+    updateAccountTitle: 'Update account details',
+    updateAccountSubmit: 'Save changes',
+    deleteAccountButton: 'Delete account',
+    createIncomeButton: 'Add income',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -206,6 +210,10 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: 'Ошибка регистрации',
     EmailAlreadyExists: 'Пользователь с таким адресом электронной почты уже существует',
     Registered: 'Пользователь успешно зарегистрирован',
+    updateAccountTitle: 'Изменить данные счета',
+    updateAccountSubmit: 'Сохранить изменения',
+    deleteAccountButton: 'Удалить счет',
+    createIncomeButton: 'Добавить доход',
   },
   DE: {
     authorizationTitle: '',
@@ -300,6 +308,10 @@ export const Dictionary: DictionaryLang = {
     RegistrationError: '',
     EmailAlreadyExists: '',
     Registered: '',
+    updateAccountTitle: '',
+    updateAccountSubmit: '',
+    deleteAccountButton: '',
+    createIncomeButton: '',
   },
 };
 
@@ -405,4 +417,8 @@ export const DictionaryKeys: DictionaryKeysType = {
   RegistrationError: 'RegistrationError',
   EmailAlreadyExists: 'EmailAlreadyExists',
   Registered: 'Registered',
+  updateAccountTitle: 'updateAccountTitle',
+  updateAccountSubmit: 'updateAccountSubmit',
+  deleteAccountButton: 'deleteAccountButton',
+  createIncomeButton: 'createIncomeButton',
 };
