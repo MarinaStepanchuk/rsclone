@@ -171,7 +171,7 @@ export const Dictionary: DictionaryLang = {
     errorMessageCategoryExists: 'Категория с таким именем уже существует',
     expenses: 'расходы',
     chartDailyExpensesTitle: 'График ежедневных расходов',
-    chartMonthlyExpensesTitle: 'График месячных доходов и расходов',
+    chartMonthlyExpensesTitle: 'График ежемесячных доходов и расходов',
     chartCategoriesColumnsTitle: 'График расходов по категориям',
     walletPeriodTitle: 'Расчетный период:',
     walletPeriodCurrentMonth: 'текущий месяц',
