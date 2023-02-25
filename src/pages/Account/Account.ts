@@ -6,7 +6,7 @@ import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import AppState from '../../constants/appState';
 import { LANG, MODE } from '../../types/types';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
-import { IUserData } from '../../types/interfaces';
+import { IUserData, IUserLogin } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
 import { alertTimeout, LocalStorageKey, RegularExpressions } from '../../constants/common';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
@@ -276,7 +276,7 @@ class Account extends BasePage {
       inputNewPassword,
     );
 
-    const updateButton = createElement({
+    const updatePasswordButton = createElement({
       tag: 'button',
       classList: [ClassMap.accountSettings.update],
       key: DictionaryKeys.updateButton,
@@ -287,8 +287,25 @@ class Account extends BasePage {
       updatePasswordTitle,
       inputOldPasswordContainer,
       inputNewPasswordContainer,
-      updateButton,
+      updatePasswordButton,
     );
+
+    updatePasswordButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const errors = [...document.querySelectorAll(`.${ClassMap.errorValidation}`)];
+      errors.forEach((error) => error.remove());
+
+      const { email } = JSON.parse(AppState.userAccount as string).user as IUserData;
+      const isValid = this.validationUpdatePassword(inputOldPassword, inputNewPassword);
+
+      let password = inputOldPassword.value;
+
+      if (isValid && await this.checkOldPassword({ email, password })) {
+        password = inputNewPassword.value;
+        await this.handleUpdatePasswordResponse({ password });
+      }
+    });
+
     return passwordWraper;
   }
 
@@ -354,6 +371,75 @@ class Account extends BasePage {
     }
 
     return false;
+  }
+
+  private validationUpdatePassword(inputOldPassword: HTMLInputElement, inputNewPassword: HTMLInputElement): boolean {
+    const passwordOldIsValid = checkForValidity({
+      element: inputOldPassword,
+      regularExpression: RegularExpressions.Password,
+      errorMessage: Dictionary[this.lang].errorMessagePassword,
+    });
+
+    const passwordNewIsValid = checkForValidity({
+      element: inputNewPassword,
+      regularExpression: RegularExpressions.Password,
+      errorMessage: Dictionary[this.lang].errorMessagePassword,
+    });
+
+    if (passwordOldIsValid && passwordNewIsValid) {
+      return true;
+    }
+
+    return false;
+  }
+
+  private async checkOldPassword(userLogin: IUserLogin): Promise<boolean> {
+    const response = await UserApi.loginUser(userLogin);
+
+    let message = '';
+    let status = 0;
+    let result = false;
+
+    if (response && response.status === RESPONSE_STATUS.FORBIDDEN) {
+      message = `${Dictionary[AppState.lang].InvalidPassword}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (response && response.status === RESPONSE_STATUS.OK) {
+      result = true;
+    }
+
+    if (message && status > 0) {
+      const alert = new AlertMessage(message, status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
+
+    return result;
+  }
+
+  private async handleUpdatePasswordResponse(updatePassword: Partial<IUserLogin>): Promise<void> {
+    const { token } = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string);
+    const response = await UserApi.updateUserPassword(token, updatePassword);
+
+    let message = '';
+    let status = 0;
+
+    if (response && response.status === RESPONSE_STATUS.BAD_REQUEST) {
+      message = `${Dictionary[AppState.lang].error}`;
+      status = RESPONSE_STATUS.BAD_REQUEST;
+    }
+
+    if (response && response.status === RESPONSE_STATUS.OK) {
+      message = `${Dictionary[AppState.lang].passwordUpdated}`;
+      status = RESPONSE_STATUS.OK;
+    }
+
+    if (message && status > 0) {
+      const alert = new AlertMessage(message, status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
   }
 }
 

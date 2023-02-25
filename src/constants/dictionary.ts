@@ -111,6 +111,7 @@ export const Dictionary: DictionaryLang = {
     avatarTitle: 'Profile picture',
     updated: 'Successfully updated',
     errorMessagePhone: 'Invalid phone number',
+    passwordUpdated: 'Password updated',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -216,6 +217,7 @@ export const Dictionary: DictionaryLang = {
     avatarTitle: 'Изображение профиля',
     updated: 'Данные обновлены',
     errorMessagePhone: 'Неверный формат номера телефона',
+    passwordUpdated: 'Пароль изменен',
   },
   DE: {
     authorizationTitle: '',
@@ -426,4 +428,5 @@ export const DictionaryKeys: DictionaryKeysType = {
   avatarTitle: 'avatarTitle',
   updated: 'updated',
   errorMessagePhone: 'errorMessagePhone',
+  passwordUpdated: 'passwordUpdated',
 };

@@ -89,6 +89,31 @@ class UserApi {
       return null;
     }
   }
+
+  public static async updateUserPassword(token: string, updateUserPassword: Partial<IUserLogin>): Promise<{ status: number; message: string } | null> {
+    const url = `${BASE_URL}${Endpoint.USER_UPDATE_PASSWORD}`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.PATCH,
+        headers: Object.assign(authorization, CONTENT_TYPE_JSON),
+        body: JSON.stringify(updateUserPassword),
+      });
+
+      const dataResponse = await response.json();
+
+      return {
+        status: response.status,
+        ...dataResponse,
+      };
+    } catch (error) {
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
+    }
+  }
 }
 
 export default UserApi;
