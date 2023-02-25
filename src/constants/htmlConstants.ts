@@ -190,6 +190,15 @@ export const ClassMap = {
     button: 'calendar__button',
   },
   preloader: 'load',
+  accountSettings: {
+    accountSettings: 'account-settings',
+    fieldset: 'account-settings__wrapper',
+    infoTitle: 'account-settings__title',
+    formItem: 'account-settings__item',
+    inputName: 'account-settings__input',
+    update: 'account-settings__update-btn',
+    userImg: 'account-settings__avatar',
+  },
 };
 
 export const IdMap = {
