@@ -163,6 +163,8 @@ export const ClassMap = {
     balance: 'wallet__balance',
     lightIcon: 'wallet__image_light',
     select: 'wallet__select',
+    chart: 'wallet__chart',
+    main: 'wallet-page',
   },
   customSelect: {
     container: 'customselect',
@@ -278,6 +280,7 @@ export const IdMap = {
   chartDailyExpenses: 'chart-daily-expenses',
   chartMonthlyExpIncom: 'chart-monthly-expenses-incomes',
   chartCategoriesColumns: 'chart-categories-columns',
+  chartCategoriesPie: 'chart-categories-pie',
 };
 
 export const TextArea = {
@@ -296,4 +299,12 @@ export const MinDate = '2012-01-01';
 export const InputType = {
   number: 'number',
   date: 'date',
+};
+
+export const chartColor = {
+  white: '#ffffff',
+  dark: '#5063BF',
+  startGradient: '#6876bb',
+  endGradient: 'rgba(231, 235, 255, 0)',
+  columnIncomes: '#E7EBFF',
 };

@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
-import { ClassMap, IdMap } from '../../constants/htmlConstants';
+import { chartColor, ClassMap, IdMap } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IExpense, IFilterParams, IIncome } from '../../types/interfaces';
@@ -106,11 +106,14 @@ class ChartMonthlyExpIncom {
         backgroundColor: 'none',
         margin: [20, 40, 100, 80],
       },
+      credits: {
+        enabled: false,
+      },
       xAxis: {
         type: 'datetime',
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
         tickInterval: 2592000000,
@@ -121,14 +124,14 @@ class ChartMonthlyExpIncom {
         },
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
-        gridLineColor: '#ffffff',
+        gridLineColor: chartColor.white,
       },
       legend: {
         itemStyle: {
-          color: '#ffffff',
+          color: chartColor.white,
           fontWeight: 'normal',
         },
       },
@@ -140,15 +143,15 @@ class ChartMonthlyExpIncom {
       series: [{
         type: 'column',
         name: 'Expenses',
-        borderColor: '#5063BF',
-        color: '#5063BF',
+        borderColor: chartColor.dark,
+        color: chartColor.dark,
         borderRadius: 5,
         data: this.expensesLine,
       }, {
         type: 'column',
         name: 'Incomes',
-        borderColor: '#E7EBFF',
-        color: '#E7EBFF',
+        borderColor: chartColor.columnIncomes,
+        color: chartColor.columnIncomes,
         borderRadius: 5,
         data: this.incomesLine,
       }],

@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
-import { ClassMap, IdMap } from '../../constants/htmlConstants';
+import { chartColor, ClassMap, IdMap } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IExpense, IFilterParams } from '../../types/interfaces';
@@ -82,11 +82,14 @@ class ChartCategories {
         categories: this.categories,
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
       },
       legend: {
+        enabled: false,
+      },
+      credits: {
         enabled: false,
       },
       yAxis: {
@@ -95,10 +98,10 @@ class ChartCategories {
         },
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
-        gridLineColor: '#ffffff',
+        gridLineColor: chartColor.white,
       },
       plotOptions: {
         series: {
@@ -108,8 +111,8 @@ class ChartCategories {
       series: [{
         type: 'column',
         name: 'Expenses',
-        borderColor: '#5063BF',
-        color: '#5063BF',
+        borderColor: chartColor.dark,
+        color: chartColor.dark,
         borderRadius: 5,
         data: this.expensesLine,
       }],

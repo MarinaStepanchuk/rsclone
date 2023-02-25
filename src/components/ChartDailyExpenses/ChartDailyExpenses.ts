@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 import createElement from '../../utils/createElement';
-import { ClassMap, IdMap } from '../../constants/htmlConstants';
+import { chartColor, ClassMap, IdMap } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IExpense } from '../../types/interfaces';
@@ -89,9 +89,12 @@ class ChartDailyExpenses {
         type: 'datetime',
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
+      },
+      credits: {
+        enabled: false,
       },
       legend: {
         enabled: false,
@@ -102,23 +105,23 @@ class ChartDailyExpenses {
         },
         labels: {
           style: {
-            color: '#ffffff',
+            color: chartColor.white,
           },
         },
-        gridLineColor: '#ffffff',
+        gridLineColor: chartColor.white,
       },
       series: [{
         type: 'area',
         name: 'Expenses',
         data: this.coordinatesExpenses,
-        color: '#5063BF',
+        color: chartColor.dark,
         fillColor: {
           linearGradient: {
             x1: 0, x2: 0, y1: 0, y2: 1,
           },
           stops: [
-            [0, '#6876bb'],
-            [1, 'rgba(231, 235, 255, 0)'],
+            [0, chartColor.startGradient],
+            [1, chartColor.endGradient],
           ],
         },
       }],
