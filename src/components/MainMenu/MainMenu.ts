@@ -4,6 +4,7 @@ import createElement from '../../utils/createElement';
 import {
   Attribute,
   ClassMap,
+  IdMap,
   MenuNavItem,
   Title,
 } from '../../constants/htmlConstants';
@@ -187,6 +188,7 @@ class MainMenu {
 
     const userName = createElement({
       tag: 'div',
+      id: IdMap.menuUserName,
     });
 
     if (AppState.userAccount) {

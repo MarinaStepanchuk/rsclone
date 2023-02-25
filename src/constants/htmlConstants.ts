@@ -207,6 +207,7 @@ export const IdMap = {
   dateValue: 'dateValue',
   sumInput: 'sumInput',
   comment: 'comment',
+  menuUserName: 'menuUserName',
 };
 
 export const Title = {

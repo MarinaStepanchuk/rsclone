@@ -109,6 +109,8 @@ export const Dictionary: DictionaryLang = {
     oldPassword: 'Old password',
     newPassword: 'New password',
     avatarTitle: 'Profile picture',
+    updated: 'Successfully updated',
+    errorMessagePhone: 'Invalid phone number',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -212,6 +214,8 @@ export const Dictionary: DictionaryLang = {
     oldPassword: 'Старый пароль',
     newPassword: 'Новый пароль',
     avatarTitle: 'Изображение профиля',
+    updated: 'Данные обновлены',
+    errorMessagePhone: 'Неверный формат номера телефона',
   },
   DE: {
     authorizationTitle: '',
@@ -309,6 +313,8 @@ export const Dictionary: DictionaryLang = {
     oldPassword: '',
     newPassword: '',
     avatarTitle: '',
+    updated: '',
+    errorMessagePhone: '',
   },
 };
 
@@ -418,4 +424,6 @@ export const DictionaryKeys: DictionaryKeysType = {
   oldPassword: 'oldPassword',
   newPassword: 'newPassword',
   avatarTitle: 'avatarTitle',
+  updated: 'updated',
+  errorMessagePhone: 'errorMessagePhone',
 };

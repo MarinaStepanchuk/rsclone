@@ -2,11 +2,16 @@ import './Account.scss';
 import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { ClassMap } from '../../constants/htmlConstants';
+import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import AppState from '../../constants/appState';
 import { LANG, MODE } from '../../types/types';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IUserData } from '../../types/interfaces';
+import UserApi from '../../Api/UserApi';
+import { alertTimeout, LocalStorageKey, RegularExpressions } from '../../constants/common';
+import { RESPONSE_STATUS } from '../../Api/serverConstants';
+import AlertMessage from '../../components/AlertMessage/AlertMessege';
+import checkForValidity from '../../utils/checkForValidity';
 
 class Account extends BasePage {
   public lang: LANG;
@@ -170,7 +175,7 @@ class Account extends BasePage {
       inputPhone,
     );
 
-    const updateButton = createElement({
+    const updateUserInfoButton = createElement({
       tag: 'button',
       classList: [ClassMap.accountSettings.update],
       key: DictionaryKeys.updateButton,
@@ -182,7 +187,7 @@ class Account extends BasePage {
       inputNameContainer,
       inputEmailContainer,
       inputPhoneContainer,
-      updateButton,
+      updateUserInfoButton,
     );
 
     if (AppState.userAccount) {
@@ -191,6 +196,23 @@ class Account extends BasePage {
       inputEmail.value = email;
       inputPhone.value = phoneNumber ? `${phoneNumber}` : '';
     }
+
+    updateUserInfoButton.addEventListener('click', async (event) => {
+      event.preventDefault();
+      const errors = [...document.querySelectorAll(`.${ClassMap.errorValidation}`)];
+      errors.forEach((error) => error.remove());
+      const isValid = this.validationUpdateUserInfo(inputName, inputEmail, inputPhone);
+
+      if (isValid) {
+        const updateUserInfo: Partial<IUserData> = {
+          username: inputName.value,
+          email: inputEmail.value,
+          phoneNumber: +inputPhone.value,
+        };
+
+        await this.handleUpdateUserInfoResponse(updateUserInfo);
+      }
+    });
 
     return personalInfoWraper;
   }
@@ -268,6 +290,70 @@ class Account extends BasePage {
       updateButton,
     );
     return passwordWraper;
+  }
+
+  private async handleUpdateUserInfoResponse(updateUserInfo: Partial<IUserData>): Promise<void> {
+    const { token } = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string);
+    const response = await UserApi.updateUser(token, updateUserInfo);
+
+    let message = '';
+    let status = 0;
+
+    if (response && response.status === RESPONSE_STATUS.FORBIDDEN) {
+      message = `${Dictionary[AppState.lang].EmailAlreadyExists}`;
+      status = RESPONSE_STATUS.FORBIDDEN;
+    }
+
+    if (response && response.status === RESPONSE_STATUS.BAD_REQUEST) {
+      message = `${Dictionary[AppState.lang].error}`;
+      status = RESPONSE_STATUS.BAD_REQUEST;
+    }
+
+    if (response && response.user && response.status === RESPONSE_STATUS.OK) {
+      message = `${Dictionary[AppState.lang].updated}`;
+      status = RESPONSE_STATUS.OK;
+
+      const { user } = response;
+      localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));
+      AppState.userAccount = localStorage.getItem(LocalStorageKey.auth);
+      (document.querySelector(`#${IdMap.menuUserName}`) as HTMLElement).innerText = user.username;
+    }
+
+    if (message && status > 0) {
+      const alert = new AlertMessage(message, status);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+    }
+  }
+
+  private validationUpdateUserInfo(
+    name: HTMLInputElement,
+    email:HTMLInputElement,
+    phoneNumber: HTMLInputElement,
+  ): boolean {
+    const emailIsValid = checkForValidity({
+      element: email,
+      regularExpression: RegularExpressions.Email,
+      errorMessage: Dictionary[this.lang].errorMessageEmail,
+    });
+
+    const nameIsValid = checkForValidity({
+      element: name,
+      regularExpression: RegularExpressions.Name,
+      errorMessage: Dictionary[this.lang].errorMessageName,
+    });
+
+    const phoneIsValid = phoneNumber.value.length === 0 ? true : checkForValidity({
+      element: phoneNumber,
+      regularExpression: RegularExpressions.Phone,
+      errorMessage: Dictionary[this.lang].errorMessagePhone,
+    });
+
+    if (emailIsValid && nameIsValid && phoneIsValid) {
+      return true;
+    }
+
+    return false;
   }
 }
 
