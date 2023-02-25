@@ -13,6 +13,7 @@ import { Endpoint } from '../../Api/serverConstants';
 import { ICategory, IExpense, IFilterParams } from '../../types/interfaces';
 import WalletPeriodSelect from '../WalletPeriodSelect/WalletPeriodSelect';
 import Preloader from '../Preloader/Preloader';
+import ChartCategoriesPie from '../ChartCategoriesPie/ChartCategoriesPie';
 
 class WalletCategories {
   private modeValue: MODE;
@@ -106,22 +107,32 @@ class WalletCategories {
         const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
       }
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodMonth) {
         const startDate = new Date(currentDate.setMonth(currentDate.getMonth() - 1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
       }
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodCurrentMonth) {
         const startDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
       }
     });
 
     return this.section as HTMLElement;
+  }
+
+  private async updateChart(startDate: string, endDate: string): Promise<void> {
+    const newChart = new ChartCategoriesPie(new Date(startDate), new Date(endDate));
+    const chart = document.querySelector(`.${ClassMap.wallet.chart}`);
+    chart?.replaceChildren(await newChart.render());
+    newChart.addChart();
   }
 
   private async getCategories(): Promise<ICategory[]> {
