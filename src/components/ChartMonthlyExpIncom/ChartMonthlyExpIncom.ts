@@ -97,6 +97,28 @@ class ChartMonthlyExpIncom {
   }
 
   public addChart() {
+    if (this.lang === 'RU') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Загрузка...',
+          months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+          weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+          shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+        },
+      });
+    }
+
+    if (this.lang === 'DE') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Daten werden geladen...',
+          months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+          shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        },
+      });
+    }
+
     Highcharts.chart(IdMap.chartMonthlyExpIncom, {
       title: {
         text: undefined,
