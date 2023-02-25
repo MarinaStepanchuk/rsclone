@@ -95,7 +95,7 @@ class WalletCategories {
 
     this.countCategoriesAmount();
 
-    document.addEventListener('select', async (event) => {
+    this.section?.addEventListener('select', async (event) => {
       const customEvent = event as CustomEvent;
       const button = document.querySelector(`.${ClassMap.customSelect.title}`) as HTMLElement;
       button.setAttribute(Attribute.key, customEvent.detail.key);
@@ -104,7 +104,6 @@ class WalletCategories {
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodYear) {
         const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
-
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
       }
@@ -232,34 +231,6 @@ class WalletCategories {
 
     return item;
   }
-
-  // private async getYearExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
-
-  // private async getCurrentMonthlyExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
 
   private async getExpensesCategory(categoryName: string, start: string, end: string): Promise<IExpense[]> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;

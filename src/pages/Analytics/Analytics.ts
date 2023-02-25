@@ -4,29 +4,72 @@ import BasePage from '../BasePage/BasePage';
 import { Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
-import {
-  IAccount, ICategory, IExpense, IIncome,
-  IFilterParams,
-} from '../../types/interfaces';
 import AppState from '../../constants/appState';
-import RequestApi from '../../Api/RequestsApi';
-import { Endpoint } from '../../Api/serverConstants';
+import ChartDailyExpenses from '../../components/ChartDailyExpenses/ChartDailyExpenses';
+import Calendar from '../../components/Calendar/Calendar';
+import ChartMonthlyExpIncom from '../../components/ChartMonthlyExpIncom/ChartMonthlyExpIncom';
+import ChartCategories from '../../components/ChartCategories/ChartCategories';
 
 class Analytics extends BasePage {
-  public render(): void {
+  private chartDailyExpenses: ChartDailyExpenses;
+
+  private chartMonthlyExpIncom: ChartMonthlyExpIncom;
+
+  private chartCategories: ChartCategories;
+
+  constructor() {
+    super();
+    const endDate = new Date();
+    const startDate = new Date(new Date().setFullYear(endDate.getFullYear() - 1));
+    this.chartDailyExpenses = new ChartDailyExpenses(startDate, endDate);
+    this.chartMonthlyExpIncom = new ChartMonthlyExpIncom(startDate, endDate);
+    this.chartCategories = new ChartCategories(startDate, endDate);
+  }
+
+  public async render(): Promise<void> {
     this.createPageStructure(Route.ANALYTICS);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
-    const analyticsContainer = createElement({
+    const calendarContainer = createElement({
       tag: 'div',
-      classList: ['test-class'],
-      content: 'Тут analytics',
+      classList: [ClassMap.analytic.calendar],
     });
 
-    mainContent?.replaceChildren(analyticsContainer);
+    const calendar = new Calendar(calendarContainer);
+    calendar.init();
 
+    const dailyExpenses = await this.chartDailyExpenses.render();
+    const monthlyExpIncom = await this.chartMonthlyExpIncom.render();
+    const categoriesChart = await this.chartCategories.render();
+
+    const analyticPage = createElement({
+      tag: 'div',
+      classList: [ClassMap.analytic.main],
+    });
+
+    analyticPage.replaceChildren(calendarContainer, dailyExpenses, monthlyExpIncom, categoriesChart);
+
+    mainContent?.replaceChildren(analyticPage);
+
+    this.chartDailyExpenses.addChart();
+    this.chartMonthlyExpIncom.addChart();
+    this.chartCategories.addChart();
     this.init();
+
+    (calendar.calendarInput as HTMLInputElement).addEventListener('input', async () => {
+      const newDailyExpenses = new ChartDailyExpenses(new Date(AppState.startDate), new Date(AppState.endDate));
+      dailyExpenses.replaceWith(await newDailyExpenses.render());
+      newDailyExpenses.addChart();
+
+      const newMonthlyExpIncom = new ChartMonthlyExpIncom(new Date(AppState.startDate), new Date(AppState.endDate));
+      monthlyExpIncom.replaceWith(await newMonthlyExpIncom.render());
+      newMonthlyExpIncom.addChart();
+
+      const newCategoriesChart = new ChartCategories(new Date(AppState.startDate), new Date(AppState.endDate));
+      categoriesChart.replaceWith(await newCategoriesChart.render());
+      newCategoriesChart.addChart();
+    });
   }
 
   public async init() {
