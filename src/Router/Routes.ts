@@ -14,7 +14,7 @@ export const Routes = {
 };
 
 const path = window.location.pathname;
-console.log()
+console.log();
 
 export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : path === '/dashboard' || path === '/' || path === '' ? '/dashboard' : path.substring(0, path.indexOf('/', 1));
 

@@ -1,0 +1,17 @@
+.wallet-page {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.wallet__chart {
+  width: 100%;
+  grid-column-start: 4;
+  grid-column-end: 6;
+}
+
+.wallet-wrapper {
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
