@@ -128,7 +128,7 @@ export const Dictionary: DictionaryLang = {
     errorMessagePhone: 'Invalid phone number',
     passwordUpdated: 'Password updated',
     footerTitle: 'All Rights Reserved © Yoda`s team 2023',
-    transactionTitle: 'Transactions',
+    transactionTitle: 'Expenses',
     dateExpense: 'Date',
     categoryExpense: 'Category',
     amountExpense: 'Amount',
@@ -136,6 +136,8 @@ export const Dictionary: DictionaryLang = {
     commentExpense: 'Comment',
     paginationLimit: 'Show per page:',
     emptyExpenseList: 'Your expense list is empty.',
+    incomeListTitle: 'Income',
+    emptyIncomeList: 'Your income list is empty.',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -238,7 +240,7 @@ export const Dictionary: DictionaryLang = {
     EmailAlreadyExists: 'Пользователь с таким адресом электронной почты уже существует',
     Registered: 'Пользователь успешно зарегистрирован',
     footerTitle: 'Все права защищены © Yoda`s team 2023',
-    transactionTitle: 'Транзакции',
+    transactionTitle: 'Расходы',
     dateExpense: 'Дата',
     categoryExpense: 'Категория',
     amountExpense: 'Сумма',
@@ -266,6 +268,8 @@ export const Dictionary: DictionaryLang = {
     updated: 'Данные обновлены',
     errorMessagePhone: 'Неверный формат номера телефона',
     passwordUpdated: 'Пароль изменен',
+    incomeListTitle: 'Доходы',
+    emptyIncomeList: 'В Вашей таблице пока нет доходов',
   },
   DE: {
     authorizationTitle: 'Willkommen bei MAPmoney!',
@@ -394,6 +398,8 @@ export const Dictionary: DictionaryLang = {
     commentExpense: '',
     paginationLimit: '',
     emptyExpenseList: '',
+    incomeListTitle: '',
+    emptyIncomeList: '',
   },
 };
 
@@ -528,4 +534,6 @@ export const DictionaryKeys: DictionaryKeysType = {
   commentExpense: 'commentExpense',
   paginationLimit: 'paginationLimit',
   emptyExpenseList: 'emptyExpenseList',
+  incomeListTitle: 'incomeListTitle',
+  emptyIncomeList: 'emptyIncomeList',
 };

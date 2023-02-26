@@ -16,6 +16,7 @@ import { updateExpenses, updateIncomes } from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
+import IncomeList from '../../components/IncomeList/IncomeList';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -72,6 +73,7 @@ class Dashboard extends BasePage {
 
     const incomeBalance = createElement({
       tag: 'div',
+      classList: [ClassMap.dashboard.incomeTotal],
       content: '0',
     });
 
@@ -317,8 +319,16 @@ class Dashboard extends BasePage {
       id: IdMap.expenseList,
     });
 
+    const incomeListWrap = createElement({
+      tag: 'section',
+      id: IdMap.incomeList,
+    });
+
     const expenseList = await new ExpenseList().render();
 
+    const incomeList = await new IncomeList().render();
+
+    incomeListWrap.append(incomeList);
     expenseListWrap.append(expenseList);
 
     const mainDashboard = createElement({
@@ -326,7 +336,7 @@ class Dashboard extends BasePage {
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap);
+    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap, incomeListWrap);
 
     const calculator = new Calculator().render();
 
