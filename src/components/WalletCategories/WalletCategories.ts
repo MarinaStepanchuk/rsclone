@@ -162,7 +162,15 @@ class WalletCategories {
   private async updateChart(startDate: string, endDate: string): Promise<void> {
     const newChart = new ChartCategoriesPie(new Date(startDate), new Date(endDate));
     const chart = document.querySelector(`.${ClassMap.wallet.chart}`);
-    chart?.replaceChildren(await newChart.render());
+
+    const chartTitle = createElement({
+      tag: 'span',
+      classList: [ClassMap.analytic.title, ClassMap.mode[this.modeValue].title],
+      key: DictionaryKeys.chartCategoriesPieTitle,
+      content: Dictionary[this.lang].chartCategoriesPieTitle,
+    });
+
+    chart?.replaceChildren(chartTitle, await newChart.render());
     newChart.addChart();
   }
 
