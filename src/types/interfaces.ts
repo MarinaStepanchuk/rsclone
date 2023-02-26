@@ -110,6 +110,5 @@ export interface IMenuItem {
 
 export interface IBalances {
   totalBalance: HTMLElement,
-  cardBalance: HTMLElement,
-  cashBalance: HTMLElement,
+  totalAccountBalance: HTMLElement,
 }
