@@ -7,6 +7,11 @@
   gap: 2rem;
   padding: 2rem;
 
+  @media (max-width: 1100px) {
+    display: flex;
+    flex-direction: column;
+  }
+
   &__calendar {
     width: 100%;
     grid-column-start: 1;

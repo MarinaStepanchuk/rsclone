@@ -4,11 +4,14 @@ import MainMenu from '../../components/MainMenu/MainMenu';
 import { ClassMap } from '../../constants/htmlConstants';
 import { MODE, LANG } from '../../types/types';
 import AppState from '../../constants/appState';
+import AdaptiveMenu from '../../components/AdaptiveMenu/AdaptiveMenu';
 
 class BasePage {
   private footer: Footer;
 
   private mainMenu: MainMenu;
+
+  private adaptiveMenu: AdaptiveMenu;
 
   public modeValue: MODE;
 
@@ -19,6 +22,7 @@ class BasePage {
     this.lang = AppState.lang;
     this.footer = new Footer();
     this.mainMenu = new MainMenu();
+    this.adaptiveMenu = new AdaptiveMenu();
   }
 
   protected createPageStructure(page: string): void {
@@ -40,7 +44,8 @@ class BasePage {
       classList: [ClassMap.mainContent],
     });
 
-    const mainMenu = this.mainMenu.render(page);
+    const width = document.body.clientWidth;
+    const mainMenu = width < 830 ? this.adaptiveMenu.render(page) : this.mainMenu.render(page);
     const footer = this.footer.render();
 
     main.append(mainMenu, mainContent);

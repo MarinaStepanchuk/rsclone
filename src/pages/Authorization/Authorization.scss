@@ -19,6 +19,11 @@
     align-items: center;
     justify-content: center;
     gap: 10rem;
+
+    @media (max-width: 700px) {
+      flex-direction: column;
+      gap: 0;
+    }
   }
 
   &__greeting-images {
@@ -27,17 +32,46 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    text-align: center;
+
+    img {
+      @media (max-width: 400px) {
+        width: 30rem;
+      }
+    }
   }
 
   &__header {
     font-size: 4rem;
     margin-bottom: 1rem;
+
+    @media (max-width: 900px) {
+      width: 75%;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      font-size: 3rem;
+    }
+
+    @media (max-width: 420px) {
+      width: 60%;
+    }
+
+    @media (max-width: 390px) {
+      padding-right: 2rem;  
+    }
   }
 
   &__greeting {
     padding-top: 2rem;
     padding-bottom: 1rem;
     font-size: 2rem;
+    text-align: center;
+
+    @media (max-width: 600px) {
+      width: 80%;
+    }
   }
 
   &__slider {
@@ -61,4 +95,8 @@ swiper-slide {
   align-items: center;
   height: 7rem;
   font-size: 2rem;
+
+  @media (max-width: 700px) {
+    height: 11rem;
+  }
 }
