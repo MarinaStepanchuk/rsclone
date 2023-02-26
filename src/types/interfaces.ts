@@ -63,6 +63,8 @@ export interface IFilterParams {
   currency?: string,
   page?: number,
   limit?: number,
+  sort?: 'date' | 'expense' | 'income' | 'category',
+  order?: 'ASC' | 'DESC',
 }
 
 export interface IAccount {
@@ -110,6 +112,5 @@ export interface IMenuItem {
 
 export interface IBalances {
   totalBalance: HTMLElement,
-  cardBalance: HTMLElement,
-  cashBalance: HTMLElement,
+  totalAccountBalance: HTMLElement,
 }

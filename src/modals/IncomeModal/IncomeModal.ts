@@ -4,7 +4,7 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
-import { updateBalances, updateIncomes } from '../../utils/updateSum';
+import { updateTotalAccountBalance, updateIncomes } from '../../utils/updateSum';
 import BaseModal from '../BaseModal/BaseModal';
 import { IBalances, IIncome } from '../../types/interfaces';
 import { getAllAccounts } from '../../utils/getModalApi';
@@ -101,7 +101,7 @@ class IncomeModal extends BaseModal {
     }
 
     await updateIncomes(incomeBalances);
-    await updateBalances(incomeBalances);
+    await updateTotalAccountBalance(incomeBalances);
 
     this.modalWrapper?.remove();
   }
