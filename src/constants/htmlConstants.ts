@@ -208,6 +208,7 @@ export const IdMap = {
   sumInput: 'sumInput',
   comment: 'comment',
   menuUserName: 'menuUserName',
+  menuUserImg: 'menuUserImg',
 };
 
 export const Title = {

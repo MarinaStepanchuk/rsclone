@@ -19,6 +19,8 @@ export const alertTimeout = 2000;
 
 export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
 
+export const avatarsCount = 10;
+
 export const defaultState = {
   mode: 'light',
   lang: 'EN',

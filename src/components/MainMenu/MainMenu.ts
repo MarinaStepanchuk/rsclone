@@ -172,7 +172,10 @@ class MainMenu {
   }
 
   private createUserWrap(): HTMLElement {
-    const userImg = createElement({ tag: 'img' }) as HTMLImageElement;
+    const userImg = createElement({
+      tag: 'img',
+      id: IdMap.menuUserImg,
+    }) as HTMLImageElement;
 
     if (AppState.userAccount) {
       const userAccountObj = JSON.parse(AppState.userAccount);

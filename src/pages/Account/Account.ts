@@ -8,7 +8,12 @@ import { LANG, MODE } from '../../types/types';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IUserData, IUserLogin } from '../../types/interfaces';
 import UserApi from '../../Api/UserApi';
-import { alertTimeout, LocalStorageKey, RegularExpressions } from '../../constants/common';
+import {
+  alertTimeout,
+  avatarsCount,
+  LocalStorageKey,
+  RegularExpressions,
+} from '../../constants/common';
 import { RESPONSE_STATUS } from '../../Api/serverConstants';
 import AlertMessage from '../../components/AlertMessage/AlertMessege';
 import checkForValidity from '../../utils/checkForValidity';
@@ -90,6 +95,21 @@ class Account extends BasePage {
       updateButton,
     );
 
+    let numberAvatar = 1;
+    userImg.addEventListener('click', () => {
+      numberAvatar = numberAvatar <= avatarsCount ? numberAvatar : 1;
+      userImg.src = `assets/avatars/${numberAvatar}.svg`;
+      numberAvatar += 1;
+    });
+
+    updateButton.addEventListener('click', async () => {
+      const updateAvatar: Partial<IUserData> = {
+        avatar: userImg.src,
+      };
+
+      await this.handleUpdateUserInfoResponse(updateAvatar);
+    });
+
     return avatarWraper;
   }
 
@@ -169,6 +189,7 @@ class Account extends BasePage {
       classList: [ClassMap.accountSettings.inputName],
     }) as HTMLInputElement;
     inputPhone.type = 'tel';
+    inputPhone.placeholder = '';
 
     inputPhoneContainer.append(
       inputPhoneLable,
@@ -246,7 +267,7 @@ class Account extends BasePage {
       tag: 'input',
       classList: [ClassMap.accountSettings.inputName],
     }) as HTMLInputElement;
-    inputOldPassword.type = 'text';
+    inputOldPassword.type = 'password';
 
     inputOldPasswordContainer.append(
       inputOldPasswordLable,
@@ -269,7 +290,7 @@ class Account extends BasePage {
       tag: 'input',
       classList: [ClassMap.accountSettings.inputName],
     }) as HTMLInputElement;
-    inputOldPassword.type = 'text';
+    inputNewPassword.type = 'password';
 
     inputNewPasswordContainer.append(
       inputNewPasswordLable,
@@ -334,6 +355,7 @@ class Account extends BasePage {
       localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));
       AppState.userAccount = localStorage.getItem(LocalStorageKey.auth);
       (document.querySelector(`#${IdMap.menuUserName}`) as HTMLElement).innerText = user.username;
+      (document.querySelector(`#${IdMap.menuUserImg}`) as HTMLImageElement).src = user.avatar;
     }
 
     if (message && status > 0) {
