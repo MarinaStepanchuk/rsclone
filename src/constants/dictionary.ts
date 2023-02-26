@@ -73,6 +73,7 @@ export const Dictionary: DictionaryLang = {
     chartDailyExpensesTitle: 'Daily spending schedule',
     chartMonthlyExpensesTitle: 'Monthly incomes and expenses chart',
     chartCategoriesColumnsTitle: 'Schedule of expenses by category',
+    chartCategoriesPieTitle: 'Expense Schedule',
     walletPeriodTitle: 'Billing period:',
     walletPeriodCurrentMonth: 'current month',
     walletPeriodYear: 'year',
@@ -115,6 +116,7 @@ export const Dictionary: DictionaryLang = {
     updateCategorySubmit: 'Save changes',
     deleteCategoryButton: 'Delete category',
     limitAlert: 'Limit exceeded: ',
+    backToHomePage: 'Back to home page',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -182,6 +184,7 @@ export const Dictionary: DictionaryLang = {
     chartDailyExpensesTitle: 'График ежедневных расходов',
     chartMonthlyExpensesTitle: 'График ежемесячных доходов и расходов',
     chartCategoriesColumnsTitle: 'График расходов по категориям',
+    chartCategoriesPieTitle: 'График расходов',
     walletPeriodTitle: 'Расчетный период:',
     walletPeriodCurrentMonth: 'текущий месяц',
     walletPeriodYear: 'год',
@@ -224,6 +227,7 @@ export const Dictionary: DictionaryLang = {
     updateCategorySubmit: 'Сохранить изменения',
     deleteCategoryButton: 'Удалить категорию',
     limitAlert: 'Превышение лимита: ',
+    backToHomePage: 'Вернуться на главную',
   },
   DE: {
     authorizationTitle: 'Willkommen bei MAPmoney!',
@@ -291,6 +295,7 @@ export const Dictionary: DictionaryLang = {
     chartDailyExpensesTitle: 'Aufstellung der täglichen Ausgaben',
     chartMonthlyExpensesTitle: 'Aufstellung der monatlichen Einnahmen und Ausgaben',
     chartCategoriesColumnsTitle: 'Aufstellung der Ausgaben nach Kategorien',
+    chartCategoriesPieTitle: 'Aufstellung der Ausgaben nach Kategorien',
     walletPeriodTitle: 'Berechnungszeitraum:',
     walletPeriodCurrentMonth: 'Aktueller Monat',
     walletPeriodYear: 'Jahr',
@@ -333,6 +338,7 @@ export const Dictionary: DictionaryLang = {
     updateCategorySubmit: 'Änderungen speichern',
     deleteCategoryButton: 'Kategorie löschen',
     limitAlert: 'Überschreitung des Grenzwertes: ',
+    backToHomePage: 'Zurück zur Hauptseite',
   },
 };
 
@@ -405,6 +411,7 @@ export const DictionaryKeys: DictionaryKeysType = {
   chartDailyExpensesTitle: 'chartDailyExpensesTitle',
   chartMonthlyExpensesTitle: 'chartMonthlyExpensesTitle',
   chartCategoriesColumnsTitle: 'chartCategoriesColumnsTitle',
+  chartCategoriesPieTitle: 'chartCategoriesPieTitle',
   walletPeriodTitle: 'walletPeriodTitle',
   walletPeriodCurrentMonth: 'walletPeriodCurrentMonth',
   walletPeriodYear: 'walletPeriodYear',
@@ -447,4 +454,5 @@ export const DictionaryKeys: DictionaryKeysType = {
   updateCategorySubmit: 'updateCategorySubmit',
   deleteCategoryButton: 'deleteCategoryButton',
   limitAlert: 'limitAlert',
+  backToHomePage: 'backToHomePage',
 };
