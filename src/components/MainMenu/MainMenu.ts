@@ -6,7 +6,6 @@ import {
   ClassMap,
   IdMap,
   MenuNavItem,
-  Title,
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
 import { LANG, MODE } from '../../types/types';
@@ -55,23 +54,10 @@ class MainMenu {
   }
 
   private createLogoWrap(): HTMLElement {
-    const logoImg = createElement({
-      tag: 'div',
-      classList: [ClassMap.menu.logo],
-    });
-
-    const logoTitle = createElement({
-      tag: 'h1',
-      classList: [ClassMap.menu.logoTitle],
-      content: Title.logo,
-    });
-
     const logoWrapper = createElement({
       tag: 'div',
-      classList: [ClassMap.menu.logoWrap],
+      classList: [ClassMap.menu.logoWrap, ClassMap.mode[this.modeValue].logo],
     });
-
-    logoWrapper.append(logoImg, logoTitle);
 
     return logoWrapper;
   }
@@ -353,6 +339,9 @@ class MainMenu {
 
     const icons = document.querySelectorAll(`.${ClassMap.mode[previosMode].icon}`);
     toggleClassMode(icons, this.modeValue, previosMode, ModeItem.icon);
+
+    const logo = document.querySelectorAll(`.${ClassMap.mode[previosMode].logo}`);
+    toggleClassMode(logo, this.modeValue, previosMode, ModeItem.logo);
 
     localStorage.setItem(LocalStorageKey.mode, this.modeValue);
     AppState.modeValue = this.modeValue;

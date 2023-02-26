@@ -19,6 +19,7 @@ export enum ModeItem {
   icon = 'icon',
   modal = 'modal',
   modalTitle = 'modalTitle',
+  logo = 'logo',
 }
 
 export enum CurrencyMark {

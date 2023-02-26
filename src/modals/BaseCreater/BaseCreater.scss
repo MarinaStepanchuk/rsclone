@@ -78,12 +78,22 @@
 
   &__submit {
     @include button(100%, 5rem);
-    font-size: 2.5rem;
-    margin-top: 2.5rem;
+    font-size: 2rem;
 
     &:disabled {
       pointer-events: none;
       opacity: 0.3;
     }
   }
+
+  &:last-child {
+    margin-top: 2rem;
+  }
+}
+
+.updater-delete-button,
+.updater-create-button {
+  @include button(100%, 5rem);
+  font-size: 2rem;
+  margin-top: 1rem;
 }

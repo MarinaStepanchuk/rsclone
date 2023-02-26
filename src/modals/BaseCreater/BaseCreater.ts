@@ -31,6 +31,8 @@ class BaseCreater {
 
   protected itemBalanceTitle: HTMLElement | null = null;
 
+  protected itemBalance: HTMLElement | null = null;
+
   protected currency: CURRENCY;
 
   constructor() {
@@ -90,6 +92,11 @@ class BaseCreater {
       tag: 'span',
       classList: [ClassMap.mode[this.modeValue].modalFont],
     });
+
+    this.itemBalance = createElement({
+      tag: 'div',
+      classList: [ClassMap.creater.createItem],
+    });
   }
 
   protected fill(): void {
@@ -107,11 +114,6 @@ class BaseCreater {
 
     itemName.append(this.icon as HTMLElement, containerInputName);
 
-    const itemBalance = createElement({
-      tag: 'div',
-      classList: [ClassMap.creater.createItem],
-    });
-
     const containerInputBalance = createElement({
       tag: 'div',
       classList: [ClassMap.creater.createInputContainer],
@@ -125,7 +127,7 @@ class BaseCreater {
       content: `${CurrencyMark[this.currency]}`,
     });
 
-    itemBalance.append(iconCurrency, containerInputBalance);
+    (this.itemBalance as HTMLElement).append(iconCurrency, containerInputBalance);
 
     const closeButton = createElement({
       tag: 'div',
@@ -144,7 +146,7 @@ class BaseCreater {
     this.form?.append(
       this.formTitle as HTMLElement,
       itemName,
-      itemBalance,
+      this.itemBalance as HTMLElement,
       this.submit as HTMLButtonElement,
       closeButton,
     );

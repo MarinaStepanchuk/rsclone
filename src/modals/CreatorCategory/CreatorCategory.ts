@@ -1,5 +1,5 @@
 import './CreatorCategory.scss';
-import { Attribute, ClassMap, ellementId } from '../../constants/htmlConstants';
+import { Attribute, ClassMap, IdMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ICategory } from '../../types/interfaces';
 import { LANG_ATTRIBUTE, LocalStorageKey } from '../../constants/common';
@@ -11,6 +11,7 @@ import BaseCreater from '../BaseCreater/BaseCreater';
 import { Endpoint } from '../../Api/serverConstants';
 import RequestApi from '../../Api/RequestsApi';
 import createElement from '../../utils/createElement';
+import SvgModal from '../SvgModal/SvgModal';
 
 class CreatorCategory extends BaseCreater {
   private checkbox: HTMLInputElement | null = null;
@@ -47,7 +48,7 @@ class CreatorCategory extends BaseCreater {
     this.checkbox = createElement({
       tag: 'input',
       classList: [ClassMap.creater.createCheckbox],
-      id: ellementId.limitCheckbox,
+      id: IdMap.limitCheckbox,
     }) as HTMLInputElement;
     this.checkbox.type = 'checkbox';
 
@@ -57,7 +58,7 @@ class CreatorCategory extends BaseCreater {
       key: DictionaryKeys.createCategoryLimit,
       content: Dictionary[this.lang].createCategoryLimit,
     }) as HTMLLabelElement;
-    limitLabel.setAttribute(Attribute.for, ellementId.limitCheckbox);
+    limitLabel.setAttribute(Attribute.for, IdMap.limitCheckbox);
 
     limitContainer.append(this.checkbox, limitLabel);
     (this.itemBalanceTitle as HTMLElement).replaceWith(limitContainer);
@@ -96,16 +97,25 @@ class CreatorCategory extends BaseCreater {
       }
 
       const categories = await this.getCategory();
+      let matchFound = false;
 
       categories.forEach((item) => {
         if (item.category === value) {
-          (this.submit as HTMLButtonElement).disabled = true;
-          showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
-        } else {
-          (this.submit as HTMLButtonElement).disabled = false;
-          removeErrorValidationMessage(this.inputName as HTMLInputElement);
+          matchFound = true;
         }
       });
+
+      if (matchFound) {
+        (this.submit as HTMLButtonElement).disabled = true;
+        showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageCategoryExists);
+      } else {
+        (this.submit as HTMLButtonElement).disabled = false;
+        removeErrorValidationMessage(this.inputName as HTMLInputElement);
+      }
+
+      if (value === '') {
+        (this.submit as HTMLButtonElement).disabled = true;
+      }
     });
 
     this.checkbox?.addEventListener('click', () => {
@@ -142,6 +152,11 @@ class CreatorCategory extends BaseCreater {
         this.updateCategoriesBlock();
 
         this.modalWrapper?.remove();
+      }
+
+      if (targetElement.closest(`.${ClassMap.creater.createIcon}`)) {
+        const section = document.querySelector(`.${ClassMap.mainContent}`);
+        section?.append(new SvgModal(SvgIcons.category).render());
       }
     });
   }

@@ -37,6 +37,10 @@ export const Mode = {
   light: 'light',
 };
 
+export const colorLimit = {
+  excess: '#de6f7a',
+};
+
 export const defaultAccounts: IAccount[] = [
   {
     account: 'Cash',

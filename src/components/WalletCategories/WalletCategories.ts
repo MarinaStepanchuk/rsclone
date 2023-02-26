@@ -3,7 +3,7 @@ import createElement from '../../utils/createElement';
 import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
-import { LocalStorageKey } from '../../constants/common';
+import { colorLimit, LocalStorageKey } from '../../constants/common';
 import { CurrencyMark } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
@@ -13,6 +13,10 @@ import { Endpoint } from '../../Api/serverConstants';
 import { ICategory, IExpense, IFilterParams } from '../../types/interfaces';
 import WalletPeriodSelect from '../WalletPeriodSelect/WalletPeriodSelect';
 import Preloader from '../Preloader/Preloader';
+import UpdaterCategory from '../../modals/UpdaterCategory/UpdaterCategory';
+import ChartCategoriesPie from '../ChartCategoriesPie/ChartCategoriesPie';
+
+const limitAlertTime = 3000;
 
 class WalletCategories {
   private modeValue: MODE;
@@ -25,9 +29,11 @@ class WalletCategories {
 
   private categoriesBlock: HTMLElement | null = null;
 
+  private alertContainer: HTMLElement | null = null;
+
   private currency: CURRENCY;
 
-  constructor(private updateAccountsBlock: () => void) {
+  constructor(private updateCategoriesBlock: () => void, private updateAccountsBlock: () => void) {
     this.modeValue = AppState.modeValue;
     this.lang = AppState.lang;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
@@ -48,6 +54,11 @@ class WalletCategories {
     this.categoriesBlock = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.itemContainer],
+    });
+
+    this.alertContainer = createElement({
+      tag: 'div',
+      classList: [],
     });
   }
 
@@ -91,11 +102,11 @@ class WalletCategories {
 
     await this.fillCategoriesBlock(defaultStartDate, defaultEndDate);
 
-    this.section?.replaceChildren(header, this.categoriesBlock as HTMLElement);
+    this.section?.replaceChildren(header, this.alertContainer as HTMLElement, this.categoriesBlock as HTMLElement);
 
     this.countCategoriesAmount();
 
-    document.addEventListener('select', async (event) => {
+    this.section?.addEventListener('select', async (event) => {
       const customEvent = event as CustomEvent;
       const button = document.querySelector(`.${ClassMap.customSelect.title}`) as HTMLElement;
       button.setAttribute(Attribute.key, customEvent.detail.key);
@@ -104,25 +115,55 @@ class WalletCategories {
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodYear) {
         const startDate = new Date(currentDate.setFullYear(currentDate.getFullYear() - 1)).toISOString().split('T')[0];
-
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
       }
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodMonth) {
         const startDate = new Date(currentDate.setMonth(currentDate.getMonth() - 1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
       }
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodCurrentMonth) {
         const startDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
         await this.fillCategoriesBlock(startDate, endDate);
         this.countCategoriesAmount();
+        await this.updateChart(startDate, endDate);
+      }
+    });
+
+    this.categoriesBlock?.addEventListener('click', async (event) => {
+      const targetElement = event.target as HTMLElement;
+      if (targetElement.closest(`.${ClassMap.wallet.image}`) && !targetElement.classList.contains(`.${ClassMap.wallet.plus}`) && !targetElement.closest(`.${ClassMap.wallet.plus}`)) {
+        const id = targetElement.closest(`.${ClassMap.wallet.item}`)?.id as string;
+        const category = await this.getCategory(id);
+
+        if (category) {
+          const modal = new UpdaterCategory(category, this.updateCategoriesBlock, this.updateAccountsBlock).render();
+          const section = document.querySelector(`.${ClassMap.main}`);
+          section?.append(modal as HTMLElement);
+        }
       }
     });
 
     return this.section as HTMLElement;
+  }
+
+  private async getCategory(id: string): Promise<ICategory | null> {
+    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const category: ICategory | null = await RequestApi.get(Endpoint.CATEGORY, userToken, id);
+
+    return category;
+  }
+
+  private async updateChart(startDate: string, endDate: string): Promise<void> {
+    const newChart = new ChartCategoriesPie(new Date(startDate), new Date(endDate));
+    const chart = document.querySelector(`.${ClassMap.wallet.chart}`);
+    chart?.replaceChildren(await newChart.render());
+    newChart.addChart();
   }
 
   private async getCategories(): Promise<ICategory[]> {
@@ -159,7 +200,7 @@ class WalletCategories {
 
     const plusContainer = createElement({
       tag: 'div',
-      classList: [ClassMap.wallet.item],
+      classList: [ClassMap.wallet.item, ClassMap.wallet.plus],
     });
 
     const plusCategory = createElement({
@@ -172,7 +213,7 @@ class WalletCategories {
 
     plusCategory.addEventListener('click', () => {
       const section = document.querySelector(`.${ClassMap.main}`);
-      const modal = new CreatorCategory(this.getCategories, this.updateAccountsBlock).render();
+      const modal = new CreatorCategory(this.getCategories, this.updateCategoriesBlock).render();
       section?.append(modal as HTMLElement);
     });
 
@@ -217,9 +258,10 @@ class WalletCategories {
       classList: [ClassMap.wallet.balance],
     });
 
+    let sum = 0;
+
     const monthlyExpenses = await this.getExpensesCategory(name, start, end);
     if (monthlyExpenses.length > 0) {
-      let sum = 0;
       monthlyExpenses.forEach((expenses) => {
         sum += expenses.expense;
       });
@@ -228,38 +270,26 @@ class WalletCategories {
       itemAmount.innerText = `0 ${CurrencyMark[this.currency]}`;
     }
 
+    if (data.limit) {
+      if (data.limit < sum) {
+        itemIcon.style.backgroundColor = colorLimit.excess;
+
+        const alert = createElement({
+          tag: 'div',
+          classList: [
+            ClassMap.wallet.alert,
+          ],
+          content: `${Dictionary[this.lang].limitAlert} ${data.category}`,
+        });
+        this.alertContainer?.append(alert);
+        setTimeout(() => alert.remove(), limitAlertTime);
+      }
+    }
+
     item.replaceChildren(itemTitle, itemIcon, itemAmount);
 
     return item;
   }
-
-  // private async getYearExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear() - 1}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
-
-  // private async getCurrentMonthlyExpensesCategory(categoryName: string): Promise<IExpense[]> {
-  //   const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
-  //   const params: IFilterParams = {
-  //     startDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-01`,
-  //     endDate: `${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}`,
-  //     category: categoryName,
-  //   };
-
-  //   const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
-
-  //   return expensesData;
-  // }
 
   private async getExpensesCategory(categoryName: string, start: string, end: string): Promise<IExpense[]> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
