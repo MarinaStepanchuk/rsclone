@@ -219,6 +219,11 @@ export const ClassMap = {
     },
   },
   preloader: 'load',
+  errorPage: {
+    main: 'error-page',
+    img: 'error-page__image',
+    button: 'error-page__button',
+  },
   accountSettings: {
     accountSettings: 'account-settings',
     fieldset: 'account-settings__wrapper',
