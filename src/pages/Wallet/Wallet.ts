@@ -6,6 +6,7 @@ import createElement from '../../utils/createElement';
 import { ClassMap } from '../../constants/htmlConstants';
 import WalletAccouts from '../../components/WalletAccouts/WalletAccouts';
 import WalletCategories from '../../components/WalletCategories/WalletCategories';
+import ChartCategoriesPie from '../../components/ChartCategoriesPie/ChartCategoriesPie';
 
 class Wallet extends BasePage {
   public async render(): Promise<void> {
@@ -13,17 +14,37 @@ class Wallet extends BasePage {
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
 
-    const section = createElement({
+    const sectionIcons = createElement({
       tag: 'section',
       classList: [ClassMap.wallet.wrapper],
     });
 
-    section.append(
+    sectionIcons.append(
       await new WalletAccouts(this.updateAccountsBlock).render(),
       await new WalletCategories(this.updateCategoriesBlock).render(),
     );
 
-    mainContent?.replaceChildren(section);
+    const sectionChart = createElement({
+      tag: 'section',
+      classList: [ClassMap.wallet.chart],
+    });
+
+    const defaultStartDate = new Date(new Date().setDate(1));
+    const defaultEndDate = new Date();
+    const chart = new ChartCategoriesPie(defaultStartDate, defaultEndDate);
+
+    sectionChart.append(await chart.render());
+
+    const walletPage = createElement({
+      tag: 'div',
+      classList: [ClassMap.wallet.main],
+    });
+
+    walletPage.replaceChildren(sectionIcons, sectionChart);
+
+    mainContent?.replaceChildren(walletPage);
+
+    chart.addChart();
   }
 
   private async updateAccountsBlock(): Promise<void> {

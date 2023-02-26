@@ -1,24 +1,26 @@
-import Highcharts from 'highcharts';
+import Highcharts, { Color } from 'highcharts';
 import createElement from '../../utils/createElement';
-import { chartColor, ClassMap, IdMap } from '../../constants/htmlConstants';
+import { chartColor, IdMap } from '../../constants/htmlConstants';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { IExpense, IFilterParams } from '../../types/interfaces';
 import { LocalStorageKey } from '../../constants/common';
-import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 
-class ChartCategories {
+interface ICartLine {
+  name: string,
+  y: number,
+}
+
+class ChartCategoriesPie {
   private schedule: HTMLElement | null = null;
 
   private lang: LANG;
 
   private modeValue: MODE;
 
-  private categories: string[] = [];
-
-  private expensesLine: number[] = [];
+  private expensesLine: ICartLine[] = [];
 
   constructor(private startDate: Date, private endDate: Date) {
     this.modeValue = AppState.modeValue;
@@ -26,24 +28,10 @@ class ChartCategories {
   }
 
   public async render() {
-    const container = createElement({
-      tag: 'div',
-      classList: [ClassMap.analytic.chartCategoriesColumns.container, ClassMap.mode[this.modeValue].backgroundSection],
-    });
-
-    const sheduleTitle = createElement({
-      tag: 'span',
-      classList: [ClassMap.analytic.title, ClassMap.mode[this.modeValue].title],
-      key: DictionaryKeys.chartCategoriesColumnsTitle,
-      content: Dictionary[this.lang].chartCategoriesColumnsTitle,
-    });
-
     this.schedule = createElement({
       tag: 'div',
-      id: IdMap.chartCategoriesColumns,
+      id: IdMap.chartCategoriesPie,
     });
-
-    container.append(sheduleTitle, this.schedule);
 
     const allExpenses = await this.getExpenses();
 
@@ -53,67 +41,69 @@ class ChartCategories {
       categoriesCollection.add(expense.category);
     });
 
-    this.categories = Array.from(categoriesCollection);
+    const categories = Array.from(categoriesCollection);
 
-    this.expensesLine = this.categories.map((category) => {
+    this.expensesLine = categories.map((category) => {
       let sum = 0;
       allExpenses.forEach((expenses) => {
         if (expenses.category === category) {
           sum += expenses.expense;
         }
       });
-      return sum;
+      return {
+        name: category,
+        y: sum,
+      };
     });
 
-    return container;
+    return this.schedule;
   }
 
   public addChart() {
-    Highcharts.chart(IdMap.chartCategoriesColumns, {
+    const pieColors = (function () {
+      const colors = [];
+      const base = chartColor.dark;
+      let i;
+
+      for (i = 0; i < 10; i += 1) {
+        colors.push(new Color(base).brighten((i - 4) / 7).get());
+      }
+      return colors;
+    }());
+
+    Highcharts.chart(IdMap.chartCategoriesPie, {
       chart: {
-        type: 'column',
+        type: 'pie',
         backgroundColor: 'none',
-        margin: [20, 40, 100, 80],
-      },
-      title: {
-        text: undefined,
-      },
-      xAxis: {
-        categories: this.categories,
-        labels: {
-          style: {
-            color: chartColor.text,
-          },
-        },
-      },
-      legend: {
-        enabled: false,
+        margin: [0, 0, 0, 0],
       },
       credits: {
         enabled: false,
       },
-      yAxis: {
-        title: {
-          text: null,
+      title: {
+        text: undefined,
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
+      },
+      accessibility: {
+        point: {
+          valueSuffix: '%',
         },
-        labels: {
-          style: {
-            color: chartColor.text,
-          },
-        },
-        gridLineColor: chartColor.text,
       },
       plotOptions: {
-        series: {
+        pie: {
           allowPointSelect: true,
+          colors: pieColors,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+          },
         },
       },
       series: [{
-        type: 'column',
-        name: 'Expenses',
-        borderColor: chartColor.dark,
-        color: chartColor.dark,
-        borderRadius: 5,
+        type: 'pie',
         data: this.expensesLine,
       }],
     }, () => {});
@@ -133,4 +123,4 @@ class ChartCategories {
   }
 }
 
-export default ChartCategories;
+export default ChartCategoriesPie;

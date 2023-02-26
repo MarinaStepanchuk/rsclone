@@ -8,6 +8,7 @@ import { LocalStorageKey } from '../../constants/common';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
+import calculateTrendline from '../../utils/calculateTrendline';
 
 interface IChartLine {
   date: Date,
@@ -18,6 +19,8 @@ class ChartDailyExpenses {
   private schedule: HTMLElement | null = null;
 
   private coordinatesExpenses: number[][] = [];
+
+  private line: number[][] = [];
 
   private lang: LANG;
 
@@ -31,7 +34,7 @@ class ChartDailyExpenses {
   public async render() {
     const container = createElement({
       tag: 'div',
-      classList: [ClassMap.analytic.chartYearExpenses.container],
+      classList: [ClassMap.analytic.chartYearExpenses.container, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     const sheduleTitle = createElement({
@@ -73,10 +76,38 @@ class ChartDailyExpenses {
       this.coordinatesExpenses.push([Date.UTC(year, month, day), item.sum]);
     });
 
+    const trendLine = calculateTrendline(this.coordinatesExpenses, 0, 1);
+
+    this.coordinatesExpenses.forEach((item) => {
+      this.line.push([item[0], trendLine.calcY(item[0])]);
+    });
+
     return container;
   }
 
   public addChart() {
+    if (this.lang === 'RU') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Загрузка...',
+          months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+          weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+          shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+        },
+      });
+    }
+
+    if (this.lang === 'DE') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Daten werden geladen...',
+          months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+          shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        },
+      });
+    }
+
     Highcharts.chart(IdMap.chartDailyExpenses, {
       title: {
         text: undefined,
@@ -89,7 +120,7 @@ class ChartDailyExpenses {
         type: 'datetime',
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
       },
@@ -105,10 +136,10 @@ class ChartDailyExpenses {
         },
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
-        gridLineColor: chartColor.white,
+        gridLineColor: chartColor.text,
       },
       series: [{
         type: 'area',
@@ -124,6 +155,11 @@ class ChartDailyExpenses {
             [1, chartColor.endGradient],
           ],
         },
+      },
+      {
+        type: 'line',
+        name: 'Trend Line',
+        data: this.line,
       }],
     }, () => {});
   }

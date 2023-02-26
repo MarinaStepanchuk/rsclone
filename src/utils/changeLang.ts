@@ -1,7 +1,7 @@
 import { Dictionary } from '../constants/dictionary';
 import { LANG } from '../types/types';
 
-const changeLang = (lang: LANG) => {
+const changeLang = async (lang: LANG) => {
   const elements = document.querySelectorAll('[data-lang="lang"]');
   elements.forEach((item) => {
     const element = item as HTMLElement;

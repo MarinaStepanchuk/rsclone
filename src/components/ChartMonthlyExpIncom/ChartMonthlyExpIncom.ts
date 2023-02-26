@@ -33,7 +33,7 @@ class ChartMonthlyExpIncom {
   public async render() {
     const container = createElement({
       tag: 'div',
-      classList: [ClassMap.analytic.chartMonthlyExpIncom.container],
+      classList: [ClassMap.analytic.chartMonthlyExpIncom.container, ClassMap.mode[this.modeValue].backgroundSection],
     });
 
     const sheduleTitle = createElement({
@@ -97,6 +97,28 @@ class ChartMonthlyExpIncom {
   }
 
   public addChart() {
+    if (this.lang === 'RU') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Загрузка...',
+          months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+          weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+          shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+        },
+      });
+    }
+
+    if (this.lang === 'DE') {
+      Highcharts.setOptions({
+        lang: {
+          loading: 'Daten werden geladen...',
+          months: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+          weekdays: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+          shortMonths: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        },
+      });
+    }
+
     Highcharts.chart(IdMap.chartMonthlyExpIncom, {
       title: {
         text: undefined,
@@ -113,7 +135,7 @@ class ChartMonthlyExpIncom {
         type: 'datetime',
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
         tickInterval: 2592000000,
@@ -124,14 +146,14 @@ class ChartMonthlyExpIncom {
         },
         labels: {
           style: {
-            color: chartColor.white,
+            color: chartColor.text,
           },
         },
-        gridLineColor: chartColor.white,
+        gridLineColor: chartColor.text,
       },
       legend: {
         itemStyle: {
-          color: chartColor.white,
+          color: chartColor.text,
           fontWeight: 'normal',
         },
       },
