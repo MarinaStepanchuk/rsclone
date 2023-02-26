@@ -1,6 +1,6 @@
 import VanillaCalendar from '@uvarov.frontend/vanilla-calendar';
 import AppState from '../../constants/appState';
-import { todayDate, minRangeDate } from '../../constants/common';
+import { initStartDate, todayDate, minRangeDate } from '../../constants/common';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { ClassMap } from '../../constants/htmlConstants';
 import { FormatDateString, LANG } from '../../types/types';
@@ -32,6 +32,8 @@ class Calendar {
       ],
     }) as HTMLInputElement;
     this.calendarInput.placeholder = Dictionary[this.lang].calendarInput;
+
+    this.calendarInput.value = `${initStartDate} : ${todayDate}`;
     this.calendarInput.disabled = true;
 
     this.calendarEl = createElement({
@@ -168,25 +170,6 @@ class Calendar {
       }
     });
 
-    const lastSevenDaysButton = createElement({
-      tag: 'button',
-      classList: [ClassMap.calendar.button],
-      key: DictionaryKeys.lastSevenDays,
-      content: Dictionary[this.lang].lastSevenDays,
-    }) as HTMLButtonElement;
-
-    lastSevenDaysButton.addEventListener('click', () => {
-      const startDate = calculationDateDifferense(new Date(), 7).toISOString().split('T')[0] as FormatDateString;
-
-      AppState.startDate = startDate;
-      AppState.endDate = todayDate;
-
-      if (calendarInput) {
-        calendarInput.value = `${startDate} : ${todayDate}`;
-        calendarInput.dispatchEvent(new Event('input'));
-      }
-    });
-
     const lastThirtyDaysButton = createElement({
       tag: 'button',
       classList: [ClassMap.calendar.button],
@@ -259,12 +242,11 @@ class Calendar {
       }
     });
 
-    parentElement.append(lastSevenDaysButton);
+    parentElement.append(allTimeButton);
     parentElement.append(lastThirtyDaysButton);
     parentElement.append(lastYearButton);
     parentElement.append(currentMonthButton);
     parentElement.append(currentYearButton);
-    parentElement.append(allTimeButton);
   }
 }
 

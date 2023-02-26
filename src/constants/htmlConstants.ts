@@ -59,6 +59,7 @@ export const ClassMap = {
       modalTitle: 'dark-mode-modal-title',
       modalFont: 'dark-mode-modal-font',
       icon: 'dark-mode-icon',
+      logo: 'dark-mode-logo',
     },
     light: {
       background: 'light-mode-background',
@@ -69,6 +70,7 @@ export const ClassMap = {
       modalTitle: 'light-mode-modal-title',
       modalFont: 'light-mode-modal-font',
       icon: 'light-mode-icon',
+      logo: 'light-mode-logo',
     },
   },
   passwordIcon: 'password-icon',
@@ -174,6 +176,10 @@ export const ClassMap = {
     balance: 'wallet__balance',
     lightIcon: 'wallet__image_light',
     select: 'wallet__select',
+    chart: 'wallet__chart',
+    main: 'wallet-page',
+    plus: 'wallet__plus-item',
+    alert: 'wallet__alert',
   },
   customSelect: {
     container: 'customselect',
@@ -196,21 +202,46 @@ export const ClassMap = {
     createLimit: 'create-form__limit',
     createCheckbox: 'create-form__limit_checkbox',
   },
+  updater: {
+    deleteButton: 'updater-delete-button',
+    createButton: 'updater-create-button',
+  },
+  iconsBlock: {
+    wrapper: 'icons-wrapper',
+    container: 'icons__container',
+    item: 'icons__item',
+  },
   calendar: {
     input: 'calendar__input',
     body: 'calendar__body',
     buttons: 'calendar__button-wrap',
     button: 'calendar__button',
   },
+  analytic: {
+    main: 'analytic',
+    calendar: 'analytic__calendar',
+    title: 'analytic__title',
+    chartYearExpenses: {
+      container: 'analytic__chart-daily-expenses',
+    },
+    chartMonthlyExpIncom: {
+      container: 'analytic__chart-monthly-expenses-incomes',
+    },
+    chartCategoriesColumns: {
+      container: 'analytic__chart-categories-columns',
+    },
+  },
   preloader: 'load',
-};
-
-export const IdMap = {
-  accountSelect: 'accountSelect',
-  categorySelect: 'categorySelect',
-  dateValue: 'dateValue',
-  sumInput: 'sumInput',
-  comment: 'comment',
+  accountSettings: {
+    accountSettings: 'account-settings',
+    fieldset: 'account-settings__wrapper',
+    infoTitle: 'account-settings__title',
+    formItem: 'account-settings__item',
+    inputName: 'account-settings__input',
+    inputPhone: 'account-settings__input_phone',
+    update: 'account-settings__update-btn',
+    userImg: 'account-settings__avatar',
+  },
 };
 
 export const Title = {
@@ -272,9 +303,20 @@ export const startId = {
   svg: 'svg-',
 };
 
-export const ellementId = {
+export const IdMap = {
+  accountSelect: 'accountSelect',
+  categorySelect: 'categorySelect',
+  dateValue: 'dateValue',
+  sumInput: 'sumInput',
+  comment: 'comment',
   walletSelect: 'wallet-select',
   limitCheckbox: 'wallet-limit-checkbox',
+  chartDailyExpenses: 'chart-daily-expenses',
+  chartMonthlyExpIncom: 'chart-monthly-expenses-incomes',
+  chartCategoriesColumns: 'chart-categories-columns',
+  chartCategoriesPie: 'chart-categories-pie',
+  menuUserName: 'menuUserName',
+  menuUserImg: 'menuUserImg',
 };
 
 export const TextArea = {
@@ -299,3 +341,11 @@ export const InputType = {
 };
 
 export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense', 'commentExpense'];
+
+export const chartColor = {
+  text: '#5063BF',
+  dark: '#5063BF',
+  startGradient: '#6876bb',
+  endGradient: 'rgba(231, 235, 255, 0)',
+  columnIncomes: '#E7EBFF',
+};

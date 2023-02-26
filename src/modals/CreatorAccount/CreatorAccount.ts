@@ -9,6 +9,7 @@ import BaseCreater from '../BaseCreater/BaseCreater';
 import { SvgIcons } from '../../constants/svgMap';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
+import SvgModal from '../SvgModal/SvgModal';
 
 class CreatorAccount extends BaseCreater {
   constructor(private getAccount: () => Promise<IAccount[]>, private updateAccountsBlock: () => void) {
@@ -58,16 +59,25 @@ class CreatorAccount extends BaseCreater {
       }
 
       const accounts = await this.getAccount();
+      let matchFound = false;
 
       accounts.forEach((item) => {
         if (item.account === value) {
-          (this.submit as HTMLButtonElement).disabled = true;
-          showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageAccountExists);
-        } else {
-          (this.submit as HTMLButtonElement).disabled = false;
-          removeErrorValidationMessage(this.inputName as HTMLInputElement);
+          matchFound = true;
         }
       });
+
+      if (matchFound) {
+        (this.submit as HTMLButtonElement).disabled = true;
+        showErrorValidationMessage(this.inputName as HTMLInputElement, Dictionary[this.lang].errorMessageAccountExists);
+      } else {
+        (this.submit as HTMLButtonElement).disabled = false;
+        removeErrorValidationMessage(this.inputName as HTMLInputElement);
+      }
+
+      if (value === '') {
+        (this.submit as HTMLButtonElement).disabled = true;
+      }
     });
 
     this.form?.addEventListener('click', async (event) => {
@@ -91,6 +101,11 @@ class CreatorAccount extends BaseCreater {
         this.updateAccountsBlock();
 
         this.modalWrapper?.remove();
+      }
+
+      if (targetElement.closest(`.${ClassMap.creater.createIcon}`)) {
+        const section = document.querySelector(`.${ClassMap.mainContent}`);
+        section?.append(new SvgModal(SvgIcons.account).render());
       }
     });
   }

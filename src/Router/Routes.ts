@@ -9,12 +9,12 @@ export const Routes = {
   '/': (): void => new Authorization().render(),
   '/dashboard': ():void => new Dashboard().render(),
   '/wallet': ():Promise<void> => new Wallet().render(),
-  '/analytics': ():void => new Analytics().render(),
+  '/analytics': ():Promise<void> => new Analytics().render(),
   '/account': ():void => new Account().render(),
 };
 
 const path = window.location.pathname;
 
-export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : path.substring(0, path.indexOf('/', 1));
+export const homePagePath = !localStorage.getItem(LocalStorageKey.auth) ? '/' : path === '/dashboard' || path === '/' || path === '' ? '/dashboard' : path.substring(0, path.indexOf('/', 1));
 
 export const basePath = '/';

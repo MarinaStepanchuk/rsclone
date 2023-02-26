@@ -35,7 +35,7 @@
 }
 
 @mixin modal-wrapper {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 100%;
@@ -50,7 +50,7 @@
 @mixin close-modal-button {
   position: absolute;
   z-index: 30;
-  top: 0;
+  top: -5px;
   right: 0;
   margin: 2rem;
   width: 3rem;

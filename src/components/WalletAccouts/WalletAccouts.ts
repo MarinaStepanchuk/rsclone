@@ -11,6 +11,7 @@ import { IAccount } from '../../types/interfaces';
 import CreatorAccount from '../../modals/CreatorAccount/CreatorAccount';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
+import UpdaterAccount from '../../modals/UpdaterAccount/UpdaterAccount';
 
 class WalletAccouts {
   private modeValue: MODE;
@@ -100,7 +101,7 @@ class WalletAccouts {
 
     const plusAccount = createElement({
       tag: 'div',
-      classList: [ClassMap.wallet.image],
+      classList: [ClassMap.wallet.image, ClassMap.wallet.plus],
     });
 
     plusContainer.append(plusAccount);
@@ -113,6 +114,21 @@ class WalletAccouts {
       const section = document.querySelector(`.${ClassMap.main}`);
       const modal = new CreatorAccount(this.getAccouts, this.updateAccountsBlock).render();
       section?.append(modal as HTMLElement);
+    });
+
+    accountsBlock.addEventListener('click', async (event) => {
+      const targetElement = event.target as HTMLElement;
+
+      if (targetElement.closest(`.${ClassMap.wallet.image}`) && !targetElement.classList.contains(`.${ClassMap.wallet.plus}`) && !targetElement.closest(`.${ClassMap.wallet.plus}`)) {
+        const id = targetElement.closest(`.${ClassMap.wallet.item}`)?.id as string;
+        const account = await this.getAccount(id);
+
+        if (account) {
+          const modal = new UpdaterAccount(account, this.updateAccountsBlock).render();
+          const section = document.querySelector(`.${ClassMap.main}`);
+          section?.append(modal as HTMLElement);
+        }
+      }
     });
 
     return accountsBlock;
@@ -158,6 +174,13 @@ class WalletAccouts {
     item.replaceChildren(itemTitle, itemIcon, itemAmount);
 
     return item;
+  }
+
+  private async getAccount(id: string): Promise<IAccount | null> {
+    const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const account: IAccount | null = await RequestApi.get(Endpoint.ACCOUNT, userToken, id);
+
+    return account;
   }
 }
 

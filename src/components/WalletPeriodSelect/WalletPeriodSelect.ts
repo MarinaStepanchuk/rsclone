@@ -1,6 +1,5 @@
-import './WalletPeriodSelect.scss';
 import createElement from '../../utils/createElement';
-import { ClassMap, ellementId } from '../../constants/htmlConstants';
+import { ClassMap, IdMap } from '../../constants/htmlConstants';
 import { LANG } from '../../types/types';
 import AppState from '../../constants/appState';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
@@ -17,7 +16,7 @@ class WalletPeriodSelect {
     const select = createElement({
       tag: 'div',
       classList: [ClassMap.wallet.select, ClassMap.customSelect.container],
-      id: ellementId.walletSelect,
+      id: IdMap.walletSelect,
     });
 
     const selectButton = createElement({
