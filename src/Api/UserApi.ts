@@ -9,6 +9,7 @@ import {
 import AppState from '../constants/appState';
 import AlertMessage from '../components/AlertMessage/AlertMessege';
 import { alertTimeout } from '../constants/common';
+import { Dictionary } from '../constants/dictionary';
 
 class UserApi {
   public static async registrationUser(userData: IUserRegister): Promise<{ status: number; message: string } | null> {
@@ -32,7 +33,7 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;
@@ -57,14 +58,14 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;
     }
   }
 
-  public static async updateUser(token: string, updateUserData: Partial<IUserData>): Promise<{ status: number; message: string } | null> {
+  public static async updateUser(token: string, updateUserData: Partial<IUserData>): Promise<{ status: number; message: string, user?: IUserData } | null> {
     const url = `${BASE_URL}${Endpoint.USER_UPDATE}`;
     const authorization = { Authorization: `Bearer ${token}` };
 
@@ -82,7 +83,32 @@ class UserApi {
         ...dataResponse,
       };
     } catch (error) {
-      const alert = new AlertMessage('Error. Please try again later', RESPONSE_STATUS.BAD_REQUEST);
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
+      alert.render();
+      setTimeout(() => alert.remove(), alertTimeout);
+      return null;
+    }
+  }
+
+  public static async updateUserPassword(token: string, updateUserPassword: Partial<IUserLogin>): Promise<{ status: number; message: string } | null> {
+    const url = `${BASE_URL}${Endpoint.USER_UPDATE_PASSWORD}`;
+    const authorization = { Authorization: `Bearer ${token}` };
+
+    try {
+      const response = await fetch(url, {
+        method: REQUEST_METOD.PATCH,
+        headers: Object.assign(authorization, CONTENT_TYPE_JSON),
+        body: JSON.stringify(updateUserPassword),
+      });
+
+      const dataResponse = await response.json();
+
+      return {
+        status: response.status,
+        ...dataResponse,
+      };
+    } catch (error) {
+      const alert = new AlertMessage(`${Dictionary[AppState.lang].error}`, RESPONSE_STATUS.BAD_REQUEST);
       alert.render();
       setTimeout(() => alert.remove(), alertTimeout);
       return null;

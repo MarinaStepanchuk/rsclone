@@ -224,6 +224,16 @@ export const ClassMap = {
     img: 'error-page__image',
     button: 'error-page__button',
   },
+  accountSettings: {
+    accountSettings: 'account-settings',
+    fieldset: 'account-settings__wrapper',
+    infoTitle: 'account-settings__title',
+    formItem: 'account-settings__item',
+    inputName: 'account-settings__input',
+    inputPhone: 'account-settings__input_phone',
+    update: 'account-settings__update-btn',
+    userImg: 'account-settings__avatar',
+  },
 };
 
 export const Title = {
@@ -297,6 +307,8 @@ export const IdMap = {
   chartMonthlyExpIncom: 'chart-monthly-expenses-incomes',
   chartCategoriesColumns: 'chart-categories-columns',
   chartCategoriesPie: 'chart-categories-pie',
+  menuUserName: 'menuUserName',
+  menuUserImg: 'menuUserImg',
 };
 
 export const TextArea = {
