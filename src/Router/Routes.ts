@@ -7,7 +7,7 @@ import { LocalStorageKey } from '../constants/common';
 
 export const Routes = {
   '/': (): void => new Authorization().render(),
-  '/dashboard': ():void => new Dashboard().render(),
+  '/dashboard': ():Promise<void> => new Dashboard().render(),
   '/wallet': ():Promise<void> => new Wallet().render(),
   '/analytics': ():Promise<void> => new Analytics().render(),
   '/account': ():void => new Account().render(),

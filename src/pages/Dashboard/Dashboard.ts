@@ -3,7 +3,7 @@ import './Dashboard.scss';
 import BasePage from '../BasePage/BasePage';
 import { CurrencyMark, Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { Attribute, ClassMap } from '../../constants/htmlConstants';
+import { Attribute, ClassMap, IdMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
@@ -15,6 +15,7 @@ import ExpenseModal from '../../modals/ExpenseModal/ExpenseModal';
 import { updateExpenses, updateIncomes } from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
+import ExpenseList from '../../components/ExpenseList/ExpenseList';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -30,7 +31,7 @@ class Dashboard extends BasePage {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
-  public render(): void {
+  public async render(): Promise<void> {
     this.createPageStructure(Route.DASHBOARD);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
@@ -110,6 +111,7 @@ class Dashboard extends BasePage {
 
     const expenseBalance = createElement({
       tag: 'div',
+      classList: [ClassMap.dashboard.expenseTotal],
       content: '0',
     });
 
@@ -310,12 +312,21 @@ class Dashboard extends BasePage {
 
     balanceSection.append(balanceWrap, buttonsWrap);
 
+    const expenseListWrap = createElement({
+      tag: 'section',
+      id: IdMap.expenseList,
+    });
+
+    const expenseList = await new ExpenseList().render();
+
+    expenseListWrap.append(expenseList);
+
     const mainDashboard = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(dashboardHeader, totalFinanceWrap, balanceSection);
+    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap);
 
     const calculator = new Calculator().render();
 
@@ -329,7 +340,6 @@ class Dashboard extends BasePage {
     const mainAside = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainAside],
-      content: 'Тут aside',
     });
 
     mainAside.append(calculatorWrap);
@@ -344,7 +354,7 @@ class Dashboard extends BasePage {
 
     mainDashboardWrap.append(mainDashboard, mainAside);
 
-    mainContent?.replaceChildren(mainDashboardWrap);
+    mainContent?.replaceChildren(dashboardHeader, mainDashboardWrap);
   }
 
   private addCurrency(): HTMLElement {

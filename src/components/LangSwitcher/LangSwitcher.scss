@@ -2,7 +2,7 @@
 
 .lang-switcher {
   position: absolute;
-  top: 0;
+  top: 4rem;
   border: 1px solid $color-dark-font;
   border-radius: 5px;
   background-image: url(../../assets/icons/de.svg);
@@ -18,7 +18,7 @@
     justify-content: center;
     gap: 0.5rem;
     display: none;
-    
+
     &__item {
       border: 1px solid $color-dark-font;
       border-radius: 5px;
@@ -33,7 +33,7 @@
 
   .lang-switcher__container {
     top: 4.5rem;
-    
+
     &__item {
       width: 4rem;
       height: 4rem;
@@ -49,7 +49,7 @@
 
   .lang-switcher__container {
     top: 3.5rem;
-    
+
     &__item {
       width: 3rem;
       height: 3rem;

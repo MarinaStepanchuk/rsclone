@@ -135,6 +135,7 @@ export const ClassMap = {
     totalBalance: 'balance__value',
     balanceWrap: 'balance__wrap',
     balance: 'balance',
+    expenseTotal: 'dashboard__expense-total',
     totalWrap: 'total-wrap',
     balanceButton: 'balance__button',
     incomeForm: 'form',
@@ -147,6 +148,22 @@ export const ClassMap = {
     formSubmitButton: 'form__button',
     formTextarea: 'form__textarea',
     calculatorWrap: 'calculator-wrap',
+    expenseSection: 'expense-wrap',
+    expenseTitle: 'expense__title',
+    expenseTitleWrap: 'expense__title-wrap',
+    expenseList: 'expense__list',
+    expenseHeaderItem: 'expense__list_header',
+    expenseItem: 'expense__item',
+    expensePaginationWrap: 'expense__pagination',
+    paginationButton: 'expense__pagination_button',
+    paginationButtonLeft: 'pagination__button_left',
+    paginationButtonRight: 'pagination__button_right',
+    paginationPageNum: 'expense__pagination__page-num',
+    paginationInput: 'expense__pagination_input',
+    emptyExpenseList: 'expense',
+    editButtonsWrap: 'expense__button-wrap',
+    editButton: 'expense__button_edit',
+    deleteButton: 'expense__button_delete',
   },
   wallet: {
     categoriesSection: 'categories',
@@ -309,6 +326,7 @@ export const IdMap = {
   chartCategoriesPie: 'chart-categories-pie',
   menuUserName: 'menuUserName',
   menuUserImg: 'menuUserImg',
+  expenseList: 'expenseList',
 };
 
 export const TextArea = {
@@ -320,6 +338,8 @@ export const TextArea = {
 export const InputValue = {
   minNum: '1',
   maxNum: '10000000',
+  limitPage: 10,
+  maxLimitPage: '20',
 };
 
 export const MinDate = '2012-01-01';
@@ -327,7 +347,10 @@ export const MinDate = '2012-01-01';
 export const InputType = {
   number: 'number',
   date: 'date',
+  text: 'text',
 };
+
+export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense', 'commentExpense'];
 
 export const chartColor = {
   text: '#5063BF',

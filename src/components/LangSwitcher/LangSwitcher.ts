@@ -64,11 +64,11 @@ class LangSwitcher {
       if (targetElement.id !== this.lang) {
         localStorage.setItem(LocalStorageKey.lang, targetElement.id);
         this.lang = targetElement.id as LANG;
+        AppState.lang = this.lang;
         switcher.id = this.lang;
         switcher.style.backgroundImage = `URL(${languages[this.lang]})`;
         this.fillSwitcherContainer();
         changeLang(this.lang);
-        AppState.lang = this.lang;
       }
     });
 

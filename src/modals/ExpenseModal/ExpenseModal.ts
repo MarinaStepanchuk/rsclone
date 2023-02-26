@@ -14,6 +14,7 @@ import {
   getSelectedValue,
   getSum,
 } from '../../utils/getModalValue';
+import ExpenseList from '../../components/ExpenseList/ExpenseList';
 
 class ExpenseModal extends BaseModal {
   public render(expenseBalances: IBalances): HTMLElement {
@@ -102,6 +103,7 @@ class ExpenseModal extends BaseModal {
 
     await updateExpenses(expenseBalances);
     await updateBalances(expenseBalances);
+    ExpenseList.updateExpenseList();
 
     this.modalWrapper?.remove();
   }

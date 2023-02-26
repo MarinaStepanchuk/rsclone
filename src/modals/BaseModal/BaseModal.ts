@@ -185,10 +185,6 @@ class BaseModal {
       if (userDate.getTime() > todayDate.getTime()) {
         dateInput.value = todayFullDate;
       }
-
-      if (dateInput.value < dateInput.min) {
-        return;
-      }
     });
 
     const dateWrap = createElement({
