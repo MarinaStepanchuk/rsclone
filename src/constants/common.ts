@@ -1,7 +1,9 @@
 import { ICategory, IAccount } from '../types/interfaces';
 import { FormatDateString } from '../types/types';
+import calculationDateDifferense from '../utils/calculationDateDifference';
 
-export const minRangeDate: FormatDateString = '2000-01-01';
+export const minRangeDate: FormatDateString = '2020-01-01';
+export const initStartDate = calculationDateDifferense(new Date(), 365).toISOString().split('T')[0] as FormatDateString;
 export const todayDate: FormatDateString = new Date().toISOString().split('T')[0] as FormatDateString;
 
 export const LANG_ATTRIBUTE = 'lang';
@@ -10,11 +12,14 @@ export const RegularExpressions = {
   Email: /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}/gm,
   Name: /^([а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,}[ ][а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,}|[а-яА-Яa-zA-Z0-9-!@#$%^&*]{3,})/gm,
   Password: /^[0-9a-zA-Z-!@#$%^&*]{5,}/gm,
+  Phone: /^([0-9]{9,})/gm,
 };
 
 export const alertTimeout = 2000;
 
 export const Currency = ['USD', 'RUB', 'BYN', 'EUR'];
+
+export const avatarsCount = 10;
 
 export const defaultState = {
   mode: 'light',

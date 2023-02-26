@@ -4,6 +4,7 @@ import createElement from '../../utils/createElement';
 import {
   Attribute,
   ClassMap,
+  IdMap,
   MenuNavItem,
 } from '../../constants/htmlConstants';
 import { IMenuItem } from '../../types/interfaces';
@@ -157,7 +158,10 @@ class MainMenu {
   }
 
   private createUserWrap(): HTMLElement {
-    const userImg = createElement({ tag: 'img' }) as HTMLImageElement;
+    const userImg = createElement({
+      tag: 'img',
+      id: IdMap.menuUserImg,
+    }) as HTMLImageElement;
 
     if (AppState.userAccount) {
       const userAccountObj = JSON.parse(AppState.userAccount);
@@ -173,6 +177,7 @@ class MainMenu {
 
     const userName = createElement({
       tag: 'div',
+      id: IdMap.menuUserName,
     });
 
     if (AppState.userAccount) {
