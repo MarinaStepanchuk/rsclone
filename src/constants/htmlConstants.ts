@@ -254,6 +254,13 @@ export const ClassMap = {
     update: 'account-settings__update-btn',
     userImg: 'account-settings__avatar',
   },
+  currencyList: {
+    currency: 'currency',
+    currencyList: 'currency__list',
+    currencyItem: 'currency__item',
+    currencyIcon: 'currency__icon',
+    currencyTitle: 'currency__title',
+  }
 };
 
 export const Title = {

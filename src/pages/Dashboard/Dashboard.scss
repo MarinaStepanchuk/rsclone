@@ -4,6 +4,7 @@
 .main__dashboard-wrap {
  display: grid;
  grid-template-columns: 2fr 1fr;
+  gap: 4rem;
  padding: 0 2rem 2rem;
 }
 
@@ -114,7 +115,7 @@
 
 .main__aside {
   align-items: center;
-  padding-left: 2rem;
+  //padding-left: 2rem;
 }
 
 .calculator-wrap {
@@ -123,4 +124,11 @@
   justify-content: center;
   padding: 2rem;
   border-radius: 2rem;
+}
+
+@media (max-width: 1200px) {
+  .main__dashboard-wrap {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -17,6 +17,7 @@ import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import IncomeList from '../../components/IncomeList/IncomeList';
+import CurrencyList from "../../components/CurrencyList/CurrencyList";
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -261,12 +262,12 @@ class Dashboard extends BasePage {
       id: IdMap.expenseList,
     });
 
+    const expenseList = await new ExpenseList().render();
+
     const incomeListWrap = createElement({
       tag: 'section',
       id: IdMap.incomeList,
     });
-
-    const expenseList = await new ExpenseList().render();
 
     const incomeList = await new IncomeList().render();
 
@@ -289,12 +290,14 @@ class Dashboard extends BasePage {
 
     calculatorWrap.append(calculator);
 
+    const currencyWrap = new CurrencyList().render();
+
     const mainAside = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainAside],
     });
 
-    mainAside.append(calculatorWrap);
+    mainAside.append(currencyWrap, calculatorWrap);
 
     updateIncomes(incomeBalances);
     updateExpenses(expenseBalances);

@@ -1,0 +1,13 @@
+.currency {
+  display: flex;
+  flex-direction: column;
+  border-radius: 2rem;
+  padding: 2rem;
+  margin-bottom: 2rem;
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
