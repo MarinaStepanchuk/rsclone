@@ -1,25 +1,25 @@
-import { IExpense } from '../../../types/interfaces';
-import createElement from '../../../utils/createElement';
-import { ClassMap } from '../../../constants/htmlConstants';
-import createDateValue from '../../../utils/createDateValue';
-import { Dictionary, DictionaryKeys } from '../../../constants/dictionary';
 import { CURRENCY, FuncDeleteItem, MODE } from '../../../types/types';
+import { IIncome } from '../../../types/interfaces';
 import AppState from '../../../constants/appState';
 import { LocalStorageKey } from '../../../constants/common';
+import createElement from '../../../utils/createElement';
+import createDateValue from '../../../utils/createDateValue';
 import { CurrencyMark } from '../../../types/enums';
+import { ClassMap } from '../../../constants/htmlConstants';
+import { Dictionary, DictionaryKeys } from '../../../constants/dictionary';
 
-class ExpenseItem {
+class IncomeItem {
   private modeValue: MODE;
 
   private readonly currency: CURRENCY;
 
-  constructor(private expense: IExpense, private deleteFunction: FuncDeleteItem) {
+  constructor(private income: IIncome, private deleteFunction: FuncDeleteItem) {
     this.modeValue = AppState.modeValue;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
   public render(): HTMLElement {
-    let commentText = this.expense.comment;
+    let commentText = this.income.comment;
 
     if (!commentText) {
       commentText = '';
@@ -27,17 +27,15 @@ class ExpenseItem {
 
     const date = createElement({
       tag: 'div',
-      content: createDateValue(this.expense.date),
+      content: createDateValue(this.income.date),
     });
-
-    const category = this.createCategoryItem(this.expense.category, this.expense.category);
 
     const amount = createElement({
       tag: 'div',
-      content: `${this.expense.expense} ${CurrencyMark[this.currency]}`,
+      content: `${this.income.income} ${CurrencyMark[this.currency]}`,
     });
 
-    const account = this.createCategoryItem(this.expense.account, this.expense.account);
+    const account = this.createCategoryItem(this.income.account, this.income.account);
 
     const comment = createElement({
       tag: 'div',
@@ -57,8 +55,8 @@ class ExpenseItem {
     }) as HTMLButtonElement;
 
     deleteButton?.addEventListener('click', () => {
-      if (this.expense._id) {
-        this.deleteFunction(this.expense._id);
+      if (this.income._id) {
+        this.deleteFunction(this.income._id);
       }
     });
 
@@ -69,21 +67,20 @@ class ExpenseItem {
 
     buttonsWrap.append(deleteButton);
 
-    const expenseItem = createElement({
+    const incomeItem = createElement({
       tag: 'li',
-      classList: [ClassMap.dashboard.expenseItem],
+      classList: [ClassMap.dashboard.expenseItem, ClassMap.dashboard.incomeItem],
     });
 
-    expenseItem.append(
+    incomeItem.append(
       date,
-      category,
-      amount,
       account,
+      amount,
       comment,
       buttonsWrap,
     );
 
-    return expenseItem;
+    return incomeItem;
   }
 
   private createCategoryItem(key: string, name: string): HTMLDivElement {
@@ -106,4 +103,4 @@ class ExpenseItem {
   }
 }
 
-export default ExpenseItem;
+export default IncomeItem;

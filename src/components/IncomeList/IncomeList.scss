@@ -1,0 +1,6 @@
+.income {
+  &__list_header,
+  &__item {
+    grid-template-columns: 1fr 1fr 1fr 1fr 0.5fr;
+  }
+}

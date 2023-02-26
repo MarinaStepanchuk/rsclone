@@ -16,6 +16,7 @@ import { updateExpenses, updateIncomes } from '../../utils/updateSum';
 import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
+import IncomeList from '../../components/IncomeList/IncomeList';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -72,6 +73,7 @@ class Dashboard extends BasePage {
 
     const incomeBalance = createElement({
       tag: 'div',
+      classList: [ClassMap.dashboard.incomeTotal],
       content: '0',
     });
 
@@ -149,83 +151,40 @@ class Dashboard extends BasePage {
 
     totalFinanceWrap.append(totalIncome, totalExpense);
 
-    const cardBalanceIcon = createElement({
+    const totalAccountIcon = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.iconWrap],
     });
 
-    cardBalanceIcon.innerHTML = SvgIcons.account.card;
+    totalAccountIcon.innerHTML = SvgIcons.account.cash;
 
-    const cardBalanceValue = createElement({
+    const totalAccountBalanceValue = createElement({
       tag: 'div',
       content: '0',
     });
 
-    const cardBalanceValueWrap = createElement({
+    const totalAccountBalanceWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
     });
 
-    cardBalanceValueWrap.append(cardBalanceValue, this.addCurrency());
+    totalAccountBalanceWrap.append(totalAccountBalanceValue, this.addCurrency());
 
-    const cardBalanceTitle = createElement({
-      tag: 'div',
-      key: DictionaryKeys.cardBalance,
-      content: Dictionary[this.lang].cardBalance,
-    });
-
-    const cardBalance = createElement({
+    const totalAccountBalanceTitle = createElement({
       tag: 'div',
       classList: [ClassMap.mode[this.modeValue].font],
+      key: DictionaryKeys.totalBalance,
+      content: Dictionary[this.lang].totalBalance,
     });
 
-    cardBalance.append(cardBalanceTitle, cardBalanceValueWrap);
+    totalAccountBalanceTitle.style.marginRight = '5px'
 
-    const cardBalanceWrap = createElement({
+    const totalAccountWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.totalWrap],
     });
 
-    cardBalanceWrap.append(cardBalanceIcon, cardBalance);
-
-    const cashBalanceIcon = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.iconWrap],
-    });
-
-    cashBalanceIcon.innerHTML = SvgIcons.account.cash;
-
-    const cashBalanceValue = createElement({
-      tag: 'div',
-      content: '0',
-    });
-
-    const cashBalanceValueWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.totalBalance, ClassMap.mode[this.modeValue].font],
-    });
-
-    cashBalanceValueWrap.append(cashBalanceValue, this.addCurrency());
-
-    const cashBalanceTitle = createElement({
-      tag: 'div',
-      key: DictionaryKeys.cashBalance,
-      content: Dictionary[this.lang].cashBalance,
-    });
-
-    const cashBalance = createElement({
-      tag: 'div',
-      classList: [ClassMap.mode[this.modeValue].font],
-    });
-
-    cashBalance.append(cashBalanceTitle, cashBalanceValueWrap);
-
-    const cashBalanceWrap = createElement({
-      tag: 'div',
-      classList: [ClassMap.dashboard.totalWrap],
-    });
-
-    cashBalanceWrap.append(cashBalanceIcon, cashBalance);
+    totalAccountWrap.append(totalAccountIcon, totalAccountBalanceTitle, totalAccountBalanceWrap);
 
     const updateWalletButton = createElement({
       tag: 'button',
@@ -245,7 +204,7 @@ class Dashboard extends BasePage {
       classList: [ClassMap.dashboard.balanceWrap],
     });
 
-    balanceWrap.append(cardBalanceWrap, cashBalanceWrap, updateWalletButton);
+    balanceWrap.append(totalAccountWrap, updateWalletButton);
 
     const addIncomeButton = createElement({
       tag: 'button',
@@ -256,8 +215,7 @@ class Dashboard extends BasePage {
 
     const incomeBalances: IBalances = {
       totalBalance: incomeBalance,
-      cardBalance: cardBalanceValue,
-      cashBalance: cashBalanceValue,
+      totalAccountBalance: totalAccountBalanceValue,
     };
 
     addIncomeButton.addEventListener('click', () => {
@@ -275,8 +233,7 @@ class Dashboard extends BasePage {
 
     const expenseBalances: IBalances = {
       totalBalance: expenseBalance,
-      cardBalance: cardBalanceValue,
-      cashBalance: cashBalanceValue,
+      totalAccountBalance: totalAccountBalanceValue,
     };
 
     addExpenseButton.addEventListener('click', () => {
@@ -285,25 +242,12 @@ class Dashboard extends BasePage {
       section?.append(modal as HTMLElement);
     });
 
-    const addLimitButton = createElement({
-      tag: 'button',
-      classList: [ClassMap.dashboard.balanceButton, ClassMap.transitionButoon],
-      key: DictionaryKeys.addLimit,
-      content: Dictionary[this.lang].addLimit,
-    }) as HTMLButtonElement;
-
-    addLimitButton.setAttribute(Attribute.dataLink, Route.WALLET);
-
-    addLimitButton.addEventListener('click', () => {
-      MainMenu.createActiveButton(Route.WALLET);
-    });
-
     const buttonsWrap = createElement({
       tag: 'div',
       classList: [ClassMap.dashboard.balanceWrap],
     });
 
-    buttonsWrap.append(addIncomeButton, addExpenseButton, addLimitButton);
+    buttonsWrap.append(addIncomeButton, addExpenseButton);
 
     const balanceSection = createElement({
       tag: 'section',
@@ -317,8 +261,16 @@ class Dashboard extends BasePage {
       id: IdMap.expenseList,
     });
 
+    const incomeListWrap = createElement({
+      tag: 'section',
+      id: IdMap.incomeList,
+    });
+
     const expenseList = await new ExpenseList().render();
 
+    const incomeList = await new IncomeList().render();
+
+    incomeListWrap.append(incomeList);
     expenseListWrap.append(expenseList);
 
     const mainDashboard = createElement({
@@ -326,7 +278,7 @@ class Dashboard extends BasePage {
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap);
+    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap, incomeListWrap);
 
     const calculator = new Calculator().render();
 

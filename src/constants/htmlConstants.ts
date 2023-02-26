@@ -136,6 +136,7 @@ export const ClassMap = {
     balanceWrap: 'balance__wrap',
     balance: 'balance',
     expenseTotal: 'dashboard__expense-total',
+    incomeTotal: 'dashboard__income-total',
     totalWrap: 'total-wrap',
     balanceButton: 'balance__button',
     incomeForm: 'form',
@@ -153,7 +154,9 @@ export const ClassMap = {
     expenseTitleWrap: 'expense__title-wrap',
     expenseList: 'expense__list',
     expenseHeaderItem: 'expense__list_header',
+    incomeHeaderItem: 'income__list_header',
     expenseItem: 'expense__item',
+    incomeItem: 'income__item',
     expensePaginationWrap: 'expense__pagination',
     paginationButton: 'expense__pagination_button',
     paginationButtonLeft: 'pagination__button_left',
@@ -327,6 +330,7 @@ export const IdMap = {
   menuUserName: 'menuUserName',
   menuUserImg: 'menuUserImg',
   expenseList: 'expenseList',
+  incomeList: 'incomeList',
 };
 
 export const TextArea = {
@@ -351,6 +355,7 @@ export const InputType = {
 };
 
 export const ExpenseColumn = ['dateExpense', 'categoryExpense', 'amountExpense', 'accountExpense', 'commentExpense'];
+export const IncomeColumn = ['dateExpense', 'accountExpense', 'amountExpense', 'commentExpense'];
 
 export const chartColor = {
   text: '#5063BF',

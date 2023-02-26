@@ -108,12 +108,11 @@
   }
 
   &__button {
-    @include button(30%, 5rem);
+    @include button(45%, 5rem);
   }
 }
 
 .main__aside {
-  //justify-content: end;
   align-items: center;
   padding-left: 2rem;
 }
@@ -125,6 +124,3 @@
   padding: 2rem;
   border-radius: 2rem;
 }
-
-
-
