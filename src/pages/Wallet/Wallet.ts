@@ -21,7 +21,7 @@ class Wallet extends BasePage {
 
     sectionIcons.append(
       await new WalletAccouts(this.updateAccountsBlock).render(),
-      await new WalletCategories(this.updateCategoriesBlock).render(),
+      await new WalletCategories(this.updateCategoriesBlock, this.updateAccountsBlock).render(),
     );
 
     const sectionChart = createElement({
@@ -54,7 +54,7 @@ class Wallet extends BasePage {
 
   private async updateCategoriesBlock(): Promise<void> {
     const element = document.querySelector(`.${ClassMap.wallet.categoriesSection}`) as HTMLElement;
-    element.replaceWith(await new WalletCategories(this.updateCategoriesBlock).render());
+    element.replaceWith(await new WalletCategories(this.updateCategoriesBlock, this.updateAccountsBlock).render());
   }
 }
 
