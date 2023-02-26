@@ -135,6 +135,7 @@ export const ClassMap = {
     totalBalance: 'balance__value',
     balanceWrap: 'balance__wrap',
     balance: 'balance',
+    expenseTotal: 'dashboard__expense-total',
     totalWrap: 'total-wrap',
     balanceButton: 'balance__button',
     incomeForm: 'form',
@@ -160,6 +161,9 @@ export const ClassMap = {
     paginationPageNum: 'expense__pagination__page-num',
     paginationInput: 'expense__pagination_input',
     emptyExpenseList: 'expense',
+    editButtonsWrap: 'expense__button-wrap',
+    editButton: 'expense__button_edit',
+    deleteButton: 'expense__button_delete',
   },
   wallet: {
     categoriesSection: 'categories',

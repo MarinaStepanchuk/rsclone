@@ -111,6 +111,7 @@ class Dashboard extends BasePage {
 
     const expenseBalance = createElement({
       tag: 'div',
+      classList: [ClassMap.dashboard.expenseTotal],
       content: '0',
     });
 

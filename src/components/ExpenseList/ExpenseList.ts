@@ -6,7 +6,7 @@ import {
   InputType,
   InputValue,
 } from '../../constants/htmlConstants';
-import { CURRENCY, LANG, MODE } from '../../types/types';
+import { CURRENCY, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
 import { LocalStorageKey } from '../../constants/common';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
@@ -14,6 +14,7 @@ import ExpenseItem from './ExpenseItem/ExpenseItem';
 import { IExpense, IFilterParams } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
+import { getAllExpenses } from '../../utils/getModalApi';
 
 class ExpenseList {
   private static limit = InputValue.limitPage;
@@ -22,13 +23,10 @@ class ExpenseList {
 
   protected modeValue: MODE;
 
-  protected readonly lang: LANG;
-
   protected readonly currency: CURRENCY;
 
   constructor() {
     this.modeValue = AppState.modeValue;
-    this.lang = AppState.lang;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
@@ -37,13 +35,13 @@ class ExpenseList {
       tag: 'h2',
       classList: [ClassMap.dashboard.expenseTitle],
       key: DictionaryKeys.transactionTitle,
-      content: Dictionary[this.lang].transactionTitle,
+      content: Dictionary[AppState.lang].transactionTitle,
     });
 
     const paginationLimitLabel = createElement({
       tag: 'label',
       key: DictionaryKeys.paginationLimit,
-      content: Dictionary[this.lang].paginationLimit,
+      content: Dictionary[AppState.lang].paginationLimit,
     });
 
     const paginationLimitInput = createElement({
@@ -104,7 +102,7 @@ class ExpenseList {
       const column = createElement({
         tag: 'div',
         key: DictionaryKeys[ExpenseColumn[i]],
-        content: Dictionary[this.lang][ExpenseColumn[i]],
+        content: Dictionary[AppState.lang][ExpenseColumn[i]],
       });
 
       expenseHeaderItem.append(column);
@@ -130,9 +128,6 @@ class ExpenseList {
 
   private async createExpenseItem(parentElement: HTMLElement) {
     const allExpenses = await this.getFilteredExpenses(ExpenseList.limit, ExpenseList.page);
-    const list: HTMLElement[] = allExpenses
-      .map((expense) => new ExpenseItem(expense))
-      .map((expense) => expense.render());
 
     if (parentElement instanceof HTMLElement) {
       if (allExpenses.length === 0) {
@@ -140,13 +135,16 @@ class ExpenseList {
           tag: 'div',
           classList: [ClassMap.dashboard.emptyExpenseList, ClassMap.mode[this.modeValue].font],
           key: DictionaryKeys.emptyExpenseList,
-          content: Dictionary[this.lang].emptyExpenseList,
+          content: Dictionary[AppState.lang].emptyExpenseList,
         });
 
         parentElement.append(emptyExpenseList);
       } else {
         parentElement.replaceChildren();
-        list.forEach((expense) => parentElement.append(expense));
+        allExpenses
+          .map((expense) => new ExpenseItem(expense, this.deleteItem))
+          .map((expense) => expense.render())
+          .forEach((expense) => parentElement.append(expense));
       }
     }
   }
@@ -208,6 +206,20 @@ class ExpenseList {
 
     expenseListWrap?.remove();
     parentElem?.append(expenseList);
+  }
+
+  private async deleteItem(id: string) {
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    await RequestApi.delete(Endpoint.EXPENSE, userToken, id);
+    ExpenseList.updateExpenseList();
+
+    const expenseBalances = document.querySelector(`.${ClassMap.dashboard.expenseTotal}`) as Element;
+
+    if (expenseBalances) {
+      const allExpenses = await getAllExpenses();
+      const res = allExpenses.reduce((acc, curr) => acc + curr.expense, 0);
+      expenseBalances.textContent = `${res}`;
+    }
   }
 }
 

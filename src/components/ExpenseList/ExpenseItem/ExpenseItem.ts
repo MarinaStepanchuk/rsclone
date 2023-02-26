@@ -3,21 +3,18 @@ import createElement from '../../../utils/createElement';
 import { ClassMap } from '../../../constants/htmlConstants';
 import createDateValue from '../../../utils/createDateValue';
 import { Dictionary, DictionaryKeys } from '../../../constants/dictionary';
-import { CURRENCY, LANG, MODE } from '../../../types/types';
+import { CURRENCY, MODE } from '../../../types/types';
 import AppState from '../../../constants/appState';
 import { LocalStorageKey } from '../../../constants/common';
 import { CurrencyMark } from '../../../types/enums';
 
 class ExpenseItem {
-  private readonly lang: LANG;
-
   private modeValue: MODE;
 
   private readonly currency: CURRENCY;
 
-  constructor(private expense: IExpense) {
+  constructor(private expense: IExpense, private deleteFunction: Function) {
     this.modeValue = AppState.modeValue;
-    this.lang = AppState.lang;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
@@ -33,27 +30,42 @@ class ExpenseItem {
       content: createDateValue(this.expense.date),
     });
 
-    const category = createElement({
-      tag: 'div',
-      key: DictionaryKeys[(this.expense.category).toLowerCase()],
-      content: Dictionary[this.lang][(this.expense.category).toLowerCase()],
-    });
+    const category = this.createCategoryItem(this.expense.category, this.expense.category);
 
     const amount = createElement({
       tag: 'div',
       content: `${this.expense.expense} ${CurrencyMark[this.currency]}`,
     });
 
-    const account = createElement({
-      tag: 'div',
-      key: DictionaryKeys[(this.expense.account).toLowerCase()],
-      content: Dictionary[this.lang][(this.expense.account).toLowerCase()],
-    });
+    const account = this.createCategoryItem(this.expense.account, this.expense.account);
 
     const comment = createElement({
       tag: 'div',
       content: `${commentText}`,
     });
+
+    // const editButton = createElement({
+    //   tag: 'button',
+    //   classList: [ClassMap.dashboard.editButton],
+    //   id: 'editButton',
+    // }) as HTMLButtonElement;
+
+    const deleteButton = createElement({
+      tag: 'button',
+      classList: [ClassMap.dashboard.deleteButton],
+      id: 'deleteButton',
+    }) as HTMLButtonElement;
+
+    deleteButton?.addEventListener('click', () => {
+      this.deleteFunction(this.expense._id);
+    })
+
+    const buttonsWrap = createElement({
+      tag: 'div',
+      classList: [ClassMap.dashboard.editButtonsWrap],
+    });
+
+    buttonsWrap.append(deleteButton);
 
     const expenseItem = createElement({
       tag: 'li',
@@ -66,10 +78,38 @@ class ExpenseItem {
       amount,
       account,
       comment,
+      buttonsWrap,
     );
 
     return expenseItem;
   }
+
+  private createCategoryItem(key: string, name: string): HTMLDivElement {
+    let categoryItem;
+
+    if (Dictionary[AppState.lang][key.toLowerCase()] && DictionaryKeys[key.toLowerCase()]) {
+      categoryItem = createElement({
+        tag: 'div',
+        key: DictionaryKeys[key.toLowerCase()],
+        content: Dictionary[AppState.lang][key.toLowerCase()],
+      }) as HTMLDivElement;
+    } else {
+      categoryItem = createElement({
+        tag: 'div',
+        content: name,
+      }) as HTMLDivElement;
+    }
+
+    return categoryItem;
+  }
+
+  // private deleteItem() {
+  //   const deleteButton = document.querySelector(`.${ClassMap.dashboard.deleteButton}`);
+  //
+  //   deleteButton?.addEventListener('click', () => {
+  //     this.deleteItemApi();
+  //   })
+  // }
 }
 
 export default ExpenseItem;

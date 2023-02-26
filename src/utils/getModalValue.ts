@@ -8,6 +8,9 @@ export function getSelectedValue(id: string): string {
 export function getDateValue(): Date {
   const dateElem = document.querySelector(`#${IdMap.dateValue}`) as HTMLInputElement;
   const date = dateElem.value ? new Date(dateElem.value) : new Date();
+  date.setHours(new Date().getHours());
+  date.setMinutes(new Date().getMinutes());
+  date.setSeconds(new Date().getSeconds());
 
   return date;
 }
