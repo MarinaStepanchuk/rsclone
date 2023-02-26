@@ -22,10 +22,6 @@
     background-size: 100%;
   }
 
-  &__nav-wrap {
-    //margin-top: 5rem;
-  }
-
   &__nav {
     padding: 0;
     border-bottom: 1px solid;
@@ -178,7 +174,7 @@
     font-weight: 400;
     border-top: 1px solid;
     border-color: $color-line-dark;
-    padding: 2rem 1rem 1rem 1rem;
+    padding: 2rem 0 0;
   }
 
   &__img {

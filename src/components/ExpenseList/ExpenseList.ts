@@ -2,7 +2,7 @@ import './ExpenseList.scss';
 import createElement from '../../utils/createElement';
 import {
   ClassMap,
-  ExpenseColumn,
+  ExpenseColumn, IdMap,
   InputType,
   InputValue,
 } from '../../constants/htmlConstants';
@@ -30,7 +30,7 @@ class ExpenseList {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
-  public render(): HTMLElement {
+  public async render(): Promise<HTMLElement> {
     const expenseTitle = createElement({
       tag: 'h2',
       classList: [ClassMap.dashboard.expenseTitle],
@@ -120,13 +120,15 @@ class ExpenseList {
 
     expenseSection.append(expenseTitleWrap, expenseHeaderItem, expenseList);
 
-    this.createExpenseItem(expenseList);
+    const actualElements = await this.createExpenseItem(expenseList);
     this.createPagination(expenseSection);
+
+    expenseSection.style.minHeight = `${132 + 41 * actualElements}px`;
 
     return expenseSection;
   }
 
-  private async createExpenseItem(parentElement: HTMLElement) {
+  private async createExpenseItem(parentElement: HTMLElement): Promise<number> {
     const allExpenses = await this.getFilteredExpenses(ExpenseList.limit, ExpenseList.page);
 
     if (parentElement instanceof HTMLElement) {
@@ -147,6 +149,7 @@ class ExpenseList {
           .forEach((expense) => parentElement.append(expense));
       }
     }
+    return allExpenses.length;
   }
 
   private async createPagination(expenseSection: HTMLElement) {
@@ -198,14 +201,10 @@ class ExpenseList {
     return expensesData;
   }
 
-  public static updateExpenseList(): void {
-    const expenseListWrap = document.querySelector(`.${ClassMap.dashboard.expenseSection}`);
-    const parentElem = document.querySelector(`.${ClassMap.dashboard.mainDashboard}`);
-
-    const expenseList = new ExpenseList().render();
-
-    expenseListWrap?.remove();
-    parentElem?.append(expenseList);
+  public static async updateExpenseList(): Promise<void> {
+    const parentElem = document.querySelector(`#${IdMap.expenseList}`);
+    const expenseList = await new ExpenseList().render();
+    parentElem?.replaceChildren(expenseList);
   }
 
   private async deleteItem(id: string) {

@@ -326,6 +326,7 @@ export const IdMap = {
   chartCategoriesPie: 'chart-categories-pie',
   menuUserName: 'menuUserName',
   menuUserImg: 'menuUserImg',
+  expenseList: 'expenseList',
 };
 
 export const TextArea = {

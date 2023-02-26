@@ -3,7 +3,7 @@ import createElement from '../../../utils/createElement';
 import { ClassMap } from '../../../constants/htmlConstants';
 import createDateValue from '../../../utils/createDateValue';
 import { Dictionary, DictionaryKeys } from '../../../constants/dictionary';
-import { CURRENCY, MODE } from '../../../types/types';
+import { CURRENCY, FuncDeleteExpense, MODE } from '../../../types/types';
 import AppState from '../../../constants/appState';
 import { LocalStorageKey } from '../../../constants/common';
 import { CurrencyMark } from '../../../types/enums';
@@ -13,7 +13,7 @@ class ExpenseItem {
 
   private readonly currency: CURRENCY;
 
-  constructor(private expense: IExpense, private deleteFunction: Function) {
+  constructor(private expense: IExpense, private deleteFunction: FuncDeleteExpense) {
     this.modeValue = AppState.modeValue;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
@@ -57,8 +57,10 @@ class ExpenseItem {
     }) as HTMLButtonElement;
 
     deleteButton?.addEventListener('click', () => {
-      this.deleteFunction(this.expense._id);
-    })
+      if (this.expense._id) {
+        this.deleteFunction(this.expense._id);
+      }
+    });
 
     const buttonsWrap = createElement({
       tag: 'div',
@@ -102,14 +104,6 @@ class ExpenseItem {
 
     return categoryItem;
   }
-
-  // private deleteItem() {
-  //   const deleteButton = document.querySelector(`.${ClassMap.dashboard.deleteButton}`);
-  //
-  //   deleteButton?.addEventListener('click', () => {
-  //     this.deleteItemApi();
-  //   })
-  // }
 }
 
 export default ExpenseItem;

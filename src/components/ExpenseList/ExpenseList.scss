@@ -78,11 +78,12 @@
     font-size: 1.6rem;
     line-height: 2rem;
     padding: 0.5rem 0;
+    border-bottom: 1px dotted rgba(80, 99, 191, 0.7);
   }
 
   &__button-wrap {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
     button {
       width: 3rem;

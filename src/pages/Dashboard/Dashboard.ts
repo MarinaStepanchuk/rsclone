@@ -3,7 +3,7 @@ import './Dashboard.scss';
 import BasePage from '../BasePage/BasePage';
 import { CurrencyMark, Route } from '../../types/enums';
 import createElement from '../../utils/createElement';
-import { Attribute, ClassMap } from '../../constants/htmlConstants';
+import { Attribute, ClassMap, IdMap } from '../../constants/htmlConstants';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { CURRENCY, LANG, MODE } from '../../types/types';
 import AppState from '../../constants/appState';
@@ -31,7 +31,7 @@ class Dashboard extends BasePage {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
-  public render(): void {
+  public async render(): Promise<void> {
     this.createPageStructure(Route.DASHBOARD);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
@@ -312,14 +312,21 @@ class Dashboard extends BasePage {
 
     balanceSection.append(balanceWrap, buttonsWrap);
 
-    const expenseList = new ExpenseList().render();
+    const expenseListWrap = createElement({
+      tag: 'section',
+      id: IdMap.expenseList,
+    });
+
+    const expenseList = await new ExpenseList().render();
+
+    expenseListWrap.append(expenseList);
 
     const mainDashboard = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainDashboard],
     });
 
-    mainDashboard.append(totalFinanceWrap, balanceSection, expenseList);
+    mainDashboard.append(totalFinanceWrap, balanceSection, expenseListWrap);
 
     const calculator = new Calculator().render();
 
