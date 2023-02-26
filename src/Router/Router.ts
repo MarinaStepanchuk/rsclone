@@ -35,7 +35,6 @@ class Router {
     if (link.href.startsWith('http')) {
       return;
     }
-
     event.preventDefault();
     const { pathname: path } = new URL(link.href);
     window.history.pushState({ path }, path, path);

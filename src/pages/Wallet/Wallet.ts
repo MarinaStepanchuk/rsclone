@@ -7,6 +7,7 @@ import { ClassMap } from '../../constants/htmlConstants';
 import WalletAccouts from '../../components/WalletAccouts/WalletAccouts';
 import WalletCategories from '../../components/WalletCategories/WalletCategories';
 import ChartCategoriesPie from '../../components/ChartCategoriesPie/ChartCategoriesPie';
+import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 
 class Wallet extends BasePage {
   public async render(): Promise<void> {
@@ -33,7 +34,14 @@ class Wallet extends BasePage {
     const defaultEndDate = new Date();
     const chart = new ChartCategoriesPie(defaultStartDate, defaultEndDate);
 
-    sectionChart.append(await chart.render());
+    const chartTitle = createElement({
+      tag: 'span',
+      classList: [ClassMap.analytic.title, ClassMap.mode[this.modeValue].title],
+      key: DictionaryKeys.chartCategoriesPieTitle,
+      content: Dictionary[this.lang].chartCategoriesPieTitle,
+    });
+
+    sectionChart.append(chartTitle, await chart.render());
 
     const walletPage = createElement({
       tag: 'div',
