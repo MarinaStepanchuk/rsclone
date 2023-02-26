@@ -12,6 +12,15 @@
     flex-direction: column;
   }
 
+  @media (max-width: 1080px) {
+    align-items: center;
+    width: 90%;
+  }
+
+  @media (max-width: 840px) {
+    width: 100%;
+  }
+
   &__calendar {
     width: 100%;
     grid-column-start: 1;
