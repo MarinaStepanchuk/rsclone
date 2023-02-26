@@ -196,6 +196,7 @@ export const ClassMap = {
     infoTitle: 'account-settings__title',
     formItem: 'account-settings__item',
     inputName: 'account-settings__input',
+    inputPhone: 'account-settings__input_phone',
     update: 'account-settings__update-btn',
     userImg: 'account-settings__avatar',
   },

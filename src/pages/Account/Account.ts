@@ -186,14 +186,20 @@ class Account extends BasePage {
 
     const inputPhone = createElement({
       tag: 'input',
-      classList: [ClassMap.accountSettings.inputName],
+      classList: [ClassMap.accountSettings.inputName, ClassMap.accountSettings.inputPhone],
     }) as HTMLInputElement;
     inputPhone.type = 'tel';
     inputPhone.placeholder = '';
 
+    const inputPhonePlus = createElement({
+      tag: 'span',
+      classList: [ClassMap.accountSettings.inputPhone],
+    });
+
     inputPhoneContainer.append(
       inputPhoneLable,
       inputPhone,
+      inputPhonePlus,
     );
 
     const updateUserInfoButton = createElement({

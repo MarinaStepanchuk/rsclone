@@ -51,6 +51,19 @@
 
   &__input {
     @include input();
+
+    &_phone {
+      padding-left: 2rem;
+
+      &:before {
+        content: '+';
+        color: $color-dim-font;
+        font-size: 2rem;
+        position: absolute;
+        bottom: 0.6rem;
+        left: 0.5rem;
+      }
+    }
   }
   
   &__update-btn {
