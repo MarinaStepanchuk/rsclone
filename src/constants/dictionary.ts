@@ -110,6 +110,11 @@ export const Dictionary: DictionaryLang = {
     updateAccountSubmit: 'Save changes',
     deleteAccountButton: 'Delete account',
     createIncomeButton: 'Add income',
+    createExpenseButton: 'Add expense',
+    updateCategoryTitle: 'Update category details',
+    updateCategorySubmit: 'Save changes',
+    deleteCategoryButton: 'Delete category',
+    limitAlert: 'Limit exceeded: ',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -214,6 +219,11 @@ export const Dictionary: DictionaryLang = {
     updateAccountSubmit: 'Сохранить изменения',
     deleteAccountButton: 'Удалить счет',
     createIncomeButton: 'Добавить доход',
+    createExpenseButton: 'Добавить расход',
+    updateCategoryTitle: 'Изменить данные категории',
+    updateCategorySubmit: 'Сохранить изменения',
+    deleteCategoryButton: 'Удалить категорию',
+    limitAlert: 'Превышение лимита: ',
   },
   DE: {
     authorizationTitle: '',
@@ -312,6 +322,11 @@ export const Dictionary: DictionaryLang = {
     updateAccountSubmit: '',
     deleteAccountButton: '',
     createIncomeButton: '',
+    createExpenseButton: '',
+    updateCategoryTitle: '',
+    updateCategorySubmit: '',
+    deleteCategoryButton: '',
+    limitAlert: '',
   },
 };
 
@@ -421,4 +436,9 @@ export const DictionaryKeys: DictionaryKeysType = {
   updateAccountSubmit: 'updateAccountSubmit',
   deleteAccountButton: 'deleteAccountButton',
   createIncomeButton: 'createIncomeButton',
+  createExpenseButton: 'createExpenseButton',
+  updateCategoryTitle: 'updateCategoryTitle',
+  updateCategorySubmit: 'updateCategorySubmit',
+  deleteCategoryButton: 'deleteCategoryButton',
+  limitAlert: 'limitAlert',
 };

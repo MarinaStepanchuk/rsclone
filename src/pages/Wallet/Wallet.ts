@@ -20,7 +20,7 @@ class Wallet extends BasePage {
 
     section.append(
       await new WalletAccouts(this.updateAccountsBlock).render(),
-      await new WalletCategories(this.updateCategoriesBlock).render(),
+      await new WalletCategories(this.updateCategoriesBlock, this.updateAccountsBlock).render(),
     );
 
     mainContent?.replaceChildren(section);
@@ -33,7 +33,7 @@ class Wallet extends BasePage {
 
   private async updateCategoriesBlock(): Promise<void> {
     const element = document.querySelector(`.${ClassMap.wallet.categoriesSection}`) as HTMLElement;
-    element.replaceWith(await new WalletCategories(this.updateCategoriesBlock).render());
+    element.replaceWith(await new WalletCategories(this.updateCategoriesBlock, this.updateAccountsBlock).render());
   }
 }
 

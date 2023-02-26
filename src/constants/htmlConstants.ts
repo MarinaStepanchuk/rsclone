@@ -166,6 +166,7 @@ export const ClassMap = {
     chart: 'wallet__chart',
     main: 'wallet-page',
     plus: 'wallet__plus-item',
+    alert: 'wallet__alert',
   },
   customSelect: {
     container: 'customselect',
