@@ -241,6 +241,8 @@ class Analytics extends BasePage {
       //   currency: 'USD',
       //   page: 1,
       //   limit: 10,
+      //   sort: 'date',
+      //   order: 'DESC',
       // };
 
       // const incomesData: IIncome[] = await RequestApi.getFiltered(Endpoint.INCOME, userToken, params);
