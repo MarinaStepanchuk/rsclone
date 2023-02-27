@@ -1,4 +1,10 @@
-import { FormatDateString, LANG, MODE } from './types';
+import {
+  FormatDateString,
+  LANG,
+  MODE,
+  SortCategory,
+  SortOrder,
+} from './types';
 
 export interface IOptionsElement {
   tag: keyof HTMLElementTagNameMap,
@@ -63,8 +69,8 @@ export interface IFilterParams {
   currency?: string,
   page?: number,
   limit?: number,
-  sort?: 'date' | 'expense' | 'income' | 'category',
-  order?: 'ASC' | 'DESC',
+  sort?: SortCategory,
+  order?: SortOrder,
 }
 
 export interface IAccount {
