@@ -1,7 +1,8 @@
-import { Route } from '../types/enums';
+import { CurrencyMark, Route } from '../types/enums';
 import AppState from './appState';
 import { Dictionary, DictionaryKeys } from './dictionary';
-import { SvgMap } from './svgMap';
+import { SvgIcons, SvgMap } from './svgMap';
+import { ICurrency } from '../types/interfaces';
 
 export const ClassMap = {
   transitionButoon: 'transition-button',
@@ -256,6 +257,13 @@ export const ClassMap = {
     update: 'account-settings__update-btn',
     userImg: 'account-settings__avatar',
   },
+  currencyList: {
+    currency: 'currency',
+    currencyList: 'currency__list',
+    currencyItem: 'currency__item',
+    currencyIcon: 'currency__icon',
+    currencyTitle: 'currency__title',
+  },
   adaptiveMenu: {
     section: 'adaptive-menu',
     container: 'adaptive-menu__container',
@@ -359,6 +367,7 @@ export const IdMap = {
   menuUserImg: 'menuUserImg',
   expenseList: 'expenseList',
   incomeList: 'incomeList',
+  accountBalance: 'accountBalance',
 };
 
 export const TextArea = {
@@ -393,3 +402,48 @@ export const chartColor = {
   endGradient: 'rgba(231, 235, 255, 0)',
   columnIncomes: '#E7EBFF',
 };
+
+export const currencyListArray: ICurrency[] = [
+  {
+    icon: SvgIcons.flags.usd,
+    key: 'USD',
+    amount: 0,
+    currency: CurrencyMark.USD,
+  },
+  {
+    icon: SvgIcons.flags.euro,
+    key: 'EUR',
+    amount: 0,
+    currency: CurrencyMark.EUR,
+  },
+  {
+    icon: SvgIcons.flags.byn,
+    key: 'BYN',
+    amount: 0,
+    currency: CurrencyMark.BYN,
+  },
+  {
+    icon: SvgIcons.flags.rub,
+    key: 'RUB',
+    amount: 0,
+    currency: CurrencyMark.RUB,
+  },
+  {
+    icon: SvgIcons.flags.lari,
+    key: 'GEL',
+    amount: 0,
+    currency: CurrencyMark.GEL,
+  },
+  {
+    icon: SvgIcons.flags.franc,
+    key: 'CHF',
+    amount: 0,
+    currency: CurrencyMark.CHF,
+  },
+  {
+    icon: SvgIcons.flags.yuan,
+    key: 'CNY',
+    amount: 0,
+    currency: CurrencyMark.CNY,
+  },
+];

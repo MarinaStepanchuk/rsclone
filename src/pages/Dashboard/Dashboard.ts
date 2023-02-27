@@ -18,6 +18,7 @@ import Calculator from '../../components/Сalculator/Сalculator';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import IncomeList from '../../components/IncomeList/IncomeList';
 import Preloader from '../../components/Preloader/Preloader';
+import CurrencyList from '../../components/CurrencyList/CurrencyList';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -165,6 +166,7 @@ class Dashboard extends BasePage {
 
     const totalAccountBalanceValue = createElement({
       tag: 'div',
+      id: IdMap.accountBalance,
       content: '0',
     });
 
@@ -182,7 +184,7 @@ class Dashboard extends BasePage {
       content: Dictionary[this.lang].totalBalance,
     });
 
-    totalAccountBalanceTitle.style.marginRight = '5px'
+    totalAccountBalanceTitle.style.marginRight = '5px';
 
     const totalAccountWrap = createElement({
       tag: 'div',
@@ -266,12 +268,12 @@ class Dashboard extends BasePage {
       id: IdMap.expenseList,
     });
 
+    const expenseList = await new ExpenseList().render();
+
     const incomeListWrap = createElement({
       tag: 'section',
       id: IdMap.incomeList,
     });
-
-    const expenseList = await new ExpenseList().render();
 
     const incomeList = await new IncomeList().render();
 
@@ -294,12 +296,14 @@ class Dashboard extends BasePage {
 
     calculatorWrap.append(calculator);
 
+    const currencyWrap = new CurrencyList().render();
+
     const mainAside = createElement({
       tag: 'section',
       classList: [ClassMap.dashboard.mainAside],
     });
 
-    mainAside.append(calculatorWrap);
+    mainAside.append(currencyWrap, calculatorWrap);
 
     updateIncomes(incomeBalances);
     updateExpenses(expenseBalances);

@@ -1,4 +1,4 @@
-import { CURRENCY, FuncDeleteItem, MODE } from '../../../types/types';
+import { CURRENCY, MODE } from '../../../types/types';
 import { IIncome } from '../../../types/interfaces';
 import AppState from '../../../constants/appState';
 import { LocalStorageKey } from '../../../constants/common';
@@ -13,7 +13,7 @@ class IncomeItem {
 
   private readonly currency: CURRENCY;
 
-  constructor(private income: IIncome, private deleteFunction: FuncDeleteItem) {
+  constructor(private income: IIncome, private deleteFunction: (income: IIncome) => void) {
     this.modeValue = AppState.modeValue;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
@@ -56,7 +56,7 @@ class IncomeItem {
 
     deleteButton?.addEventListener('click', () => {
       if (this.income._id) {
-        this.deleteFunction(this.income._id);
+        this.deleteFunction(this.income);
       }
     });
 

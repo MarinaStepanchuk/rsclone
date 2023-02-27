@@ -14,7 +14,7 @@ import {
   getSelectedValue,
   getSum,
 } from '../../utils/getModalValue';
-import IncomeList from "../../components/IncomeList/IncomeList";
+import IncomeList from '../../components/IncomeList/IncomeList';
 
 class IncomeModal extends BaseModal {
   public render(incomeBalances: IBalances): HTMLElement {

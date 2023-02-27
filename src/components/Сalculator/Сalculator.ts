@@ -53,7 +53,7 @@ class Calculator {
     const result = calculatorElem.querySelector('#result') as HTMLOutputElement;
     const buttons = calculatorElem.querySelectorAll('.button');
 
-    buttons.forEach(button => {
+    buttons.forEach((button)=> {
       button.addEventListener('click', (e) => {
         this.calculateResult(e, expression, result);
       });

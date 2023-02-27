@@ -138,6 +138,7 @@ export const Dictionary: DictionaryLang = {
     emptyExpenseList: 'Your expense list is empty.',
     incomeListTitle: 'Income',
     emptyIncomeList: 'Your income list is empty.',
+    currencyListTitle: 'Exchange rates',
   },
   RU: {
     authorizationTitle: 'Добро пожаловать в MAPmoney!',
@@ -270,6 +271,7 @@ export const Dictionary: DictionaryLang = {
     passwordUpdated: 'Пароль изменен',
     incomeListTitle: 'Доходы',
     emptyIncomeList: 'В Вашей таблице пока нет доходов',
+    currencyListTitle: 'Курсы валют',
   },
   DE: {
     authorizationTitle: 'Willkommen bei MAPmoney!',
@@ -391,6 +393,7 @@ export const Dictionary: DictionaryLang = {
     updated: 'Daten aktualisiert',
     errorMessagePhone: 'Ungültiges Telefonnummernformat',
     passwordUpdated: 'Passwort geändert',
+    currencyListTitle: '',
     dateExpense: 'Datum',
     categoryExpense: 'Kategorie',
     amountExpense: 'Betrag',
@@ -537,4 +540,5 @@ export const DictionaryKeys: DictionaryKeysType = {
   emptyExpenseList: 'emptyExpenseList',
   incomeListTitle: 'incomeListTitle',
   emptyIncomeList: 'emptyIncomeList',
+  currencyListTitle: 'currencyListTitle',
 };

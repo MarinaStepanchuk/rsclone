@@ -15,7 +15,7 @@ import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 import { IFilterParams, IIncome } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { getAllIncomes } from '../../utils/getModalApi';
+import { getAllAccounts, getAllIncomes } from '../../utils/getModalApi';
 import IncomeItem from './IncomeItem/IncomeItem';
 
 class IncomeList {
@@ -174,10 +174,14 @@ class IncomeList {
     parentElem?.replaceChildren(incomeList);
   }
 
-  private async deleteItem(id: string) {
+  private async deleteItem(income: IIncome) {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    await RequestApi.delete(Endpoint.INCOME, userToken, id);
+    if (income._id) {
+      await RequestApi.delete(Endpoint.INCOME, userToken, income._id);
+    }
     await IncomeList.updateIncomeList();
+
+    await IncomeList.updateTotalAccount(income);
 
     const incomeBalances = document.querySelector(`.${ClassMap.dashboard.incomeTotal}`) as Element;
 
@@ -186,6 +190,31 @@ class IncomeList {
       const res = allIncomes.reduce((acc, curr) => acc + curr.income, 0);
       incomeBalances.textContent = `${res}`;
     }
+  }
+
+  private static async updateTotalAccount(income: IIncome): Promise<void> {
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const accounts = await getAllAccounts();
+    const card = accounts.filter((account) => account.account === income.account).pop();
+    const cardId = card?._id as string;
+
+    const changedCardAccount: { updateSum: number } = {
+      updateSum: -income.income,
+    };
+
+    await RequestApi.updateSum(
+      Endpoint.ACCOUNT,
+      userToken,
+      cardId,
+      changedCardAccount,
+    );
+
+    const accountBalance = document.querySelector(`#${IdMap.accountBalance}`) as HTMLElement;
+
+    const allAccounts = await getAllAccounts();
+    const amount = allAccounts.reduce((acc, curr) => acc + curr.sum, 0);
+
+    accountBalance.textContent = `${amount}`;
   }
 
   private async createPagination(incomeSection: HTMLElement) {
