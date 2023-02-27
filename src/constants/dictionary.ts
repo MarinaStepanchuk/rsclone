@@ -457,7 +457,7 @@ export const DictionaryKeys: DictionaryKeysType = {
   clothes: 'clothes',
   entertainment: 'entertainment',
   food: 'food',
-  cafe: 'eatingOut',
+  cafe: 'cafe',
   health: 'health',
   house: 'house',
   sport: 'sport',

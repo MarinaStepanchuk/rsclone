@@ -13,7 +13,7 @@ class App {
 
     window.addEventListener('resize', () => {
       const width = document.body.clientWidth;
-      if (width < 830) {
+      if (width <= 830) {
         const menuBlock = document.querySelector(`.${ClassMap.menu.menuSection}`);
         menuBlock?.replaceChildren(new AdaptiveMenu().render(window.location.pathname));
       } else {

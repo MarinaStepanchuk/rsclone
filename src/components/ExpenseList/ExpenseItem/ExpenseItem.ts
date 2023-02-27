@@ -88,6 +88,8 @@ class ExpenseItem {
 
   private createCategoryItem(key: string, name: string): HTMLDivElement {
     let categoryItem;
+    console.log('key' + key)
+    console.log('name' + name)
 
     if (Dictionary[AppState.lang][key.toLowerCase()] && DictionaryKeys[key.toLowerCase()]) {
       categoryItem = createElement({

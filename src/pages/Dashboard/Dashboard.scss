@@ -10,6 +10,7 @@
   @media (max-width: 1200px) {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
   }
 }
 
@@ -33,6 +34,10 @@
 .total-wrap {
   display: flex;
   align-items: center;
+
+  @media (max-width: 380px) {
+    font-size: 1.4rem;
+  }
 }
 
 .balance__title {
@@ -82,8 +87,8 @@
   &__header {
     display: flex;
     align-items: center;
-    padding: 2rem;
-    margin-bottom: 0rem;
+    padding: 3rem;
+    margin-bottom: 0;
   }
 
   &__title {
@@ -100,6 +105,10 @@
     padding: 2rem;
     font-weight: 100;
     font-size: 1.7rem;
+
+    @media (max-width: 380px) {
+      font-size: 1.4rem;
+    }
   }
 
   .icon-wrap svg {
@@ -144,17 +153,21 @@
 
   &__button {
     @include button(45%, 5rem);
+
+    @media (max-width: 360px) {
+      font-size: 1.2rem;
+      width: 40%;
+    }
   }
 }
 
 .main__aside {
   align-items: center;
-  //padding-left: 2rem;
-  padding-left: 2rem;
 
   @media (max-width: 1180px) {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
   }
 }
 
@@ -164,11 +177,4 @@
   justify-content: center;
   padding: 2rem;
   border-radius: 2rem;
-}
-
-@media (max-width: 1200px) {
-  .main__dashboard-wrap {
-    display: flex;
-    flex-direction: column;
-  }
 }

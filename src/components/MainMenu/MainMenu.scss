@@ -52,12 +52,17 @@
     }
 
     &:active,
-    &_active,
-    &:focus {
+    &:focus,
+    &_active {
       background: $color-primary;
       color: $color-light-font;
       fill: currentColor;
       stroke: $color-light-font;
+
+      div,
+      span {
+        color: $color-light-font;
+      }
     }
   }
 
