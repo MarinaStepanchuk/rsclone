@@ -81,7 +81,7 @@
 
     &_header {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3rem;
       font-weight: 400;
       font-size: 1.8rem;
       line-height: 2rem;
@@ -106,7 +106,7 @@
   &__item {
     display: grid;
     align-items: center;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 0.5fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3rem;
     font-weight: 100;
     font-size: 1.6rem;
     line-height: 2rem;
@@ -128,7 +128,7 @@
 
   &__button-wrap {
     display: flex;
-    justify-content: center;
+    justify-content: end;
 
     button {
       width: 3rem;
@@ -144,11 +144,6 @@
         transform: scale(1.05);
       }
     }
-
-    //#editButton {
-    //  background:  url('../../assets/icons/edit.svg') no-repeat;
-    //  background-position: center;
-    //}
   }
 
   &__button_delete {

@@ -4,7 +4,7 @@
 .main__dashboard-wrap {
  display: grid;
  grid-template-columns: 2fr 27rem;
-  gap: 4rem;
+ gap: 2rem;
  padding: 0 2rem 2rem;
 
   @media (max-width: 1200px) {
@@ -175,8 +175,6 @@
   @media (max-width: 500px) {
     display: flex;
     flex-direction: column;
-    //gap: 2rem;
-    //justify-content: space-evenly;
   }
 }
 
