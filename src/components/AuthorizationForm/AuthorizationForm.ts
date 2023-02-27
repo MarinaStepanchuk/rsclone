@@ -219,7 +219,7 @@ class AutorisationForm {
       AppState.isUserLogin = true;
       const { token, user } = response;
       localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));
-      new Dashboard().render();
+      setTimeout(() => new Dashboard().render(), 0);
     }
   }
 }
