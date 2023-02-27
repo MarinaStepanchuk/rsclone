@@ -26,7 +26,7 @@
 ## Технический стэк
 
 - Frontend: HTML5, SCSS, TypeScript
-- Backend: Node.js / Exspress
+- Backend: Node.js / Express
 - Database: Mongo DB
 
 ## Оценка
