@@ -14,6 +14,7 @@ import {
   getSelectedValue,
   getSum,
 } from '../../utils/getModalValue';
+import IncomeList from "../../components/IncomeList/IncomeList";
 
 class IncomeModal extends BaseModal {
   public render(incomeBalances: IBalances): HTMLElement {
@@ -102,6 +103,7 @@ class IncomeModal extends BaseModal {
 
     await updateIncomes(incomeBalances);
     await updateTotalAccountBalance(incomeBalances);
+    await IncomeList.updateIncomeList();
 
     this.modalWrapper?.remove();
   }
