@@ -51,7 +51,7 @@ class ChartMonthlyExpIncom {
     container.append(sheduleTitle, this.schedule);
 
     const months = [];
-    let time = this.startDate;
+    let time = new Date(this.startDate);
     while (time.getTime() < this.endDate.getTime()) {
       months.push(new Date(time.setDate(1)));
       time = new Date(time.setMonth(time.getMonth() + 1));
@@ -182,7 +182,7 @@ class ChartMonthlyExpIncom {
 
   private async getExpenses(): Promise<IExpense[]> {
     const userToken = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-
+    console.log(this.startDate)
     const params: IFilterParams = {
       startDate: this.startDate.toISOString().split('T')[0],
       endDate: this.endDate.toISOString().split('T')[0],
