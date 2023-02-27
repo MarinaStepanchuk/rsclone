@@ -14,7 +14,7 @@ import ExpenseItem from './ExpenseItem/ExpenseItem';
 import { IExpense, IFilterParams } from '../../types/interfaces';
 import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
-import { getAllExpenses } from '../../utils/getModalApi';
+import { getAllAccounts, getAllExpenses } from '../../utils/getModalApi';
 
 class ExpenseList {
   private static limit = InputValue.limitPage;
@@ -212,10 +212,16 @@ class ExpenseList {
     parentElem?.replaceChildren(expenseList);
   }
 
-  private async deleteItem(id: string) {
+  private async deleteItem(expense: IExpense): Promise<void> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    await RequestApi.delete(Endpoint.EXPENSE, userToken, id);
-    ExpenseList.updateExpenseList();
+
+    if (expense._id) {
+      await RequestApi.delete(Endpoint.EXPENSE, userToken, expense._id);
+    }
+
+    await ExpenseList.updateExpenseList();
+
+    await ExpenseList.updateTotalAccount(expense);
 
     const expenseBalances = document.querySelector(`.${ClassMap.dashboard.expenseTotal}`) as Element;
 
@@ -224,6 +230,31 @@ class ExpenseList {
       const res = allExpenses.reduce((acc, curr) => acc + curr.expense, 0);
       expenseBalances.textContent = `${res}`;
     }
+  }
+
+  private static async updateTotalAccount(expense: IExpense): Promise<void> {
+    const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
+    const accounts = await getAllAccounts();
+    const card = accounts.filter((account) => account.account === expense.account).pop();
+    const cardId = card?._id as string;
+
+    const changedCardAccount: { updateSum: number } = {
+      updateSum: +expense.expense,
+    };
+
+    await RequestApi.updateSum(
+      Endpoint.ACCOUNT,
+      userToken,
+      cardId,
+      changedCardAccount,
+    );
+
+    const accountBalance = document.querySelector(`#${IdMap.accountBalance}`) as HTMLElement;
+
+    const allAccounts = await getAllAccounts();
+    const amount = allAccounts.reduce((acc, curr) => acc + curr.sum, 0);
+
+    accountBalance.textContent = `${amount}`;
   }
 }
 

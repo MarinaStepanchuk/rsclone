@@ -3,7 +3,7 @@ import createElement from '../../../utils/createElement';
 import { ClassMap } from '../../../constants/htmlConstants';
 import createDateValue from '../../../utils/createDateValue';
 import { Dictionary, DictionaryKeys } from '../../../constants/dictionary';
-import { CURRENCY, FuncDeleteItem, MODE } from '../../../types/types';
+import { CURRENCY, MODE } from '../../../types/types';
 import AppState from '../../../constants/appState';
 import { LocalStorageKey } from '../../../constants/common';
 import { CurrencyMark } from '../../../types/enums';
@@ -13,7 +13,7 @@ class ExpenseItem {
 
   private readonly currency: CURRENCY;
 
-  constructor(private expense: IExpense, private deleteFunction: FuncDeleteItem) {
+  constructor(private expense: IExpense, private deleteFunction: (expense: IExpense) => void) {
     this.modeValue = AppState.modeValue;
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
@@ -57,8 +57,8 @@ class ExpenseItem {
     }) as HTMLButtonElement;
 
     deleteButton?.addEventListener('click', () => {
-      if (this.expense._id) {
-        this.deleteFunction(this.expense._id);
+      if (this.expense) {
+        this.deleteFunction(this.expense);
       }
     });
 
@@ -88,8 +88,6 @@ class ExpenseItem {
 
   private createCategoryItem(key: string, name: string): HTMLDivElement {
     let categoryItem;
-    console.log('key' + key)
-    console.log('name' + name)
 
     if (Dictionary[AppState.lang][key.toLowerCase()] && DictionaryKeys[key.toLowerCase()]) {
       categoryItem = createElement({

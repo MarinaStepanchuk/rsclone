@@ -57,7 +57,7 @@ class MainMenu {
       classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].modal],
     });
 
-    menuContainer.append(firstLine, secondLine, lastLine)
+    menuContainer.append(firstLine, secondLine, lastLine);
 
     header.append(logoWrapper, menuContainer);
 

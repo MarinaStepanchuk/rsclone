@@ -366,6 +366,7 @@ export const IdMap = {
   menuUserImg: 'menuUserImg',
   expenseList: 'expenseList',
   incomeList: 'incomeList',
+  accountBalance: 'accountBalance',
 };
 
 export const TextArea = {

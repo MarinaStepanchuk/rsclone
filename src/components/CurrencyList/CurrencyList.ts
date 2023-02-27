@@ -1,10 +1,10 @@
-import './CurrencyList.scss'
-import createElement from "../../utils/createElement";
-import {ClassMap } from "../../constants/htmlConstants";
-import {CURRENCY, LANG, MODE} from "../../types/types";
-import AppState from "../../constants/appState";
-import {LocalStorageKey} from "../../constants/common";
-import {Dictionary, DictionaryKeys} from "../../constants/dictionary";
+import './CurrencyList.scss';
+import createElement from '../../utils/createElement';
+import { ClassMap } from '../../constants/htmlConstants';
+import { CURRENCY, LANG, MODE } from '../../types/types';
+import AppState from '../../constants/appState';
+import { LocalStorageKey } from '../../constants/common';
+import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
 
 class CurrencyList {
   private modeValue: MODE;
@@ -20,12 +20,11 @@ class CurrencyList {
   }
 
   public render(): HTMLElement {
-
     const currencyTitle = createElement({
       tag: 'h3',
       key: DictionaryKeys.currencyListTitle,
       content: Dictionary[this.lang].currencyListTitle,
-    })
+    });
 
     const currencyList = createElement({
       tag: 'ul',
@@ -34,7 +33,7 @@ class CurrencyList {
 
     const currencySection = createElement({
       tag: 'section',
-      classList: [ClassMap.currencyList.currency, ClassMap.mode[this.modeValue].backgroundSection, ClassMap.mode[this.modeValue].font]
+      classList: [ClassMap.currencyList.currency, ClassMap.mode[this.modeValue].backgroundSection, ClassMap.mode[this.modeValue].font],
     });
 
     currencySection.append(currencyTitle, currencyList);
