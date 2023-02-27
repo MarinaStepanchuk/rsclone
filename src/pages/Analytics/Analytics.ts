@@ -9,6 +9,7 @@ import ChartDailyExpenses from '../../components/ChartDailyExpenses/ChartDailyEx
 import Calendar from '../../components/Calendar/Calendar';
 import ChartMonthlyExpIncom from '../../components/ChartMonthlyExpIncom/ChartMonthlyExpIncom';
 import ChartCategories from '../../components/ChartCategories/ChartCategories';
+import Preloader from '../../components/Preloader/Preloader';
 
 class Analytics extends BasePage {
   private chartDailyExpenses: ChartDailyExpenses;
@@ -30,6 +31,10 @@ class Analytics extends BasePage {
     this.createPageStructure(Route.ANALYTICS);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
+
+    (mainContent as HTMLElement).innerHTML = '';
+    const preloader = new Preloader(mainContent as HTMLElement);
+    preloader.render();
 
     const calendarContainer = createElement({
       tag: 'div',

@@ -8,12 +8,17 @@ import WalletAccouts from '../../components/WalletAccouts/WalletAccouts';
 import WalletCategories from '../../components/WalletCategories/WalletCategories';
 import ChartCategoriesPie from '../../components/ChartCategoriesPie/ChartCategoriesPie';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
+import Preloader from '../../components/Preloader/Preloader';
 
 class Wallet extends BasePage {
   public async render(): Promise<void> {
     this.createPageStructure(Route.WALLET);
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
+
+    (mainContent as HTMLElement).innerHTML = '';
+    const preloader = new Preloader(mainContent as HTMLElement);
+    preloader.render();
 
     const sectionIcons = createElement({
       tag: 'section',
