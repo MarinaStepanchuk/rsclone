@@ -172,7 +172,7 @@ class Dashboard extends BasePage {
 
     const totalAccountBalanceTitle = createElement({
       tag: 'div',
-      classList: [ClassMap.mode[this.modeValue].font],
+      classList: [ClassMap.mode[this.modeValue].font, ClassMap.dashboard.totalBalanceTitle],
       key: DictionaryKeys.totalBalance,
       content: Dictionary[this.lang].totalBalance,
     });

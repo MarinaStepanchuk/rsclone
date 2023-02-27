@@ -172,8 +172,8 @@ class ChartMonthlyExpIncom {
       }, {
         type: 'column',
         name: 'Incomes',
-        borderColor: chartColor.columnIncomes,
-        color: chartColor.columnIncomes,
+        borderColor: chartColor.light,
+        color: chartColor.light,
         borderRadius: 5,
         data: this.incomesLine,
       }],

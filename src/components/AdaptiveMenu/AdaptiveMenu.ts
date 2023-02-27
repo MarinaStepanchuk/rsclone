@@ -1,5 +1,5 @@
 import '../../styles/main.scss';
-import './MainMenu.scss';
+import './AdaptiveMenu.scss';
 import createElement from '../../utils/createElement';
 import {
   Attribute,
@@ -29,6 +29,38 @@ class MainMenu {
   }
 
   public render(currPage: string): HTMLElement {
+    const header = createElement({
+      tag: 'div',
+      classList: [ClassMap.adaptiveMenu.section],
+    });
+
+    const logoWrapper = createElement({
+      tag: 'div',
+      classList: [ClassMap.menu.logoWrap, ClassMap.mode[this.modeValue].logo],
+    });
+
+    const menuContainer = createElement({
+      tag: 'div',
+      classList: [ClassMap.adaptiveMenu.container],
+    });
+
+    const firstLine = createElement({
+      tag: 'span',
+      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].modal],
+    });
+    const secondLine = createElement({
+      tag: 'span',
+      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].modal],
+    });
+    const lastLine = createElement({
+      tag: 'span',
+      classList: [ClassMap.closeLine, ClassMap.mode[this.modeValue].modal],
+    });
+
+    menuContainer.append(firstLine, secondLine, lastLine)
+
+    header.append(logoWrapper, menuContainer);
+
     const navWrapper = createElement({
       tag: 'div',
       classList: [ClassMap.menu.navWrap],
@@ -41,25 +73,22 @@ class MainMenu {
 
     const menuSection = createElement({
       tag: 'section',
-      classList: [ClassMap.menu.menuSection, ClassMap.mode[this.modeValue].backgroundSection, ClassMap.mode[this.modeValue].font],
+      classList: [ClassMap.adaptiveMenu.menuNav, ClassMap.mode[this.modeValue].backgroundSection, ClassMap.mode[this.modeValue].font],
     });
 
     menuSection.append(
-      this.createLogoWrap(),
       navWrapper,
       this.createUserWrap(),
     );
 
-    return menuSection;
-  }
+    header.append(menuSection);
 
-  private createLogoWrap(): HTMLElement {
-    const logoWrapper = createElement({
-      tag: 'div',
-      classList: [ClassMap.menu.logoWrap, ClassMap.mode[this.modeValue].logo],
+    menuContainer.addEventListener('click', () => {
+      menuSection.classList.toggle(`${ClassMap.adaptiveMenu.menuOpen}`);
+      menuContainer.classList.toggle(`${ClassMap.adaptiveMenu.menuOpen}`);
     });
 
-    return logoWrapper;
+    return header;
   }
 
   private createPageNavWrap(currPage: string): HTMLElement {
@@ -340,11 +369,11 @@ class MainMenu {
     const icons = document.querySelectorAll(`.${ClassMap.mode[previosMode].icon}`);
     toggleClassMode(icons, this.modeValue, previosMode, ModeItem.icon);
 
-    const modals = document.querySelectorAll(`.${ClassMap.mode[previosMode].modal}`);
-    toggleClassMode(modals, this.modeValue, previosMode, ModeItem.modal);
-
     const logo = document.querySelectorAll(`.${ClassMap.mode[previosMode].logo}`);
     toggleClassMode(logo, this.modeValue, previosMode, ModeItem.logo);
+
+    const modals = document.querySelectorAll(`.${ClassMap.mode[previosMode].modal}`);
+    toggleClassMode(modals, this.modeValue, previosMode, ModeItem.modal);
 
     localStorage.setItem(LocalStorageKey.mode, this.modeValue);
     AppState.modeValue = this.modeValue;
