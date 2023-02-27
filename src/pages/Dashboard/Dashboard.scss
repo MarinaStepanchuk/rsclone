@@ -3,12 +3,13 @@
 
 .main__dashboard-wrap {
  display: grid;
- grid-template-columns: 2fr 1fr;
+ grid-template-columns: 2fr 27rem;
   gap: 4rem;
  padding: 0 2rem 2rem;
 
   @media (max-width: 1200px) {
     display: flex;
+    gap: 2rem;
     flex-direction: column;
     justify-content: space-between;
   }
@@ -164,10 +165,18 @@
 .main__aside {
   align-items: center;
 
-  @media (max-width: 1180px) {
+  @media (max-width: 1200px) {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    gap: 2rem;
+    justify-content: space-evenly;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+    //gap: 2rem;
+    //justify-content: space-evenly;
   }
 }
 

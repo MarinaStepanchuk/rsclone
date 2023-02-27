@@ -120,3 +120,27 @@ export interface IBalances {
   totalBalance: HTMLElement,
   totalAccountBalance: HTMLElement,
 }
+
+export interface ICurrency {
+  icon: string,
+  key: string,
+  amount: number,
+  currency: string,
+}
+
+export interface ICurrencyResponseRates {
+  USD: number,
+  RUB: number,
+  BYN: number,
+  EUR: number,
+  CHF: number,
+  CNY: number,
+  GEL: number,
+}
+export interface ICurrencyResponse {
+  success: boolean,
+  timestamp: number,
+  base: string,
+  date: string,
+  rates: ICurrencyResponseRates,
+}

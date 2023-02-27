@@ -5,7 +5,7 @@ import RequestApi from '../../Api/RequestsApi';
 import { Endpoint } from '../../Api/serverConstants';
 import { LocalStorageKey } from '../../constants/common';
 import {
-  IAccount, ICategory, IExpense, IIncome,
+  IAccount, ICategory, IExpense,
 } from '../../types/interfaces';
 import {
   getComment,
