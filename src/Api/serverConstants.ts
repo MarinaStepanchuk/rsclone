@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:3005';
+export const BASE_URL = 'https://mapmoney.onrender.com';
 
 export enum Endpoint {
   REGISTER = '/api/user/register',

@@ -21,7 +21,18 @@
 }
 
 .wallet__alert {
-  font-size: 2rem;
-  padding: 1rem 0; 
-  color: $color-error;
+    color: $color-light-font;
+    margin-top: 1rem;
+    font-size: 2rem;
+    background-color: $color-error;
+    padding: 0.5rem 2rem;
+    border-radius: 0.6rem;
+    outline: none;
+    opacity: 0.9;
+    text-align: center;
+  }
+
+.wallet__alert-container {
+  position: absolute;
+  z-index: 100;
 }
