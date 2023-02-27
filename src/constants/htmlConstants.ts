@@ -133,6 +133,7 @@ export const ClassMap = {
     totalPrice: 'dashboard__total-price',
     title: 'dashboard__title',
     totalBalance: 'balance__value',
+    totalBalanceTitle: 'balance__title',
     balanceWrap: 'balance__wrap',
     balance: 'balance',
     expenseTotal: 'dashboard__expense-total',
