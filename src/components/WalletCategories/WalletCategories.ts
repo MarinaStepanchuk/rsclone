@@ -95,7 +95,7 @@ class WalletCategories {
     sumContainer.append(sumTitle, this.sum as HTMLElement);
 
     const defaultStartDate = new Date(new Date().setDate(1)).toISOString().split('T')[0];
-    const defaultEndDate = new Date().toISOString().split('T')[0];
+    const defaultEndDate = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
     header.append(sumContainer, periodContainer);
 
     await this.fillCategoriesBlock(defaultStartDate, defaultEndDate);
@@ -108,7 +108,7 @@ class WalletCategories {
       const customEvent = event as CustomEvent;
       const button = document.querySelector(`.${ClassMap.customSelect.title}`) as HTMLElement;
       button.setAttribute(Attribute.key, customEvent.detail.key);
-      const currentDate = new Date();
+      const currentDate = new Date(new Date().setDate(new Date().getDate() + 1));
       const endDate = currentDate.toISOString().split('T')[0];
 
       if (customEvent.detail.key === DictionaryKeys.walletPeriodYear) {

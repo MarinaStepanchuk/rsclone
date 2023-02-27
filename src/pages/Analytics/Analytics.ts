@@ -20,7 +20,7 @@ class Analytics extends BasePage {
 
   constructor() {
     super();
-    const endDate = new Date();
+    const endDate = new Date(new Date().setDate(new Date().getDate() + 1));
     const startDate = new Date(new Date().setFullYear(endDate.getFullYear() - 1));
     this.chartDailyExpenses = new ChartDailyExpenses(startDate, endDate);
     this.chartMonthlyExpIncom = new ChartMonthlyExpIncom(startDate, endDate);

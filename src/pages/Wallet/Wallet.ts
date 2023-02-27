@@ -36,7 +36,7 @@ class Wallet extends BasePage {
     });
 
     const defaultStartDate = new Date(new Date().setDate(1));
-    const defaultEndDate = new Date();
+    const defaultEndDate = new Date(new Date().setDate(new Date().getDate() + 1));
     const chart = new ChartCategoriesPie(defaultStartDate, defaultEndDate);
 
     const chartTitle = createElement({
