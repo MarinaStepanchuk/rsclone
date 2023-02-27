@@ -68,9 +68,9 @@ export const defaultCategories: ICategory[] = [
     key: 'clothes',
   },
   {
-    category: 'Eating out',
-    icon: 'cafe',
-    key: 'cafe',
+    category: 'Restaurants',
+    icon: 'restaurant',
+    key: 'restaurant',
   },
   {
     category: 'Entertainment',

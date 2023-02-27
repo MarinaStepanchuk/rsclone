@@ -32,6 +32,13 @@ class IncomeList {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
+  private filterParams: IFilterParams = {
+    limit: IncomeList.limit,
+    page: IncomeList.page,
+    sort: 'date',
+    order: 'DESC',
+  };
+
   public async render(): Promise<HTMLElement> {
     const incomeTitle = createElement({
       tag: 'h2',
@@ -131,7 +138,7 @@ class IncomeList {
   }
 
   private async createIncomeItem(parentElement: HTMLElement): Promise<number> {
-    const allIncomes = await this.getFilteredIncomes(IncomeList.limit, IncomeList.page);
+    const allIncomes = await this.getFilteredIncomes(this.filterParams);
 
     if (parentElement instanceof HTMLElement) {
       if (allIncomes.length === 0) {
@@ -154,14 +161,9 @@ class IncomeList {
     return allIncomes.length;
   }
 
-  private async getFilteredIncomes(limit: number, page: number): Promise<IIncome[]> {
-    const params: IFilterParams = {
-      limit,
-      page,
-    };
-
+  private async getFilteredIncomes(filterParams: IFilterParams): Promise<IIncome[]> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const incomesData: IIncome[] = await RequestApi.getFiltered(Endpoint.INCOME, userToken, params);
+    const incomesData: IIncome[] = await RequestApi.getFiltered(Endpoint.INCOME, userToken, filterParams);
 
     return incomesData;
   }
@@ -210,7 +212,10 @@ class IncomeList {
       const pageNum = incomeSection.querySelector(`.${ClassMap.dashboard.paginationPageNum}`);
 
       if (pageNum) {
-        const filteredIncomes = this.getFilteredIncomes(IncomeList.limit, IncomeList.page + 1);
+        const filterParamsPagination = Object.assign(this.filterParams);
+        filterParamsPagination.page = IncomeList.page + 1;
+
+        const filteredIncomes = this.getFilteredIncomes(filterParamsPagination);
 
         filteredIncomes.then((incomes) => {
           if (incomes.length > 0) {

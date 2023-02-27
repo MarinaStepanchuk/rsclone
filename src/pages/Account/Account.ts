@@ -103,8 +103,10 @@ class Account extends BasePage {
     });
 
     updateButton.addEventListener('click', async () => {
+      const imgUrl = `assets/avatars/${userImg.src.split('/').at(-1)}`;
+
       const updateAvatar: Partial<IUserData> = {
-        avatar: userImg.src,
+        avatar: imgUrl,
       };
 
       await this.handleUpdateUserInfoResponse(updateAvatar);

@@ -219,6 +219,7 @@ class AutorisationForm {
       AppState.isUserLogin = true;
       const { token, user } = response;
       localStorage.setItem(LocalStorageKey.auth, JSON.stringify({ token, user }));
+      AppState.userAccount = localStorage.getItem(LocalStorageKey.auth);
       new Dashboard().render();
     }
   }
