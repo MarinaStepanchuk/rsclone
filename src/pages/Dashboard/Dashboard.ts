@@ -17,6 +17,7 @@ import { IBalances } from '../../types/interfaces';
 import Calculator from '../../components/Сalculator/Сalculator';
 import ExpenseList from '../../components/ExpenseList/ExpenseList';
 import IncomeList from '../../components/IncomeList/IncomeList';
+import Preloader from '../../components/Preloader/Preloader';
 
 class Dashboard extends BasePage {
   public lang: LANG;
@@ -37,6 +38,10 @@ class Dashboard extends BasePage {
 
     const mainContent = document.querySelector(`.${ClassMap.mainContent}`);
     const userAccount = localStorage.getItem('auth');
+
+    (mainContent as HTMLElement).innerHTML = '';
+    const preloader = new Preloader(mainContent as HTMLElement);
+    preloader.render();
 
     const userName = createElement({
       tag: 'div',

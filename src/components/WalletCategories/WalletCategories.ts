@@ -3,7 +3,7 @@ import createElement from '../../utils/createElement';
 import { Attribute, ClassMap } from '../../constants/htmlConstants';
 import { LANG, MODE, CURRENCY } from '../../types/types';
 import AppState from '../../constants/appState';
-import { colorLimit, LocalStorageKey } from '../../constants/common';
+import { alertTimeout, colorLimit, LocalStorageKey } from '../../constants/common';
 import { CurrencyMark } from '../../types/enums';
 import { SvgIcons } from '../../constants/svgMap';
 import { Dictionary, DictionaryKeys } from '../../constants/dictionary';
@@ -15,8 +15,6 @@ import WalletPeriodSelect from '../WalletPeriodSelect/WalletPeriodSelect';
 import Preloader from '../Preloader/Preloader';
 import UpdaterCategory from '../../modals/UpdaterCategory/UpdaterCategory';
 import ChartCategoriesPie from '../ChartCategoriesPie/ChartCategoriesPie';
-
-const limitAlertTime = 3000;
 
 class WalletCategories {
   private modeValue: MODE;
@@ -58,7 +56,7 @@ class WalletCategories {
 
     this.alertContainer = createElement({
       tag: 'div',
-      classList: [],
+      classList: [ClassMap.wallet.alertContainer],
     });
   }
 
@@ -290,7 +288,7 @@ class WalletCategories {
           content: `${Dictionary[this.lang].limitAlert} ${data.category}`,
         });
         this.alertContainer?.append(alert);
-        setTimeout(() => alert.remove(), limitAlertTime);
+        setTimeout(() => alert.remove(), alertTimeout);
       }
     }
 

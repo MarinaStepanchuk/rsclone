@@ -30,6 +30,13 @@ class ExpenseList {
     this.currency = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).user.currency;
   }
 
+  private filterParams: IFilterParams = {
+    limit: ExpenseList.limit,
+    page: ExpenseList.page,
+    sort: 'date',
+    order: 'DESC',
+  };
+
   public async render(): Promise<HTMLElement> {
     const expenseTitle = createElement({
       tag: 'h2',
@@ -129,7 +136,7 @@ class ExpenseList {
   }
 
   private async createExpenseItem(parentElement: HTMLElement): Promise<number> {
-    const allExpenses = await this.getFilteredExpenses(ExpenseList.limit, ExpenseList.page);
+    const allExpenses = await this.getFilteredExpenses(this.filterParams);
 
     if (parentElement instanceof HTMLElement) {
       if (allExpenses.length === 0) {
@@ -176,7 +183,10 @@ class ExpenseList {
       const pageNum = expenseSection.querySelector(`.${ClassMap.dashboard.paginationPageNum}`);
 
       if (pageNum) {
-        const filteredExpenses = this.getFilteredExpenses(ExpenseList.limit, ExpenseList.page + 1);
+        const filterParamsPagination = Object.assign(this.filterParams);
+        filterParamsPagination.page = ExpenseList.page + 1;
+
+        const filteredExpenses = this.getFilteredExpenses(filterParamsPagination);
 
         filteredExpenses.then((expenses) => {
           if (expenses.length > 0) {
@@ -189,14 +199,9 @@ class ExpenseList {
     });
   }
 
-  private async getFilteredExpenses(limit: number, page: number): Promise<IExpense[]> {
-    const params: IFilterParams = {
-      limit,
-      page,
-    };
-
+  private async getFilteredExpenses(filterParams: IFilterParams): Promise<IExpense[]> {
     const userToken: string = JSON.parse(localStorage.getItem(LocalStorageKey.auth) as string).token;
-    const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, params);
+    const expensesData: IExpense[] = await RequestApi.getFiltered(Endpoint.EXPENSE, userToken, filterParams);
 
     return expensesData;
   }
