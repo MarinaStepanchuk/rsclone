@@ -7,6 +7,7 @@
   padding: 0.5rem 2rem;
   font-size: 1.2rem;
   font-weight: 100;
+  width: 100%;
 
   &__logo {
     opacity: 0.6;
@@ -24,6 +25,7 @@
 
   span {
     font-size: 1.4rem;
+    text-align: center;
   }
 
   &__github-wrap {

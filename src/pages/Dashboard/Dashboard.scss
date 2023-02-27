@@ -6,6 +6,11 @@
  grid-template-columns: 2fr 1fr;
   gap: 4rem;
  padding: 0 2rem 2rem;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .main__dashboard,
@@ -28,6 +33,20 @@
 .total-wrap {
   display: flex;
   align-items: center;
+}
+
+.balance__title {
+  @media (max-width: 875px) {
+    width: 7rem;
+  }
+
+  @media (max-width: 830px) {
+    width: 11rem;
+  }
+
+  @media (max-width: 520px) {
+    width: 7rem;
+  }
 }
 
 .icon-wrap {
@@ -54,6 +73,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin: 0 0 1rem;
+
+  @media (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+  }
 
   &__header {
     display: flex;
@@ -108,6 +132,16 @@
     }
   }
 
+  &__value {
+    @media (max-width: 860px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 1.5rem;
+    }
+  }
+
   &__button {
     @include button(45%, 5rem);
   }
@@ -116,6 +150,12 @@
 .main__aside {
   align-items: center;
   //padding-left: 2rem;
+  padding-left: 2rem;
+
+  @media (max-width: 1180px) {
+    display: flex;
+    flex-direction: row;
+  }
 }
 
 .calculator-wrap {

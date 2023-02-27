@@ -3,6 +3,13 @@
   grid-template-columns: repeat(5, 1fr);
   gap: 2rem;
   padding: 2rem;
+
+  @media (max-width: 1430px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 .wallet__chart {
@@ -10,6 +17,10 @@
   grid-column-start: 4;
   grid-column-end: 6;
   padding-top: 20vh;
+
+  @media (max-width: 1430px) {
+    padding-top: 0;
+  }
 }
 
 .wallet-wrapper {

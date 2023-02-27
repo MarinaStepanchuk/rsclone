@@ -103,7 +103,7 @@ class ExpenseModal extends BaseModal {
 
     await updateExpenses(expenseBalances);
     await updateTotalAccountBalance(expenseBalances);
-    ExpenseList.updateExpenseList();
+    await ExpenseList.updateExpenseList();
 
     this.modalWrapper?.remove();
   }
