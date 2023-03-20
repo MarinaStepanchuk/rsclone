@@ -1,0 +1,49 @@
+@import './../../styles/variables';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 2rem;
+  font-size: 1.2rem;
+  font-weight: 100;
+  width: 100%;
+
+  &__logo {
+    opacity: 0.6;
+    transition: 0.2s all;
+    width: 10rem;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    svg {
+      width: 100%;
+    }
+  }
+
+  span {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+
+  &__github-wrap {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__github {
+    padding: 0 0.5rem;
+    opacity: 0.6;
+    transition: 0.3s all;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  &__github-logo {
+    display: block;
+  }
+}

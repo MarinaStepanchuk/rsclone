@@ -1,0 +1,142 @@
+@import '../../styles/variables';
+
+.calculator {
+  display: grid;
+  grid-template-areas:
+                "screen screen  screen  screen"
+                "ac     ac      del     divide"
+                "one    two     three   multiply"
+                "four   five    six     subtract"
+                "seven  eight   nine    add"
+                "dot    zero    equal   equal";
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+
+  width: 100%;
+  max-width: 250px;
+  height: 300px;
+
+  #screen {
+    display: grid;
+    grid-area: screen;
+    gap: 1.2rem;
+    padding: 0.25rem 0.75rem;
+    margin-block-end: 0.5rem;
+    border: 2px dotted $color-primary;
+    border-radius: 1rem;
+    overflow: hidden;
+    background: white;
+  }
+
+  #screen input {
+    font-size: 2rem;
+    border: none;
+  }
+
+  #screen output {
+    font-size: 1.25rem;
+    height: 1rem;
+  }
+
+  .num {
+    border: 1px solid $color-primary;
+    background: $color-secondary;
+    color: $color-dark-font;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  button {
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+
+    :hover {
+      cursor: pointer;
+    }
+  }
+
+  input:focus {
+    outline: none;
+  }
+
+  .operator,
+  .clear {
+    background-color: $color-primary;
+    color: $color-light-font;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  #all-clear {
+    grid-area: ac;
+  }
+
+  #del {
+    grid-area: del;
+  }
+
+  #divide {
+    grid-area: divide;
+  }
+
+  #multiply {
+    grid-area: multiply;
+  }
+
+  #subtract {
+    grid-area: subtract;
+  }
+
+  #add {
+    grid-area: add;
+  }
+
+  #equal {
+    grid-area: equal;
+  }
+
+  #zero {
+    grid-area: zero;
+  }
+
+  #one {
+    grid-area: one;
+  }
+
+  #two {
+    grid-area: two;
+  }
+
+  #three {
+    grid-area: three;
+  }
+
+  #four {
+    grid-area: four;
+  }
+
+  #five {
+    grid-area: five;
+  }
+
+  #six {
+    grid-area: six;
+  }
+
+  #seven {
+    grid-area: seven;
+  }
+
+  #eight {
+    grid-area: eight;
+  }
+
+  #nine {
+    grid-area: nine;
+  }
+}

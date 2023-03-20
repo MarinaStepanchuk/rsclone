@@ -1,0 +1,25 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.alert-wrapper {
+  font-size: 2.5rem;
+  padding: 0.5rem 2rem;
+  color: $color-light-font;
+  position: fixed;
+  border-radius: 0.6rem;
+  outline: none;
+  bottom: 8rem;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.7;
+  z-index: 100;
+  text-align: center;
+
+  &_error {
+    background-color: $color-error;
+  }
+
+  &_success {
+    background-color: $color-success;
+  }
+}

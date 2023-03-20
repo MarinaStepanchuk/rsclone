@@ -1,0 +1,154 @@
+@import '../../styles/variables';
+@import '../../styles/mixins.scss';
+
+.expense-wrap {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  border-radius: 2rem;
+  margin: 1rem 0;
+  font-weight: 100;
+  font-size: 1.7rem;
+
+  @media (max-width: 400px) {
+    font-size: 1.3rem;
+  }
+}
+
+.expense {
+  padding-top: 2rem;
+
+  &__title-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid;
+    border-color: $color-primary;
+  }
+
+  &__title {
+    font-weight: 600;
+    font-size: 2.0rem;
+    line-height: 2.8rem;
+    margin: 0;
+
+    @media (max-width: 570px) {
+      font-size: 1.6rem;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 12rem;
+    font-weight: 400;
+
+    &_button {
+      @include button(4rem, 4rem);
+      border-radius: 1rem;
+    }
+
+    &_input {
+      width: 4rem;
+      height: 3rem;
+      background: transparent;
+      border: 1px solid rgba(174, 171, 216, 0.53);
+      border-radius: 4px;
+      text-align: center;
+      margin-left: 0.5rem;
+    }
+
+    @media (max-width: 570px) {
+      font-size: 1.4rem;
+      min-width: 10rem;
+    }
+
+    @media (max-width: 350px) {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__list {
+    margin: 0;
+    padding: 1rem 0 0;
+    list-style: none;
+
+    &_header {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3rem;
+      font-weight: 400;
+      font-size: 1.8rem;
+      line-height: 2rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid;
+      border-color: #5063BF;
+
+      @media (max-width: 940px) {
+        font-size: 1.5rem;
+      }
+
+      @media (max-width: 430px) {
+        font-size: 1.3rem;
+      }
+
+      @media (max-width: 350px) {
+        font-size: 1.1rem;
+      }
+    }
+  }
+
+  &__item {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 3rem;
+    font-weight: 100;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dotted rgba(80, 99, 191, 0.7);
+
+    @media (max-width: 570px) {
+      font-size: 1.4rem;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 350px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__button-wrap {
+    display: flex;
+    justify-content: end;
+
+    button {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 1rem;
+      border: 1px solid $color-primary;
+
+      &:hover {
+        cursor: pointer;
+        filter: drop-shadow(0 0 1rem $color-primary);
+        color: $color-primary;
+        background-color: #fff;
+        transform: scale(1.05);
+      }
+    }
+  }
+
+  &__button_delete {
+    background: url('../../assets/icons/delete.svg') no-repeat;
+    background-position: center;
+
+  }
+}

@@ -1,0 +1,50 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.icons-wrapper {
+  @include modal-wrapper;
+  z-index: 25;
+}
+
+.icons__container {
+  position: relative;
+  z-index: 30;
+  width: 39rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 1.8rem;
+  min-width: 320px;
+}
+
+.icons__item {
+  background-color: $color-primary;
+  width: 5.5rem;
+  height: 5.5rem;
+  color: $color-light-font;
+  fill: $color-light-font;
+  stroke: currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  align-self: flex-end;
+
+  svg {
+    width: 50%;
+    height: 50%;
+    stroke: currentColor;
+  }
+}
+
+.close-modal-button {
+  @include close-modal-button
+}

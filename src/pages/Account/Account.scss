@@ -1,0 +1,79 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.account-settings {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  padding: 2rem;
+  font-size: 1.8rem;
+  width: 100%;
+
+  @media (max-width: 1350px) {
+    flex-wrap: wrap;
+  }
+
+  &__wrapper {
+    width: 33%;
+    min-width: 30rem;
+    margin-top: 3rem;
+    border-radius: 1rem;
+    border: none;
+  }
+
+  &__avatar {
+    display: flex;
+    justify-content: center;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 21rem;
+    height: 3rem;
+    border-radius: 0.6rem;
+    background-color: $color-primary;
+    color: $color-light-font;
+  }
+
+  &__item {
+    margin-top: 1rem;
+  }
+
+  &__input {
+    @include input();
+
+    &_phone {
+      padding-left: 2rem;
+
+      &:before {
+        content: '+';
+        color: $color-dim-font;
+        font-size: 2rem;
+        position: absolute;
+        bottom: 0.6rem;
+        left: 0.5rem;
+      }
+    }
+  }
+  
+  &__update-btn {
+    @include button(40%, 3rem);
+    margin-top: 1.5rem;
+  }
+}

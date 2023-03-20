@@ -1,0 +1,159 @@
+@import '../styles/mixins.scss';
+@import './variables';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+
+  @media (max-width: 500px) {
+    font-size: 8px;
+  }
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Roboto', Arial, sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  margin: 0;
+}
+
+.dark-mode {
+
+  &-background {
+    background-color: $color-dark-background;
+  }
+
+  &-menu-background {
+    background-color: $color-dark-mode;
+  }
+
+  &-title {
+    color: $color-light-font;
+  }
+
+  &-font {
+    color: $color-light-font;
+  }
+
+  &-modal-background {
+    background-color: $color-secondary;
+  }
+
+  &-modal-title {
+    color: $color-black-font;
+  }
+
+  &-icon {
+    fill: $color-light-font;
+    stroke: currentColor;
+  }
+
+  &-modal-font {
+    color: $color-dim-font;
+  }
+}
+
+.light-mode {
+
+  &-background {
+    background-color: $color-light-mode;
+  }
+
+  &-menu-background {
+    background-color: $color-secondary;
+  }
+
+  &-font {
+    color: $color-dark-font;
+  }
+
+  &-title {
+    color: $color-black-font;
+  }
+
+  &-modal-background {
+    background-color: $color-dark-mode;
+  }
+
+  &-modal-title {
+    color: $color-light-font;
+  }
+
+  &-icon {
+    fill: $color-dark-font;
+    stroke: currentColor;
+  }
+
+  &-modal-font {
+    color: $color-secondary;
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.error-validation-message {
+  color: #fb0a0a;
+  font-size: 1.3rem;
+  padding-top: 0.3rem;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  box-shadow: 0px 0px 26px -3px rgba(80,99,191,0.66);
+  z-index: 1;
+  width: 100%;
+
+  @media (max-width: 830px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.test-class {
+  font-size: 2rem;
+  color: $color-light-mode;
+  margin: 0 auto;
+}
+
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.7rem;
+  min-width: 10.5rem;
+
+
+  &__image {
+    background-color: $color-primary;
+    width: 6rem;
+    height: 6rem;
+    color: $color-light-font;
+    fill: $color-light-font;
+    stroke: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      width: 50%;
+      height: 50%;
+    }
+  }
+}

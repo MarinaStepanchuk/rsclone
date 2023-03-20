@@ -1,0 +1,75 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 30%;
+  margin: 0 auto;
+  gap: 1.5rem;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 1.8rem;
+  min-width: 320px;
+
+  &__wrapper {
+    @include modal-wrapper;
+  }
+
+  &:invalid {
+    button {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  }
+
+  &__title {
+    font-size: 2.5rem;
+  }
+
+  &__item {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  &__label {
+    color: $color-dim-font;
+    padding-bottom: 0.5rem;
+
+    span {
+      display: block;
+      position: absolute;
+      top: 3.3rem;
+      right: 1rem;
+      z-index: 2;
+    }
+  }
+
+  &__select {
+    @include input;
+    padding-left: 0.5rem;
+  }
+
+  &__input {
+    @include input;
+    resize: none;
+  }
+
+  &__textarea {
+    height: 8rem;
+  }
+
+  &__button {
+    @include button($width: 100%, $height: 4rem);
+    margin-top: 2rem;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
+}

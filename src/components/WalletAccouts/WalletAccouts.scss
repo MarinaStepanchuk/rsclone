@@ -1,0 +1,59 @@
+@import '../../styles/main.scss';
+
+.wallet {
+  width: 100%;
+  padding: 2rem;
+
+  &__subtitle {
+    width: 100%;
+    padding-bottom: 1rem;
+    font-size: 2rem;
+    font-weight: 600;
+    border-bottom: 2px solid $color-primary;
+  }
+
+  &__sum {
+    font-weight: normal;
+  }
+
+  &__container {
+    position: relative;
+    min-height: 20rem;
+    width: 100%;
+    padding: 1rem 1rem;
+    font-size: 1.6rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.7rem;
+    min-width: 10rem;
+  }
+  
+  &__image {
+    background-color: $color-primary;
+    width: 6rem;
+    height: 6rem;
+    color: $color-light-font;
+    fill: $color-light-font;
+    stroke: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+
+    svg {
+      width: 50%;
+      height: 50%;
+    }
+  }
+}

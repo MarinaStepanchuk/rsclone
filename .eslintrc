@@ -1,0 +1,45 @@
+{
+  "plugins": [
+    "@typescript-eslint",
+    "import"
+  ],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "airbnb-base",
+    "airbnb-typescript/base"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "@typescript-eslint/no-explicit-any": "warn",
+    "no-debugger": "off",
+    "no-console": "warn",
+    "class-methods-use-this": "off",
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": "warn",
+    "max-len": "off",
+    "no-underscore-dangle": ["error", { "allow": ["_id"] }],
+    "@typescript-eslint/explicit-member-accessibility": [
+      "error", 
+      {
+        "accessibility": "explicit",
+        "overrides": {
+          "accessors": "off",
+          "constructors": "off",
+          "methods": "explicit",
+          "properties": "explicit",
+          "parameterProperties": "explicit"
+        }
+      }
+    ],
+    "no-nested-ternary": "off"
+  }
+}

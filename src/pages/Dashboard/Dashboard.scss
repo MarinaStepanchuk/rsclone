@@ -1,0 +1,187 @@
+@import '../../styles/variables';
+@import '../../styles/mixins.scss';
+
+.main__dashboard-wrap {
+ display: grid;
+ grid-template-columns: 2fr 27rem;
+ gap: 2rem;
+ padding: 0 2rem 2rem;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
+
+.main__dashboard,
+.main__aside {
+  display: flex;
+  flex-direction: column;
+}
+
+.balance__value {
+  display: flex;
+  font-weight: 600;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+
+  span {
+    padding-left: 0.5rem;
+  }
+}
+
+.total-wrap {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: 380px) {
+    font-size: 1.4rem;
+  }
+}
+
+.balance__title {
+  @media (max-width: 875px) {
+    width: 7rem;
+  }
+
+  @media (max-width: 830px) {
+    width: 11rem;
+  }
+
+  @media (max-width: 520px) {
+    width: 7rem;
+  }
+}
+
+.icon-wrap {
+  width: 4.5rem;
+  height: 4.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  background-color: $color-primary;
+  margin-right: 2rem;
+  color: $color-light-font;
+  fill: $color-light-font;
+  stroke: currentColor;
+
+  svg {
+    width: 1.5rem;
+    height: 1.7rem;
+  }
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 0 0 1rem;
+
+  @media (max-width: 400px) {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    padding: 3rem;
+    margin-bottom: 0;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    line-height: 3.2rem;
+    font-weight: 600;
+    margin: 0 0.5rem 0 0;
+  }
+
+  &__total-price {
+    display: flex;
+    align-items: center;
+    border-radius: 2rem;
+    padding: 2rem;
+    font-weight: 100;
+    font-size: 1.7rem;
+
+    @media (max-width: 380px) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .icon-wrap svg {
+    fill: $color-light-font;
+  }
+}
+
+.balance {
+  border-radius: 2rem;
+  padding: 0 2rem;
+  font-weight: 100;
+  font-size: 1.7rem;
+  margin: 1rem 0;
+
+  &__wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid;
+    border-color: $color-primary;
+    padding: 2rem 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .icon-wrap svg {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  &__value {
+    @media (max-width: 860px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 400px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  &__button {
+    @include button(45%, 5rem);
+
+    @media (max-width: 360px) {
+      font-size: 1.2rem;
+      width: 40%;
+    }
+  }
+}
+
+.main__aside {
+  align-items: center;
+
+  @media (max-width: 1200px) {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: space-evenly;
+  }
+
+  @media (max-width: 500px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.calculator-wrap {
+  display: flex;
+  max-width: 270px;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 2rem;
+}

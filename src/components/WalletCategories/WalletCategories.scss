@@ -1,0 +1,43 @@
+@import '../../styles/main.scss';
+
+.wallet__image_light {
+  border: 2px solid $color-dark-font;
+  background-color:  $color-secondary;
+  fill: $color-dark-font;
+  stroke: $color-dark-font;
+}
+
+.wallet__subtitle {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  @media (max-width: 1430px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.wallet__alert {
+    color: $color-light-font;
+    margin-top: 1rem;
+    font-size: 2rem;
+    background-color: $color-error;
+    padding: 0.5rem 2rem;
+    border-radius: 0.6rem;
+    outline: none;
+    opacity: 0.9;
+    text-align: center;
+  }
+
+.wallet__alert-container {
+  position: absolute;
+  z-index: 100;
+}

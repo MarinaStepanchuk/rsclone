@@ -1,0 +1,62 @@
+@import '../../styles/variables.scss';
+
+.lang-switcher {
+  position: absolute;
+  top: 4rem;
+  border: 1px solid $color-dark-font;
+  border-radius: 5px;
+  background-image: url(../../assets/icons/de.svg);
+  cursor: pointer;
+  opacity: 0.8;
+
+  &__container {
+    position: absolute;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    display: none;
+
+    &__item {
+      border: 1px solid $color-dark-font;
+      border-radius: 5px;
+    }
+  }
+}
+
+.big-switcher {
+  right: 4rem;
+  width: 4rem;
+  height: 4rem;
+
+  .lang-switcher__container {
+    top: 4.5rem;
+
+    &__item {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+}
+
+.small-switcher {
+  top: 1rem;
+  right: 2.5rem;
+  width: 3rem;
+  height: 3rem;
+
+  .lang-switcher__container {
+    top: 3.5rem;
+
+    &__item {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+}
+
+.switcher-show {
+  display: flex;
+}

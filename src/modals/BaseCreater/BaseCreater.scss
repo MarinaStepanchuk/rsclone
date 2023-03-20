@@ -1,0 +1,99 @@
+@import '../../styles/variables.scss';
+@import '../../styles/mixins.scss';
+
+.create-wrapper {
+  @include modal-wrapper;
+}
+
+.create-form {
+  position: relative;
+  min-width: 320px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 3rem;
+  border-radius: 1.5rem;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 1.8rem;
+
+  &__title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  &__input-container {
+    width: 77%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.8rem;
+    order: 2;
+  }
+
+  &__name,
+  &__balance {
+    @include input();
+  }
+
+  &__icon {
+    background-color: $color-primary;
+    width: 5.5rem;
+    height: 5.5rem;
+    color: $color-light-font;
+    fill: $color-light-font;
+    stroke: currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    align-self: flex-end;
+
+    svg {
+      width: 50%;
+      height: 50%;
+    }
+  }
+
+  &__currency {
+    width: 5rem;
+    height: 5rem;
+    background-color: $color-primary;
+    color: $color-light-font;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    align-self: flex-end;
+  }
+
+  &__submit {
+    @include button(100%, 5rem);
+    font-size: 2rem;
+
+    &:disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+  }
+
+  &:last-child {
+    margin-top: 2rem;
+  }
+}
+
+.updater-delete-button,
+.updater-create-button {
+  @include button(100%, 5rem);
+  font-size: 2rem;
+  margin-top: 1rem;
+}
